@@ -1,25 +1,7 @@
 //#include "headers.p4"
 //#include "parser.p4"
 
-header_type bitfield_256_t {
-  fields {
-    data : 256;
-  }
-}
-
-header_type bitfield_512_t {
-  fields {
-    data : 512;
-  }
-}
-
-header_type bitfield_768_t {
-  fields {
-    data : 768;
-  }
-}
-
-register myreg {
+register parse_width {
   width : 14;
   instance_count : 1;
 }
@@ -27,6 +9,7 @@ register myreg {
 header_type local_metadata_t {
   fields {
     parse_width : 14;
+    data : 768;
   }
 }
 
@@ -47,60 +30,86 @@ metadata local_metadata_t local_metadata;
 //  have like, three of them (e.g. current(0, 256) | current(0, 512) | current(0, 768)) and we
 //  select the appropriate one to use according to the register field set by the initialization
 //  process.
+// this doesn't work, though.  current can only be used in a parser function.  The only way
+//  to get at packet data is during parsing, whether we extract or use set_metadata.  This
+//  means HyPer4 will have to use resubmit on every packet always (gross, but necessary).
 
 parser start {
-  set_metadata(local_metadata.parse_width, 0);
-  return select(local_metadata.parse_width) { 
-    0 : c_initialize;
-    256 : parse256;
-    512 : parse512;
-  }
-}
-
-header bitfield_256_t bitfield_256;
-header bitfield_512_t bitfield_512;
-header bitfield_768_t bitfield_768;
-
-parser parse256 {
-  extract(bitfield_256);
   return main;
 }
 
-parser parse512 {
-  extract(bitfield_512);
-  return main;
+action initialize(pw) {
+  register_write(parse_width, 0, pw);
 }
 
-parser parse768 {
-  extract(bitfield_768);
-  return main;
+// Set local_metadata as necessary
+action normal() {
+  register_read(local_metadata.parse_width, parse_width, 0);
 }
 
-action a_initialize() {
-  modify_field(myreg[0], 0);
-  // what else?
-}
-
-table t_initialize {
+table check_init {
   actions {
-    a_initialize;
+    initialize; // <- set as default when necessary; parameters:
+                //    - pw : parse width in bits
+    normal;     // <- default action during normal operation
   }
 }
 
-action a_resubmit() {
-  resubmit();
+action a_get_data(numbits)
+
+action a_get_data_256 {
+  // current(0, 256) NOPE CAN'T USE THIS HERE
 }
 
-table t_resubmit {
+action a_get_data_512 {
+}
+
+action a_get_data_768 {
+}
+
+table t_get_data {
   actions {
-    a_resubmit;
+    a_get_data_256;
+    a_get_data_512;
+    a_get_data_768;
   }
 }
 
-control c_initialize {
-  apply(t_initialize);
-  apply(t_resubmit);
+action a_t01_A(){
+}
+
+action a_t01_B(){
+}
+
+action a_t01_Z(){
+}
+
+table set_table_01 {
+  actions {
+    a_t01_A;
+    a_t01_B;
+    // ...
+    a_t01_Z;
+  }
+}
+
+table t_t01_A {
+  reads { data : ternary; }
+  actions { prep_complex; }
+}
+
+table t_t01_B {
+}
+
+table t_t01_Z {
 }
 
 control main {
+  apply(check_init);
+  apply(t_get_data);
+  apply(set_table_01) {
+    t01_A { apply(t_t01_A); }
+    t01_B { apply(t_t01_B); }
+    t01_Z { apply(t_t01_Z); }
+  }
 }
