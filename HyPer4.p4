@@ -13,6 +13,28 @@ header_type local_metadata_t {
   }
 }
 
+header_type bitfield_256_t {
+  fields {
+    data : 256;
+  }
+}
+
+header_type bitfield_512_t {
+  fields {
+    data : 512;
+  }
+}
+
+header_type bitfield_768_t {
+  fields {
+    data : 768;
+  }
+}
+
+header bitfield_256_t bitfield_256;
+header bitfield_512_t bitfield_512;
+header bitfield_768_t bifield_768;
+
 metadata local_metadata_t local_metadata;
 
 // challenge is to selectively parse according to currently desired number of bits
@@ -35,43 +57,53 @@ metadata local_metadata_t local_metadata;
 //  means HyPer4 will have to use resubmit on every packet always (gross, but necessary).
 
 parser start {
+  return select( local_metadata.parse_width ) {
+    0 : c_packet_init;
+    256 : parse_256;
+    512 : parse_512;
+    768 : parse_768;
+  }
+}
+
+parser parse_256 {
+  extract(bitfield_256);
   return main;
 }
 
-action initialize(pw) {
+parser parse_512 {
+  extract(bitfield_512);
+  return main;
+}
+
+parser parse_768 {
+  extract(bitfield_768);
+  return main;
+}
+
+// initialize the switch
+action sw_init(pw) {
   register_write(parse_width, 0, pw);
 }
 
 // Set local_metadata as necessary
-action normal() {
-  register_read(local_metadata.parse_width, parse_width, 0);
+//action normal() {
+//  register_read(local_metadata.parse_width, parse_width, 0);
+//}
+
+action _no_op() {
+  no_op();
 }
 
-table check_init {
+table switch_init {
   actions {
-    initialize; // <- set as default when necessary; parameters:
-                //    - pw : parse width in bits
-    normal;     // <- default action during normal operation
+    sw_init; // <- set as default when necessary; parameters:
+    _no_op;
   }
 }
 
-action a_get_data(numbits)
-
-action a_get_data_256 {
-  // current(0, 256) NOPE CAN'T USE THIS HERE
-}
-
-action a_get_data_512 {
-}
-
-action a_get_data_768 {
-}
-
-table t_get_data {
+// initialize local metadata for packet processing
+table packet_init {
   actions {
-    a_get_data_256;
-    a_get_data_512;
-    a_get_data_768;
   }
 }
 
@@ -104,10 +136,14 @@ table t_t01_B {
 table t_t01_Z {
 }
 
+control c_packet_init {
+  apply(switch_init); // initialize switch?
+  apply(packet_init);  
+}
+
 control main {
-  apply(check_init);
-  apply(t_get_data);
-  apply(set_table_01) {
+ // ... 
+ apply(set_table_01) {
     t01_A { apply(t_t01_A); }
     t01_B { apply(t_t01_B); }
     t01_Z { apply(t_t01_Z); }
