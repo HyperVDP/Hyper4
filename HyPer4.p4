@@ -1,16 +1,15 @@
 //#include "headers.p4"
 //#include "parser.p4"
 
-register parse_width {
-  width : 16;
-  instance_count : 1;
-}
-
 header_type local_metadata_t {
   fields {
-    parse_width : 16;
-    data : 768;
-    next_table : 8;
+    parse_width  : 16;
+    data         : 768;
+    next_table   : 8;
+    num_pas      : 8;
+    next_action   : 8;
+    curr_param_offset : 8;
+    action_index : 8;
   }
 }
 
@@ -37,21 +36,24 @@ header bitfield_256_t bitfield_256;
 header bitfield_512_t bitfield_512;
 header bitfield_768_t bitfield_768;
 
-/* Don't know why this doesn't work
-metadata local_metadata_t local_metadata {
-  parse_width : 0;
+register parse_width {
+  width : 16;
+  instance_count : 1;
 }
-*/
+
+register r_next_action {
+  width : 8;
+  instance_count : 20;
+}
 
 metadata local_metadata_t local_metadata;
 
 parser start {
   return select(local_metadata.parse_width) {
-//    0 : c_packet_init;
     256 : parse_256;
     512 : parse_512;
     768 : parse_768;
-//    default : c_packet_init;
+    default : main;
   }
 }
 
@@ -100,7 +102,9 @@ action a_packet_init(nt) {
 
   // send packet back to parser
   //resubmit(f_packet_init); // <-- this reference to f_packet_init causing compile error
-  resubmit();
+  // FAIL - doesn't work even if I break it into separate table
+  resubmit(); // <-- this is only a placeholder - we really need to pass the field_list as a 
+              // parameter so we can use local_metadata.parse_width/next_table
 }
 
 table t_packet_init {
@@ -110,6 +114,7 @@ table t_packet_init {
     // - nt: next table
   }
 }
+
 // ------
 
 action a_t01_A(){
@@ -136,10 +141,19 @@ table set_table_01 {
   }
 }
 
-// TODO - determine parameters for prep_complex
-action prep_complex() {
-  // TODO...
-  no_op();
+action prep_complex(num_pas,
+                    pa_code0, // +[]
+                    pa_code1,
+                    pa_code2,
+                    pa_params, // +[]
+                    pa_param_offsets, // +[]
+                    next_table) {
+  modify_field(local_metadata.num_pas, num_pas);
+  register_write(r_next_action, 0, pa_code0);
+  register_write(r_next_action, 1, pa_code1);
+  register_write(r_next_action, 2, pa_code2);
+  // ...
+  modify_field(local_metadata.next_table, next_table);
 }
 
 table t_t01_A {
@@ -200,6 +214,90 @@ table check_init {
   }
 }
 
+action a_prep_next_action() {
+  register_read(local_metadata.next_action, r_next_action, local_metadata.action_index);
+}
+
+table t_prep_next_action {
+  actions {
+    a_prep_next_action;
+  }
+}
+
+action a_pa_1_code() {
+  no_op();
+}
+
+action a_pa_2_code() {
+  no_op();
+}
+
+action a_pa_3_code() {
+  no_op();
+}
+
+table t_set_next_action {
+  reads {
+    local_metadata.next_action : exact;
+  }
+  actions {
+    a_pa_1_code;
+    a_pa_2_code;
+    a_pa_3_code;
+  }
+}
+
+// ------ Primitive Actions
+// TODO: remove compound action params; primitive params should come from
+//       local_metadata
+action a_add_header() {
+//  add_header(head_inst);
+}
+
+table pa_1 {
+  actions {
+    a_add_header;
+  }
+}
+
+action a_copy_header() {
+//  copy_header(dst, src);
+}
+
+table pa_2 {
+  actions {
+    a_copy_header;
+  }
+}
+
+action a_remove_header() {
+//  remove_header(head_inst);
+}
+
+table pa_3 {
+  actions {
+    a_remove_header;
+  }
+}
+// ------
+
+control complex_action {
+  if (local_metadata.action_index < local_metadata.num_pas) {
+    apply(t_prep_next_action);
+    apply(t_set_next_action) {
+      a_pa_1_code {
+        apply(pa_1);
+      }
+      a_pa_2_code {
+        apply(pa_2);
+      }
+      a_pa_3_code {
+        apply(pa_3);
+      }
+    }
+  }
+}
+
 control main {
   apply(check_init) {
     init {
@@ -212,7 +310,13 @@ control main {
   apply(norm);
 
   apply(set_table_01) {
-    a_t01_A { apply(t_t01_A); }
+    a_t01_A {
+      apply(t_t01_A) {
+        prep_complex {
+          complex_action();
+        }
+      }
+    }
  // a_t01_B { apply(t_t01_B); }
  // a_t01_Z { apply(t_t01_Z); }
    }
