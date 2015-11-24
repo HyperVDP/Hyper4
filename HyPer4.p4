@@ -1,132 +1,27 @@
-//#include "headers.p4"
-//#include "parser.p4"
+/*
+David Hancock
+University of Utah
+dhancock@cs.utah.edu
 
-header_type local_metadata_t {
-  fields {
-    parse_width  : 16;
-    data         : 768;
-    next_table   : 8;
-    num_pas      : 8;
-    next_action   : 8;
-    curr_param_offset : 8;
-    action_index : 8;
-  }
-}
+HyPer4 - A P4 hypervisor extending live reconfigurability and other features
+         to all P4 targets with sufficient resources
+*/
 
-header_type bitfield_256_t {
-  fields {
-    data : 256;
-  }
-}
-
-header_type bitfield_512_t {
-  fields {
-    data : 512;
-  }
-}
-
-header_type bitfield_768_t {
-  fields {
-    data : 768;
-  }
-}
-
-/* ------ Parse */
-header bitfield_256_t bitfield_256;
-header bitfield_512_t bitfield_512;
-header bitfield_768_t bitfield_768;
-
-register parse_width {
-  width : 16;
-  instance_count : 1;
-}
-
-register r_next_action {
-  width : 8;
-  instance_count : 20;
-}
-
-metadata local_metadata_t local_metadata;
-
-parser start {
-  return select(local_metadata.parse_width) {
-    256 : parse_256;
-    512 : parse_512;
-    768 : parse_768;
-    default : main;
-  }
-}
-
-parser parse_256 {
-  extract(bitfield_256);
-  return main;
-}
-
-parser parse_512 {
-  extract(bitfield_512);
-  return main;
-}
-
-parser parse_768 {
-  extract(bitfield_768);
-  return main;
-}
-// ------
-
-// ------ Initialize the switch
-action a_switch_init(pw) {
-  register_write(parse_width, 0, pw);
-}
-
-action _no_op() {
-  no_op();
-}
-
-table t_switch_init {
-  actions {
-    a_switch_init; // <- set as default when need to initialize switch
-    _no_op;  // <- normal ops
-  }
-}
-// ------
-
-// ------ Set local_metadata as necessary for packet processing
-field_list f_packet_init {
-  local_metadata.parse_width;
-  local_metadata.next_table;
-}
-
-action a_packet_init(nt) {
-  register_read(local_metadata.parse_width, parse_width, 0);
-  modify_field(local_metadata.next_table, nt);
-
-  // send packet back to parser
-  //resubmit(f_packet_init); // <-- this reference to f_packet_init causing compile error
-  // FAIL - doesn't work even if I break it into separate table
-  resubmit(); // <-- this is only a placeholder - we really need to pass the field_list as a 
-              // parameter so we can use local_metadata.parse_width/next_table
-}
-
-table t_packet_init {
-  actions {
-    a_packet_init;
-    // params:
-    // - nt: next table
-  }
-}
-
-// ------
+#include "includes/headers.p4"
+#include "includes/parser.p4"
+#include "includes/init.p4"
+#include "includes/normalize.p4"
 
 action a_t01_A(){
-  no_op();
+  //no_op();
 }
 
 action a_t01_B(){
-  no_op();
+  //no_op();
 }
 
 action a_t01_Z(){
-  no_op();
+  //no_op();
 }
 
 table set_table_01 {
@@ -141,7 +36,7 @@ table set_table_01 {
   }
 }
 
-action prep_complex(num_pas,
+action prep_compound(num_pas,
                     pa_code0, // +[]
                     pa_code1,
                     pa_code2,
@@ -149,6 +44,7 @@ action prep_complex(num_pas,
                     pa_param_offsets, // +[]
                     next_table) {
   modify_field(local_metadata.num_pas, num_pas);
+  modify_field(local_metadata.action_index, 0);
   register_write(r_next_action, 0, pa_code0);
   register_write(r_next_action, 1, pa_code1);
   register_write(r_next_action, 2, pa_code2);
@@ -156,63 +52,32 @@ action prep_complex(num_pas,
   modify_field(local_metadata.next_table, next_table);
 }
 
+action a_no_op() {
+  //no_op();
+}
+
 table t_t01_A {
   reads { local_metadata.data : ternary; }
-  actions { prep_complex; }
+  actions {
+    prep_compound;
+    a_drop;
+    a_no_op;
+  }
 }
 
 /* TODO - figure out what type of matching required
 table t_t01_B {
   actions {
-    prep_complex;
+    prep_compound;
   }
 }
 
 table t_t01_Z {
   actions {
-    prep_complex;
+    prep_compound;
   }
 }
 */
-
-// ------ Normalize data to 768-bit bitfield
-action a_norm_256() {
-  modify_field(local_metadata.data, bitfield_256.data);
-}
-
-action a_norm_512() {
-  modify_field(local_metadata.data, bitfield_512.data);
-}
-
-action a_norm_768() {
-  modify_field(local_metadata.data, bitfield_768.data);
-}
-
-table norm {
-  reads {
-    local_metadata.parse_width : exact;
-  }
-  actions {
-    a_norm_256;
-    a_norm_512;
-    a_norm_768;
-  }
-}
-// ------
-
-action init() {
-  no_op();
-}
-
-table check_init {
-  reads {
-    local_metadata.parse_width : exact;
-  }
-  actions {
-    init;
-    _no_op;
-  }
-}
 
 action a_prep_next_action() {
   register_read(local_metadata.next_action, r_next_action, local_metadata.action_index);
@@ -224,16 +89,28 @@ table t_prep_next_action {
   }
 }
 
-action a_pa_1_code() {
-  no_op();
+action a_add_header_code() {
+  //no_op();
 }
 
-action a_pa_2_code() {
-  no_op();
+action a_copy_header_code() {
+  //no_op();
 }
 
-action a_pa_3_code() {
-  no_op();
+action a_remove_header_code() {
+  //no_op();
+}
+
+action a_modify_field_code() {
+  //no_op();
+}
+
+action a_drop_code() {
+  //no_op();
+}
+
+action a_no_op_code() {
+  //no_op();
 }
 
 table t_set_next_action {
@@ -241,9 +118,14 @@ table t_set_next_action {
     local_metadata.next_action : exact;
   }
   actions {
-    a_pa_1_code;
-    a_pa_2_code;
-    a_pa_3_code;
+    a_add_header_code;
+    a_copy_header_code;
+    a_remove_header_code;
+    a_modify_field_code;
+    // ...
+    a_drop_code;
+    a_no_op_code;
+    // ...
   }
 }
 
@@ -254,7 +136,7 @@ action a_add_header() {
 //  add_header(head_inst);
 }
 
-table pa_1 {
+table t_add_header {
   actions {
     a_add_header;
   }
@@ -264,7 +146,7 @@ action a_copy_header() {
 //  copy_header(dst, src);
 }
 
-table pa_2 {
+table t_copy_header {
   actions {
     a_copy_header;
   }
@@ -274,27 +156,107 @@ action a_remove_header() {
 //  remove_header(head_inst);
 }
 
-table pa_3 {
+table t_remove_header {
   actions {
     a_remove_header;
   }
 }
+
+action a_modify_field() {
+  //no_op(); // TODO
+}
+
+table t_modify_field {
+  actions {
+    a_modify_field;
+  }
+}
+
+action a_drop() {
+  drop();
+}
+
+table t_drop {
+  actions {
+    a_drop;
+  }
+}
+
+table t_no_op {
+  actions {
+    a_no_op;
+  }
+}
 // ------
 
-control complex_action {
+// action_index++
+action a_inc_action_index() {
+  add_to_field(local_metadata.action_index, 1);
+}
+
+table t_inc_action_index {
+  actions {
+    a_inc_action_index;
+  }
+}
+// ------
+
+// resubmit()
+field_list f_resubmit {
+  local_metadata.parse_width;
+  local_metadata.data;
+  local_metadata.next_table;
+  local_metadata.num_pas;
+  local_metadata.action_index;
+}
+
+action a_resubmit() {
+  resubmit(f_resubmit);
+}
+
+table t_loop {
+  actions {
+    a_resubmit;
+  }
+}
+// ------
+
+/* There is an extra level of indirection here that does not seem strictly
+   necessary - instead of applying t_set_next_action and then applying a
+   another table in order to execute the action, it seems we could simply
+   apply a table called t_do_next_action.  I leave the indirection in for
+   now, though, because in many cases there are several different types
+   of each primitive that could be executed, depending on the types of
+   parameters involved.
+
+   Note also that we would like to explicitly loop, but this is not an option,
+   nor is recursion, so we are forced to loop via the resubmit action.
+*/
+control compound_action {
   if (local_metadata.action_index < local_metadata.num_pas) {
     apply(t_prep_next_action);
     apply(t_set_next_action) {
-      a_pa_1_code {
-        apply(pa_1);
+      a_add_header_code {
+        apply(t_add_header);
       }
-      a_pa_2_code {
-        apply(pa_2);
+      a_copy_header_code {
+        apply(t_copy_header);
       }
-      a_pa_3_code {
-        apply(pa_3);
+      a_remove_header_code {
+        apply(t_remove_header);
+      }
+      a_modify_field_code {
+        apply(t_modify_field);
+      }
+      a_drop_code {
+        apply(t_drop);
+      }
+      a_no_op_code {
+        apply(t_no_op);
       }
     }
+    apply(t_inc_action_index);
+    apply(t_loop);
   }
 }
 
@@ -312,8 +274,8 @@ control main {
   apply(set_table_01) {
     a_t01_A {
       apply(t_t01_A) {
-        prep_complex {
-          complex_action();
+        prep_compound {
+          compound_action();
         }
       }
     }
