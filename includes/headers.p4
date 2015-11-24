@@ -16,7 +16,12 @@ header_type local_metadata_t {
     next_action   : 8;
     curr_param_offset : 8;
     action_index : 8;
-    target_meta_index : 8;
+    pa_tm_index : 8;
+    pa_iterations : 4;
+    pa_val : 32;
+    pa_bitmaskID : 4;
+    pa_scratch : 32;
+    stage : 16;
   }
 }
 

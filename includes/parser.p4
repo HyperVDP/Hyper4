@@ -21,16 +21,40 @@ register r_next_action {
   instance_count : 20;
 }
 
+// first param of each primitive action (pa)
+register r_pa_params_1 {
+  width : 8;
+  instance_count : 20;
+}
+
+// second param of each pa
+register r_pa_params_2 {
+  width : 8;
+  instance_count : 20;
+}
+
+// third param of each pa
+register r_pa_params_3 {
+  width : 8;
+  instance_count : 20;
+}
+
+// fourth param of each pa
+register r_pa_params_4 {
+  width : 8;
+  instance_count : 20;
+}
+
 // for storing the target's custom metadata
 register target_meta {
   width : 8;
   instance_count : 100;
 }
 
-metadata local_metadata_t local_metadata;
+metadata local_metadata_t local_meta;
 
 parser start {
-  return select(local_metadata.parse_width) {
+  return select(local_meta.parse_width) {
     256 : parse_256;
     512 : parse_512;
     768 : parse_768;
