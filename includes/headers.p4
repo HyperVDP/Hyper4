@@ -19,7 +19,7 @@ header_type local_metadata_t {
     pa_tm_index : 8;
     pa_iterations : 4;
     pa_val : 32;
-    pa_bitmaskID : 4;
+    //pa_bitmaskID : 4; not sure this is necessary
     pa_scratch : 32;
     stage : 16;
   }

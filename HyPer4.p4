@@ -164,7 +164,7 @@ action a_prep_modify_field() {
   register_read(local_meta.pa_tm_index, r_pa_params_1, local_meta.action_index);
   register_read(local_meta.pa_iterations, r_pa_params_2, local_meta.action_index);
   register_read(local_meta.pa_val, r_pa_params_3, local_meta.action_index);
-  register_read(local_meta.pa_bitmaskID, r_pa_params_4, local_meta.action_index);
+//  register_read(local_meta.pa_bitmaskID, r_pa_params_4, local_meta.action_index);
 }
 
 table t_prep_modify_field {
@@ -174,25 +174,29 @@ table t_prep_modify_field {
 }
 
 action a_modify_field() {
-  register_read(local_meta.pa_scratch, target_meta, local_meta.pa_tm_index);
-  
+  register_write(target_meta, local_meta.pa_tm_index, local_meta.pa_val);
+  add_to_field(local_meta.pa_tm_index, 1);
+  add_to_field(local_meta.pa_iterations, -1);
 }
 
-// not entirely certain this is necessary...
-action a_modify_field_b11111110 {
-}
-action a_modify_field_b11111100 {
-}
+// not entirely certain this is necessary...  Depends on how efficient we want
+//  to be with memory.  For now we will assume we don't need to be ruthlessly
+//  efficient.
+//action a_modify_field_b11111110 {}
 
-table t_modify_field {
-  reads {
-    local_meta.num_fields : exact;
-    local_meta.bitmaskID : exact;
-  }
+table t_modify_field_01 {
   actions {
     a_modify_field;
   }
 }
+
+table t_modify_field_02 { actions { a_modify_field; } }
+table t_modify_field_03 { actions { a_modify_field; } }
+table t_modify_field_04 { actions { a_modify_field; } }
+table t_modify_field_05 { actions { a_modify_field; } }
+table t_modify_field_06 { actions { a_modify_field; } }
+table t_modify_field_07 { actions { a_modify_field; } }
+table t_modify_field_08 { actions { a_modify_field; } }
 
 action a_drop() {
   drop();
@@ -270,7 +274,22 @@ control compound_action {
       }
       a_modify_field_code {
         apply(t_prep_modify_field);
-        apply(t_modify_field);
+        apply(t_modify_field_01);
+        if (local_meta.pa_iterations > 0) {
+          apply(t_modify_field_02);
+        if (local_meta.pa_iterations > 0) {
+          apply(t_modify_field_03);
+        if (local_meta.pa_iterations > 0) {
+          apply(t_modify_field_04);
+        if (local_meta.pa_iterations > 0) {
+          apply(t_modify_field_05);
+        if (local_meta.pa_iterations > 0) {
+          apply(t_modify_field_06);
+        if (local_meta.pa_iterations > 0) {
+          apply(t_modify_field_07);
+        if (local_meta.pa_iterations > 0) {
+          apply(t_modify_field_08);
+        }}}}}}}
       }
       a_drop_code {
         apply(t_drop);
@@ -300,4 +319,7 @@ control main {
     }
   }
   compound_action();
+}
+
+control egress {
 }
