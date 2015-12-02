@@ -1,0 +1,7 @@
+Next steps:
+1: two switches, one to mutate, the other to reverse
+2: dynamic mutation:
+   - seed is key + current second; automatically update switch
+3: combine 1 & 2
+4: expand mutation to other layers, selectable by operator
+5: ?

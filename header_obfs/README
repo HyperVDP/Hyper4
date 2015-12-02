@@ -1,0 +1,7 @@
+Installation:
+
+1: Install p4factory (https://github.com/p4lang/p4factory)
+2: ~/p4factory/tools/newtarget.py header_obfs
+3: Copy files in this directory into ~/p4factory/targets/header_obfs
+4: cd ~/p4factory/targets/header_obfs
+5: make bm

@@ -1,4 +1,4 @@
-header_type HyPer4Test_t {
+header_type hp4test_t {
   fields {
     preamble : 64;
   }
@@ -6,12 +6,12 @@ header_type HyPer4Test_t {
 
 header_type msg_t {
   fields {
-    letter : 8;
+    letter1 : 8;
+    letter2 : 8;
+    letter3 : 8;
+    letter4 : 8;
   }
 }
-
-header HyPer4Test_t HyPer4Test;
-header msg_t msg[4];
 
 parser start {
   return select(current(0, 64)) {
@@ -20,23 +20,19 @@ parser start {
   }
 }
 
-parser parse_head {
-  extract(HyPer4Test);
-  return parse_msg;
-}
+header hp4test_t hp4test;
+header msg_t msg;
 
-parser parse_msg {
-  extract(msg[next]);
-  extract(msg[next]);
-  extract(msg[next]);
-  extract(msg[next]);
+parser parse_head {
+  extract(hp4test);
+  extract(msg);
   return ingress;
 }
 
-action a_mod_msg() {
-  modify_field(standard_metadata.egress_spec, 2);
-  modify_field(msg[1].letter, 0x75);
-  modify_field(msg[2].letter, 0x72);
+action a_mod_msg(p) {
+  modify_field(standard_metadata.egress_spec, p);
+  modify_field(msg.letter2, 0x75);
+  modify_field(msg.letter3, 0x72);
 }
 
 action _drop() {
@@ -45,13 +41,15 @@ action _drop() {
 
 table mod_msg {
   reads {
-    msg[3] : valid;
+    msg : valid;
+    standard_metadata.ingress_port : exact;
   }
   actions {
     a_mod_msg;
     _drop;
   }
 }
+
 
 control ingress {
   apply(mod_msg);

@@ -1,0 +1,81 @@
+DAVID HANCOCK
+Univ of Utah
+dhancock@cs.utah.edu
+
+HEADER OBFUSCATION DEMO 01
+- Single switch
+- Static mutation
+- L2 only
+
+Files Required:
+- p4factory/targets/header_obfs:
+  - run_demo.bash
+  - run_cli1.bash
+  - normal_ops
+  - broken_ops
+  - repair_ops
+  - capture.sh
+  - set_header_obfs.py
+- p4factory/mininet/header_obfs.demo.py
+
+Environment Assumptions:
+- mininet
+- p4factory (1 Dec 2015 or later)
+- tcpdump
+- python 2.7
+
+Overview:
+
+(1) This is a simple demonstration of a P4 switch that obfuscates the first 14 bytes of received packets (expected to be the Ethernet header) by shuffling them according to a static, pre-determined permutation.
+
+(2) It is also possible to change the permutation at runtime manually by using a python script.
+
+Instructions:
+
+(1) terminal 1:
+    cd ~/p4factory/targets/header_obfs
+    ./run_demo.bash
+    h1 ping h2 -c 2
+
+    terminal 2:
+    cd ~/p4factory/targets/header_obfs
+    ./run_cl1.bash < normal_ops
+
+      ./run_cli1.bash
+      help
+      show_tables
+      dump_table obfsl2
+
+    terminal 1:
+    h1 ping h2 -c 2
+    xterm s1
+
+    xterm for s1:
+    ./capture.sh <run #>
+
+    terminal 1:
+    h1 ping h2 -c 2
+
+    terminal 2:
+    ./run_cl1.bash < broken_ops
+
+      ./run_cli1.bash
+      dump_table obfsl2
+
+    terminal 1:
+    h1 ping h2 -c 2
+
+    terminal 2:
+    ./run_cli1.bash < repair_ops
+
+    terminal 1:
+    h1 ping h2 -c 2 (or until tcpdump stops in xterm for s1)
+
+(2) run (1) but instead of
+    terminal 2:
+    ./run_cli.bash < broken_ops
+
+    try
+    terminal 2:
+    ./set_header_obfs.py [seed]
+
