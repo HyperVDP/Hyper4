@@ -1,0 +1,2 @@
+table_set_default mod_msg _drop
+table_add mod_msg a_mod_msg 1 =>
