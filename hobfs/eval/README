@@ -1,0 +1,20 @@
+Three tests:
+- ping: (h1 ping h2 -f -c 1000)
+  Sends a flood of 1000 pings from h1 to h2.  Output is total time to complete (ms).  (TODO: change chart y-axis label, which currently indicates RTT)
+- http (h1 python -m SimpleHTTPServer 80 &; h2 wget -O recv.dat http://10.0.0.2/test.dat)
+  Transfers a 10MB file via wget.  Output is average transfer rate (MB/s).
+- iperf (iperf h1 h2)
+  Executes iperf TCP throughput test.  Output is bandwidth between the two hosts (Mbps).
+Test data for each configuration includes the outputs for at least 25 runs of each test.
+
+Chart production:
+
+Python scripts generate boxplot charts for each test.
+
+HOBFS Versions:
+
+V1 refers to a version of hobfs that does not have an explicit unsecure mode.  Unsecure mode is obtained by indicating an identity permutation that results in every header field being written back in its original place.
+
+V2 refers to a version of hobfs that takes into account whether it is in secure or unsecure mode explicitly.  Unsecure mode results in skipping all of the tables involved in the header obfuscation, and proceeds to the forwarding table.  The thought is that this version should be faster than V1 for unsecure operations, and hopefully close to the performance of the simple P4 repeater.
+
+It was thought that different log levels specified in Mininet might be cause for different performance, though Mininet strives to isolate the experiment from the outside world.  Comparing performance in the three tests for the two useable log levels ("info" and "output") revealed no significant difference.
