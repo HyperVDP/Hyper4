@@ -20,7 +20,7 @@ parser.add_argument('--thrift-port', help='Thrift server port for table updates'
                     type=str, action="store", default="22222")
 parser.add_argument('--length', help='Length of permutation in bytes',
                     type=int, action="store", default=14)
-parser.add_argument('--mode', help='0 or 1 indicating forward or reverse obfuscation',
+parser.add_argument('--dir', help='0 or 1 indicating forward or reverse obfuscation',
                     type=int, action="store", default=0)
 parser.add_argument('--init', help='initialize the switch for normal operations', action="store_true")
 parser.add_argument('--secure', help='commence secure communications', action="store_true")
@@ -50,7 +50,7 @@ def update(permgen, lt):
   p = subprocess.Popen([cmd, cmd_arg1], stdin=subprocess.PIPE)
   permgen.seed(args.seed + int(periodinv * lt))
   perm = permgen.permutation(args.length)
-  if args.mode == REVERSE:
+  if args.dir == REVERSE:
     perm = inv(perm)
   for x in perm:
     p4_cli_cmd += " " + str(x)

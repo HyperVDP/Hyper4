@@ -16,13 +16,15 @@ import matplotlib.mlab as mlab
 import matplotlib.pyplot as plt
 
 # Get data
-singlep = np.loadtxt("./passthroughx1/ping", dtype='int')
-doublep = np.loadtxt("./passthroughx2/ping", dtype='int')
-hobfs1v2 = np.loadtxt("./hobfsx1_unsecure/ping_v2", dtype='int')
-hobfs2uv2 = np.loadtxt("./hobfsx2_unsecure/ping_v2", dtype='int')
-hobfs2s, loss = np.loadtxt("./hobfsx2_secure/ping_v2", dtype='int', usecols=(0,1), unpack=True)
+singlep = np.loadtxt("./passthroughx1/http", dtype='float')
+#doublep = np.loadtxt("./passthroughx2/ping", dtype='int')
+hobfs1v1 = np.loadtxt("./hobfsx1_unsecure/http", dtype='float')
+#hobfs2uv1 = np.loadtxt("./hobfsx2_unsecure/ping", dtype='int')
+hobfs1v2 = np.loadtxt("./hobfsx1_unsecure/http_v2", dtype='float')
+#hobfs2uv2 = np.loadtxt("./hobfsx2_unsecure/ping_v2", dtype='int')
+#hobfs2s, loss = np.loadtxt("./hobfsx2_secure/ping_v2", dtype='int', usecols=(0,1), unpack=True)
 
-data_to_plot = [singlep, hobfs1v2, doublep, hobfs2uv2, hobfs2s]
+data_to_plot = [singlep, hobfs1v1, hobfs1v2]
 fig = plt.figure(1, figsize=(6, 5))
 ax = fig.add_subplot(111)
 bp = ax.boxplot(data_to_plot, patch_artist=True)
@@ -43,12 +45,13 @@ for median in bp['medians']:
 for flier in bp['fliers']:
   flier.set(marker='o', color='#202020')
 
-ax.set_xticklabels(['single r', 'single hobfs', 'two r', 'two hobfs:\nunsecure', 'two hobfs:\nsecure'])
+#ax.set_xticklabels(['single r', 'single hobfs', 'two r', 'two hobfs:\nunsecure', 'two hobfs:\nsecure'])
+ax.set_xticklabels(['single r', 'single hobfs v1', 'single hobfs v2'])
 
 ax.get_xaxis().tick_bottom()
 
-plt.ylabel('Time to complete (ms)')
+plt.ylabel('Transfer rate (MB/s)')
 
 plt.show()
 
-fig.savefig('ping_v2.png', bbox_inches='tight')
+fig.savefig('http_v1_v2.png', bbox_inches='tight')

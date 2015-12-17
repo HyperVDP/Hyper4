@@ -47,7 +47,7 @@ ax.set_xticklabels(['single r', 'single hobfs', 'two r', 'two hobfs:\nunsecure',
 
 ax.get_xaxis().tick_bottom()
 
-plt.ylabel('avg TCP bandwidth(Mbps/s)')
+plt.ylabel('Avg TCP bandwidth (Mbps/s)')
 
 plt.show()
 

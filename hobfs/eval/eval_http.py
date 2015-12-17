@@ -47,7 +47,7 @@ ax.set_xticklabels(['single r', 'single hobfs', 'two r', 'two hobfs:\nunsecure',
 
 ax.get_xaxis().tick_bottom()
 
-plt.ylabel('avg transfer rate(MB/s)')
+plt.ylabel('Avg transfer rate (MB/s)')
 
 plt.show()
 

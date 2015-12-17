@@ -1,27 +1,56 @@
-/*
-David Hancock
-University of Utah
-dhancock@cs.utah.edu
+// new_headers.p4
 
-HyPer4 - A P4 hypervisor extending live reconfigurability and other features
-         to all P4 targets with sufficient resources
-*/
-
-header_type local_metadata_t {
+header_type meta_parse_t {
   fields {
-    parse_width  : 16;
-    data         : 768;
-    next_table   : 8;
-    num_pas      : 8;
-    next_action   : 8;
-    curr_param_offset : 8;
-    action_index : 8;
-    pa_tm_index : 8;
-    pa_iterations : 4;
-    pa_val : 32;
-    //pa_bitmaskID : 4; not sure this is necessary
-    pa_scratch : 32;
-    stage : 16;
+    parse_width : 16;
+  }
+}
+
+header_type meta_ctrl_t {
+  fields {
+    stage : 8; // e.g. INIT, NORM, etc.
+    next_table : 8;
+    stage_state : 8; // e.g. CONTINUE, COMPLETE
+  }
+}
+
+header_type meta_prog_state_t {
+  fields {
+    action_ID : 8;
+    primitive_index : 8;
+  }
+}
+
+header_type meta_primitive_metadata_t {
+  fields {
+    type : 8;
+    subtype : 8;
+  }
+}
+
+header_type stdmeta_match_t {
+  fields {
+    stdmeta_ID : 8;
+  }
+}
+
+header_type extracted_t {
+  fields {
+    data : 768;
+  }
+}
+
+header_type tmeta_8_meta_t {
+  fields {
+    dstbyteindex : 16;
+    srcbyteindex : 16;
+  }
+}
+
+header_type tmeta_16_meta_t {
+  fields {
+    dstbyteindex : 16;
+    srcbyteindex : 16;
   }
 }
 
