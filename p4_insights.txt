@@ -1,5 +1,10 @@
 P4 IMPORTANT INSIGHTS, COMMANDS, ETC.
 
+----- bm, p4c-bm, and p4factory -----
+p4factory usually is configured to work with versions of bm, p4c-bm a few commits behind their bleeding edge versions, but sometimes we need to use the latest bm or p4c-bm features and try them out with demo code.  The best thing to do is make separate clones of bm and p4c-bm instead of changing the branch from p4factory/submodules/<bm | p4c-bm>.  This also requires pointing BMV2_PATH and P4C_BM_PATH shell variables in env.sh at the right locations.  See ~/p4factory/targets/test - run_switch.sh and env.sh.
+
+ref: https://github.com/p4lang/tutorials/tree/master/examples
+
 ----- Installing p4factory -----
 cd ~
 git clone https://github.com/p4lang/p4factory

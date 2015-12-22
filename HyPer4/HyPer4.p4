@@ -11,6 +11,7 @@ metadata meta_prog_state_t meta_prog_state;
 metadata meta_primitive_metadata_t meta_primitive_metadata;
 metadata stdmeta_match_t stdmeta_match;
 metadata extracted_t extracted;
+metadata meta_t meta;
 metadata tmeta_8_meta_t tmeta_8_meta;
 metadata tmeta_16_meta_t tmeta_16_meta;
 
@@ -25,8 +26,8 @@ register tmeta_16_r {
 }
 
 control ingress {
-  setup;
-  stage1;
-  stage2;
-  stage3;
+  setup;  // setup.p4
+  stage1; // stages.p4
+  stage2; // stages.p4
+  stage3; // stages.p4
 }

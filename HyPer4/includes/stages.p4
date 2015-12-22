@@ -3,7 +3,7 @@
 #include "action.p4"
 
 control stage1 {
-  match_1;
+  match_1; // match.p4
 
   // set primitive meta data
   apply(set_primitive_metadata_11);
@@ -30,7 +30,7 @@ control stage1 {
 }
 
 control stage2 {
-  match_2;
+  match_2; // match.p4
 
   apply(set_primitive_metadata_21);
   switch_primitivetype_21;
@@ -51,7 +51,7 @@ control stage2 {
 }
 
 control stage3 {
-  match_3;
+  match_3; // match.p4
 
   apply(set_primitive_metadata_31);
   switch_primitivetype_31;

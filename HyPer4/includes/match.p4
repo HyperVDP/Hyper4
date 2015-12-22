@@ -1,3 +1,4 @@
+#include "switch_meta.p4"
 #include "switch_stdmeta.p4"
 
 action set_program_state(action_ID, primitive_index) {
@@ -16,7 +17,14 @@ table t1_extracted_exact {
 
 table t1_metadata_exact {
   reads {
-    meta.data : ternary;
+    meta.field00 : exact;
+    meta.field01 : exact;
+    meta.field02 : exact;
+    meta.field03 : exact;
+    meta.field04 : exact;
+    meta.field05 : exact;
+    meta.field06 : exact;
+    meta.field07 : exact;
   }
   actions {
     set_program_state;
@@ -42,6 +50,7 @@ control match_1 {
     // TODO: figure out how this should work
     // ex. Merge all target metadata into one field, apply ternary match
     //    just like we did with extracted data
+    switch_meta_1;
     apply(t1_metadata_exact);
   }
   else if(meta_ctrl.next_table == STDMETA_EXACT) {
