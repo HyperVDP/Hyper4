@@ -12,3 +12,83 @@ table set_primitive_metadata_11 {
     a_set_primitive_metadata;
   }
 }
+
+table set_primitive_metadata_12 {
+  reads {
+    meta_prog_state.actionID : exact;
+    meta_prog_state.primitive_index : exact;
+  }
+  actions {
+    a_set_primitive_metadata;
+  }
+}
+
+table set_primitive_metadata_13 {
+  reads {
+    meta_prog_state.actionID : exact;
+    meta_prog_state.primitive_index : exact;
+  }
+  actions {
+    a_set_primitive_metadata;
+  }
+}
+
+table set_primitive_metadata_21 {
+  reads {
+    meta_prog_state.actionID : exact;
+    meta_prog_state.primitive_index : exact;
+  }
+  actions {
+    a_set_primitive_metadata;
+  }
+}
+
+table set_primitive_metadata_22 {
+  reads {
+    meta_prog_state.actionID : exact;
+    meta_prog_state.primitive_index : exact;
+  }
+  actions {
+    a_set_primitive_metadata;
+  }
+}
+
+table set_primitive_metadata_23 {
+  reads {
+    meta_prog_state.actionID : exact;
+    meta_prog_state.primitive_index : exact;
+  }
+  actions {
+    a_set_primitive_metadata;
+  }
+}
+
+table set_primitive_metadata_31 {
+  reads {
+    meta_prog_state.actionID : exact;
+    meta_prog_state.primitive_index : exact;
+  }
+  actions {
+    a_set_primitive_metadata;
+  }
+}
+
+table set_primitive_metadata_32 {
+  reads {
+    meta_prog_state.actionID : exact;
+    meta_prog_state.primitive_index : exact;
+  }
+  actions {
+    a_set_primitive_metadata;
+  }
+}
+
+table set_primitive_metadata_33 {
+  reads {
+    meta_prog_state.actionID : exact;
+    meta_prog_state.primitive_index : exact;
+  }
+  actions {
+    a_set_primitive_metadata;
+  }
+}

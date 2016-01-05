@@ -25,6 +25,9 @@ table meta_setup_1 {
   }
 }
 
+table meta_setup_2 { actions { a_meta_setup; } }
+table meta_setup_3 { actions { a_meta_setup; } }
+
 action a_meta_setbytes_1() {
   register_read(meta.field00, tmeta_8_r, meta.i_0);
 }
@@ -85,10 +88,7 @@ action a_meta_setbytes_8() {
   register_read(meta.field07, tmeta_8_r, meta.i_7);
 }
 
-table meta_setbytes_1 {
-  reads {
-    meta.num : exact;
-  }
+action_profile meta_setbytes_actions {
   actions {
     a_meta_setbytes_1;
     a_meta_setbytes_2;
@@ -100,6 +100,18 @@ table meta_setbytes_1 {
     a_meta_setbytes_8;
   }
 }
+
+table meta_setbytes_1 {
+  reads {
+    meta.num : exact;
+  }
+  action_profile : meta_setbytes_actions;
+}
+
+table meta_setbytes_2 { reads { meta.num : exact; }
+  action_profile : meta_setbytes_actions; }
+table meta_setbytes_3 { reads { meta.num : exact; }
+  action_profile : meta_setbytes_actions; }
 
 action a_meta_setwords_1() {
   register_read(meta.field00, tmeta_16_r, meta.i_0);
@@ -161,11 +173,7 @@ action a_meta_setwords_8() {
   register_read(meta.field07, tmeta_16_r, meta.i_7);
 }
 
-table meta_setwords_1 {
-  reads {
-    meta.num : exact;
-  }
-  actions {
+action_profile meta_setwords_actions {
     a_meta_setwords_1;
     a_meta_setwords_2;
     a_meta_setwords_3;
@@ -174,8 +182,20 @@ table meta_setwords_1 {
     a_meta_setwords_6;
     a_meta_setwords_7;
     a_meta_setwords_8;
-  }
 }
+
+table meta_setwords_1 {
+  reads {
+    meta.num : exact;
+  }
+  action_profile : meta_setwords_actions;
+}
+
+table meta_setwords_2 { reads { meta.num : exact; }
+  action_profile : meta_setwords_actions; }
+
+table meta_setwords_3 { reads { meta.num : exact; }
+  action_profile : meta_setwords_actions; }
 
 control switch_meta_1 {
   apply(meta_setup_1);
@@ -184,5 +204,25 @@ control switch_meta_1 {
   }
   else {
     apply(meta_setwords_1);
+  }
+}
+
+control switch_meta_2 {
+  apply(meta_setup_2);
+  if(meta.width == 8) {
+    apply(meta_setbytes_2);
+  }
+  else {
+    apply(meta_setwords_2);
+  }
+}
+
+control switch_meta_3 {
+  apply(meta_setup_3);
+  if(meta.width == 8) {
+    apply(meta_setbytes_3);
+  }
+  else {
+    apply(meta_setwords_3);
   }
 }

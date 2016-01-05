@@ -24,6 +24,15 @@ action mod_meta_stdmeta_parserstat() {
 action mod_meta_stdmeta_parsererror() {
   register_write(tmeta_16_r, tmeta_16_meta.dstbyteindex, standard_metadata.parser_error_location);
 }
+action mod_stdmeta_egressspec_meta() {
+  register_read(standard_metadata.egress_spec, tmeta_16_r, tmeta_16_meta.srcbyteindex);
+}
+action mod_meta_const(val) {
+  register_write(tmeta_16_r, tmeta_16_meta.dstbyteindex, val);
+}
+action mod_stdmeta_egressspec_const(val) {
+  modify_field(standard_metadata.egress_spec, val);
+}
 // TODO: add rest of the modify_field actions
 
 
@@ -46,6 +55,9 @@ action_profile mod_actions {
     mod_meta_stdmeta_insttype;
     mod_meta_stdmeta_parserstat;
     mod_meta_stdmeta_parsererror;
+    mod_stdmeta_egressspec_meta;
+    mod_meta_const;
+    mod_stdmeta_egressspec_const;
     // TODO: add the rest of the modify_field subtypes
   }
 }

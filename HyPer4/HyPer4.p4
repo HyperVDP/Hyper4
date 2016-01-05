@@ -3,7 +3,6 @@
 #include "includes/setup.p4"
 #include "includes/stages.p4"
 #include "includes/switch_stdmeta.p4"
-#include "includes/switch_primitivetype.p4"
 #include "includes/defines.p4"
 
 metadata meta_ctrl_t meta_ctrl;
