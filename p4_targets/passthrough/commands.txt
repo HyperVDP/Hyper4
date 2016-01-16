@@ -1,2 +1,2 @@
-table_add fwd set_brp 1 => 2
-table_add fwd set_brp 2 => 1
+table_add fwd set_egr 1 => 2
+table_add fwd set_egr 2 => 1

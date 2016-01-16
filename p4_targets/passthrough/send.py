@@ -15,8 +15,8 @@
 # limitations under the License.
 
 from scapy.all import sniff, sendp
-from scapy.all import Packet
-from scapy.all import ShortField, IntField, LongField, BitField
+from scapy.all import Packet, Ether
+from scapy.all import ShortField, IntField, LongField, BitField, XByteField
 
 import networkx as nx
 
@@ -26,7 +26,8 @@ class Telem(Packet):
     name = "Telem"
     fields_desc = [
         LongField("preamble", 0),
-        IntField("ingress", 0)
+        XByteField("instance_type", 0),
+        XByteField("egress", 0)
     ]
 
 def read_topo():
@@ -98,7 +99,7 @@ def main():
         first = None
 
         #p = SrcRoute(num_valid = len(port_list)) / port_str / msg
-        p = Telem() / port_str / msg
+        p = Telem() / Ether(src="00:04:00:00:00:00",dst="ff:ff:ff:ff:ff:ff",type=0x806)
         print p.show()
         sendp(p, iface = "eth0")
         # print msg
