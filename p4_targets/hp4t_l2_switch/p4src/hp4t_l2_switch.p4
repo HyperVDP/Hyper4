@@ -9,7 +9,6 @@ header_type ethernet_t {
 header_type meta_t {
   fields {
     egress : 8;
-    broadcast : 8;
   }
 }
 
@@ -37,7 +36,6 @@ field_list clone_fl {
 action broadcast(port) {
   modify_field(standard_metadata.egress_spec, port);
   modify_field(meta.egress, port);
-  modify_field(meta.broadcast, 1);
 }
 
 table dmac {
@@ -73,11 +71,9 @@ table clone {
 table t_drop { actions { _drop; }}
 
 control egress {
-  if(meta.broadcast == 1) {
-    if(meta.egress > 0) {
-      apply(clone);
-    } else {
-      apply(t_drop);
-    }
+  if(meta.egress > 0) {
+    apply(clone);
+  } else {
+    apply(t_drop);
   }
 }

@@ -1,7 +1,0 @@
-/build
-/.*_ts
-/dependmodules.x
-/HyPer4.mk
-/*.pcap
-/HyPer4
-/tests/pd_thrift

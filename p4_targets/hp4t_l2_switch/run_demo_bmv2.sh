@@ -16,7 +16,7 @@
 
 THIS_DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 
-source $THIS_DIR/../env.sh
+source $THIS_DIR/../../env.sh
 
 PROJ=${PWD##*/}
 
@@ -27,7 +27,8 @@ SWITCH_PATH=$BMV2_PATH/targets/simple_switch/simple_switch
 CLI_PATH=$BMV2_PATH/targets/simple_switch/sswitch_CLI
 
 $P4C_BM_SCRIPT p4src/$PROJ.p4 --json $PROJ.json
-sudo PYTHONPATH=$PYTHONPATH:$BMV2_PATH/mininet/ python $THIS_DIR/topo.py \
+sudo PYTHONPATH=$PYTHONPATH:$BMV2_PATH/mininet/ \
+    python $THIS_DIR/mininet/topo.py \
     --behavioral-exe $BMV2_PATH/targets/simple_switch/simple_switch \
     --json $PROJ.json \
     --cli $CLI_PATH
