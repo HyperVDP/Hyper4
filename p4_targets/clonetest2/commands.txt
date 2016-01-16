@@ -1,0 +1,9 @@
+mirroring_add 1 1
+mirroring_add 2 2
+mirroring_add 3 3
+table_set_default add_extra do_add_extra
+table_set_default update_extra do_update_extra
+table_set_default clone do_clone 3
+table_set_default mod_meta do_mod_meta 42
+table_add forward do_forward 1 => 2
+table_set_default finalize do_finalize

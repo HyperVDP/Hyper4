@@ -1,0 +1,5 @@
+mirroring_add 1 1
+mirroring_add 2 2
+mirroring_add 3 3
+table_add clone_and_forward cf 1 => 2 3
+table_add clone_and_forward cf 2 => 1 3

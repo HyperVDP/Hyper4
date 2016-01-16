@@ -1,0 +1,4 @@
+#!/bin/bash
+
+sudo python ~/p4factory/submodules/bm/mininet/1sw_demo.py --behavioral-exe ~/p4factory/submodules/bm/targets/simple_switch/simple_switch --json hp4t_l2_switch.json --mode l2 --thrift-port $1 --num-hosts $2
+
