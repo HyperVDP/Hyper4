@@ -1,4 +1,10 @@
 P4 IMPORTANT INSIGHTS, COMMANDS, ETC.
+----- Cloning -----
+clone_ingress_pkt_to_egress:  for any fields in the field_list parameter, the copy of field values to the cloned packet occurs at the end of the ingress pipeline.  The creation of the clone, in other words, does not happen immediately in response to calling this function.
+
+clone_egress_pkt_to_egress: marks the packet for cloning, and the cloning doesn't happen until after the egress pipeline and after deparsing.
+
+clone_<ingress|egress>_pkt_to_ingress: not supported, probably never will be.
 
 ----- bm, p4c-bm, and p4factory -----
 p4factory usually is configured to work with versions of bm, p4c-bm a few commits behind their bleeding edge versions, but sometimes we need to use the latest bm or p4c-bm features and try them out with demo code.  The best thing to do is make separate clones of bm and p4c-bm instead of changing the branch from p4factory/submodules/<bm | p4c-bm>.  This also requires pointing BMV2_PATH and P4C_BM_PATH shell variables in env.sh at the right locations.  See ~/p4factory/targets/test - run_switch.sh and env.sh.
