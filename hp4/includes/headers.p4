@@ -1,11 +1,23 @@
-// new_headers.p4
+/*
+DAVID HANCOCK
+dhancock@cs.utah.edu
+Flux Research Group
+University of Utah
 
+Define headers required by HyPer4
+*/
+
+// meta_parse: stores the parse width (e.g. 256 | 512 | 768): # bits to
+// extract
 header_type meta_parse_t {
   fields {
     parse_width : 16;
   }
 }
 
+// meta_ctrl: stores control stage (e.g. INIT, NORM), next table, stage
+// state (e.g. CONTINUE, COMPLETE… to track whether a sequence of primitives
+// is complete)
 header_type meta_ctrl_t {
   fields {
     stage : 8; // e.g. INIT, NORM, etc.
@@ -14,37 +26,36 @@ header_type meta_ctrl_t {
   }
 }
 
-header_type meta_prog_state_t {
+// meta_primitive_state: information about a specific target primitive
+header_type meta_primitive_state_t {
   fields {
-    action_ID : 8;
-    primitive_index : 8;
+    action_ID : 8; // identifies the compound action being executed
+    primitive_index : 8; // place within compound action
+    primitive : 8; // e.g. modify_field, add_header, etc.
+    subtype : 8; // maps to a set identifying the parameters' types
   }
 }
 
-header_type meta_primitive_metadata_t {
-  fields {
-    type : 8;
-    subtype : 8;
-  }
-}
-
-header_type stdmeta_match_t {
+// meta_stdmeta: stores ID of standard metadata field on which to match during
+// matching (when meta_ctrl.next_table == STDMETA_EXACT)
+header_type meta_stdmeta_t {
   fields {
     stdmeta_ID : 8;
   }
 }
 
+// extracted: stores extracted data in a standard width field
 header_type extracted_t {
   fields {
     data : 768;
   }
 }
 
-header_type meta_t {
+// meta: temporary storage for target metadata for use in matching
+header_type tmeta_t {
   fields {
-    width : 8;
+    tm_width : 8;
     num : 8;
-
     // indices for tmeta_8_r / tmeta_16_r
     i_0 : 8;
     i_1 : 8;
@@ -83,6 +94,8 @@ header_type meta_t {
   }
 }
 
+// tmeta_8_meta: for working with HyPer4's representation of the target's
+// metadata
 header_type tmeta_8_meta_t {
   fields {
     dstbyteindex : 16;
@@ -90,10 +103,24 @@ header_type tmeta_8_meta_t {
   }
 }
 
+// tmeta_16_meta: for working with HyPer4's representation of the target's
+// metadata
 header_type tmeta_16_meta_t {
   fields {
     dstbyteindex : 16;
     srcbyteindex : 16;
+  }
+}
+
+header_type bitfield_8_t {
+  fields {
+    data : 8;
+  }
+}
+
+header_type bitfield_32_t {
+  fields {
+    data : 32;
   }
 }
 

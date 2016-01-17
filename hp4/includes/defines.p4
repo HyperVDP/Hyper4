@@ -15,14 +15,14 @@
 #define COMPLETE	1
 #define CONTINUE	2
 
-// stdmeta_match.stdmeta_ID
+// meta_stdmeta.stdmeta_ID
 #define STDMETA_INGRESSPORT	1
 #define STDMETA_PACKETLENGTH	2
 #define STDMETA_INSTTYPE	3
 #define STDMETA_PARSERSTAT	4
 #define STDMETA_PARSERERROR	5
 
-// meta_primitive_metadata.type
+// meta_primitive_state.type
 #define A_MODIFY_FIELD		0
 #define A_ADD_HEADER		1
 #define A_COPY_HEADER		2

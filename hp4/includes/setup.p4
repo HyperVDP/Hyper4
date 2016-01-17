@@ -48,7 +48,7 @@ action a_norm_768() {
 
 table t_norm {
   reads {
-    meta_ctrl.parse_width : exact;
+    meta_parse.parse_width : exact;
   }
   actions {
     a_norm_256;
@@ -59,7 +59,7 @@ table t_norm {
 
 // ------ Set first table
 action set_first_table(table_ID) {
-  modify_field(meta_ctrl.next_table, tableID);
+  modify_field(meta_ctrl.next_table, table_ID);
 }
 
 table t_set_first_table {

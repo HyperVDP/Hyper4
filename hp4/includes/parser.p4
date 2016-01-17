@@ -1,6 +1,7 @@
-#include "defines.p4"
+//#include "defines.p4"
 
 metadata meta_parse_t meta_parse;
+metadata meta_ctrl_t meta_ctrl;
 
 header bitfield_256_t bitfield_256;
 header bitfield_512_t bitfield_512;

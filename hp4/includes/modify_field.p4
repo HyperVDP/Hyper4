@@ -18,12 +18,17 @@ action mod_meta_stdmeta_egressinst() {
 action mod_meta_stdmeta_insttype() {
   register_write(tmeta_16_r, tmeta_16_meta.dstbyteindex, standard_metadata.instance_type);
 }
+/*
+these standard_metadata fields not supported in bmv2 / p4c-bm?
+
 action mod_meta_stdmeta_parserstat() {
   register_write(tmeta_16_r, tmeta_16_meta.dstbyteindex, standard_metadata.parser_status);
 }
+
 action mod_meta_stdmeta_parsererror() {
   register_write(tmeta_16_r, tmeta_16_meta.dstbyteindex, standard_metadata.parser_error_location);
 }
+*/
 action mod_stdmeta_egressspec_meta() {
   register_read(standard_metadata.egress_spec, tmeta_16_r, tmeta_16_meta.srcbyteindex);
 }
@@ -53,8 +58,7 @@ action_profile mod_actions {
     mod_meta_stdmeta_egressport;
     mod_meta_stdmeta_egressinst;
     mod_meta_stdmeta_insttype;
-    mod_meta_stdmeta_parserstat;
-    mod_meta_stdmeta_parsererror;
+    //mod_meta_stdmeta_parserstat;
     mod_stdmeta_egressspec_meta;
     mod_meta_const;
     mod_stdmeta_egressspec_const;
@@ -64,10 +68,34 @@ action_profile mod_actions {
 
 table t_mod_11 {
   reads {
-    meta_primitive_metadata.subtype : exact;
+    meta_primitive_state.subtype : exact;
   }
   action_profile : mod_actions;
 }
+
+table t_mod_12 { reads { meta_primitive_state.subtype : exact; }
+  action_profile : mod_actions;}
+
+table t_mod_13 { reads { meta_primitive_state.subtype : exact; }
+  action_profile : mod_actions;}
+
+table t_mod_21 { reads { meta_primitive_state.subtype : exact; }
+  action_profile : mod_actions;}
+
+table t_mod_22 { reads { meta_primitive_state.subtype : exact; }
+  action_profile : mod_actions;}
+
+table t_mod_23 { reads { meta_primitive_state.subtype : exact; }
+  action_profile : mod_actions;}
+
+table t_mod_31 { reads { meta_primitive_state.subtype : exact; }
+  action_profile : mod_actions;}
+
+table t_mod_32 { reads { meta_primitive_state.subtype : exact; }
+  action_profile : mod_actions;}
+
+table t_mod_33 { reads { meta_primitive_state.subtype : exact; }
+  action_profile : mod_actions;}
 
 action a_mod_prep_8(dstindex, srcindex) {
   modify_field(tmeta_8_meta.dstbyteindex, dstindex);
@@ -81,8 +109,96 @@ action a_mod_prep_16(dstindex, srcindex) {
 
 table t_mod_prep_11 {
   reads {
-    meta_prog_state.action_ID : exact;
-    meta_prog_state.primitive_index : exact;
+    meta_primitive_state.action_ID : exact;
+    meta_primitive_state.primitive_index : exact;
+  }
+  actions {
+    a_mod_prep_8;
+    a_mod_prep_16;
+  }
+}
+
+table t_mod_prep_12 {
+  reads {
+    meta_primitive_state.action_ID : exact;
+    meta_primitive_state.primitive_index : exact;
+  }
+  actions {
+    a_mod_prep_8;
+    a_mod_prep_16;
+  }
+}
+
+table t_mod_prep_13 {
+  reads {
+    meta_primitive_state.action_ID : exact;
+    meta_primitive_state.primitive_index : exact;
+  }
+  actions {
+    a_mod_prep_8;
+    a_mod_prep_16;
+  }
+}
+
+table t_mod_prep_21 {
+  reads {
+    meta_primitive_state.action_ID : exact;
+    meta_primitive_state.primitive_index : exact;
+  }
+  actions {
+    a_mod_prep_8;
+    a_mod_prep_16;
+  }
+}
+
+table t_mod_prep_22 {
+  reads {
+    meta_primitive_state.action_ID : exact;
+    meta_primitive_state.primitive_index : exact;
+  }
+  actions {
+    a_mod_prep_8;
+    a_mod_prep_16;
+  }
+}
+
+table t_mod_prep_23 {
+  reads {
+    meta_primitive_state.action_ID : exact;
+    meta_primitive_state.primitive_index : exact;
+  }
+  actions {
+    a_mod_prep_8;
+    a_mod_prep_16;
+  }
+}
+
+table t_mod_prep_31 {
+  reads {
+    meta_primitive_state.action_ID : exact;
+    meta_primitive_state.primitive_index : exact;
+  }
+  actions {
+    a_mod_prep_8;
+    a_mod_prep_16;
+  }
+}
+
+table t_mod_prep_32 {
+  reads {
+    meta_primitive_state.action_ID : exact;
+    meta_primitive_state.primitive_index : exact;
+  }
+  actions {
+    a_mod_prep_8;
+    a_mod_prep_16;
+  }
+}
+
+table t_mod_prep_33 {
+  reads {
+    meta_primitive_state.action_ID : exact;
+    meta_primitive_state.primitive_index : exact;
   }
   actions {
     a_mod_prep_8;

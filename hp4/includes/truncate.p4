@@ -10,6 +10,6 @@ table t_truncate {
   }
 }
 
-control do_truncate {
+control do_truncate_11 {
   apply(t_truncate);
 }
