@@ -112,6 +112,7 @@ header_type tmeta_16_meta_t {
   }
 }
 
+/*
 header_type bitfield_8_t {
   fields {
     data : 8;
@@ -123,6 +124,7 @@ header_type bitfield_32_t {
     data : 32;
   }
 }
+*/
 
 header_type bitfield_256_t {
   fields {

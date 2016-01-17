@@ -12,3 +12,23 @@ table set_primitive_metadata_11 {
     a_set_primitive_metadata;
   }
 }
+
+table set_primitive_metadata_12 {
+  reads {
+    meta_primitive_state.action_ID : exact;
+    meta_primitive_state.primitive_index : exact;
+  }
+  actions {
+    a_set_primitive_metadata;
+  }
+}
+
+table set_primitive_metadata_13 {
+  reads {
+    meta_primitive_state.action_ID : exact;
+    meta_primitive_state.primitive_index : exact;
+  }
+  actions {
+    a_set_primitive_metadata;
+  }
+}

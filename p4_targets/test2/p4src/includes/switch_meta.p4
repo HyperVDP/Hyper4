@@ -25,6 +25,9 @@ table tmeta_setup_1 {
   }
 }
 
+table tmeta_setup_2 { actions { a_tmeta_setup; } }
+table tmeta_setup_3 { actions { a_tmeta_setup; } }
+
 action a_tmeta_setbytes_1() {
   register_read(tmeta.field00, tmeta_8_r, tmeta.i_0);
 }
@@ -104,6 +107,11 @@ table tmeta_setbytes_1 {
   }
   action_profile : tmeta_setbytes_actions;
 }
+
+table tmeta_setbytes_2 { reads { tmeta.num : exact; }
+  action_profile : tmeta_setbytes_actions; }
+table tmeta_setbytes_3 { reads { tmeta.num : exact; }
+  action_profile : tmeta_setbytes_actions; }
 
 action a_tmeta_setwords_1() {
   register_read(tmeta.field00, tmeta_16_r, tmeta.i_0);
@@ -185,6 +193,12 @@ table tmeta_setwords_1 {
   action_profile : tmeta_setwords_actions;
 }
 
+table tmeta_setwords_2 { reads { tmeta.num : exact; }
+  action_profile : tmeta_setwords_actions; }
+
+table tmeta_setwords_3 { reads { tmeta.num : exact; }
+  action_profile : tmeta_setwords_actions; }
+
 control switch_tmeta_1 {
   apply(tmeta_setup_1);
   if(tmeta.tm_width == 8) {
@@ -192,5 +206,25 @@ control switch_tmeta_1 {
   }
   else {
     apply(tmeta_setwords_1);
+  }
+}
+
+control switch_tmeta_2 {
+  apply(tmeta_setup_2);
+  if(tmeta.tm_width == 8) {
+    apply(tmeta_setbytes_2);
+  }
+  else {
+    apply(tmeta_setwords_2);
+  }
+}
+
+control switch_tmeta_3 {
+  apply(tmeta_setup_3);
+  if(tmeta.tm_width == 8) {
+    apply(tmeta_setbytes_3);
+  }
+  else {
+    apply(tmeta_setwords_3);
   }
 }
