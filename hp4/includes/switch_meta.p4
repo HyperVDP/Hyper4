@@ -1,22 +1,22 @@
-action a_tmeta_setup(tm_width, num, start) {
+action a_tmeta_setup(tm_width, num, begin) {
   modify_field(tmeta.tm_width, tm_width);
   modify_field(tmeta.num, num);
-  modify_field(tmeta.i_0, start);
-  modify_field(tmeta.i_1, start+1);
-  modify_field(tmeta.i_2, start+2);
-  modify_field(tmeta.i_3, start+3);
-  modify_field(tmeta.i_4, start+4);
-  modify_field(tmeta.i_5, start+5);
-  modify_field(tmeta.i_6, start+6);
-  modify_field(tmeta.i_7, start+7);
-  modify_field(tmeta.i_8, start+8);
-  modify_field(tmeta.i_9, start+9);
-  modify_field(tmeta.i_10, start+10);
-  modify_field(tmeta.i_11, start+11);
-  modify_field(tmeta.i_12, start+12);
-  modify_field(tmeta.i_13, start+13);
-  modify_field(tmeta.i_14, start+14);
-  modify_field(tmeta.i_15, start+15);
+  modify_field(tmeta.i_0, begin);
+  modify_field(tmeta.i_1, begin+1);
+  modify_field(tmeta.i_2, begin+2);
+  modify_field(tmeta.i_3, begin+3);
+  modify_field(tmeta.i_4, begin+4);
+  modify_field(tmeta.i_5, begin+5);
+  modify_field(tmeta.i_6, begin+6);
+  modify_field(tmeta.i_7, begin+7);
+  modify_field(tmeta.i_8, begin+8);
+  modify_field(tmeta.i_9, begin+9);
+  modify_field(tmeta.i_10, begin+10);
+  modify_field(tmeta.i_11, begin+11);
+  modify_field(tmeta.i_12, begin+12);
+  modify_field(tmeta.i_13, begin+13);
+  modify_field(tmeta.i_14, begin+14);
+  modify_field(tmeta.i_15, begin+15);
 }
 
 table tmeta_setup_1 {

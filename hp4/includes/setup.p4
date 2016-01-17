@@ -1,4 +1,4 @@
-#include "defines.p4"
+//#include "defines.p4"
 
 /* SETUP
    Check the need to initialize local metadata for the current packet
