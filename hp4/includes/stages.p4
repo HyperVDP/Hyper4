@@ -61,7 +61,7 @@ control stage1 {
   apply(set_program_state_11);
 
   // next primitive
-  if(meta_ctrl.stage_state != COMPLETE) {
+  if(meta_ctrl.stage_state != COMPLETE) { // p4_conditional_node 16
     // set primitive meta data
     apply(set_primitive_metadata_12); // action.p4
     switch_primitivetype_12();          // switch_primitivetype.p4
