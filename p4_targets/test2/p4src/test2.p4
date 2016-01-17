@@ -34,4 +34,5 @@ register tmeta_16_r {
 control ingress {
   setup();
   stage1();
+  stage2();
 }

@@ -41,6 +41,39 @@ table t_mod_prep_13 {
   }
 }
 
+table t_mod_prep_21 {
+  reads {
+    meta_primitive_state.action_ID : exact;
+    meta_primitive_state.primitive_index : exact;
+  }
+  actions {
+    a_mod_prep_8;
+    a_mod_prep_16;
+  }
+}
+
+table t_mod_prep_22 {
+  reads {
+    meta_primitive_state.action_ID : exact;
+    meta_primitive_state.primitive_index : exact;
+  }
+  actions {
+    a_mod_prep_8;
+    a_mod_prep_16;
+  }
+}
+
+table t_mod_prep_23 {
+  reads {
+    meta_primitive_state.action_ID : exact;
+    meta_primitive_state.primitive_index : exact;
+  }
+  actions {
+    a_mod_prep_8;
+    a_mod_prep_16;
+  }
+}
+
 action mod_meta_stdmeta_ingressport() { 
   register_write(tmeta_16_r, tmeta_16_meta.dstbyteindex, standard_metadata.ingress_port);
 }
@@ -97,6 +130,19 @@ table t_mod_12 { reads { meta_primitive_state.subtype : exact; }
 table t_mod_13 { reads { meta_primitive_state.subtype : exact; }
   action_profile : mod_actions;}
 
+table t_mod_21 {
+  reads {
+    meta_primitive_state.subtype : exact;
+  }
+  action_profile : mod_actions;
+}
+
+table t_mod_22 { reads { meta_primitive_state.subtype : exact; }
+  action_profile : mod_actions;}
+
+table t_mod_23 { reads { meta_primitive_state.subtype : exact; }
+  action_profile : mod_actions;}
+
 control do_modify_field_11 {
   apply(t_mod_prep_11);
   apply(t_mod_11);
@@ -110,4 +156,19 @@ control do_modify_field_12 {
 control do_modify_field_13 {
   apply(t_mod_prep_13);
   apply(t_mod_13);
+}
+
+control do_modify_field_21 {
+  apply(t_mod_prep_21);
+  apply(t_mod_21);
+}
+
+control do_modify_field_22 {
+  apply(t_mod_prep_22);
+  apply(t_mod_22);
+}
+
+control do_modify_field_23 {
+  apply(t_mod_prep_23);
+  apply(t_mod_23);
 }

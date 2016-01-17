@@ -16,7 +16,32 @@ table t1_extracted_exact {
   }
 }
 
+table t2_extracted_exact {
+  reads {
+    extracted.data : ternary;
+  }
+  actions {
+    set_program_state;
+  }
+}
+
 table t1_metadata_exact {
+  reads {
+    tmeta.field00 : exact;
+    tmeta.field01 : exact;
+    tmeta.field02 : exact;
+    tmeta.field03 : exact;
+    tmeta.field04 : exact;
+    tmeta.field05 : exact;
+    tmeta.field06 : exact;
+    tmeta.field07 : exact;
+  }
+  actions {
+    set_program_state;
+  }
+}
+
+table t2_metadata_exact {
   reads {
     tmeta.field00 : exact;
     tmeta.field01 : exact;
@@ -42,6 +67,12 @@ table t1_stdmeta_exact {
   }
 }
 
+table t2_stdmeta_exact {
+  actions {
+    set_meta_stdmeta;
+  }
+}
+
 control match_1 {
 // target match -> set program state
   if(meta_ctrl.next_table == EXTRACTED_EXACT) {
@@ -54,6 +85,22 @@ control match_1 {
   else if(meta_ctrl.next_table == STDMETA_EXACT) {
     apply(t1_stdmeta_exact);
     switch_stdmeta_1();
+  }
+  // ... TODO: (other t1 match tables)
+}
+
+control match_2 {
+// target match -> set program state
+  if(meta_ctrl.next_table == EXTRACTED_EXACT) {
+    apply(t2_extracted_exact);
+  }
+  else if(meta_ctrl.next_table == METADATA_EXACT) {
+    switch_tmeta_2();
+    apply(t2_metadata_exact);
+  }
+  else if(meta_ctrl.next_table == STDMETA_EXACT) {
+    apply(t2_stdmeta_exact);
+    switch_stdmeta_2();
   }
   // ... TODO: (other t1 match tables)
 }

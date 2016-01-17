@@ -56,3 +56,57 @@ control switch_primitivetype_13 {
   }
   // ... (other primitive types)
 }
+
+control switch_primitivetype_21 {
+  if(meta_primitive_state.primitive == A_MODIFY_FIELD) {
+      do_modify_field_21(); // modify_field.p4
+  }
+/*  else if(meta_primitive_state.primitive == A_ADD_HEADER) {
+    do_add_header_11(); // add_header.p4
+  }*/
+  else if(meta_primitive_state.primitive == A_DROP) {
+    do_drop_21();
+  }
+  else if(meta_primitive_state.primitive == A_NO_OP) {
+  }
+  else if(meta_primitive_state.primitive == A_TRUNCATE) {
+    do_truncate_21();
+  }
+  // ... (other primitive types)
+}
+
+control switch_primitivetype_22 {
+  if(meta_primitive_state.primitive == A_MODIFY_FIELD) {
+      do_modify_field_22(); // modify_field.p4
+  }
+/*  else if(meta_primitive_state.primitive == A_ADD_HEADER) {
+    do_add_header_11(); // add_header.p4
+  }*/
+  else if(meta_primitive_state.primitive == A_DROP) {
+    do_drop_22();
+  }
+  else if(meta_primitive_state.primitive == A_NO_OP) {
+  }
+  else if(meta_primitive_state.primitive == A_TRUNCATE) {
+    do_truncate_22();
+  }
+  // ... (other primitive types)
+}
+
+control switch_primitivetype_23 {
+  if(meta_primitive_state.primitive == A_MODIFY_FIELD) {
+      do_modify_field_23(); // modify_field.p4
+  }
+/*  else if(meta_primitive_state.primitive == A_ADD_HEADER) {
+    do_add_header_11(); // add_header.p4
+  }*/
+  else if(meta_primitive_state.primitive == A_DROP) {
+    do_drop_23();
+  }
+  else if(meta_primitive_state.primitive == A_NO_OP) {
+  }
+  else if(meta_primitive_state.primitive == A_TRUNCATE) {
+    do_truncate_23();
+  }
+  // ... (other primitive types)
+}
