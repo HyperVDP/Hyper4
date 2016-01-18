@@ -54,7 +54,7 @@ class MyTopo(Topo):
                                     device_id = i)
         
         for h in xrange(nb_hosts):
-            host = self.addHost('h%d' % (h + 1))
+            host = self.addHost('h%d' % (h + 1), mac = '00:04:00:00:00:%02x' %h)
 
         for a, b in links:
             self.addLink(a, b)

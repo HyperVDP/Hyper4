@@ -3,7 +3,6 @@
 #include "includes/parser.p4"
 #include "includes/setup.p4"
 #include "includes/stages.p4"
-#include "includes/switch_stdmeta.p4"
 
 metadata meta_primitive_state_t meta_primitive_state;
 metadata meta_stdmeta_t meta_stdmeta;
@@ -23,8 +22,11 @@ register tmeta_16_r {
 }
 
 control ingress {
-  setup();  // setup.p4
-  stage1(); // stages.p4
-  stage2(); // stages.p4
-  stage3(); // stages.p4
+  // setup.p4
+  setup();
+
+  // stages.p4
+  stage1();
+  stage2();
+  stage3();
 }

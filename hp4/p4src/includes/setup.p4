@@ -1,5 +1,3 @@
-//#include "defines.p4"
-
 /* SETUP
    Check the need to initialize local metadata for the current packet
    - this includes the parse width; after this is set, we resubmit so we can

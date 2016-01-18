@@ -1,0 +1,35 @@
+subset of CLI commands of importance:
+
+mirroring_add
+mirroring_delete
+*table_add                              
+table_delete                                                      
+table_indirect_add                     
+table_indirect_add_member_to_group     
+table_indirect_add_with_group          
+table_indirect_create_group            
+table_indirect_create_member           
+table_indirect_delete                  
+table_indirect_delete_group            
+table_indirect_delete_member           
+table_indirect_modify_member           
+table_indirect_remove_member_from_group
+table_indirect_set_default             
+table_indirect_set_default_with_group  
+table_modify
+*table_set_default
+register_write                      
+
+Instructions for converting .p4 to .hp4:
+
+==== SETUP ====
+
+t_packet_init
+
+table_set_default 
+
+t_resubmit
+
+t_norm
+
+t_set_first_table

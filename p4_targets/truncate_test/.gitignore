@@ -1,0 +1,7 @@
+/build
+/.*_ts
+/dependmodules.x
+/passthrough.mk
+/*.pcap
+/passthrough
+/tests/pd_thrift

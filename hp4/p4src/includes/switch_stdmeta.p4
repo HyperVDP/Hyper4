@@ -1,5 +1,3 @@
-//#include "defines.p4"
-
 table t1_stdmeta_ingressport {
   reads {
     standard_metadata.ingress_port : exact;

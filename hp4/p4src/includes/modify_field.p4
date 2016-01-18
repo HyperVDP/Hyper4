@@ -1,5 +1,3 @@
-// modify_field
-
 action mod_meta_stdmeta_ingressport() { 
   register_write(tmeta_16_r, tmeta_16_meta.dstbyteindex, standard_metadata.ingress_port);
 }

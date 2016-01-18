@@ -1,5 +1,5 @@
 #include "switch_meta.p4"
-//#include "switch_stdmeta.p4"
+#include "switch_stdmeta.p4"
 
 action set_program_state(action_ID, primitive_index, stage_state) {
   modify_field(meta_primitive_state.action_ID, action_ID);

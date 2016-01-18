@@ -1,3 +1,5 @@
+#define NO_BROADCAST 4
+
 header_type ethernet_t {
     fields {
         dstAddr : 48;
@@ -26,6 +28,7 @@ action _drop() {
 
 action forward(port) {
   modify_field(standard_metadata.egress_spec, port);
+  modify_field(meta.egress, NO_BROADCAST);
 }
 
 field_list clone_fl {
@@ -59,21 +62,21 @@ action mod_and_clone(port) {
   clone_egress_pkt_to_egress(port, clone_fl);
 }
 
+action _no_op() {
+  no_op();
+}
+
 table clone {
   reads {
     meta.egress : exact;
   }
   actions {
     mod_and_clone;
+    _no_op;
+    _drop;
   }
 }
 
-table t_drop { actions { _drop; }}
-
 control egress {
-  if(meta.egress > 0) {
-    apply(clone);
-  } else {
-    apply(t_drop);
-  }
+  apply(clone);
 }

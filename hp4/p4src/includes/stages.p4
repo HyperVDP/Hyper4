@@ -1,4 +1,3 @@
-//#include "defines.p4"
 #include "match.p4"
 #include "action.p4"
 #include "switch_primitivetype.p4"
