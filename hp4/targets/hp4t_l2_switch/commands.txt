@@ -1,5 +1,12 @@
+mirroring_add 1 1
+mirroring_add 2 2
+mirroring_add 3 3
 table_set_default t_packet_init a_packet_init 256
 table_set_default t_norm a_norm_256
+table_add t_multicast mod_and_clone 3 => 2
+table_add t_multicast mod_and_clone 2 => 1
+table_add t_multicast mod_and_clone 1 => 0
+table_add t_multicast a_drop 0 =>
 table_set_default t_set_first_table set_first_table 1
 table_add t1_extracted_exact init_program_state 0x0004000000000000000000000000000000000000000000000000000000000000&&&0xFFFFFFFFFFFF0000000000000000000000000000000000000000000000000000 => 2 1 1 2 0 1
 table_add t1_extracted_exact init_program_state 0x0004000000010000000000000000000000000000000000000000000000000000&&&0xFFFFFFFFFFFF0000000000000000000000000000000000000000000000000000 => 2 2 1 2 0 1

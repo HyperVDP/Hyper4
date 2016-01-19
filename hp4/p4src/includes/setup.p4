@@ -57,10 +57,10 @@ table t_set_first_table {
 
 // ------ Setup
 control setup {
-  if (meta_ctrl.stage == INIT) {
+  if (meta_ctrl.stage == INIT) { //_condition_0
     apply(t_packet_init);
   }
-  else if ( meta_ctrl.stage == NORM ) {
+  else if ( meta_ctrl.stage == NORM ) { //_condition_1
     apply(t_norm);
     apply(t_set_first_table);
   }

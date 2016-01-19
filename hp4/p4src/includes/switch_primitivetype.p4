@@ -5,21 +5,21 @@
 #include "multicast.p4"
 
 control switch_primitivetype_11 {
-  if(meta_primitive_state.primitive == A_MODIFY_FIELD) {
+  if(meta_primitive_state.primitive == A_MODIFY_FIELD) { //condition_10
       do_modify_field_11(); // modify_field.p4
   }
 /*  else if(meta_primitive_state.primitive == A_ADD_HEADER) {
     do_add_header_11(); // add_header.p4
   }*/
-  else if(meta_primitive_state.primitive == A_DROP) {
+  else if(meta_primitive_state.primitive == A_DROP) { //condition_11
     do_drop_11();
   }
-  else if(meta_primitive_state.primitive == A_NO_OP) {
+  else if(meta_primitive_state.primitive == A_NO_OP) { //condition_12
   } 
 /*  else if(meta_primitive_state.primitive == A_TRUNCATE) {
     do_truncate_11();
   }*/
-  else if(meta_primitive_state.primitive == A_MULTICAST) {
+  else if(meta_primitive_state.primitive == A_MULTICAST) { //condition_13
     do_multicast_11();
   }
   // ... (other primitive types)

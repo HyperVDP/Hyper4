@@ -29,7 +29,7 @@ control ingress {
   // setup.p4
   setup();
 
-  if (meta_ctrl.stage == NORM) {
+  if (meta_ctrl.stage == NORM) { //_condition_2
     // stages.p4
     stage1();
     stage2();
@@ -59,7 +59,7 @@ table t_multicast {
 }
 
 control egress {
-  if(meta_ctrl.do_multicast == 1) {
+  if(meta_ctrl.do_multicast == 1) { // c_66
     apply(t_multicast);
   }
 }

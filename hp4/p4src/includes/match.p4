@@ -108,7 +108,7 @@ table t3_stdmeta_exact { actions { set_meta_stdmeta; } }
 
 control match_1 {
 // target match -> set program state
-  if(meta_ctrl.next_table == EXTRACTED_EXACT) {
+  if(meta_ctrl.next_table == EXTRACTED_EXACT) { // condition_3
     apply(t1_extracted_exact);
   }
   else if(meta_ctrl.next_table == METADATA_EXACT) {
@@ -124,14 +124,14 @@ control match_1 {
 
 control match_2 {
 // target match -> set program state
-  if(meta_ctrl.next_table == EXTRACTED_EXACT) {
+  if(meta_ctrl.next_table == EXTRACTED_EXACT) { // c_24
     apply(t2_extracted_exact);
   }
-  else if(meta_ctrl.next_table == METADATA_EXACT) {
+  else if(meta_ctrl.next_table == METADATA_EXACT) { // c_25
     switch_tmeta_2();
     apply(t2_metadata_exact);
   }
-  else if(meta_ctrl.next_table == STDMETA_EXACT) {
+  else if(meta_ctrl.next_table == STDMETA_EXACT) { // c_27
     apply(t2_stdmeta_exact);
     switch_stdmeta_2();
   }

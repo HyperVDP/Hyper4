@@ -60,12 +60,12 @@ control stage1 {
   apply(set_program_state_11);
 
   // next primitive
-  if(meta_ctrl.stage_state != COMPLETE) { // p4_conditional_node 16
+  if(meta_ctrl.stage_state != COMPLETE) { // conditional_node 14
     // set primitive meta data
     apply(set_primitive_metadata_12); // action.p4
     switch_primitivetype_12();          // switch_primitivetype.p4
     apply(set_program_state_12);
-    if(meta_ctrl.stage_state != COMPLETE) { // p4_conditional_node 19
+    if(meta_ctrl.stage_state != COMPLETE) { // conditional_node 
       apply(set_primitive_metadata_13); // action.p4
       switch_primitivetype_13();          // switch_primitivetype.p4
       apply(set_program_state_13);
