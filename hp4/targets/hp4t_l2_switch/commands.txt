@@ -1,30 +1,20 @@
-CONTINUE	2
-MODIFY_FIELD	0
-MULTICAST	19
-META_CONST	7
-STDMETA_EGRESSSPEC_CONST	8
-EXTRACTED_EXACT	1
-
-
 table_set_default t_packet_init a_packet_init 256
 table_set_default t_norm a_norm_256
-table_set_default t_set_first_table set_first_table [EXTRACTED_EXACT]
-table_add t1_extracted_exact set_program_state 0x0004000000000000000000000000000000000000000000000000000000000000&&&0xFFFFFFFFFFFF0000000000000000000000000000000000000000000000000000 => [ACTION_ID:]2 [MATCH_ID:]1 [PRIMITIVE_INDEX:]1 [CONTINUE] [PRIORITY:]1
-table_add t1_extracted_exact set_program_state 0x0004000000010000000000000000000000000000000000000000000000000000&&&0xFFFFFFFFFFFF0000000000000000000000000000000000000000000000000000 => [ACTION_ID:]2 [MATCH_ID:]2 [PRIMITIVE_INDEX:]1 [CONTINUE] [PRIORITY:]1
-table_add t1_extracted_exact set_program_state 0x0004000000020000000000000000000000000000000000000000000000000000&&&0xFFFFFFFFFFFF0000000000000000000000000000000000000000000000000000 => [ACTION_ID:]2 [MATCH_ID:]3 [PRIMITIVE_INDEX:]1 [CONTINUE] [PRIORITY:]1
-table_add t1_extracted_exact set_program_state 0xffffffffffff0000000000000000000000000000000000000000000000000000&&&0xFFFFFFFFFFFF0000000000000000000000000000000000000000000000000000 => [ACTION_ID:]3 [MATCH_ID:]4 [PRIMITIVE_INDEX:]1 [CONTINUE] [PRIORITY:]1
-
-table_add set_primitive_metadata_11 a_set_primitive_metadata [ACTION_ID:]2 [PRIMITIVE_INDEX:]1 => [MODIFY_FIELD] [STDMETA_EGRESSSPEC_CONST]
-table_add set_primitive_metadata_11 a_set_primitive_metadata [ACTION_ID:]3 [PRIMITIVE_INDEX:]1 => [MULTICAST] 0
-
-table_add t_mod_prep_11 _no_op [ACTION_ID:]2 [PRIMITIVE_INDEX:]1 =>
-table_add t_mod_11 mod_stdmeta_egressspec_const [STDMETA_EGRESSSPEC_CONST] [MATCH_ID:]1 => [VAL:]1
-table_add t_mod_11 mod_stdmeta_egressspec_const [STDMETA_EGRESSSPEC_CONST] [MATCH_ID:]2 => [VAL:]2
-table_add t_mod_11 mod_stdmeta_egressspec_const [STDMETA_EGRESSSPEC_CONST] [MATCH_ID:]3 => [VAL:]3
-
+table_set_default t_set_first_table set_first_table 1
+table_add t1_extracted_exact set_program_state 0x0004000000000000000000000000000000000000000000000000000000000000&&&0xFFFFFFFFFFFF0000000000000000000000000000000000000000000000000000 => 2 1 1 2 0 1
+table_add t1_extracted_exact set_program_state 0x0004000000010000000000000000000000000000000000000000000000000000&&&0xFFFFFFFFFFFF0000000000000000000000000000000000000000000000000000 => 2 2 1 2 0 1
+table_add t1_extracted_exact set_program_state 0x0004000000020000000000000000000000000000000000000000000000000000&&&0xFFFFFFFFFFFF0000000000000000000000000000000000000000000000000000 => 2 3 1 2 0 1
+table_add t1_extracted_exact set_program_state 0xffffffffffff0000000000000000000000000000000000000000000000000000&&&0xFFFFFFFFFFFF0000000000000000000000000000000000000000000000000000 => 3 4 1 2 0 1
+table_add set_primitive_metadata_11 a_set_primitive_metadata 2 1 => 0 8
+table_add set_primitive_metadata_11 a_set_primitive_metadata 3 1 => 19 0
+table_add t_mod_prep_11 _no_op 2 1 =>
+table_add t_mod_11 mod_stdmeta_egressspec_const 8 1 => 1
+table_add t_mod_11 mod_stdmeta_egressspec_const 8 2 => 2
+table_add t_mod_11 mod_stdmeta_egressspec_const 8 3 => 3
 table_set_default t_multicast_11 a_multicast 3
-
-table_add set_program_state_11 set_program_state [ACTION_ID:]2 [PRIMITIVE_INDEX:]1 => [ACTION_ID:]2 [PRIMITVE_INDEX:]2 [CONTINUE]
-table_add set_primitive_metadata_12 a_set_primitive_metadata [ACTION_ID:]2 [PRIMITIVE_INDEX:]2 => [MODIFY_FIELD] [META_CONST]
-table_add t_mod_prep_12 a_mod_prep_8 [ACTION_ID:]2 [PRIMITIVE_INDEX:]2 => [DSTBYTEINDEX:]0 [SRCBYTEINDEX:]0
-table_add t_mod_12 mod_meta_const [META_CONST] => [VAL:]4
+table_add set_program_state_11 set_program_state 2 1 => 2 2 2 0
+table_add set_primitive_metadata_12 a_set_primitive_metadata 2 2 => 0 7
+table_add t_mod_prep_12 a_mod_prep_8 2 2 => 0 0
+table_add t_mod_12 mod_meta_const 7 => 4
+table_add set_program_state_11 set_program_state 3 1 => 0 0 0
+table_add set_program_state_12 set_program_state 2 2 => 0 0 0

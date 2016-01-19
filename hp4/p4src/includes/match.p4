@@ -1,11 +1,12 @@
 #include "switch_meta.p4"
 #include "switch_stdmeta.p4"
 
-action set_program_state(action_ID, match_ID, primitive_index, stage_state) {
+action set_program_state(action_ID, match_ID, primitive_index, stage_state, next_table) {
   modify_field(meta_primitive_state.action_ID, action_ID);
   modify_field(meta_primitive_state.match_ID, match_ID);
   modify_field(meta_primitive_state.primitive_index, primitive_index);
   modify_field(meta_ctrl.stage_state, stage_state);
+  modify_field(meta_ctrl.next_table, next_table);
 }
 
 table t1_extracted_exact {

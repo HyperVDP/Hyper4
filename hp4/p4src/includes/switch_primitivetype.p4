@@ -40,6 +40,9 @@ control switch_primitivetype_12 {
 /*  else if(meta_primitive_state.primitive == A_TRUNCATE) {
     do_truncate_12();
   }*/
+  else if(meta_primitive_state.primitive == A_MULTICAST) {
+    do_multicast_12();
+  }
   // ... (other primitive types)
 }
 
@@ -58,6 +61,9 @@ control switch_primitivetype_13 {
 /*  else if(meta_primitive_state.primitive == A_TRUNCATE) {
     do_truncate_13();
   }*/
+  else if(meta_primitive_state.primitive == A_MULTICAST) {
+    do_multicast_13();
+  }
   // ... (other primitive types)
 }
 
@@ -76,6 +82,9 @@ control switch_primitivetype_21 {
 /*  else if(meta_primitive_state.primitive == A_TRUNCATE) {
     do_truncate_21();
   }*/
+  else if(meta_primitive_state.primitive == A_MULTICAST) {
+    do_multicast_21();
+  }
   // ... (other primitive types)
 }
 
@@ -94,6 +103,9 @@ control switch_primitivetype_22 {
 /*  else if(meta_primitive_state.primitive == A_TRUNCATE) {
     do_truncate_22();
   }*/
+  else if(meta_primitive_state.primitive == A_MULTICAST) {
+    do_multicast_22();
+  }
   // ... (other primitive types)
 }
 
@@ -112,6 +124,9 @@ control switch_primitivetype_23 {
 /*  else if(meta_primitive_state.primitive == A_TRUNCATE) {
     do_truncate_23();
   }*/
+  else if(meta_primitive_state.primitive == A_MULTICAST) {
+    do_multicast_23();
+  }
   // ... (other primitive types)
 }
 
@@ -130,6 +145,9 @@ control switch_primitivetype_31 {
 /*  else if(meta_primitive_state.primitive == A_TRUNCATE) {
     do_truncate_31();
   }*/
+  else if(meta_primitive_state.primitive == A_MULTICAST) {
+    do_multicast_31();
+  }
   // ... (other primitive types)
 }
 
@@ -148,6 +166,9 @@ control switch_primitivetype_32 {
 /*  else if(meta_primitive_state.primitive == A_TRUNCATE) {
     do_truncate_32();
   }*/
+  else if(meta_primitive_state.primitive == A_MULTICAST) {
+    do_multicast_32();
+  }
   // ... (other primitive types)
 }
 
@@ -166,5 +187,8 @@ control switch_primitivetype_33 {
 /*  else if(meta_primitive_state.primitive == A_TRUNCATE) {
     do_truncate_33();
   }*/
+  else if(meta_primitive_state.primitive == A_MULTICAST) {
+    do_multicast_33();
+  }
   // ... (other primitive types)
 }

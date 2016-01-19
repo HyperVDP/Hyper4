@@ -48,7 +48,7 @@ table t_multicast {
   actions {
     mod_and_clone;
     _no_op;
-    _drop;
+    a_drop;
   }
 }
 
