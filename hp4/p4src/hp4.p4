@@ -25,10 +25,12 @@ control ingress {
   // setup.p4
   setup();
 
-  // stages.p4
-  stage1();
-  stage2();
-  stage3();
+  if (meta_ctrl.stage == NORM) {
+    // stages.p4
+    stage1();
+    stage2();
+    stage3();
+  }
 }
 
 field_list clone_fl {

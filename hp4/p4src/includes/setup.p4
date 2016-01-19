@@ -8,7 +8,7 @@
 
 // ------ Initialize local metadata and resubmit
 field_list f_packet_init {
-  meta_parse.parse_width;
+  meta_parse;
 }
 
 action a_packet_init(parse_width) {
@@ -61,7 +61,6 @@ control setup {
   }
   else if ( meta_ctrl.stage == NORM ) {
     apply(t_norm);
+    apply(t_set_first_table);
   }
-
-  apply(t_set_first_table);
 }
