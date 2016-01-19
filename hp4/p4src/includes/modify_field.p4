@@ -1,3 +1,16 @@
+/*
+David Hancock
+FLUX Research Group
+University of Utah
+dhancock@cs.utah.edu
+
+HyPer4: A P4 Program to Run Other P4 Programs
+
+modify_field.p4: Carry out the various subtypes of the modify_field primitive,
+                 where 'subtype' refers to a distinct combination of parameter
+                 types.
+*/
+
 action mod_meta_stdmeta_ingressport() { 
   register_write(tmeta_16_r, tmeta_16_meta.dstbyteindex, standard_metadata.ingress_port);
 }

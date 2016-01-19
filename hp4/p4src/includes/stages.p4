@@ -1,3 +1,18 @@
+/*
+David Hancock
+FLUX Research Group
+University of Utah
+dhancock@cs.utah.edu
+
+HyPer4: A P4 Program to Run Other P4 Programs
+
+stages.p4: Each control function executes a single match-action stage of a
+           target P4 program.
+
+           The set_program_state tables guide execution from one primtive to
+           the next.
+*/
+
 #include "match.p4"
 #include "action.p4"
 #include "switch_primitivetype.p4"

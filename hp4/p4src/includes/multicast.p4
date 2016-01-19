@@ -1,3 +1,17 @@
+/*
+David Hancock
+FLUX Research Group
+University of Utah
+dhancock@cs.utah.edu
+
+HyPer4: A P4 Program to Run Other P4 Programs
+
+multicast.p4: Provide multicast support.  The method is less efficient than
+              a switch-specific mechanism, but it is portable.  The code
+              here sets up multicasting, while hp4.p4 is where it is carried
+              out.
+*/
+
 action a_multicast(highport) {
   modify_field(meta_ctrl.multicast_current_egress, highport);
   modify_field(meta_ctrl.do_multicast, 1);

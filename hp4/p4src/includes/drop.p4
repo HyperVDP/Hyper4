@@ -1,3 +1,14 @@
+/*
+David Hancock
+FLUX Research Group
+University of Utah
+dhancock@cs.utah.edu
+
+HyPer4: A P4 Program to Run Other P4 Programs
+
+drop.p4: Implements the drop primitive.
+*/
+
 action a_drop() {
   drop();
 }

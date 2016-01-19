@@ -1,3 +1,14 @@
+/*
+David Hancock
+FLUX Research Group
+University of Utah
+dhancock@cs.utah.edu
+
+HyPer4: A P4 Program to Run Other P4 Programs
+
+switch_meta.p4: Prepares HP4 to handle table matching: exact, using metadata
+*/
+
 action a_tmeta_setup(tm_width, num, begin) {
   modify_field(tmeta.tm_width, tm_width);
   modify_field(tmeta.num, num);

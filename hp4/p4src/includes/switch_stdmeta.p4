@@ -1,3 +1,14 @@
+/*
+David Hancock
+FLUX Research Group
+University of Utah
+dhancock@cs.utah.edu
+
+HyPer4: A P4 Program to Run Other P4 Programs
+
+switch_stdmeta.p4: Handles table matching: exact, using standard metadata
+*/
+
 table t1_stdmeta_ingressport {
   reads {
     standard_metadata.ingress_port : exact;

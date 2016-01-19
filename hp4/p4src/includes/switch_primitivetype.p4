@@ -1,3 +1,15 @@
+/*
+David Hancock
+FLUX Research Group
+University of Utah
+dhancock@cs.utah.edu
+
+HyPer4: A P4 Program to Run Other P4 Programs
+
+switch_primitivetype.p4: Redirect execution to the control function appropriate
+                         for the next primitive in the target P4 program
+*/
+
 #include "modify_field.p4"
 //#include "add_header.p4"
 #include "drop.p4"

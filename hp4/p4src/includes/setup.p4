@@ -1,9 +1,17 @@
-/* SETUP
-   Check the need to initialize local metadata for the current packet
-   - this includes the parse width; after this is set, we resubmit so we can
-     extract the proper number of bits
-   Normalize extracted data to a standard width bitfield (e.g. 256 -> 768)
-   Set first table
+/*
+David Hancock
+FLUX Research Group
+University of Utah
+dhancock@cs.utah.edu
+
+HyPer4: A P4 Program to Run Other P4 Programs
+
+setup.p4:
+- Check the need to initialize local metadata for the current packet
+  - this includes the parse width; after this is set, we resubmit so we can
+    extract the proper number of bits
+- Normalize extracted data to a standard width bitfield (e.g. 256 -> 768)
+- Set first table (according to match type)
 */
 
 // ------ Initialize local metadata and resubmit

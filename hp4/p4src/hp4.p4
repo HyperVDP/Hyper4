@@ -1,3 +1,14 @@
+/*
+David Hancock
+FLUX Research Group
+University of Utah
+dhancock@cs.utah.edu
+
+HyPer4: A P4 Program to Run Other P4 Programs
+
+hp4.p4: Define the ingress and egress pipelines, including multicast support.
+*/
+
 #include "includes/defines.p4"
 #include "includes/headers.p4"
 #include "includes/parser.p4"
@@ -29,7 +40,7 @@ control ingress {
   // setup.p4
   setup();
 
-  if (meta_ctrl.stage == NORM) { //_condition_2
+  if (meta_ctrl.stage == NORM) {
     // stages.p4
     stage1();
     stage2();
@@ -59,7 +70,7 @@ table t_multicast {
 }
 
 control egress {
-  if(meta_ctrl.do_multicast == 1) { // c_66
+  if(meta_ctrl.do_multicast == 1) {
     apply(t_multicast);
   }
 }

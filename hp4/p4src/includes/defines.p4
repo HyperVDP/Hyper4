@@ -1,3 +1,14 @@
+/*
+David Hancock
+FLUX Research Group
+University of Utah
+dhancock@cs.utah.edu
+
+HyPer4: A P4 Program to Run Other P4 Programs
+
+defines.p4: Define constants
+*/
+
 // meta_ctrl.stage
 #define INIT	0
 #define NORM	1

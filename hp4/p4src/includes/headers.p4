@@ -1,10 +1,12 @@
 /*
-DAVID HANCOCK
-dhancock@cs.utah.edu
-Flux Research Group
+David Hancock
+FLUX Research Group
 University of Utah
+dhancock@cs.utah.edu
 
-Define headers required by HyPer4
+HyPer4: A P4 Program to Run Other P4 Programs
+
+headers.p4: Define the headers required by HP4.
 */
 
 // Unfortunately, despite the stated goal of HyPer4 to provide target independent features,

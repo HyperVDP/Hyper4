@@ -1,52 +1,82 @@
-COMPLETE	1
-CONTINUE	2
-MODIFY_FIELD	0
-MULTICAST	19
-META_CONST	7
-STDMETA_EGRESSSPEC_CONST	8
-EXTRACTED_EXACT	1
+# DAVID HANCOCK
+# dhancock@cs.utah.edu
+# FLUX Research Group
+# University of Utah
+#
+# INSTRUCTIONS FOR CONVERTING THIS FILE TO A FORM CONSUMABLE BY HYPER4:
+# Delete all lines that start with '#'
+# Delete all empty lines
+# Replace every instance of each constant here, including the surrounding
+#  brackets, with the indicated value:
+#
+# COMPLETE			1
+# CONTINUE			2
+# MODIFY_FIELD			0
+# MULTICAST			19
+# META_CONST			7
+# STDMETA_EGRESSSPEC_CONST	8
+# EXTRACTED_EXACT		1
+# BITS_TO_EXTRACT		256
+#
+# Delete every instance of [*:]
+####################
 
+# MULTICAST SUPPORT
+mirroring_add 1 1
+mirroring_add 2 2
+mirroring_add 3 3
+table_add t_multicast mod_and_clone 3 => 2
+table_add t_multicast mod_and_clone 2 => 1
+table_add t_multicast mod_and_clone 1 => 0
+table_add t_multicast a_drop 0 =>
 
-table_set_default t_packet_init a_packet_init 256
-table_set_default t_norm a_norm_256
+# Initialize
+table_set_default t_packet_init a_packet_init [BITS_TO_EXTRACT]
+table_set_default t_norm a_norm_[BITS_TO_EXTRACT]
 table_set_default t_set_first_table set_first_table [EXTRACTED_EXACT]
+
+# Match entries for hp4t_lt_switch's dmac table
 table_add t1_extracted_exact init_program_state 0x0004000000000000000000000000000000000000000000000000000000000000&&&0xFFFFFFFFFFFF0000000000000000000000000000000000000000000000000000 => [ACTION_ID:]2 [MATCH_ID:]1 [PRIMITIVE_INDEX:]1 [CONTINUE] [NEXT_TABLE:]0 [PRIORITY:]1
 table_add t1_extracted_exact init_program_state 0x0004000000010000000000000000000000000000000000000000000000000000&&&0xFFFFFFFFFFFF0000000000000000000000000000000000000000000000000000 => [ACTION_ID:]2 [MATCH_ID:]2 [PRIMITIVE_INDEX:]1 [CONTINUE] [NEXT_TABLE:]0 [PRIORITY:]1
 table_add t1_extracted_exact init_program_state 0x0004000000020000000000000000000000000000000000000000000000000000&&&0xFFFFFFFFFFFF0000000000000000000000000000000000000000000000000000 => [ACTION_ID:]2 [MATCH_ID:]3 [PRIMITIVE_INDEX:]1 [CONTINUE] [NEXT_TABLE:]0 [PRIORITY:]1
 table_add t1_extracted_exact init_program_state 0xffffffffffff0000000000000000000000000000000000000000000000000000&&&0xFFFFFFFFFFFF0000000000000000000000000000000000000000000000000000 => [ACTION_ID:]3 [MATCH_ID:]4 [PRIMITIVE_INDEX:]1 [CONTINUE] [NEXT_TABLE:]0 [PRIORITY:]1
 
+# Based on the action_ID, set the primitive type and subtype
 table_add set_primitive_metadata_11 a_set_primitive_metadata [ACTION_ID:]2 [PRIMITIVE_INDEX:]1 => [MODIFY_FIELD] [STDMETA_EGRESSSPEC_CONST]
 table_add set_primitive_metadata_11 a_set_primitive_metadata [ACTION_ID:]3 [PRIMITIVE_INDEX:]1 => [MULTICAST] 0
 
-# tables that use action_profiles are treated as indirect tables
-#  in the bmv2 CLI
-# so this:
-#   table_add t_mod_prep_11 _no_op [ACTION_ID:]2 [PRIMITIVE_INDEX:]1 =>
-# becomes:
+# The next two operations indicate to HP4 that no preparation (t_mod_prep) is
+# necessary for the subsequent modify_field primitive; so do no_op.
+# Tables that use action_profiles are treated as indirect tables in the bmv2
+#  CLI.  So we do this:
 table_indirect_create_member t_mod_prep_11 _no_op
 table_indirect_add t_mod_prep_11 [ACTION_ID:]2 [PRIMITIVE_INDEX:]1 => [HANDLE:]0
 # where the handle is created by table_indirect_create_member,
 # and always starts at 0 and increments by 1
 
-table_indirect_create_member t_mod_11  mod_stdmeta_egressspec_const [VAL:]1
+# Set the egress spec based on the table entry that hits
+table_indirect_create_member t_mod_11 mod_stdmeta_egressspec_const [VAL:]1
 table_indirect_create_member t_mod_11 mod_stdmeta_egressspec_const [VAL:]2
 table_indirect_create_member t_mod_11 mod_stdmeta_egressspec_const [VAL:]3
 table_indirect_add t_mod_11 [STDMETA_EGRESSSPEC_CONST] [MATCH_ID:]1 => [HANDLE:]0
 table_indirect_add t_mod_11 [STDMETA_EGRESSSPEC_CONST] [MATCH_ID:]2 => [HANDLE:]1
 table_indirect_add t_mod_11 [STDMETA_EGRESSSPEC_CONST] [MATCH_ID:]3 => [HANDLE:]2
 
+# Set the first port to send a clone out of for a multicast operation
 table_set_default t_multicast_11 a_multicast 3
 
+# Guide HP4 to the next primitive based on the current one
 table_add set_program_state_11 set_program_state [ACTION_ID:]2 [PRIMITIVE_INDEX:]1 => [ACTION_ID:]2 [PRIMITVE_INDEX:]2 [CONTINUE] [NEXT_TABLE:]0
-
 table_add set_primitive_metadata_12 a_set_primitive_metadata [ACTION_ID:]2 [PRIMITIVE_INDEX:]2 => [MODIFY_FIELD] [META_CONST]
 
+# Prepare HP4 to do a modify_field on a metadata field
 table_indirect_create_member t_mod_prep_12 a_mod_prep_8 [DSTBYTEINDEX:]0 [SRCBYTEINDEX:]0
-table_indirect_add t_mod_prep_12 [ACTION_ID:]2 [PRIMITIVE_INDEX:]2 => 0
-
+table_indirect_add t_mod_prep_12 [ACTION_ID:]2 [PRIMITIVE_INDEX:]2 => [HANDLE:]0
 table_indirect_create_member t_mod_12 mod_meta_const [VAL:]4
-table_indirect_add t_mod_12 [META_CONST] => 0
+table_indirect_add t_mod_12 [META_CONST] [MATCH_ID:]1 => 0
+table_indirect_add t_mod_12 [META_CONST] [MATCH_ID:]2 => 0
+table_indirect_add t_mod_12 [META_CONST] [MATCH_ID:]3 => 0
 
+# Indicate when HP4 can stop:
 table_add set_program_state_11 set_program_state [ACTION_ID:]3 [PRIMITIVE_INDEX:]1 => [ACTION_ID:]0 [PRIMITIVE_INDEX:]0 [COMPLETE] [NEXT_TABLE:]0
-
 table_add set_program_state_12 set_program_state [ACTION_ID:]2 [PRIMITIVE_INDEX:]2 => [ACTION_ID:]0 [PRIMITIVE_INDEX:]0 [COMPLETE] [NEXT_TABLE:]0

@@ -1,4 +1,14 @@
-//#include "defines.p4"
+/*
+David Hancock
+FLUX Research Group
+University of Utah
+dhancock@cs.utah.edu
+
+HyPer4: A P4 Program to Run Other P4 Programs
+
+parser.p4: Define various parse functions allowing us to extract a specified
+           number of bits from the received packet.
+*/
 
 metadata meta_parse_t meta_parse;
 metadata meta_ctrl_t meta_ctrl;

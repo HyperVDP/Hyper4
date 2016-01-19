@@ -1,3 +1,14 @@
+/*
+David Hancock
+FLUX Research Group
+University of Utah
+dhancock@cs.utah.edu
+
+HyPer4: A P4 Program to Run Other P4 Programs
+
+match.p4: Support various types of matching used by the target P4 program.
+*/
+
 #include "switch_meta.p4"
 #include "switch_stdmeta.p4"
 
