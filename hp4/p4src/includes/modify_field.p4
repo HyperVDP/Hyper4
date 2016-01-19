@@ -67,32 +67,33 @@ action_profile mod_actions {
 table t_mod_11 {
   reads {
     meta_primitive_state.subtype : exact;
+    meta_primitive_state.match_ID : exact;
   }
   action_profile : mod_actions;
 }
 
-table t_mod_12 { reads { meta_primitive_state.subtype : exact; }
+table t_mod_12 { reads { meta_primitive_state.subtype : exact; meta_primitive_state.match_ID : exact;}
   action_profile : mod_actions;}
 
-table t_mod_13 { reads { meta_primitive_state.subtype : exact; }
+table t_mod_13 { reads { meta_primitive_state.subtype : exact; meta_primitive_state.match_ID : exact;}
   action_profile : mod_actions;}
 
-table t_mod_21 { reads { meta_primitive_state.subtype : exact; }
+table t_mod_21 { reads { meta_primitive_state.subtype : exact; meta_primitive_state.match_ID : exact;}
   action_profile : mod_actions;}
 
-table t_mod_22 { reads { meta_primitive_state.subtype : exact; }
+table t_mod_22 { reads { meta_primitive_state.subtype : exact; meta_primitive_state.match_ID : exact;}
   action_profile : mod_actions;}
 
-table t_mod_23 { reads { meta_primitive_state.subtype : exact; }
+table t_mod_23 { reads { meta_primitive_state.subtype : exact; meta_primitive_state.match_ID : exact;}
   action_profile : mod_actions;}
 
-table t_mod_31 { reads { meta_primitive_state.subtype : exact; }
+table t_mod_31 { reads { meta_primitive_state.subtype : exact; meta_primitive_state.match_ID : exact;}
   action_profile : mod_actions;}
 
-table t_mod_32 { reads { meta_primitive_state.subtype : exact; }
+table t_mod_32 { reads { meta_primitive_state.subtype : exact; meta_primitive_state.match_ID : exact;}
   action_profile : mod_actions;}
 
-table t_mod_33 { reads { meta_primitive_state.subtype : exact; }
+table t_mod_33 { reads { meta_primitive_state.subtype : exact; meta_primitive_state.match_ID : exact;}
   action_profile : mod_actions;}
 
 action a_mod_prep_8(dstindex, srcindex) {

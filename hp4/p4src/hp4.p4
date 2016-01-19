@@ -30,3 +30,28 @@ control ingress {
   stage2();
   stage3();
 }
+
+field_list clone_fl {
+  standard_metadata;
+  meta_ctrl;
+}
+
+action mod_and_clone(port) {
+  modify_field(meta_ctrl.multicast_current_egress, port);
+  clone_egress_pkt_to_egress(port, clone_fl);
+}
+
+table t_multicast {
+  reads {
+    meta_ctrl.multicast_current_egress : exact;
+  }
+  actions {
+    mod_and_clone;
+    _no_op;
+    _drop;
+  }
+}
+
+control egress {
+  apply(t_multicast);
+}

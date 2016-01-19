@@ -1,7 +1,8 @@
 #include "modify_field.p4"
 //#include "add_header.p4"
 #include "drop.p4"
-#include "truncate.p4"
+//#include "truncate.p4"
+#include "multicast.p4"
 
 control switch_primitivetype_11 {
   if(meta_primitive_state.primitive == A_MODIFY_FIELD) {
@@ -18,6 +19,9 @@ control switch_primitivetype_11 {
 /*  else if(meta_primitive_state.primitive == A_TRUNCATE) {
     do_truncate_11();
   }*/
+  else if(meta_primitive_state.primitive == A_MULTICAST) {
+    do_multicast_11();
+  }
   // ... (other primitive types)
 }
 

@@ -23,6 +23,7 @@ header_type meta_ctrl_t {
     stage : 8; // e.g. INIT, NORM, etc.
     next_table : 8;
     stage_state : 8; // e.g. CONTINUE, COMPLETE
+    multicast_current_egress : 8;
   }
 }
 
@@ -30,6 +31,7 @@ header_type meta_ctrl_t {
 header_type meta_primitive_state_t {
   fields {
     action_ID : 8; // identifies the compound action being executed
+    match_ID : 8; // identifies the match entry
     primitive_index : 8; // place within compound action
     primitive : 8; // e.g. modify_field, add_header, etc.
     subtype : 8; // maps to a set identifying the parameters' types
