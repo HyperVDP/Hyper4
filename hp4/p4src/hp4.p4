@@ -11,6 +11,10 @@ metadata tmeta_t tmeta;
 metadata tmeta_8_meta_t tmeta_8_meta;
 metadata tmeta_16_meta_t tmeta_16_meta;
 
+// Unfortunately, despite the stated goal of HyPer4 to provide target independent features,
+//  bmv2 requires this intrinsic metadata structure in order to do a resubmit
+metadata intrinsic_metadata_t instrinsic_metadata;
+
 register tmeta_8_r {
   width: 8;
   instance_count: TMETA_8_CAPACITY;

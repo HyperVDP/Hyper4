@@ -7,6 +7,18 @@ University of Utah
 Define headers required by HyPer4
 */
 
+// Unfortunately, despite the stated goal of HyPer4 to provide target independent features,
+//  bmv2 requires this intrinsic metadata structure in order to do a resubmit
+header_type intrinsic_metadata_t {
+  fields {
+        mcast_grp : 4;
+        egress_rid : 4;
+        mcast_hash : 16;
+        lf_field_list : 32;
+        resubmit_flag : 16;
+  }
+}
+
 // meta_parse: stores the parse width (e.g. 256 | 512 | 768): # bits to
 // extract
 header_type meta_parse_t {
