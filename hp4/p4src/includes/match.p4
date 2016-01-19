@@ -1,9 +1,16 @@
 #include "switch_meta.p4"
 #include "switch_stdmeta.p4"
 
-action set_program_state(action_ID, match_ID, primitive_index, stage_state, next_table) {
+action init_program_state(action_ID, match_ID, primitive_index, stage_state, next_table) {
   modify_field(meta_primitive_state.action_ID, action_ID);
   modify_field(meta_primitive_state.match_ID, match_ID);
+  modify_field(meta_primitive_state.primitive_index, primitive_index);
+  modify_field(meta_ctrl.stage_state, stage_state);
+  modify_field(meta_ctrl.next_table, next_table);
+}
+
+action set_program_state(action_ID, primitive_index, stage_state, next_table) {
+  modify_field(meta_primitive_state.action_ID, action_ID);
   modify_field(meta_primitive_state.primitive_index, primitive_index);
   modify_field(meta_ctrl.stage_state, stage_state);
   modify_field(meta_ctrl.next_table, next_table);
@@ -14,7 +21,7 @@ table t1_extracted_exact {
     extracted.data : ternary;
   }
   actions {
-    set_program_state;
+    init_program_state;
   }
 }
 
@@ -30,7 +37,7 @@ table t1_metadata_exact {
     tmeta.field07 : exact;
   }
   actions {
-    set_program_state;
+    init_program_state;
   }
 }
 
@@ -39,7 +46,7 @@ table t2_extracted_exact {
     extracted.data : ternary;
   }
   actions {
-    set_program_state;
+    init_program_state;
   }
 }
 
@@ -55,7 +62,7 @@ table t2_metadata_exact {
     tmeta.field07 : exact;
   }
   actions {
-    set_program_state;
+    init_program_state;
   }
 }
 
@@ -65,7 +72,7 @@ table t3_extracted_exact {
     extracted.data : ternary;
   }
   actions {
-    set_program_state;
+    init_program_state;
   }
 }
 
@@ -81,7 +88,7 @@ table t3_metadata_exact {
     tmeta.field07 : exact;
   }
   actions {
-    set_program_state;
+    init_program_state;
   }
 }
 
