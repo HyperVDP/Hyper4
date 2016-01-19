@@ -22,10 +22,12 @@ parser start {
   return ingress;
 }
 
+// .hp4 ACTION_ID: 1
 action _drop() {
   drop();
 }
 
+// .hp4 ACTION_ID: 2
 action forward(port) {
   modify_field(standard_metadata.egress_spec, port);
   modify_field(meta.egress, NO_BROADCAST);
@@ -36,6 +38,7 @@ field_list clone_fl {
   meta;
 }
 
+// .hp4 ACTION_ID: 3
 action broadcast(port) {
   modify_field(standard_metadata.egress_spec, port);
   modify_field(meta.egress, port);

@@ -1,0 +1,8 @@
+table_set_default t_packet_init a_packet_init 256
+table_set_default t_norm a_norm_256
+table_set_default t_set_first_table set_first_table 1
+table_add t1_extracted_exact set_program_state 0x0004000000000000000000000000000000000000000000000000000000000000&&&0xFFFFFFFFFFFF0000000000000000000000000000000000000000000000000000 => 2 1 2 1
+table_add set_primitive_metadata_11 a_set_primitive_metadata 2 1 => 0 8
+table_set_default t_mod_prep_11 _no_op
+table_add t_mod_11 mod_stdmeta_egressspec_const 8 => 1
+table_add set_program_state_11 set_program_state 2 1 => 2 2 2

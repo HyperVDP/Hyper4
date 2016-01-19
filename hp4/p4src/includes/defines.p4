@@ -22,7 +22,7 @@
 #define STDMETA_PARSERSTAT	4
 #define STDMETA_PARSERERROR	5
 
-// meta_primitive_state.type
+// meta_primitive_state.primitive
 #define A_MODIFY_FIELD		0
 #define A_ADD_HEADER		1
 #define A_COPY_HEADER		2

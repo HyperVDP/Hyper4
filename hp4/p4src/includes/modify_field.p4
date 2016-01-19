@@ -105,15 +105,24 @@ action a_mod_prep_16(dstindex, srcindex) {
   modify_field(tmeta_16_meta.srcbyteindex, srcindex);
 }
 
+action _no_op() {
+  no_op();
+}
+
+action_profile mod_prep_actions {
+  actions {
+    a_mod_prep_8;
+    a_mod_prep_16;
+    _no_op;
+  }
+}
+
 table t_mod_prep_11 {
   reads {
     meta_primitive_state.action_ID : exact;
     meta_primitive_state.primitive_index : exact;
   }
-  actions {
-    a_mod_prep_8;
-    a_mod_prep_16;
-  }
+  action_profile : mod_prep_actions;
 }
 
 table t_mod_prep_12 {
@@ -121,10 +130,7 @@ table t_mod_prep_12 {
     meta_primitive_state.action_ID : exact;
     meta_primitive_state.primitive_index : exact;
   }
-  actions {
-    a_mod_prep_8;
-    a_mod_prep_16;
-  }
+  action_profile : mod_prep_actions;
 }
 
 table t_mod_prep_13 {
@@ -132,10 +138,7 @@ table t_mod_prep_13 {
     meta_primitive_state.action_ID : exact;
     meta_primitive_state.primitive_index : exact;
   }
-  actions {
-    a_mod_prep_8;
-    a_mod_prep_16;
-  }
+  action_profile : mod_prep_actions;
 }
 
 table t_mod_prep_21 {
@@ -143,10 +146,7 @@ table t_mod_prep_21 {
     meta_primitive_state.action_ID : exact;
     meta_primitive_state.primitive_index : exact;
   }
-  actions {
-    a_mod_prep_8;
-    a_mod_prep_16;
-  }
+  action_profile : mod_prep_actions;
 }
 
 table t_mod_prep_22 {
@@ -154,10 +154,7 @@ table t_mod_prep_22 {
     meta_primitive_state.action_ID : exact;
     meta_primitive_state.primitive_index : exact;
   }
-  actions {
-    a_mod_prep_8;
-    a_mod_prep_16;
-  }
+  action_profile : mod_prep_actions;
 }
 
 table t_mod_prep_23 {
@@ -165,10 +162,7 @@ table t_mod_prep_23 {
     meta_primitive_state.action_ID : exact;
     meta_primitive_state.primitive_index : exact;
   }
-  actions {
-    a_mod_prep_8;
-    a_mod_prep_16;
-  }
+  action_profile : mod_prep_actions;
 }
 
 table t_mod_prep_31 {
@@ -176,10 +170,7 @@ table t_mod_prep_31 {
     meta_primitive_state.action_ID : exact;
     meta_primitive_state.primitive_index : exact;
   }
-  actions {
-    a_mod_prep_8;
-    a_mod_prep_16;
-  }
+  action_profile : mod_prep_actions;
 }
 
 table t_mod_prep_32 {
@@ -187,10 +178,7 @@ table t_mod_prep_32 {
     meta_primitive_state.action_ID : exact;
     meta_primitive_state.primitive_index : exact;
   }
-  actions {
-    a_mod_prep_8;
-    a_mod_prep_16;
-  }
+  action_profile : mod_prep_actions;
 }
 
 table t_mod_prep_33 {
@@ -198,10 +186,7 @@ table t_mod_prep_33 {
     meta_primitive_state.action_ID : exact;
     meta_primitive_state.primitive_index : exact;
   }
-  actions {
-    a_mod_prep_8;
-    a_mod_prep_16;
-  }
+  action_profile : mod_prep_actions;
 }
 
 control do_modify_field_11 {

@@ -7,27 +7,18 @@
 */
 
 // ------ Initialize local metadata and resubmit
+field_list f_packet_init {
+  meta_parse.parse_width;
+}
+
 action a_packet_init(parse_width) {
   modify_field(meta_parse.parse_width, parse_width);
+  resubmit(f_packet_init);
 }
 
 table t_packet_init {
   actions {
     a_packet_init;
-  }
-}
-
-field_list f_packet_init {
-  meta_parse.parse_width;
-}
-
-action a_resubmit() {
-  resubmit(f_packet_init);
-}
-
-table t_resubmit {
-  actions {
-    a_resubmit;
   }
 }
 
@@ -45,9 +36,6 @@ action a_norm_768() {
 }
 
 table t_norm {
-  reads {
-    meta_parse.parse_width : exact;
-  }
   actions {
     a_norm_256;
     a_norm_512;
@@ -70,7 +58,6 @@ table t_set_first_table {
 control setup {
   if (meta_ctrl.stage == INIT) {
     apply(t_packet_init);
-    apply(t_resubmit);
   }
   else if ( meta_ctrl.stage == NORM ) {
     apply(t_norm);
