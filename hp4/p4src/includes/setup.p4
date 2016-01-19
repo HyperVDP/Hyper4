@@ -9,6 +9,7 @@
 // ------ Initialize local metadata and resubmit
 field_list f_packet_init {
   meta_parse;
+  standard_metadata;
 }
 
 action a_packet_init(parse_width) {

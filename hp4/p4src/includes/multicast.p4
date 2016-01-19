@@ -1,5 +1,6 @@
 action a_multicast(highport) {
   modify_field(meta_ctrl.multicast_current_egress, highport);
+  modify_field(meta_ctrl.do_multicast, 1);
 }
 
 table t_multicast_11 {

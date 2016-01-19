@@ -13,7 +13,7 @@ metadata tmeta_16_meta_t tmeta_16_meta;
 
 // Unfortunately, despite the stated goal of HyPer4 to provide target independent features,
 //  bmv2 requires this intrinsic metadata structure in order to do a resubmit
-metadata intrinsic_metadata_t instrinsic_metadata;
+metadata intrinsic_metadata_t intrinsic_metadata;
 
 register tmeta_8_r {
   width: 8;
@@ -59,5 +59,7 @@ table t_multicast {
 }
 
 control egress {
-  apply(t_multicast);
+  if(meta_ctrl.do_multicast == 1) {
+    apply(t_multicast);
+  }
 }
