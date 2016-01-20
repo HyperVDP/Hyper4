@@ -60,12 +60,12 @@ action mod_and_clone(port) {
 
 table t_multicast {
   reads {
+    meta_ctrl.multicast_seq_id : exact;
     meta_ctrl.multicast_current_egress : exact;
   }
   actions {
     mod_and_clone;
     _no_op;
-    a_drop;
   }
 }
 

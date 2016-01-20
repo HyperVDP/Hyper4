@@ -38,6 +38,7 @@ header_type meta_ctrl_t {
     next_table : 8;
     stage_state : 8; // e.g. CONTINUE, COMPLETE
     multicast_current_egress : 8;
+    multicast_seq_id : 8;
     do_multicast : 8;
   }
 }

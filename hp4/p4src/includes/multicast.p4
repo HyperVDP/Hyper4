@@ -12,9 +12,11 @@ multicast.p4: Provide multicast support.  The method is less efficient than
               out.
 */
 
-action a_multicast(highport) {
+action a_multicast(seq_id, highport) {
+  modify_field(meta_ctrl.multicast_seq_id, seq_id);
   modify_field(meta_ctrl.multicast_current_egress, highport);
   modify_field(meta_ctrl.do_multicast, 1);
+  modify_field(standard_metadata.egress_spec, highport);
 }
 
 table t_multicast_11 {
