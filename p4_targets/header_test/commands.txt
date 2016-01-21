@@ -1,0 +1,3 @@
+table_add set_header a_set_header 1 => 2
+table_add set_header a_set_header 2 => 1
+table_set_default set_egress a_set_egress
