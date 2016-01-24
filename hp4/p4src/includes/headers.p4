@@ -34,6 +34,7 @@ header_type meta_parse_t {
 // is complete)
 header_type meta_ctrl_t {
   fields {
+    program : 8; // identifies which program to run
     stage : 8; // e.g. INIT, NORM, etc.
     next_table : 8;
     stage_state : 8; // e.g. CONTINUE, COMPLETE

@@ -11,28 +11,31 @@ switch_stdmeta.p4: Handles table matching: exact, using standard metadata
 
 table t1_stdmeta_ingressport {
   reads {
+    meta_ctrl.program : exact;
     standard_metadata.ingress_port : exact;
   }
   actions {
-    set_program_state;
+    init_program_state;
   }
 }
 
 table t1_stdmeta_packetlength {
   reads {
+    meta_ctrl.program : exact;
     standard_metadata.packet_length : exact;
   }
   actions {
-    set_program_state;
+    init_program_state;
   }
 }
 
 table t1_stdmeta_insttype {
   reads {
+    meta_ctrl.program : exact;
     standard_metadata.instance_type : exact;
   }
   actions {
-    set_program_state;
+    init_program_state;
   }
 }
 
@@ -42,7 +45,7 @@ table t1_stdmeta_parserstat {
     standard_metadata.parser_status : exact;
   }
   actions {
-    set_program_state;
+    init_program_state;
   }
 }
 
@@ -51,43 +54,49 @@ table t1_stdmeta_parsererror {
     standard_metadata.parser_error_location : exact;
   }
   actions {
-    set_program_state;
+    init_program_state;
   }
 }
 */
 
-table t2_stdmeta_ingressport { reads { standard_metadata.ingress_port : exact; }
-  actions { set_program_state; } }
+table t2_stdmeta_ingressport {
+  reads { meta_ctrl.program : exact; standard_metadata.ingress_port : exact; }
+  actions { init_program_state; } }
 
-table t2_stdmeta_packetlength { reads { standard_metadata.packet_length : exact; }
-  actions { set_program_state; } }
+table t2_stdmeta_packetlength {
+  reads { meta_ctrl.program : exact; standard_metadata.packet_length : exact; }
+  actions { init_program_state; } }
 
-table t2_stdmeta_insttype { reads { standard_metadata.instance_type : exact; }
-  actions { set_program_state; } }
+table t2_stdmeta_insttype {
+  reads { meta_ctrl.program : exact; standard_metadata.instance_type : exact; }
+  actions { init_program_state; } }
 
 /*
 table t2_stdmeta_parserstat { reads { standard_metadata.parser_status : exact; }
-  actions { set_program_state; } }
+  actions { init_program_state; } }
 
 table t2_stdmeta_parsererror { reads { standard_metadata.parser_error_location : exact; }
-  actions { set_program_state; } }
+  actions { init_program_state; } }
 */
 
-table t3_stdmeta_ingressport { reads { standard_metadata.ingress_port : exact; }
-  actions { set_program_state; } }
+table t3_stdmeta_ingressport {
+  reads { meta_ctrl.program : exact; standard_metadata.ingress_port : exact; }
+  actions { init_program_state; } }
 
-table t3_stdmeta_packetlength { reads { standard_metadata.packet_length : exact; }
-  actions { set_program_state; } }
+table t3_stdmeta_packetlength {
+  reads { meta_ctrl.program : exact; standard_metadata.packet_length : exact; }
+  actions { init_program_state; } }
 
-table t3_stdmeta_insttype { reads { standard_metadata.instance_type : exact; }
-  actions { set_program_state; } }
+table t3_stdmeta_insttype {
+  reads { meta_ctrl.program : exact; standard_metadata.instance_type : exact; }
+  actions { init_program_state; } }
 
 /*
 table t3_stdmeta_parserstat { reads { standard_metadata.parser_status : exact; }
-  actions { set_program_state; } }
+  actions { init_program_state; } }
 
 table t3_stdmeta_parsererror { reads { standard_metadata.parser_error_location : exact; }
-  actions { set_program_state; } }
+  actions { init_program_state; } }
 */
 
 control switch_stdmeta_1 {

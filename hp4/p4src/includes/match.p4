@@ -29,6 +29,7 @@ action set_program_state(action_ID, primitive_index, stage_state, next_table) {
 
 table t1_extracted_exact {
   reads {
+    meta_ctrl.program : exact;
     extracted.data : ternary;
   }
   actions {
@@ -38,6 +39,7 @@ table t1_extracted_exact {
 
 table t1_metadata_exact {
   reads {
+    meta_ctrl.program : exact;
     tmeta.field00 : exact;
     tmeta.field01 : exact;
     tmeta.field02 : exact;
@@ -54,6 +56,7 @@ table t1_metadata_exact {
 
 table t2_extracted_exact {
   reads {
+    meta_ctrl.program : exact;
     extracted.data : ternary;
   }
   actions {
@@ -63,6 +66,7 @@ table t2_extracted_exact {
 
 table t2_metadata_exact {
   reads {
+    meta_ctrl.program : exact;
     tmeta.field00 : exact;
     tmeta.field01 : exact;
     tmeta.field02 : exact;
@@ -80,6 +84,7 @@ table t2_metadata_exact {
 
 table t3_extracted_exact {
   reads {
+    meta_ctrl.program : exact;
     extracted.data : ternary;
   }
   actions {
@@ -89,6 +94,7 @@ table t3_extracted_exact {
 
 table t3_metadata_exact {
   reads {
+    meta_ctrl.program : exact;
     tmeta.field00 : exact;
     tmeta.field01 : exact;
     tmeta.field02 : exact;
@@ -109,13 +115,16 @@ action set_meta_stdmeta(stdmeta_ID) {
 }
 
 table t1_stdmeta_exact {
+  reads {
+    meta_ctrl.program : exact;
+  }
   actions {
     set_meta_stdmeta;
   }
 }
 
-table t2_stdmeta_exact { actions { set_meta_stdmeta; } }
-table t3_stdmeta_exact { actions { set_meta_stdmeta; } }
+table t2_stdmeta_exact { reads { meta_ctrl.program : exact; } actions { set_meta_stdmeta; } }
+table t3_stdmeta_exact { reads { meta_ctrl.program : exact; } actions { set_meta_stdmeta; } }
 
 control match_1 {
 // target match -> set program state

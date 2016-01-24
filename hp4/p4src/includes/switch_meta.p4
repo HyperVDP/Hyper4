@@ -31,13 +31,16 @@ action a_tmeta_setup(tm_width, num, begin) {
 }
 
 table tmeta_setup_1 {
+  reads {
+    meta_ctrl.program : exact;
+  }
   actions {
     a_tmeta_setup;
   }
 }
 
-table tmeta_setup_2 { actions { a_tmeta_setup; } }
-table tmeta_setup_3 { actions { a_tmeta_setup; } }
+table tmeta_setup_2 { reads { meta_ctrl.program : exact; } actions { a_tmeta_setup; } }
+table tmeta_setup_3 { reads { meta_ctrl.program : exact; } actions { a_tmeta_setup; } }
 
 action a_tmeta_setbytes_1() {
   register_read(tmeta.field00, tmeta_8_r, tmeta.i_0);

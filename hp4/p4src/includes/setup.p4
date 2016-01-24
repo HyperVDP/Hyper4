@@ -11,7 +11,7 @@ setup.p4:
   - this includes the parse width; after this is set, we resubmit so we can
     extract the proper number of bits
 - Normalize extracted data to a standard width bitfield (e.g. 256 -> 768)
-- Set first table (according to match type)
+- Set program and first table
 */
 
 // ------ Initialize local metadata and resubmit
@@ -52,14 +52,21 @@ table t_norm {
   }
 }
 
-// ------ Set first table
-action set_first_table(table_ID) {
+// ------ Set program and first table
+action set_program(program, table_ID) {
+  modify_field(meta_ctrl.program, program);
   modify_field(meta_ctrl.next_table, table_ID);
 }
 
-table t_set_first_table {
+table t_prog_select {
+  reads {
+    standard_metadata.ingress_port : range;
+    standard_metadata.packet_length : range;
+    standard_metadata.instance_type : range;
+    extracted.data : ternary;
+  }
   actions {
-    set_first_table;
+    set_program;
   }
 }
 
@@ -70,6 +77,6 @@ control setup {
   }
   else if ( meta_ctrl.stage == NORM ) { //_condition_1
     apply(t_norm);
-    apply(t_set_first_table);
+    apply(t_prog_select);
   }
 }

@@ -26,6 +26,7 @@ metadata tmeta_16_meta_t tmeta_16_meta;
 //  bmv2 requires this intrinsic metadata structure in order to do a resubmit
 metadata intrinsic_metadata_t intrinsic_metadata;
 
+/*
 register tmeta_8_r {
   width: 8;
   instance_count: TMETA_8_CAPACITY;
@@ -35,6 +36,7 @@ register tmeta_16_r {
   width: 16;
   instance_count: TMETA_16_CAPACITY;
 }
+*/
 
 control ingress {
   // setup.p4
