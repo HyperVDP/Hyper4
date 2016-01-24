@@ -40,14 +40,7 @@ table t1_extracted_exact {
 table t1_metadata_exact {
   reads {
     meta_ctrl.program : exact;
-    tmeta.field00 : exact;
-    tmeta.field01 : exact;
-    tmeta.field02 : exact;
-    tmeta.field03 : exact;
-    tmeta.field04 : exact;
-    tmeta.field05 : exact;
-    tmeta.field06 : exact;
-    tmeta.field07 : exact;
+    tmeta.data : ternary;
   }
   actions {
     init_program_state;
@@ -67,14 +60,7 @@ table t2_extracted_exact {
 table t2_metadata_exact {
   reads {
     meta_ctrl.program : exact;
-    tmeta.field00 : exact;
-    tmeta.field01 : exact;
-    tmeta.field02 : exact;
-    tmeta.field03 : exact;
-    tmeta.field04 : exact;
-    tmeta.field05 : exact;
-    tmeta.field06 : exact;
-    tmeta.field07 : exact;
+    tmeta.data : ternary;
   }
   actions {
     init_program_state;
@@ -95,14 +81,7 @@ table t3_extracted_exact {
 table t3_metadata_exact {
   reads {
     meta_ctrl.program : exact;
-    tmeta.field00 : exact;
-    tmeta.field01 : exact;
-    tmeta.field02 : exact;
-    tmeta.field03 : exact;
-    tmeta.field04 : exact;
-    tmeta.field05 : exact;
-    tmeta.field06 : exact;
-    tmeta.field07 : exact;
+    tmeta.data : ternary;
   }
   actions {
     init_program_state;
@@ -132,7 +111,6 @@ control match_1 {
     apply(t1_extracted_exact);
   }
   else if(meta_ctrl.next_table == METADATA_EXACT) {
-    switch_tmeta_1();
     apply(t1_metadata_exact);
   }
   else if(meta_ctrl.next_table == STDMETA_EXACT) {
@@ -148,7 +126,6 @@ control match_2 {
     apply(t2_extracted_exact);
   }
   else if(meta_ctrl.next_table == METADATA_EXACT) { // c_25
-    switch_tmeta_2();
     apply(t2_metadata_exact);
   }
   else if(meta_ctrl.next_table == STDMETA_EXACT) { // c_27
@@ -164,7 +141,6 @@ control match_3 {
     apply(t3_extracted_exact);
   }
   else if(meta_ctrl.next_table == METADATA_EXACT) {
-    switch_tmeta_3();
     apply(t3_metadata_exact);
   }
   else if(meta_ctrl.next_table == STDMETA_EXACT) {

@@ -11,23 +11,23 @@ modify_field.p4: Carry out the various subtypes of the modify_field primitive,
                  types.
 */
 
-action mod_meta_stdmeta_ingressport() { 
-  register_write(tmeta_16_r, tmeta_16_meta.dstbyteindex, standard_metadata.ingress_port);
+action mod_meta_stdmeta_ingressport(tmeta_mask) { 
+  modify_field(tmeta.data, standard_metadata.ingress_port, tmeta_mask);
 }
-action mod_meta_stdmeta_packetlength() {
-  register_write(tmeta_16_r, tmeta_16_meta.dstbyteindex, standard_metadata.packet_length);
+action mod_meta_stdmeta_packetlength(tmeta_mask) {
+  modify_field(tmeta.data, standard_metadata.packet_length, tmeta_mask);
 }
-action mod_meta_stdmeta_egressspec() {
-  register_write(tmeta_16_r, tmeta_16_meta.dstbyteindex, standard_metadata.egress_spec);
+action mod_meta_stdmeta_egressspec(tmeta_mask) {
+  modify_field(tmeta.data, standard_metadata.egress_spec, tmeta_mask);
 }
-action mod_meta_stdmeta_egressport() {
-  register_write(tmeta_16_r, tmeta_16_meta.dstbyteindex, standard_metadata.egress_port);
+action mod_meta_stdmeta_egressport(tmeta_mask) {
+  modify_field(tmeta.data, standard_metadata.egress_port, tmeta_mask);
 }
-action mod_meta_stdmeta_egressinst() {
-  register_write(tmeta_16_r, tmeta_16_meta.dstbyteindex, standard_metadata.egress_instance);
+action mod_meta_stdmeta_egressinst(tmeta_mask) {
+  modify_field(tmeta.data, standard_metadata.egress_instance, tmeta_mask);
 }
-action mod_meta_stdmeta_insttype() {
-  register_write(tmeta_16_r, tmeta_16_meta.dstbyteindex, standard_metadata.instance_type);
+action mod_meta_stdmeta_insttype(tmeta_mask) {
+  modify_field(tmeta.data, standard_metadata.instance_type, tmeta_mask);
 }
 /*
 these standard_metadata fields not supported in bmv2 / p4c-bm?
@@ -40,11 +40,23 @@ action mod_meta_stdmeta_parsererror() {
   register_write(tmeta_16_r, tmeta_16_meta.dstbyteindex, standard_metadata.parser_error_location);
 }
 */
-action mod_stdmeta_egressspec_meta() {
-  register_read(standard_metadata.egress_spec, tmeta_16_r, tmeta_16_meta.srcbyteindex);
+action mod_stdmeta_egressspec_meta(c1, c2) {
+  // TODO: implement a method by which we isolate the bytes in tmeta.data that
+  //       correspond to the embedded field which should be used to set the
+  //       value of standard_metadata.egress_spec.  Two ideas I've come up
+  //       with both involve first left shifting to get rid of irrelevant
+  //       MSBs and then right shifting to get rid of irrelevant LSBs and
+  //       to right-align the embedded field, which can then be used directly
+  //       in a mod_destfield_tmetasource operation.  Of course we'll work
+  //       with a copy of tmeta.data to preserve tmeta.data.
+  //       idea 1: use header stacks and pops and pushes;
+  //       idea 2: use metadata and left shifts and right shifts <- problem
+  //       with this is we can only do left shifts / right shifts using consts
+  //       (I think; need to verify), so we'd have to create a separate action
+  //       for every case
 }
-action mod_meta_const(val) {
-  register_write(tmeta_16_r, tmeta_16_meta.dstbyteindex, val);
+action mod_meta_const(val, tmeta_mask) {
+  modify_field(tmeta.data, val, tmeta_mask);
 }
 action mod_stdmeta_egressspec_const(val) {
   modify_field(standard_metadata.egress_spec, val);
