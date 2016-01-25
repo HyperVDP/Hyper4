@@ -19,6 +19,7 @@ stages.p4: Each control function executes a single match-action stage of a
 
 table set_program_state_11 {
   reads {
+    meta_ctrl.program : exact;
     meta_primitive_state.action_ID : exact;
     meta_primitive_state.primitive_index : exact;
   }
@@ -28,36 +29,44 @@ table set_program_state_11 {
 }
 
 table set_program_state_12 { reads {
+    meta_ctrl.program : exact;
     meta_primitive_state.action_ID : exact;
     meta_primitive_state.primitive_index : exact; }
   actions { set_program_state; } }
 table set_program_state_13 { reads {
+    meta_ctrl.program : exact;
     meta_primitive_state.action_ID : exact;
     meta_primitive_state.primitive_index : exact; }
   actions { set_program_state; } }
 
 table set_program_state_21 { reads {
+    meta_ctrl.program : exact;
     meta_primitive_state.action_ID : exact;
     meta_primitive_state.primitive_index : exact; }
   actions { set_program_state; } }
 table set_program_state_22 { reads {
+    meta_ctrl.program : exact;
     meta_primitive_state.action_ID : exact;
     meta_primitive_state.primitive_index : exact; }
   actions { set_program_state; } }
 table set_program_state_23 { reads {
+    meta_ctrl.program : exact;
     meta_primitive_state.action_ID : exact;
     meta_primitive_state.primitive_index : exact; }
   actions { set_program_state; } }
 
 table set_program_state_31 { reads {
+    meta_ctrl.program : exact;
     meta_primitive_state.action_ID : exact;
     meta_primitive_state.primitive_index : exact; }
   actions { set_program_state; } }
 table set_program_state_32 { reads {
+    meta_ctrl.program : exact;
     meta_primitive_state.action_ID : exact;
     meta_primitive_state.primitive_index : exact; }
   actions { set_program_state; } }
 table set_program_state_33 { reads {
+    meta_ctrl.program : exact;
     meta_primitive_state.action_ID : exact;
     meta_primitive_state.primitive_index : exact; }
   actions { set_program_state; } }

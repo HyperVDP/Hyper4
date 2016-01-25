@@ -19,8 +19,6 @@ metadata meta_primitive_state_t meta_primitive_state;
 metadata meta_stdmeta_t meta_stdmeta;
 metadata extracted_t extracted;
 metadata tmeta_t tmeta;
-metadata tmeta_8_meta_t tmeta_8_meta;
-metadata tmeta_16_meta_t tmeta_16_meta;
 
 // Unfortunately, despite the stated goal of HyPer4 to provide target independent features,
 //  bmv2 requires this intrinsic metadata structure in order to do a resubmit

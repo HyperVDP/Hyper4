@@ -9,7 +9,6 @@ HyPer4: A P4 Program to Run Other P4 Programs
 match.p4: Support various types of matching used by the target P4 program.
 */
 
-#include "switch_meta.p4"
 #include "switch_stdmeta.p4"
 
 action init_program_state(action_ID, match_ID, primitive_index, stage_state, next_table) {
