@@ -74,6 +74,7 @@ header_type extracted_t {
 header_type tmeta_t {
   fields {
     data : 256;
+    dcpy : 256;
   }
 }
 
