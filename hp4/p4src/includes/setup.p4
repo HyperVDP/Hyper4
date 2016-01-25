@@ -61,8 +61,8 @@ action set_program(program, table_ID) {
 table t_prog_select {
   reads {
     standard_metadata.ingress_port : exact; // want range! but compiler bug? nets "KeyError: P4_MATCH_RANGE"
-    standard_metadata.packet_length : exact; // want range! but compiler bug? nets "KeyError: P4_MATCH_RANGE"
-    standard_metadata.instance_type : exact; // want range! but compiler bug? nets "KeyError: P4_MATCH_RANGE"
+    //standard_metadata.packet_length : exact; // want range! but compiler bug? nets "KeyError: P4_MATCH_RANGE"
+    //standard_metadata.instance_type : exact; // want range! but compiler bug? nets "KeyError: P4_MATCH_RANGE"
     extracted.data : ternary;
   }
   actions {

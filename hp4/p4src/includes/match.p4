@@ -11,6 +11,25 @@ match.p4: Support various types of matching used by the target P4 program.
 
 #include "switch_stdmeta.p4"
 
+/*
+table_indirect_create_member t_mod_prep_11 _no_op
+table_indirect_add t_mod_prep_11 1 2 1 => 0
+table_indirect_create_member t_mod_11 mod_stdmeta_egressspec_const 1
+table_indirect_create_member t_mod_11 mod_stdmeta_egressspec_const 2
+table_indirect_create_member t_mod_11 mod_stdmeta_egressspec_const 3
+table_indirect_add t_mod_11 8 1 => 0
+table_indirect_add t_mod_11 8 2 => 1
+table_indirect_add t_mod_11 8 3 => 2
+
+table_indirect_create_member t_mod_prep_12 a_mod_prep_8 0 0
+table_indirect_add t_mod_prep_12 2 2 => 0
+
+table_indirect_create_member t_mod_12 mod_meta_const 4
+table_indirect_add t_mod_12 7 1 => 0
+table_indirect_add t_mod_12 7 2 => 0
+table_indirect_add t_mod_12 7 3 => 0
+*/
+
 action init_program_state(action_ID, match_ID, primitive_index, stage_state, next_table) {
   modify_field(meta_primitive_state.action_ID, action_ID);
   modify_field(meta_primitive_state.match_ID, match_ID);

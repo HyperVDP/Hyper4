@@ -20,19 +20,22 @@ action a_multicast(seq_id, highport) {
 }
 
 table t_multicast_11 {
+  reads {
+    meta_ctrl.program : exact;
+  }
   actions {
     a_multicast;
   }
 }
 
-table t_multicast_12 { actions { a_multicast; }}
-table t_multicast_13 { actions { a_multicast; }}
-table t_multicast_21 { actions { a_multicast; }}
-table t_multicast_22 { actions { a_multicast; }}
-table t_multicast_23 { actions { a_multicast; }}
-table t_multicast_31 { actions { a_multicast; }}
-table t_multicast_32 { actions { a_multicast; }}
-table t_multicast_33 { actions { a_multicast; }}
+table t_multicast_12 { reads { meta_ctrl.program : exact; } actions { a_multicast; }}
+table t_multicast_13 { reads { meta_ctrl.program : exact; } actions { a_multicast; }}
+table t_multicast_21 { reads { meta_ctrl.program : exact; } actions { a_multicast; }}
+table t_multicast_22 { reads { meta_ctrl.program : exact; } actions { a_multicast; }}
+table t_multicast_23 { reads { meta_ctrl.program : exact; } actions { a_multicast; }}
+table t_multicast_31 { reads { meta_ctrl.program : exact; } actions { a_multicast; }}
+table t_multicast_32 { reads { meta_ctrl.program : exact; } actions { a_multicast; }}
+table t_multicast_33 { reads { meta_ctrl.program : exact; } actions { a_multicast; }}
 
 control do_multicast_11 {
   apply(t_multicast_11);

@@ -50,7 +50,12 @@ action mod_stdmeta_egressspec_const(val) {
    mod table, we first add an entry to the action_profile with all of the
    parameter values, and then add an entry to the appropriate mod table
    with the match value(s) and the action_profile entry handle
+   UPDATE: can't use this effectively in multiprogramming environment.  Well,
+   we could, once we create an intelligent compiler and translator that
+   "knows" the current state of the persona and can separate sets of handles
+   pertaining to different programs.  TODO...
 */
+/*
 action_profile mod_actions {
   actions {
     mod_meta_stdmeta_ingressport;
@@ -65,6 +70,7 @@ action_profile mod_actions {
     // TODO: add the rest of the modify_field subtypes
   }
 }
+*/
 
 table t_mod_11 {
   reads {
@@ -72,40 +78,138 @@ table t_mod_11 {
     meta_primitive_state.subtype : exact;
     meta_primitive_state.match_ID : exact;
   }
-  action_profile : mod_actions;
+  actions {
+    mod_meta_stdmeta_ingressport;
+    mod_meta_stdmeta_packetlength;
+    mod_meta_stdmeta_egressspec;
+    mod_meta_stdmeta_egressport;
+    mod_meta_stdmeta_egressinst;
+    mod_meta_stdmeta_insttype;
+    mod_stdmeta_egressspec_meta;
+    mod_meta_const;
+    mod_stdmeta_egressspec_const;
+  }
 }
 
 table t_mod_12 { reads { 
   meta_ctrl.program : exact; meta_primitive_state.subtype : exact; meta_primitive_state.match_ID : exact;}
-  action_profile : mod_actions;}
+  actions {
+    mod_meta_stdmeta_ingressport;
+    mod_meta_stdmeta_packetlength;
+    mod_meta_stdmeta_egressspec;
+    mod_meta_stdmeta_egressport;
+    mod_meta_stdmeta_egressinst;
+    mod_meta_stdmeta_insttype;
+    mod_stdmeta_egressspec_meta;
+    mod_meta_const;
+    mod_stdmeta_egressspec_const;
+  }
+}
 
 table t_mod_13 { reads {
   meta_ctrl.program : exact; meta_primitive_state.subtype : exact; meta_primitive_state.match_ID : exact;}
-  action_profile : mod_actions;}
+  actions {
+    mod_meta_stdmeta_ingressport;
+    mod_meta_stdmeta_packetlength;
+    mod_meta_stdmeta_egressspec;
+    mod_meta_stdmeta_egressport;
+    mod_meta_stdmeta_egressinst;
+    mod_meta_stdmeta_insttype;
+    mod_stdmeta_egressspec_meta;
+    mod_meta_const;
+    mod_stdmeta_egressspec_const;
+  }
+}
 
 table t_mod_21 { reads {
   meta_ctrl.program : exact; meta_primitive_state.subtype : exact; meta_primitive_state.match_ID : exact;}
-  action_profile : mod_actions;}
+  actions {
+    mod_meta_stdmeta_ingressport;
+    mod_meta_stdmeta_packetlength;
+    mod_meta_stdmeta_egressspec;
+    mod_meta_stdmeta_egressport;
+    mod_meta_stdmeta_egressinst;
+    mod_meta_stdmeta_insttype;
+    mod_stdmeta_egressspec_meta;
+    mod_meta_const;
+    mod_stdmeta_egressspec_const;
+  }
+}
 
 table t_mod_22 { reads {
   meta_ctrl.program : exact; meta_primitive_state.subtype : exact; meta_primitive_state.match_ID : exact;}
-  action_profile : mod_actions;}
+  actions {
+    mod_meta_stdmeta_ingressport;
+    mod_meta_stdmeta_packetlength;
+    mod_meta_stdmeta_egressspec;
+    mod_meta_stdmeta_egressport;
+    mod_meta_stdmeta_egressinst;
+    mod_meta_stdmeta_insttype;
+    mod_stdmeta_egressspec_meta;
+    mod_meta_const;
+    mod_stdmeta_egressspec_const;
+  }
+}
 
 table t_mod_23 { reads {
   meta_ctrl.program : exact; meta_primitive_state.subtype : exact; meta_primitive_state.match_ID : exact;}
-  action_profile : mod_actions;}
+  actions {
+    mod_meta_stdmeta_ingressport;
+    mod_meta_stdmeta_packetlength;
+    mod_meta_stdmeta_egressspec;
+    mod_meta_stdmeta_egressport;
+    mod_meta_stdmeta_egressinst;
+    mod_meta_stdmeta_insttype;
+    mod_stdmeta_egressspec_meta;
+    mod_meta_const;
+    mod_stdmeta_egressspec_const;
+  }
+}
 
 table t_mod_31 { reads {
   meta_ctrl.program : exact; meta_primitive_state.subtype : exact; meta_primitive_state.match_ID : exact;}
-  action_profile : mod_actions;}
+  actions {
+    mod_meta_stdmeta_ingressport;
+    mod_meta_stdmeta_packetlength;
+    mod_meta_stdmeta_egressspec;
+    mod_meta_stdmeta_egressport;
+    mod_meta_stdmeta_egressinst;
+    mod_meta_stdmeta_insttype;
+    mod_stdmeta_egressspec_meta;
+    mod_meta_const;
+    mod_stdmeta_egressspec_const;
+  }
+}
 
 table t_mod_32 { reads {
   meta_ctrl.program : exact; meta_primitive_state.subtype : exact; meta_primitive_state.match_ID : exact;}
-  action_profile : mod_actions;}
+  actions {
+    mod_meta_stdmeta_ingressport;
+    mod_meta_stdmeta_packetlength;
+    mod_meta_stdmeta_egressspec;
+    mod_meta_stdmeta_egressport;
+    mod_meta_stdmeta_egressinst;
+    mod_meta_stdmeta_insttype;
+    mod_stdmeta_egressspec_meta;
+    mod_meta_const;
+    mod_stdmeta_egressspec_const;
+  }
+}
 
 table t_mod_33 { reads {
   meta_ctrl.program : exact; meta_primitive_state.subtype : exact; meta_primitive_state.match_ID : exact;}
-  action_profile : mod_actions;}
+  actions {
+    mod_meta_stdmeta_ingressport;
+    mod_meta_stdmeta_packetlength;
+    mod_meta_stdmeta_egressspec;
+    mod_meta_stdmeta_egressport;
+    mod_meta_stdmeta_egressinst;
+    mod_meta_stdmeta_insttype;
+    mod_stdmeta_egressspec_meta;
+    mod_meta_const;
+    mod_stdmeta_egressspec_const;
+  }
+}
 
 // result: tmeta.dcpy is the value of a field embedded within tmeta.data
 action a_mod_prep(leftshift, rightshift) {
@@ -118,12 +222,14 @@ action _no_op() {
   no_op();
 }
 
+/*
 action_profile mod_prep_actions {
   actions {
     a_mod_prep;
     _no_op;
   }
 }
+*/
 
 table t_mod_prep_11 {
   reads {
@@ -131,7 +237,10 @@ table t_mod_prep_11 {
     meta_primitive_state.action_ID : exact;
     meta_primitive_state.primitive_index : exact;
   }
-  action_profile : mod_prep_actions;
+  actions {
+    a_mod_prep;
+    _no_op;
+  }
 }
 
 table t_mod_prep_12 {
@@ -140,7 +249,10 @@ table t_mod_prep_12 {
     meta_primitive_state.action_ID : exact;
     meta_primitive_state.primitive_index : exact;
   }
-  action_profile : mod_prep_actions;
+  actions {
+    a_mod_prep;
+    _no_op;
+  }
 }
 
 table t_mod_prep_13 {
@@ -149,7 +261,10 @@ table t_mod_prep_13 {
     meta_primitive_state.action_ID : exact;
     meta_primitive_state.primitive_index : exact;
   }
-  action_profile : mod_prep_actions;
+  actions {
+    a_mod_prep;
+    _no_op;
+  }
 }
 
 table t_mod_prep_21 {
@@ -158,7 +273,10 @@ table t_mod_prep_21 {
     meta_primitive_state.action_ID : exact;
     meta_primitive_state.primitive_index : exact;
   }
-  action_profile : mod_prep_actions;
+  actions {
+    a_mod_prep;
+    _no_op;
+  }
 }
 
 table t_mod_prep_22 {
@@ -167,7 +285,10 @@ table t_mod_prep_22 {
     meta_primitive_state.action_ID : exact;
     meta_primitive_state.primitive_index : exact;
   }
-  action_profile : mod_prep_actions;
+  actions {
+    a_mod_prep;
+    _no_op;
+  }
 }
 
 table t_mod_prep_23 {
@@ -176,7 +297,10 @@ table t_mod_prep_23 {
     meta_primitive_state.action_ID : exact;
     meta_primitive_state.primitive_index : exact;
   }
-  action_profile : mod_prep_actions;
+  actions {
+    a_mod_prep;
+    _no_op;
+  }
 }
 
 table t_mod_prep_31 {
@@ -185,7 +309,10 @@ table t_mod_prep_31 {
     meta_primitive_state.action_ID : exact;
     meta_primitive_state.primitive_index : exact;
   }
-  action_profile : mod_prep_actions;
+  actions {
+    a_mod_prep;
+    _no_op;
+  }
 }
 
 table t_mod_prep_32 {
@@ -194,7 +321,10 @@ table t_mod_prep_32 {
     meta_primitive_state.action_ID : exact;
     meta_primitive_state.primitive_index : exact;
   }
-  action_profile : mod_prep_actions;
+  actions {
+    a_mod_prep;
+    _no_op;
+  }
 }
 
 table t_mod_prep_33 {
@@ -203,7 +333,10 @@ table t_mod_prep_33 {
     meta_primitive_state.action_ID : exact;
     meta_primitive_state.primitive_index : exact;
   }
-  action_profile : mod_prep_actions;
+  actions {
+    a_mod_prep;
+    _no_op;
+  }
 }
 
 control do_modify_field_11 {
