@@ -28,7 +28,14 @@ header_type routing_metadata_t {
     }
 }
 
+header_type meta_t {
+  fields {
+    temp : 32;
+  }
+}
+
 metadata routing_metadata_t routing_metadata;
+metadata meta_t meta;
 
 // 2
 action set_nhop(nhop_ipv4, port) {
@@ -103,7 +110,31 @@ control ingress {
     }
 }
 
+action a_csum16() {
+  modify_field(meta.temp, ((ipv4.version << 12) + (ipv4.ihl << 8) + ipv4.diffserv));
+  modify_field(meta.temp, meta.temp + ipv4.totalLen);
+  modify_field(meta.temp, meta.temp + ipv4.identification);
+  modify_field(meta.temp, meta.temp + (ipv4.flags << 13 + ipv4.fragOffset));
+  modify_field(meta.temp, meta.temp + ((ipv4.ttl << 8) + ipv4.protocol));
+  modify_field(meta.temp, meta.temp + (ipv4.srcAddr >> 16));
+// This doesn't work; trying to get rid of high bits and just add low bits...
+// But high bits are still preserved:
+//  modify_field(meta.temp, meta.temp + ((ipv4.srcAddr << 16) >> 16));
+  modify_field(meta.temp, meta.temp + (ipv4.srcAddr & 0xFFFF));
+  modify_field(meta.temp, meta.temp + (ipv4.dstAddr >> 16));
+  modify_field(meta.temp, meta.temp + (ipv4.dstAddr & 0xFFFF));
+  modify_field(meta.temp, meta.temp + ((meta.temp >> 16) & 0xFFFF)); // add carry
+  modify_field(ipv4.hdrChecksum, ~meta.temp);
+}
+
+table csum16 {
+  actions {
+    a_csum16;
+  }
+}
+
 control egress {
+  apply(csum16);
 }
 
 

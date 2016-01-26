@@ -32,6 +32,7 @@ parser parse_ethernet {
 
 header ipv4_t ipv4;
 
+/*
 field_list ipv4_checksum_list {
         ipv4.version;
         ipv4.ihl;
@@ -58,6 +59,7 @@ calculated_field ipv4.hdrChecksum  {
     verify ipv4_checksum;
     update ipv4_checksum;
 }
+*/
 
 parser parse_ipv4 {
     extract(ipv4);
