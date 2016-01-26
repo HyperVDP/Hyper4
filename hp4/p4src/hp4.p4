@@ -57,8 +57,29 @@ table t_multicast {
   }
 }
 
+action a_prep_deparse_256() {
+  modify_field(bitfield_256.data, extracted.data);
+}
+
+action a_prep_deparse_512() {
+  modify_field(bitfield_512.data, extracted.data);
+}
+
+action a_prep_deparse_768() {
+  modify_field(bitfield_768.data, extracted.data);
+}
+
+table prepare_for_deparsing {
+  actions {
+    a_prep_deparse_256;
+    a_prep_deparse_512;
+    a_prep_deparse_768;
+  }
+}
+
 control egress {
   if(meta_ctrl.do_multicast == 1) {
     apply(t_multicast);
   }
+  apply(prepare_for_deparsing);
 }
