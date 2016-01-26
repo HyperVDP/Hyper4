@@ -59,6 +59,16 @@ table t1_stdmeta_parsererror {
 }
 */
 
+table t1_stdmeta_egressspec {
+  reads {
+    meta_ctrl.program : exact;
+    standard_metadata.egress_spec : exact;
+  }
+  actions {
+    init_program_state;
+  }
+}
+
 table t2_stdmeta_ingressport {
   reads { meta_ctrl.program : exact; standard_metadata.ingress_port : exact; }
   actions { init_program_state; } }
@@ -78,6 +88,10 @@ table t2_stdmeta_parserstat { reads { standard_metadata.parser_status : exact; }
 table t2_stdmeta_parsererror { reads { standard_metadata.parser_error_location : exact; }
   actions { init_program_state; } }
 */
+
+table t2_stdmeta_egressspec {
+  reads { meta_ctrl.program : exact; standard_metadata.egress_spec : exact; }
+  actions { init_program_state; } }
 
 table t3_stdmeta_ingressport {
   reads { meta_ctrl.program : exact; standard_metadata.ingress_port : exact; }
@@ -99,6 +113,10 @@ table t3_stdmeta_parsererror { reads { standard_metadata.parser_error_location :
   actions { init_program_state; } }
 */
 
+table t3_stdmeta_egressspec {
+  reads { meta_ctrl.program : exact; standard_metadata.egress_spec : exact; }
+  actions { init_program_state; } }
+
 control switch_stdmeta_1 {
   if(meta_stdmeta.stdmeta_ID == STDMETA_INGRESSPORT) {
     apply(t1_stdmeta_ingressport);
@@ -108,6 +126,9 @@ control switch_stdmeta_1 {
   }
   else if(meta_stdmeta.stdmeta_ID == STDMETA_INSTTYPE) {
     apply(t1_stdmeta_insttype);
+  }
+  else if(meta_stdmeta.stdmeta_ID == STDMETA_EGRESSSPEC) {
+    apply(t1_stdmeta_egressspec);
   }
 /*
   else if(meta_stdmeta.stdmeta_ID == STDMETA_PARSERSTAT) {
@@ -129,6 +150,9 @@ control switch_stdmeta_2 {
   else if(meta_stdmeta.stdmeta_ID == STDMETA_INSTTYPE) {
     apply(t2_stdmeta_insttype);
   }
+  else if(meta_stdmeta.stdmeta_ID == STDMETA_EGRESSSPEC) {
+    apply(t2_stdmeta_egressspec);
+  }
 /*
   else if(meta_stdmeta.stdmeta_ID == STDMETA_PARSERSTAT) {
     apply(t2_stdmeta_parserstat);
@@ -148,6 +172,9 @@ control switch_stdmeta_3 {
   }
   else if(meta_stdmeta.stdmeta_ID == STDMETA_INSTTYPE) {
     apply(t3_stdmeta_insttype);
+  }
+  else if(meta_stdmeta.stdmeta_ID == STDMETA_EGRESSSPEC) {
+    apply(t3_stdmeta_egressspec);
   }
 /*
   else if(meta_stdmeta.stdmeta_ID == STDMETA_PARSERSTAT) {

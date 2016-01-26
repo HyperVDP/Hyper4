@@ -28,6 +28,7 @@ defines.p4: Define constants
 #define STDMETA_INSTTYPE	3
 #define STDMETA_PARSERSTAT	4
 #define STDMETA_PARSERERROR	5
+#define STDMETA_EGRESSSPEC	6
 
 // meta_primitive_state.primitive
 #define A_MODIFY_FIELD		0
