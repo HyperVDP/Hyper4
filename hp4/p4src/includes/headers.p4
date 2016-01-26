@@ -67,6 +67,7 @@ header_type meta_stdmeta_t {
 header_type extracted_t {
   fields {
     data : 768;
+    dcpy : 768;
   }
 }
 

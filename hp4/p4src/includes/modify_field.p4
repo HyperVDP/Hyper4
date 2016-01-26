@@ -11,66 +11,56 @@ modify_field.p4: Carry out the various subtypes of the modify_field primitive,
                  types.
 */
 
+// 1
 action mod_meta_stdmeta_ingressport(leftshift, tmeta_mask) { 
   modify_field(tmeta.data, (tmeta.data & ~tmeta_mask) | ((standard_metadata.ingress_port << leftshift) & tmeta_mask)); // last "& mask" probably unnecessary
 }
+
+// 2
 action mod_meta_stdmeta_packetlength(leftshift, tmeta_mask) {
   modify_field(tmeta.data, (tmeta.data & ~tmeta_mask) | ((standard_metadata.packet_length << leftshift) & tmeta_mask));
 }
+
+// 3
 action mod_meta_stdmeta_egressspec(leftshift, tmeta_mask) {
   modify_field(tmeta.data, (tmeta.data & ~tmeta_mask) | ((standard_metadata.egress_spec << leftshift) & tmeta_mask));
 }
+
+// 4
 action mod_meta_stdmeta_egressport(leftshift, tmeta_mask) {
   modify_field(tmeta.data, (tmeta.data & ~tmeta_mask) | ((standard_metadata.egress_port << leftshift) & tmeta_mask));
 }
+
+// 5
 action mod_meta_stdmeta_egressinst(leftshift, tmeta_mask) {
   modify_field(tmeta.data, (tmeta.data & ~tmeta_mask) | ((standard_metadata.egress_instance << leftshift) & tmeta_mask));
 }
+
+// 6
 action mod_meta_stdmeta_insttype(leftshift, tmeta_mask) {
   modify_field(tmeta.data, (tmeta.data & ~tmeta_mask) | ((standard_metadata.instance_type << leftshift) & tmeta_mask));
 }
 
+// 7
 action mod_stdmeta_egressspec_meta() {
   modify_field(standard_metadata.egress_spec, tmeta.dcpy);
 }
+
+// 8
 action mod_meta_const(val, leftshift, tmeta_mask) {
   modify_field(tmeta.data, (tmeta.data & ~tmeta_mask) | ((val << leftshift) & tmeta_mask));
 }
+
+// 9
 action mod_stdmeta_egressspec_const(val) {
   modify_field(standard_metadata.egress_spec, val);
 }
-// TODO: add rest of the modify_field actions
 
-
-/* Purpose of action_profile is to share parameter sets among tables; that's
-   not likely necessary here, but using an action_profile also reduces the
-   size of the duplicate code just specifying all of the actions available
-   to each mod table
-   Impact is operational - instead of adding one entry to the appropriate
-   mod table, we first add an entry to the action_profile with all of the
-   parameter values, and then add an entry to the appropriate mod table
-   with the match value(s) and the action_profile entry handle
-   UPDATE: can't use this effectively in multiprogramming environment.  Well,
-   we could, once we create an intelligent compiler and translator that
-   "knows" the current state of the persona and can separate sets of handles
-   pertaining to different programs.  TODO...
-*/
-/*
-action_profile mod_actions {
-  actions {
-    mod_meta_stdmeta_ingressport;
-    mod_meta_stdmeta_packetlength;
-    mod_meta_stdmeta_egressspec;
-    mod_meta_stdmeta_egressport;
-    mod_meta_stdmeta_egressinst;
-    mod_meta_stdmeta_insttype;
-    mod_stdmeta_egressspec_meta;
-    mod_meta_const;
-    mod_stdmeta_egressspec_const;
-    // TODO: add the rest of the modify_field subtypes
-  }
+// 10
+action mod_extracted_const(val, leftshift, emask) {
+    modify_field(extracted.data, (extracted.data & ~emask) | ((val << leftshift) & emask));
 }
-*/
+// TODO: add rest of the modify_field actions
 
 table t_mod_11 {
   reads {
@@ -88,6 +78,7 @@ table t_mod_11 {
     mod_stdmeta_egressspec_meta;
     mod_meta_const;
     mod_stdmeta_egressspec_const;
+    mod_extracted_const;
   }
 }
 
@@ -103,6 +94,7 @@ table t_mod_12 { reads {
     mod_stdmeta_egressspec_meta;
     mod_meta_const;
     mod_stdmeta_egressspec_const;
+    mod_extracted_const;
   }
 }
 
@@ -118,6 +110,7 @@ table t_mod_13 { reads {
     mod_stdmeta_egressspec_meta;
     mod_meta_const;
     mod_stdmeta_egressspec_const;
+    mod_extracted_const;
   }
 }
 
@@ -133,6 +126,7 @@ table t_mod_21 { reads {
     mod_stdmeta_egressspec_meta;
     mod_meta_const;
     mod_stdmeta_egressspec_const;
+    mod_extracted_const;
   }
 }
 
@@ -148,6 +142,7 @@ table t_mod_22 { reads {
     mod_stdmeta_egressspec_meta;
     mod_meta_const;
     mod_stdmeta_egressspec_const;
+    mod_extracted_const;
   }
 }
 
@@ -163,6 +158,7 @@ table t_mod_23 { reads {
     mod_stdmeta_egressspec_meta;
     mod_meta_const;
     mod_stdmeta_egressspec_const;
+    mod_extracted_const;
   }
 }
 
@@ -178,6 +174,7 @@ table t_mod_31 { reads {
     mod_stdmeta_egressspec_meta;
     mod_meta_const;
     mod_stdmeta_egressspec_const;
+    mod_extracted_const;
   }
 }
 
@@ -193,6 +190,7 @@ table t_mod_32 { reads {
     mod_stdmeta_egressspec_meta;
     mod_meta_const;
     mod_stdmeta_egressspec_const;
+    mod_extracted_const;
   }
 }
 
@@ -208,6 +206,7 @@ table t_mod_33 { reads {
     mod_stdmeta_egressspec_meta;
     mod_meta_const;
     mod_stdmeta_egressspec_const;
+    mod_extracted_const;
   }
 }
 

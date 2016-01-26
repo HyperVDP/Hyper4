@@ -18,10 +18,6 @@ defines.p4: Define constants
 #define METADATA_EXACT	2
 #define STDMETA_EXACT	3
 
-// size of tmeta_8_r, tmeta_16_r registers
-#define TMETA_8_CAPACITY	1000
-#define TMETA_16_CAPACITY	1000
-
 // meta_ctrl.stage_state
 #define COMPLETE	1
 #define CONTINUE	2
@@ -54,3 +50,4 @@ defines.p4: Define constants
 #define A_CLONE_INGRESS_EGRESS	17
 #define A_CLONE_EGRESS_EGRESS	18
 #define A_MULTICAST		19
+#define A_ADD_TO_FIELD		20

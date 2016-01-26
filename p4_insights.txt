@@ -1,4 +1,13 @@
 P4 IMPORTANT INSIGHTS, COMMANDS, ETC.
+----- Size of standard_metadata fields -----
+Investigation incomplete, but it appears from p4factory/targets/switch/p4src/ that:
+  ingress_port <= 9 bits (switch.p4, port.p4)
+  - in truth, ingress_port may be larger but the most significant bits just don't get used by most P4 programs.  So the real question is how big it could be.
+  packet_length <= 16 (switch.p4 + tunnel.p4)
+  - again, possibly it could be bigger but switch.p4 just didn't anticipate a need for the most significant bits
+  egress_spec >= 16 (openflow.p4 + includes/headers.p4)
+  - might possibly be smaller for same reasons
+
 ----- Cloning -----
 clone_ingress_pkt_to_egress:  for any fields in the field_list parameter, the copy of field values to the cloned packet occurs at the end of the ingress pipeline.  The creation of the clone, in other words, does not happen immediately in response to calling this function.
 

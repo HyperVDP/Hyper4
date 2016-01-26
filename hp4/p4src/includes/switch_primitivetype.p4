@@ -15,6 +15,7 @@ switch_primitivetype.p4: Redirect execution to the control function appropriate
 #include "drop.p4"
 //#include "truncate.p4"
 #include "multicast.p4"
+#include "add_to_field.p4"
 
 control switch_primitivetype_11 {
   if(meta_primitive_state.primitive == A_MODIFY_FIELD) { //condition_10
@@ -33,6 +34,9 @@ control switch_primitivetype_11 {
   }*/
   else if(meta_primitive_state.primitive == A_MULTICAST) { //condition_13
     do_multicast_11();
+  }
+  else if(meta_primitive_state.primitive == A_ADD_TO_FIELD) {
+    do_add_to_field_11();
   }
   // ... (other primitive types)
 }
@@ -55,6 +59,9 @@ control switch_primitivetype_12 {
   else if(meta_primitive_state.primitive == A_MULTICAST) {
     do_multicast_12();
   }
+  else if(meta_primitive_state.primitive == A_ADD_TO_FIELD) {
+    do_add_to_field_12();
+  }
   // ... (other primitive types)
 }
 
@@ -75,6 +82,9 @@ control switch_primitivetype_13 {
   }*/
   else if(meta_primitive_state.primitive == A_MULTICAST) {
     do_multicast_13();
+  }
+  else if(meta_primitive_state.primitive == A_ADD_TO_FIELD) {
+    do_add_to_field_13();
   }
   // ... (other primitive types)
 }
@@ -97,6 +107,9 @@ control switch_primitivetype_21 {
   else if(meta_primitive_state.primitive == A_MULTICAST) {
     do_multicast_21();
   }
+  else if(meta_primitive_state.primitive == A_ADD_TO_FIELD) {
+    do_add_to_field_21();
+  }
   // ... (other primitive types)
 }
 
@@ -117,6 +130,9 @@ control switch_primitivetype_22 {
   }*/
   else if(meta_primitive_state.primitive == A_MULTICAST) {
     do_multicast_22();
+  }
+  else if(meta_primitive_state.primitive == A_ADD_TO_FIELD) {
+    do_add_to_field_22();
   }
   // ... (other primitive types)
 }
@@ -139,6 +155,9 @@ control switch_primitivetype_23 {
   else if(meta_primitive_state.primitive == A_MULTICAST) {
     do_multicast_23();
   }
+  else if(meta_primitive_state.primitive == A_ADD_TO_FIELD) {
+    do_add_to_field_23();
+  }
   // ... (other primitive types)
 }
 
@@ -159,6 +178,9 @@ control switch_primitivetype_31 {
   }*/
   else if(meta_primitive_state.primitive == A_MULTICAST) {
     do_multicast_31();
+  }
+  else if(meta_primitive_state.primitive == A_ADD_TO_FIELD) {
+    do_add_to_field_31();
   }
   // ... (other primitive types)
 }
@@ -181,6 +203,9 @@ control switch_primitivetype_32 {
   else if(meta_primitive_state.primitive == A_MULTICAST) {
     do_multicast_32();
   }
+  else if(meta_primitive_state.primitive == A_ADD_TO_FIELD) {
+    do_add_to_field_32();
+  }
   // ... (other primitive types)
 }
 
@@ -201,6 +226,9 @@ control switch_primitivetype_33 {
   }*/
   else if(meta_primitive_state.primitive == A_MULTICAST) {
     do_multicast_33();
+  }
+  else if(meta_primitive_state.primitive == A_ADD_TO_FIELD) {
+    do_add_to_field_33();
   }
   // ... (other primitive types)
 }
