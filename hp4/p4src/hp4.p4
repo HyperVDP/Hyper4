@@ -19,20 +19,38 @@ metadata meta_primitive_state_t meta_primitive_state;
 metadata meta_stdmeta_t meta_stdmeta;
 metadata extracted_t extracted;
 metadata tmeta_t tmeta;
+metadata csum_t csum;
 
 // Unfortunately, despite the stated goal of HyPer4 to provide target independent features,
 //  bmv2 requires this intrinsic metadata structure in order to do a resubmit
 metadata intrinsic_metadata_t intrinsic_metadata;
 
-control ingress {
-  // setup.p4
-  setup();
+action a_is_icmp() {
+}
 
-  if (meta_ctrl.stage == NORM) {
-    // stages.p4
-    stage1();
-    stage2();
-    stage3();
+table is_icmp {
+  reads {
+    meta_parse.do_process : exact;
+  }
+  actions {
+    a_is_icmp;
+    a_drop;
+  }
+}
+
+control ingress {
+  apply(is_icmp) {
+    a_is_icmp {
+      // setup.p4
+      setup();
+
+      if (meta_ctrl.stage == NORM) { // c02
+      // stages.p4
+      stage1();
+      stage2();
+      stage3();
+      }
+    }
   }
 }
 
@@ -77,9 +95,59 @@ table prepare_for_deparsing {
   }
 }
 
+action a_ipv4_csum16(rshift_base, div) {
+  modify_field(csum.rshift, rshift_base);
+  modify_field(csum.div, div);
+  // dst low
+  modify_field(csum.sum, csum.sum + ((extracted.data >> csum.rshift) & 0xFFFF));
+  modify_field(csum.rshift, csum.rshift + csum.div);
+  // dst high
+  modify_field(csum.sum, csum.sum + ((extracted.data >> csum.rshift) & 0xFFFF));
+  modify_field(csum.rshift, csum.rshift + csum.div);
+  // src low
+  modify_field(csum.sum, csum.sum + ((extracted.data >> csum.rshift) & 0xFFFF));
+  modify_field(csum.rshift, csum.rshift + csum.div);
+  // src high
+  modify_field(csum.sum, csum.sum + ((extracted.data >> csum.rshift) & 0xFFFF));
+  modify_field(csum.rshift, csum.rshift + csum.div);
+  // skip csum
+  modify_field(csum.rshift, csum.rshift + csum.div);
+  // TTL+protocol
+  modify_field(csum.sum, csum.sum + ((extracted.data >> csum.rshift) & 0xFFFF));
+  modify_field(csum.rshift, csum.rshift + csum.div);
+  // flags+frag offset
+  modify_field(csum.sum, csum.sum + ((extracted.data >> csum.rshift) & 0xFFFF));
+  modify_field(csum.rshift, csum.rshift + csum.div);
+  // ID
+  modify_field(csum.sum, csum.sum + ((extracted.data >> csum.rshift) & 0xFFFF));
+  modify_field(csum.rshift, csum.rshift + csum.div);
+  // totalLen
+  modify_field(csum.sum, csum.sum + ((extracted.data >> csum.rshift) & 0xFFFF));
+  modify_field(csum.rshift, csum.rshift + csum.div);
+  // version+IHL+DSCP
+  modify_field(csum.sum, csum.sum + ((extracted.data >> csum.rshift) & 0xFFFF));
+  
+  // add carry
+  modify_field(csum.sum, (csum.sum + (csum.sum >> csum.div)) & 0xFFFF);
+
+  // invert and store
+  modify_field(csum.final, ~csum.sum);
+
+  modify_field(csum.csmask, 0xFFFF << 304);
+  modify_field(extracted.data, (extracted.data & ~csum.csmask) | ((csum.final << 304) & csum.csmask));
+}
+
+table csum16 {
+  actions {
+    a_ipv4_csum16;
+    _no_op;
+  }
+}
+
 control egress {
   if(meta_ctrl.do_multicast == 1) {
     apply(t_multicast);
   }
+  apply(csum16);
   apply(prepare_for_deparsing);
 }

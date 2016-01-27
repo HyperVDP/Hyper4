@@ -15,7 +15,24 @@ limitations under the License.
 */
 
 parser start {
-    return parse_ethernet;
+    return select(current(96, 16)) {
+      0x0800 : parse_continue;
+      default : parse_stop;
+    }
+}
+
+parser parse_continue {
+  return select(current(184, 8)) {
+    0x01 : parse_ethernet;
+    default : parse_stop;
+  }
+}
+
+#define PROCEED	0
+#define STOP	1
+parser parse_stop {
+  set_metadata(meta.do_process, STOP);
+  return ingress;
 }
 
 #define ETHERTYPE_IPV4 0x0800

@@ -31,6 +31,8 @@ header_type routing_metadata_t {
 header_type meta_t {
   fields {
     temp : 32;
+    do_process : 8;
+    //csmask : 768;
   }
 }
 
@@ -87,22 +89,22 @@ table send_frame {
     size: 256;
 }
 
-action a_is_ipv4() {
+action a_is_icmp() {
 }
 
-table is_ipv4 {
+table is_icmp {
   reads {
-    ipv4 : valid;
+    meta.do_process : exact;
   }
   actions {
-    a_is_ipv4;
+    a_is_icmp;
     _drop;
   }
 }
 
 control ingress {
-    apply(is_ipv4) {
-      a_is_ipv4 {
+    apply(is_icmp) {
+      a_is_icmp {
         apply(ipv4_lpm);
         apply(forward);
         apply(send_frame);
@@ -110,7 +112,7 @@ control ingress {
     }
 }
 
-action a_csum16() {
+action a_csum() {
   modify_field(meta.temp, ((ipv4.version << 12) + (ipv4.ihl << 8) + ipv4.diffserv));
   modify_field(meta.temp, meta.temp + ipv4.totalLen);
   modify_field(meta.temp, meta.temp + ipv4.identification);
@@ -125,16 +127,20 @@ action a_csum16() {
   modify_field(meta.temp, meta.temp + (ipv4.dstAddr & 0xFFFF));
   modify_field(meta.temp, meta.temp + ((meta.temp >> 16) & 0xFFFF)); // add carry
   modify_field(ipv4.hdrChecksum, ~meta.temp);
+  // This works:
+//  modify_field(meta.csmask, 0xFFFF << 6);
+  // But this doesn't:
+  //modify_field(meta.csmask, 0xFFFF000000000000);
 }
 
-table csum16 {
+table csum {
   actions {
-    a_csum16;
+    a_csum;
   }
 }
 
 control egress {
-  apply(csum16);
+  apply(csum);
 }
 
 

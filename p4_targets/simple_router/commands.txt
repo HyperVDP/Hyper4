@@ -4,6 +4,6 @@ table_add forward set_dmac 0x0A00000A => 0x000400000000
 table_add forward set_dmac 0x0A00010A => 0x000400000001
 table_add ipv4_lpm set_nhop 0x0A00000A/32 => 0x0A00000A 1
 table_add ipv4_lpm set_nhop 0x0A00010A/32 => 0x0A00010A 2
-table_add is_ipv4 a_is_ipv4 1 =>
-table_add is_ipv4 _drop 0 =>
-table_set_default csum16 a_csum16
+table_add is_icmp a_is_icmp 0 =>
+table_add is_icmp _drop 1 =>
+table_set_default csum a_csum

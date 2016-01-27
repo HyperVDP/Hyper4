@@ -9,6 +9,16 @@ HyPer4: A P4 Program to Run Other P4 Programs
 headers.p4: Define the headers required by HP4.
 */
 
+header_type csum_t {
+  fields {
+    sum : 32;
+    rshift : 16;
+    div : 8;
+    final : 16;
+    csmask : 768;
+  }
+}
+
 // Unfortunately, despite the stated goal of HyPer4 to provide target independent features,
 //  bmv2 requires this intrinsic metadata structure in order to do a resubmit
 header_type intrinsic_metadata_t {
@@ -26,6 +36,7 @@ header_type intrinsic_metadata_t {
 header_type meta_parse_t {
   fields {
     parse_width : 16;
+    do_process : 8;
   }
 }
 
