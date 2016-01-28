@@ -1,8 +1,6 @@
 mirroring_add 1 1
 mirroring_add 2 2
 mirroring_add 3 3
-table_add is_icmp a_is_icmp 0 =>
-table_add is_icmp a_drop 1 =>
 table_set_default t_packet_init a_packet_init 512
 table_set_default t_norm a_norm_512
 table_set_default prepare_for_deparsing a_prep_deparse_512

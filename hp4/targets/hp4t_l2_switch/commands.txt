@@ -3,6 +3,8 @@ mirroring_add 2 2
 mirroring_add 3 3
 table_set_default t_packet_init a_packet_init 256
 table_set_default t_norm a_norm_256
+table_set_default prepare_for_deparsing a_prep_deparse_512
+table_set_default csum16 _no_op
 table_add t_prog_select set_program 1 0x00&&&0x00 => 1 1 1
 table_add t_prog_select set_program 2 0x00&&&0x00 => 1 1 1
 table_add t_prog_select set_program 3 0x00&&&0x00 => 1 1 1

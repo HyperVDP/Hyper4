@@ -17,7 +17,7 @@ header bitfield_256_t bitfield_256;
 header bitfield_512_t bitfield_512;
 header bitfield_768_t bitfield_768;
 
-/*
+
 parser start {
   return select(meta_parse.parse_width) {
     256 : parse_256;
@@ -26,8 +26,8 @@ parser start {
     default : ingress;
   }
 }
-*/
 
+/*
 parser start {
   return select(current(96, 16)) {
     0x0800 : parse_continue;
@@ -57,7 +57,7 @@ parser parse_stop {
   set_metadata(meta_parse.do_process, STOP);
   return ingress;
 }
-
+*/
 parser parse_256 {
   extract(bitfield_256);
   set_metadata(meta_ctrl.stage, NORM);

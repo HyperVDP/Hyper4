@@ -1,0 +1,594 @@
+type: PACKET_IN, switch_id: 0, cxt_id : 0, sig: 6324168313059962961, id: 191, copy_id: 0, port_in: 2
+type: PARSER_START, switch_id: 0, cxt_id : 0, sig: 6324168313059962961, id: 191, copy_id: 0, parser_id: 0 (parser)
+type: PARSER_DONE, switch_id: 0, cxt_id : 0, sig: 6324168313059962961, id: 191, copy_id: 0, parser_id: 0 (parser)
+type: PIPELINE_START, switch_id: 0, cxt_id : 0, sig: 6324168313059962961, id: 191, copy_id: 0, pipeline_id: 0 (ingress)
+type: CONDITION_EVAL, switch_id: 0, cxt_id : 0, sig: 6324168313059962961, id: 191, copy_id: 0, condition_id: 0 (_condition_0), result: True
+type: TABLE_MISS, switch_id: 0, cxt_id : 0, sig: 6324168313059962961, id: 191, copy_id: 0, table_id: 0 (t_packet_init)
+type: ACTION_EXECUTE, switch_id: 0, cxt_id : 0, sig: 6324168313059962961, id: 191, copy_id: 0, action_id: 16 (a_packet_init)
+type: CONDITION_EVAL, switch_id: 0, cxt_id : 0, sig: 6324168313059962961, id: 191, copy_id: 0, condition_id: 2 (_condition_2), result: False
+type: PIPELINE_DONE, switch_id: 0, cxt_id : 0, sig: 6324168313059962961, id: 191, copy_id: 0, pipeline_id: 0 (ingress)
+type: PARSER_START, switch_id: 0, cxt_id : 0, sig: 6324168313059962961, id: 191, copy_id: 1, parser_id: 0 (parser)
+type: PARSER_EXTRACT, switch_id: 0, cxt_id : 0, sig: 6324168313059962961, id: 191, copy_id: 1, header_id: 3 (bitfield_256)
+type: PARSER_DONE, switch_id: 0, cxt_id : 0, sig: 6324168313059962961, id: 191, copy_id: 1, parser_id: 0 (parser)
+type: PIPELINE_START, switch_id: 0, cxt_id : 0, sig: 6324168313059962961, id: 191, copy_id: 1, pipeline_id: 0 (ingress)
+type: CONDITION_EVAL, switch_id: 0, cxt_id : 0, sig: 6324168313059962961, id: 191, copy_id: 1, condition_id: 0 (_condition_0), result: False
+type: CONDITION_EVAL, switch_id: 0, cxt_id : 0, sig: 6324168313059962961, id: 191, copy_id: 1, condition_id: 1 (_condition_1), result: True
+type: TABLE_MISS, switch_id: 0, cxt_id : 0, sig: 6324168313059962961, id: 191, copy_id: 1, table_id: 1 (t_norm)
+type: ACTION_EXECUTE, switch_id: 0, cxt_id : 0, sig: 6324168313059962961, id: 191, copy_id: 1, action_id: 17 (a_norm_256)
+type: TABLE_HIT, switch_id: 0, cxt_id : 0, sig: 6324168313059962961, id: 191, copy_id: 1, table_id: 2 (t_prog_select), entry_hdl: 1
+type: ACTION_EXECUTE, switch_id: 0, cxt_id : 0, sig: 6324168313059962961, id: 191, copy_id: 1, action_id: 30 (set_program)
+type: CONDITION_EVAL, switch_id: 0, cxt_id : 0, sig: 6324168313059962961, id: 191, copy_id: 1, condition_id: 2 (_condition_2), result: True
+type: CONDITION_EVAL, switch_id: 0, cxt_id : 0, sig: 6324168313059962961, id: 191, copy_id: 1, condition_id: 3 (_condition_3), result: True
+type: TABLE_HIT, switch_id: 0, cxt_id : 0, sig: 6324168313059962961, id: 191, copy_id: 1, table_id: 15 (t1_extracted_exact), entry_hdl: 3
+type: ACTION_EXECUTE, switch_id: 0, cxt_id : 0, sig: 6324168313059962961, id: 191, copy_id: 1, action_id: 29 (init_program_state)
+type: TABLE_HIT, switch_id: 0, cxt_id : 0, sig: 6324168313059962961, id: 191, copy_id: 1, table_id: 24 (set_primitive_metadata_11), entry_hdl: 1
+type: ACTION_EXECUTE, switch_id: 0, cxt_id : 0, sig: 6324168313059962961, id: 191, copy_id: 1, action_id: 4 (a_set_primitive_metadata)
+type: CONDITION_EVAL, switch_id: 0, cxt_id : 0, sig: 6324168313059962961, id: 191, copy_id: 1, condition_id: 10 (_condition_10), result: False
+type: CONDITION_EVAL, switch_id: 0, cxt_id : 0, sig: 6324168313059962961, id: 191, copy_id: 1, condition_id: 11 (_condition_11), result: False
+type: CONDITION_EVAL, switch_id: 0, cxt_id : 0, sig: 6324168313059962961, id: 191, copy_id: 1, condition_id: 12 (_condition_12), result: False
+type: CONDITION_EVAL, switch_id: 0, cxt_id : 0, sig: 6324168313059962961, id: 191, copy_id: 1, condition_id: 13 (_condition_13), result: True
+type: TABLE_HIT, switch_id: 0, cxt_id : 0, sig: 6324168313059962961, id: 191, copy_id: 1, table_id: 60 (t_multicast_11), entry_hdl: 0
+type: ACTION_EXECUTE, switch_id: 0, cxt_id : 0, sig: 6324168313059962961, id: 191, copy_id: 1, action_id: 24 (a_multicast)
+type: TABLE_HIT, switch_id: 0, cxt_id : 0, sig: 6324168313059962961, id: 191, copy_id: 1, table_id: 78 (set_program_state_11), entry_hdl: 1
+type: ACTION_EXECUTE, switch_id: 0, cxt_id : 0, sig: 6324168313059962961, id: 191, copy_id: 1, action_id: 0 (set_program_state)
+type: CONDITION_EVAL, switch_id: 0, cxt_id : 0, sig: 6324168313059962961, id: 191, copy_id: 1, condition_id: 15 (_condition_15), result: False
+type: CONDITION_EVAL, switch_id: 0, cxt_id : 0, sig: 6324168313059962961, id: 191, copy_id: 1, condition_id: 27 (_condition_27), result: False
+type: CONDITION_EVAL, switch_id: 0, cxt_id : 0, sig: 6324168313059962961, id: 191, copy_id: 1, condition_id: 28 (_condition_28), result: False
+type: CONDITION_EVAL, switch_id: 0, cxt_id : 0, sig: 6324168313059962961, id: 191, copy_id: 1, condition_id: 29 (_condition_29), result: False
+type: TABLE_MISS, switch_id: 0, cxt_id : 0, sig: 6324168313059962961, id: 191, copy_id: 1, table_id: 27 (set_primitive_metadata_21)
+type: PIPELINE_DONE, switch_id: 0, cxt_id : 0, sig: 6324168313059962961, id: 191, copy_id: 1, pipeline_id: 0 (ingress)
+type: PIPELINE_START, switch_id: 0, cxt_id : 0, sig: 6324168313059962961, id: 191, copy_id: 1, pipeline_id: 1 (egress)
+type: CONDITION_EVAL, switch_id: 0, cxt_id : 0, sig: 6324168313059962961, id: 191, copy_id: 1, condition_id: 75 (_condition_75), result: True
+type: TABLE_HIT, switch_id: 0, cxt_id : 0, sig: 6324168313059962961, id: 191, copy_id: 1, table_id: 87 (t_multicast), entry_hdl: 0
+type: ACTION_EXECUTE, switch_id: 0, cxt_id : 0, sig: 6324168313059962961, id: 191, copy_id: 1, action_id: 3 (mod_and_clone)
+type: TABLE_MISS, switch_id: 0, cxt_id : 0, sig: 6324168313059962961, id: 191, copy_id: 1, table_id: 89 (csum16)
+type: ACTION_EXECUTE, switch_id: 0, cxt_id : 0, sig: 6324168313059962961, id: 191, copy_id: 1, action_id: 7 (_no_op)
+type: TABLE_MISS, switch_id: 0, cxt_id : 0, sig: 6324168313059962961, id: 191, copy_id: 1, table_id: 88 (prepare_for_deparsing)
+type: ACTION_EXECUTE, switch_id: 0, cxt_id : 0, sig: 6324168313059962961, id: 191, copy_id: 1, action_id: 12 (a_prep_deparse_256)
+type: PIPELINE_DONE, switch_id: 0, cxt_id : 0, sig: 6324168313059962961, id: 191, copy_id: 1, pipeline_id: 1 (egress)
+type: DEPARSER_START, switch_id: 0, cxt_id : 0, sig: 6324168313059962961, id: 191, copy_id: 1, deparser_id: 0 (deparser)
+type: DEPARSER_EMIT, switch_id: 0, cxt_id : 0, sig: 6324168313059962961, id: 191, copy_id: 1, header_id: 3 (bitfield_256)
+type: DEPARSER_DONE, switch_id: 0, cxt_id : 0, sig: 6324168313059962961, id: 191, copy_id: 1, deparser_id: 0 (deparser)
+type: PIPELINE_START, switch_id: 0, cxt_id : 0, sig: 3748807126331100250, id: 191, copy_id: 1, pipeline_id: 1 (egress)
+type: CONDITION_EVAL, switch_id: 0, cxt_id : 0, sig: 3748807126331100250, id: 191, copy_id: 1, condition_id: 75 (_condition_75), result: True
+type: TABLE_HIT, switch_id: 0, cxt_id : 0, sig: 3748807126331100250, id: 191, copy_id: 1, table_id: 87 (t_multicast), entry_hdl: 1
+type: ACTION_EXECUTE, switch_id: 0, cxt_id : 0, sig: 3748807126331100250, id: 191, copy_id: 1, action_id: 3 (mod_and_clone)
+type: TABLE_MISS, switch_id: 0, cxt_id : 0, sig: 3748807126331100250, id: 191, copy_id: 1, table_id: 89 (csum16)
+type: ACTION_EXECUTE, switch_id: 0, cxt_id : 0, sig: 3748807126331100250, id: 191, copy_id: 1, action_id: 7 (_no_op)
+type: TABLE_MISS, switch_id: 0, cxt_id : 0, sig: 3748807126331100250, id: 191, copy_id: 1, table_id: 88 (prepare_for_deparsing)
+type: ACTION_EXECUTE, switch_id: 0, cxt_id : 0, sig: 3748807126331100250, id: 191, copy_id: 1, action_id: 12 (a_prep_deparse_256)
+type: PIPELINE_DONE, switch_id: 0, cxt_id : 0, sig: 3748807126331100250, id: 191, copy_id: 1, pipeline_id: 1 (egress)
+type: DEPARSER_START, switch_id: 0, cxt_id : 0, sig: 3748807126331100250, id: 191, copy_id: 1, deparser_id: 0 (deparser)
+type: DEPARSER_EMIT, switch_id: 0, cxt_id : 0, sig: 3748807126331100250, id: 191, copy_id: 1, header_id: 3 (bitfield_256)
+type: DEPARSER_DONE, switch_id: 0, cxt_id : 0, sig: 3748807126331100250, id: 191, copy_id: 1, deparser_id: 0 (deparser)
+type: PACKET_OUT, switch_id: 0, cxt_id : 0, sig: 6324168313059962961, id: 191, copy_id: 1, port_out: 3
+type: PACKET_OUT, switch_id: 0, cxt_id : 0, sig: 3748807126331100250, id: 191, copy_id: 1, port_out: 2
+type: PIPELINE_START, switch_id: 0, cxt_id : 0, sig: 3748807126331100250, id: 191, copy_id: 2, pipeline_id: 1 (egress)
+type: CONDITION_EVAL, switch_id: 0, cxt_id : 0, sig: 3748807126331100250, id: 191, copy_id: 2, condition_id: 75 (_condition_75), result: True
+type: TABLE_HIT, switch_id: 0, cxt_id : 0, sig: 3748807126331100250, id: 191, copy_id: 2, table_id: 87 (t_multicast), entry_hdl: 2
+type: ACTION_EXECUTE, switch_id: 0, cxt_id : 0, sig: 3748807126331100250, id: 191, copy_id: 2, action_id: 7 (_no_op)
+type: TABLE_MISS, switch_id: 0, cxt_id : 0, sig: 3748807126331100250, id: 191, copy_id: 2, table_id: 89 (csum16)
+type: ACTION_EXECUTE, switch_id: 0, cxt_id : 0, sig: 3748807126331100250, id: 191, copy_id: 2, action_id: 7 (_no_op)
+type: TABLE_MISS, switch_id: 0, cxt_id : 0, sig: 3748807126331100250, id: 191, copy_id: 2, table_id: 88 (prepare_for_deparsing)
+type: ACTION_EXECUTE, switch_id: 0, cxt_id : 0, sig: 3748807126331100250, id: 191, copy_id: 2, action_id: 12 (a_prep_deparse_256)
+type: PIPELINE_DONE, switch_id: 0, cxt_id : 0, sig: 3748807126331100250, id: 191, copy_id: 2, pipeline_id: 1 (egress)
+type: DEPARSER_START, switch_id: 0, cxt_id : 0, sig: 3748807126331100250, id: 191, copy_id: 2, deparser_id: 0 (deparser)
+type: DEPARSER_EMIT, switch_id: 0, cxt_id : 0, sig: 3748807126331100250, id: 191, copy_id: 2, header_id: 3 (bitfield_256)
+type: DEPARSER_DONE, switch_id: 0, cxt_id : 0, sig: 3748807126331100250, id: 191, copy_id: 2, deparser_id: 0 (deparser)
+type: PACKET_OUT, switch_id: 0, cxt_id : 0, sig: 3748807126331100250, id: 191, copy_id: 2, port_out: 1
+type: PACKET_IN, switch_id: 0, cxt_id : 0, sig: 4078197562511296772, id: 192, copy_id: 0, port_in: 1
+type: PARSER_START, switch_id: 0, cxt_id : 0, sig: 4078197562511296772, id: 192, copy_id: 0, parser_id: 0 (parser)
+type: PARSER_DONE, switch_id: 0, cxt_id : 0, sig: 4078197562511296772, id: 192, copy_id: 0, parser_id: 0 (parser)
+type: PIPELINE_START, switch_id: 0, cxt_id : 0, sig: 4078197562511296772, id: 192, copy_id: 0, pipeline_id: 0 (ingress)
+type: CONDITION_EVAL, switch_id: 0, cxt_id : 0, sig: 4078197562511296772, id: 192, copy_id: 0, condition_id: 0 (_condition_0), result: True
+type: TABLE_MISS, switch_id: 0, cxt_id : 0, sig: 4078197562511296772, id: 192, copy_id: 0, table_id: 0 (t_packet_init)
+type: ACTION_EXECUTE, switch_id: 0, cxt_id : 0, sig: 4078197562511296772, id: 192, copy_id: 0, action_id: 16 (a_packet_init)
+type: CONDITION_EVAL, switch_id: 0, cxt_id : 0, sig: 4078197562511296772, id: 192, copy_id: 0, condition_id: 2 (_condition_2), result: False
+type: PIPELINE_DONE, switch_id: 0, cxt_id : 0, sig: 4078197562511296772, id: 192, copy_id: 0, pipeline_id: 0 (ingress)
+type: PARSER_START, switch_id: 0, cxt_id : 0, sig: 4078197562511296772, id: 192, copy_id: 1, parser_id: 0 (parser)
+type: PARSER_EXTRACT, switch_id: 0, cxt_id : 0, sig: 4078197562511296772, id: 192, copy_id: 1, header_id: 3 (bitfield_256)
+type: PARSER_DONE, switch_id: 0, cxt_id : 0, sig: 4078197562511296772, id: 192, copy_id: 1, parser_id: 0 (parser)
+type: PIPELINE_START, switch_id: 0, cxt_id : 0, sig: 4078197562511296772, id: 192, copy_id: 1, pipeline_id: 0 (ingress)
+type: CONDITION_EVAL, switch_id: 0, cxt_id : 0, sig: 4078197562511296772, id: 192, copy_id: 1, condition_id: 0 (_condition_0), result: False
+type: CONDITION_EVAL, switch_id: 0, cxt_id : 0, sig: 4078197562511296772, id: 192, copy_id: 1, condition_id: 1 (_condition_1), result: True
+type: TABLE_MISS, switch_id: 0, cxt_id : 0, sig: 4078197562511296772, id: 192, copy_id: 1, table_id: 1 (t_norm)
+type: ACTION_EXECUTE, switch_id: 0, cxt_id : 0, sig: 4078197562511296772, id: 192, copy_id: 1, action_id: 17 (a_norm_256)
+type: TABLE_HIT, switch_id: 0, cxt_id : 0, sig: 4078197562511296772, id: 192, copy_id: 1, table_id: 2 (t_prog_select), entry_hdl: 0
+type: ACTION_EXECUTE, switch_id: 0, cxt_id : 0, sig: 4078197562511296772, id: 192, copy_id: 1, action_id: 30 (set_program)
+type: CONDITION_EVAL, switch_id: 0, cxt_id : 0, sig: 4078197562511296772, id: 192, copy_id: 1, condition_id: 2 (_condition_2), result: True
+type: CONDITION_EVAL, switch_id: 0, cxt_id : 0, sig: 4078197562511296772, id: 192, copy_id: 1, condition_id: 3 (_condition_3), result: True
+type: TABLE_MISS, switch_id: 0, cxt_id : 0, sig: 4078197562511296772, id: 192, copy_id: 1, table_id: 15 (t1_extracted_exact)
+type: PIPELINE_DONE, switch_id: 0, cxt_id : 0, sig: 4078197562511296772, id: 192, copy_id: 1, pipeline_id: 0 (ingress)
+type: PIPELINE_START, switch_id: 0, cxt_id : 0, sig: 4078197562511296772, id: 192, copy_id: 1, pipeline_id: 1 (egress)
+type: CONDITION_EVAL, switch_id: 0, cxt_id : 0, sig: 4078197562511296772, id: 192, copy_id: 1, condition_id: 75 (_condition_75), result: False
+type: TABLE_MISS, switch_id: 0, cxt_id : 0, sig: 4078197562511296772, id: 192, copy_id: 1, table_id: 89 (csum16)
+type: ACTION_EXECUTE, switch_id: 0, cxt_id : 0, sig: 4078197562511296772, id: 192, copy_id: 1, action_id: 7 (_no_op)
+type: TABLE_MISS, switch_id: 0, cxt_id : 0, sig: 4078197562511296772, id: 192, copy_id: 1, table_id: 88 (prepare_for_deparsing)
+type: ACTION_EXECUTE, switch_id: 0, cxt_id : 0, sig: 4078197562511296772, id: 192, copy_id: 1, action_id: 12 (a_prep_deparse_256)
+type: PIPELINE_DONE, switch_id: 0, cxt_id : 0, sig: 4078197562511296772, id: 192, copy_id: 1, pipeline_id: 1 (egress)
+type: DEPARSER_START, switch_id: 0, cxt_id : 0, sig: 4078197562511296772, id: 192, copy_id: 1, deparser_id: 0 (deparser)
+type: DEPARSER_EMIT, switch_id: 0, cxt_id : 0, sig: 4078197562511296772, id: 192, copy_id: 1, header_id: 3 (bitfield_256)
+type: DEPARSER_DONE, switch_id: 0, cxt_id : 0, sig: 4078197562511296772, id: 192, copy_id: 1, deparser_id: 0 (deparser)
+type: PACKET_OUT, switch_id: 0, cxt_id : 0, sig: 4078197562511296772, id: 192, copy_id: 1, port_out: 0
+type: PACKET_IN, switch_id: 0, cxt_id : 0, sig: 3291411576578183858, id: 193, copy_id: 0, port_in: 2
+type: PARSER_START, switch_id: 0, cxt_id : 0, sig: 3291411576578183858, id: 193, copy_id: 0, parser_id: 0 (parser)
+type: PARSER_DONE, switch_id: 0, cxt_id : 0, sig: 3291411576578183858, id: 193, copy_id: 0, parser_id: 0 (parser)
+type: PIPELINE_START, switch_id: 0, cxt_id : 0, sig: 3291411576578183858, id: 193, copy_id: 0, pipeline_id: 0 (ingress)
+type: CONDITION_EVAL, switch_id: 0, cxt_id : 0, sig: 3291411576578183858, id: 193, copy_id: 0, condition_id: 0 (_condition_0), result: True
+type: TABLE_MISS, switch_id: 0, cxt_id : 0, sig: 3291411576578183858, id: 193, copy_id: 0, table_id: 0 (t_packet_init)
+type: ACTION_EXECUTE, switch_id: 0, cxt_id : 0, sig: 3291411576578183858, id: 193, copy_id: 0, action_id: 16 (a_packet_init)
+type: CONDITION_EVAL, switch_id: 0, cxt_id : 0, sig: 3291411576578183858, id: 193, copy_id: 0, condition_id: 2 (_condition_2), result: False
+type: PIPELINE_DONE, switch_id: 0, cxt_id : 0, sig: 3291411576578183858, id: 193, copy_id: 0, pipeline_id: 0 (ingress)
+type: PARSER_START, switch_id: 0, cxt_id : 0, sig: 3291411576578183858, id: 193, copy_id: 1, parser_id: 0 (parser)
+type: PARSER_EXTRACT, switch_id: 0, cxt_id : 0, sig: 3291411576578183858, id: 193, copy_id: 1, header_id: 3 (bitfield_256)
+type: PARSER_DONE, switch_id: 0, cxt_id : 0, sig: 3291411576578183858, id: 193, copy_id: 1, parser_id: 0 (parser)
+type: PIPELINE_START, switch_id: 0, cxt_id : 0, sig: 3291411576578183858, id: 193, copy_id: 1, pipeline_id: 0 (ingress)
+type: CONDITION_EVAL, switch_id: 0, cxt_id : 0, sig: 3291411576578183858, id: 193, copy_id: 1, condition_id: 0 (_condition_0), result: False
+type: CONDITION_EVAL, switch_id: 0, cxt_id : 0, sig: 3291411576578183858, id: 193, copy_id: 1, condition_id: 1 (_condition_1), result: True
+type: TABLE_MISS, switch_id: 0, cxt_id : 0, sig: 3291411576578183858, id: 193, copy_id: 1, table_id: 1 (t_norm)
+type: ACTION_EXECUTE, switch_id: 0, cxt_id : 0, sig: 3291411576578183858, id: 193, copy_id: 1, action_id: 17 (a_norm_256)
+type: TABLE_HIT, switch_id: 0, cxt_id : 0, sig: 3291411576578183858, id: 193, copy_id: 1, table_id: 2 (t_prog_select), entry_hdl: 1
+type: ACTION_EXECUTE, switch_id: 0, cxt_id : 0, sig: 3291411576578183858, id: 193, copy_id: 1, action_id: 30 (set_program)
+type: CONDITION_EVAL, switch_id: 0, cxt_id : 0, sig: 3291411576578183858, id: 193, copy_id: 1, condition_id: 2 (_condition_2), result: True
+type: CONDITION_EVAL, switch_id: 0, cxt_id : 0, sig: 3291411576578183858, id: 193, copy_id: 1, condition_id: 3 (_condition_3), result: True
+type: TABLE_MISS, switch_id: 0, cxt_id : 0, sig: 3291411576578183858, id: 193, copy_id: 1, table_id: 15 (t1_extracted_exact)
+type: PIPELINE_DONE, switch_id: 0, cxt_id : 0, sig: 3291411576578183858, id: 193, copy_id: 1, pipeline_id: 0 (ingress)
+type: PIPELINE_START, switch_id: 0, cxt_id : 0, sig: 3291411576578183858, id: 193, copy_id: 1, pipeline_id: 1 (egress)
+type: CONDITION_EVAL, switch_id: 0, cxt_id : 0, sig: 3291411576578183858, id: 193, copy_id: 1, condition_id: 75 (_condition_75), result: False
+type: TABLE_MISS, switch_id: 0, cxt_id : 0, sig: 3291411576578183858, id: 193, copy_id: 1, table_id: 89 (csum16)
+type: ACTION_EXECUTE, switch_id: 0, cxt_id : 0, sig: 3291411576578183858, id: 193, copy_id: 1, action_id: 7 (_no_op)
+type: TABLE_MISS, switch_id: 0, cxt_id : 0, sig: 3291411576578183858, id: 193, copy_id: 1, table_id: 88 (prepare_for_deparsing)
+type: ACTION_EXECUTE, switch_id: 0, cxt_id : 0, sig: 3291411576578183858, id: 193, copy_id: 1, action_id: 12 (a_prep_deparse_256)
+type: PIPELINE_DONE, switch_id: 0, cxt_id : 0, sig: 3291411576578183858, id: 193, copy_id: 1, pipeline_id: 1 (egress)
+type: DEPARSER_START, switch_id: 0, cxt_id : 0, sig: 3291411576578183858, id: 193, copy_id: 1, deparser_id: 0 (deparser)
+type: DEPARSER_EMIT, switch_id: 0, cxt_id : 0, sig: 3291411576578183858, id: 193, copy_id: 1, header_id: 3 (bitfield_256)
+type: DEPARSER_DONE, switch_id: 0, cxt_id : 0, sig: 3291411576578183858, id: 193, copy_id: 1, deparser_id: 0 (deparser)
+type: PACKET_OUT, switch_id: 0, cxt_id : 0, sig: 3291411576578183858, id: 193, copy_id: 1, port_out: 0
+type: PACKET_IN, switch_id: 0, cxt_id : 0, sig: 14879661681253708053, id: 194, copy_id: 0, port_in: 3
+type: PARSER_START, switch_id: 0, cxt_id : 0, sig: 14879661681253708053, id: 194, copy_id: 0, parser_id: 0 (parser)
+type: PARSER_DONE, switch_id: 0, cxt_id : 0, sig: 14879661681253708053, id: 194, copy_id: 0, parser_id: 0 (parser)
+type: PIPELINE_START, switch_id: 0, cxt_id : 0, sig: 14879661681253708053, id: 194, copy_id: 0, pipeline_id: 0 (ingress)
+type: CONDITION_EVAL, switch_id: 0, cxt_id : 0, sig: 14879661681253708053, id: 194, copy_id: 0, condition_id: 0 (_condition_0), result: True
+type: TABLE_MISS, switch_id: 0, cxt_id : 0, sig: 14879661681253708053, id: 194, copy_id: 0, table_id: 0 (t_packet_init)
+type: ACTION_EXECUTE, switch_id: 0, cxt_id : 0, sig: 14879661681253708053, id: 194, copy_id: 0, action_id: 16 (a_packet_init)
+type: CONDITION_EVAL, switch_id: 0, cxt_id : 0, sig: 14879661681253708053, id: 194, copy_id: 0, condition_id: 2 (_condition_2), result: False
+type: PIPELINE_DONE, switch_id: 0, cxt_id : 0, sig: 14879661681253708053, id: 194, copy_id: 0, pipeline_id: 0 (ingress)
+type: PARSER_START, switch_id: 0, cxt_id : 0, sig: 14879661681253708053, id: 194, copy_id: 1, parser_id: 0 (parser)
+type: PARSER_EXTRACT, switch_id: 0, cxt_id : 0, sig: 14879661681253708053, id: 194, copy_id: 1, header_id: 3 (bitfield_256)
+type: PARSER_DONE, switch_id: 0, cxt_id : 0, sig: 14879661681253708053, id: 194, copy_id: 1, parser_id: 0 (parser)
+type: PIPELINE_START, switch_id: 0, cxt_id : 0, sig: 14879661681253708053, id: 194, copy_id: 1, pipeline_id: 0 (ingress)
+type: CONDITION_EVAL, switch_id: 0, cxt_id : 0, sig: 14879661681253708053, id: 194, copy_id: 1, condition_id: 0 (_condition_0), result: False
+type: CONDITION_EVAL, switch_id: 0, cxt_id : 0, sig: 14879661681253708053, id: 194, copy_id: 1, condition_id: 1 (_condition_1), result: True
+type: TABLE_MISS, switch_id: 0, cxt_id : 0, sig: 14879661681253708053, id: 194, copy_id: 1, table_id: 1 (t_norm)
+type: ACTION_EXECUTE, switch_id: 0, cxt_id : 0, sig: 14879661681253708053, id: 194, copy_id: 1, action_id: 17 (a_norm_256)
+type: TABLE_HIT, switch_id: 0, cxt_id : 0, sig: 14879661681253708053, id: 194, copy_id: 1, table_id: 2 (t_prog_select), entry_hdl: 2
+type: ACTION_EXECUTE, switch_id: 0, cxt_id : 0, sig: 14879661681253708053, id: 194, copy_id: 1, action_id: 30 (set_program)
+type: CONDITION_EVAL, switch_id: 0, cxt_id : 0, sig: 14879661681253708053, id: 194, copy_id: 1, condition_id: 2 (_condition_2), result: True
+type: CONDITION_EVAL, switch_id: 0, cxt_id : 0, sig: 14879661681253708053, id: 194, copy_id: 1, condition_id: 3 (_condition_3), result: True
+type: TABLE_HIT, switch_id: 0, cxt_id : 0, sig: 14879661681253708053, id: 194, copy_id: 1, table_id: 15 (t1_extracted_exact), entry_hdl: 3
+type: ACTION_EXECUTE, switch_id: 0, cxt_id : 0, sig: 14879661681253708053, id: 194, copy_id: 1, action_id: 29 (init_program_state)
+type: TABLE_HIT, switch_id: 0, cxt_id : 0, sig: 14879661681253708053, id: 194, copy_id: 1, table_id: 24 (set_primitive_metadata_11), entry_hdl: 1
+type: ACTION_EXECUTE, switch_id: 0, cxt_id : 0, sig: 14879661681253708053, id: 194, copy_id: 1, action_id: 4 (a_set_primitive_metadata)
+type: CONDITION_EVAL, switch_id: 0, cxt_id : 0, sig: 14879661681253708053, id: 194, copy_id: 1, condition_id: 10 (_condition_10), result: False
+type: CONDITION_EVAL, switch_id: 0, cxt_id : 0, sig: 14879661681253708053, id: 194, copy_id: 1, condition_id: 11 (_condition_11), result: False
+type: CONDITION_EVAL, switch_id: 0, cxt_id : 0, sig: 14879661681253708053, id: 194, copy_id: 1, condition_id: 12 (_condition_12), result: False
+type: CONDITION_EVAL, switch_id: 0, cxt_id : 0, sig: 14879661681253708053, id: 194, copy_id: 1, condition_id: 13 (_condition_13), result: True
+type: TABLE_HIT, switch_id: 0, cxt_id : 0, sig: 14879661681253708053, id: 194, copy_id: 1, table_id: 60 (t_multicast_11), entry_hdl: 0
+type: ACTION_EXECUTE, switch_id: 0, cxt_id : 0, sig: 14879661681253708053, id: 194, copy_id: 1, action_id: 24 (a_multicast)
+type: TABLE_HIT, switch_id: 0, cxt_id : 0, sig: 14879661681253708053, id: 194, copy_id: 1, table_id: 78 (set_program_state_11), entry_hdl: 1
+type: ACTION_EXECUTE, switch_id: 0, cxt_id : 0, sig: 14879661681253708053, id: 194, copy_id: 1, action_id: 0 (set_program_state)
+type: CONDITION_EVAL, switch_id: 0, cxt_id : 0, sig: 14879661681253708053, id: 194, copy_id: 1, condition_id: 15 (_condition_15), result: False
+type: CONDITION_EVAL, switch_id: 0, cxt_id : 0, sig: 14879661681253708053, id: 194, copy_id: 1, condition_id: 27 (_condition_27), result: False
+type: CONDITION_EVAL, switch_id: 0, cxt_id : 0, sig: 14879661681253708053, id: 194, copy_id: 1, condition_id: 28 (_condition_28), result: False
+type: CONDITION_EVAL, switch_id: 0, cxt_id : 0, sig: 14879661681253708053, id: 194, copy_id: 1, condition_id: 29 (_condition_29), result: False
+type: TABLE_MISS, switch_id: 0, cxt_id : 0, sig: 14879661681253708053, id: 194, copy_id: 1, table_id: 27 (set_primitive_metadata_21)
+type: PIPELINE_DONE, switch_id: 0, cxt_id : 0, sig: 14879661681253708053, id: 194, copy_id: 1, pipeline_id: 0 (ingress)
+type: PIPELINE_START, switch_id: 0, cxt_id : 0, sig: 14879661681253708053, id: 194, copy_id: 1, pipeline_id: 1 (egress)
+type: CONDITION_EVAL, switch_id: 0, cxt_id : 0, sig: 14879661681253708053, id: 194, copy_id: 1, condition_id: 75 (_condition_75), result: True
+type: TABLE_HIT, switch_id: 0, cxt_id : 0, sig: 14879661681253708053, id: 194, copy_id: 1, table_id: 87 (t_multicast), entry_hdl: 0
+type: ACTION_EXECUTE, switch_id: 0, cxt_id : 0, sig: 14879661681253708053, id: 194, copy_id: 1, action_id: 3 (mod_and_clone)
+type: TABLE_MISS, switch_id: 0, cxt_id : 0, sig: 14879661681253708053, id: 194, copy_id: 1, table_id: 89 (csum16)
+type: ACTION_EXECUTE, switch_id: 0, cxt_id : 0, sig: 14879661681253708053, id: 194, copy_id: 1, action_id: 7 (_no_op)
+type: TABLE_MISS, switch_id: 0, cxt_id : 0, sig: 14879661681253708053, id: 194, copy_id: 1, table_id: 88 (prepare_for_deparsing)
+type: ACTION_EXECUTE, switch_id: 0, cxt_id : 0, sig: 14879661681253708053, id: 194, copy_id: 1, action_id: 12 (a_prep_deparse_256)
+type: PIPELINE_DONE, switch_id: 0, cxt_id : 0, sig: 14879661681253708053, id: 194, copy_id: 1, pipeline_id: 1 (egress)
+type: DEPARSER_START, switch_id: 0, cxt_id : 0, sig: 14879661681253708053, id: 194, copy_id: 1, deparser_id: 0 (deparser)
+type: DEPARSER_EMIT, switch_id: 0, cxt_id : 0, sig: 14879661681253708053, id: 194, copy_id: 1, header_id: 3 (bitfield_256)
+type: DEPARSER_DONE, switch_id: 0, cxt_id : 0, sig: 14879661681253708053, id: 194, copy_id: 1, deparser_id: 0 (deparser)
+type: PIPELINE_START, switch_id: 0, cxt_id : 0, sig: 17559101150178479777, id: 194, copy_id: 1, pipeline_id: 1 (egress)
+type: CONDITION_EVAL, switch_id: 0, cxt_id : 0, sig: 17559101150178479777, id: 194, copy_id: 1, condition_id: 75 (_condition_75), result: True
+type: TABLE_HIT, switch_id: 0, cxt_id : 0, sig: 17559101150178479777, id: 194, copy_id: 1, table_id: 87 (t_multicast), entry_hdl: 1
+type: ACTION_EXECUTE, switch_id: 0, cxt_id : 0, sig: 17559101150178479777, id: 194, copy_id: 1, action_id: 3 (mod_and_clone)
+type: TABLE_MISS, switch_id: 0, cxt_id : 0, sig: 17559101150178479777, id: 194, copy_id: 1, table_id: 89 (csum16)
+type: ACTION_EXECUTE, switch_id: 0, cxt_id : 0, sig: 17559101150178479777, id: 194, copy_id: 1, action_id: 7 (_no_op)
+type: TABLE_MISS, switch_id: 0, cxt_id : 0, sig: 17559101150178479777, id: 194, copy_id: 1, table_id: 88 (prepare_for_deparsing)
+type: ACTION_EXECUTE, switch_id: 0, cxt_id : 0, sig: 17559101150178479777, id: 194, copy_id: 1, action_id: 12 (a_prep_deparse_256)
+type: PIPELINE_DONE, switch_id: 0, cxt_id : 0, sig: 17559101150178479777, id: 194, copy_id: 1, pipeline_id: 1 (egress)
+type: DEPARSER_START, switch_id: 0, cxt_id : 0, sig: 17559101150178479777, id: 194, copy_id: 1, deparser_id: 0 (deparser)
+type: DEPARSER_EMIT, switch_id: 0, cxt_id : 0, sig: 17559101150178479777, id: 194, copy_id: 1, header_id: 3 (bitfield_256)
+type: DEPARSER_DONE, switch_id: 0, cxt_id : 0, sig: 17559101150178479777, id: 194, copy_id: 1, deparser_id: 0 (deparser)
+type: PIPELINE_START, switch_id: 0, cxt_id : 0, sig: 17559101150178479777, id: 194, copy_id: 2, pipeline_id: 1 (egress)
+type: CONDITION_EVAL, switch_id: 0, cxt_id : 0, sig: 17559101150178479777, id: 194, copy_id: 2, condition_id: 75 (_condition_75), result: True
+type: TABLE_HIT, switch_id: 0, cxt_id : 0, sig: 17559101150178479777, id: 194, copy_id: 2, table_id: 87 (t_multicast), entry_hdl: 2
+type: ACTION_EXECUTE, switch_id: 0, cxt_id : 0, sig: 17559101150178479777, id: 194, copy_id: 2, action_id: 7 (_no_op)
+type: TABLE_MISS, switch_id: 0, cxt_id : 0, sig: 17559101150178479777, id: 194, copy_id: 2, table_id: 89 (csum16)
+type: ACTION_EXECUTE, switch_id: 0, cxt_id : 0, sig: 17559101150178479777, id: 194, copy_id: 2, action_id: 7 (_no_op)
+type: TABLE_MISS, switch_id: 0, cxt_id : 0, sig: 17559101150178479777, id: 194, copy_id: 2, table_id: 88 (prepare_for_deparsing)
+type: ACTION_EXECUTE, switch_id: 0, cxt_id : 0, sig: 17559101150178479777, id: 194, copy_id: 2, action_id: 12 (a_prep_deparse_256)
+type: PIPELINE_DONE, switch_id: 0, cxt_id : 0, sig: 17559101150178479777, id: 194, copy_id: 2, pipeline_id: 1 (egress)
+type: DEPARSER_START, switch_id: 0, cxt_id : 0, sig: 17559101150178479777, id: 194, copy_id: 2, deparser_id: 0 (deparser)
+type: DEPARSER_EMIT, switch_id: 0, cxt_id : 0, sig: 17559101150178479777, id: 194, copy_id: 2, header_id: 3 (bitfield_256)
+type: DEPARSER_DONE, switch_id: 0, cxt_id : 0, sig: 17559101150178479777, id: 194, copy_id: 2, deparser_id: 0 (deparser)
+type: PACKET_OUT, switch_id: 0, cxt_id : 0, sig: 14879661681253708053, id: 194, copy_id: 1, port_out: 3
+type: PACKET_OUT, switch_id: 0, cxt_id : 0, sig: 17559101150178479777, id: 194, copy_id: 1, port_out: 2
+type: PACKET_OUT, switch_id: 0, cxt_id : 0, sig: 17559101150178479777, id: 194, copy_id: 2, port_out: 1
+type: PACKET_IN, switch_id: 0, cxt_id : 0, sig: 4378460846423598035, id: 195, copy_id: 0, port_in: 1
+type: PARSER_START, switch_id: 0, cxt_id : 0, sig: 4378460846423598035, id: 195, copy_id: 0, parser_id: 0 (parser)
+type: PARSER_DONE, switch_id: 0, cxt_id : 0, sig: 4378460846423598035, id: 195, copy_id: 0, parser_id: 0 (parser)
+type: PIPELINE_START, switch_id: 0, cxt_id : 0, sig: 4378460846423598035, id: 195, copy_id: 0, pipeline_id: 0 (ingress)
+type: CONDITION_EVAL, switch_id: 0, cxt_id : 0, sig: 4378460846423598035, id: 195, copy_id: 0, condition_id: 0 (_condition_0), result: True
+type: TABLE_MISS, switch_id: 0, cxt_id : 0, sig: 4378460846423598035, id: 195, copy_id: 0, table_id: 0 (t_packet_init)
+type: ACTION_EXECUTE, switch_id: 0, cxt_id : 0, sig: 4378460846423598035, id: 195, copy_id: 0, action_id: 16 (a_packet_init)
+type: CONDITION_EVAL, switch_id: 0, cxt_id : 0, sig: 4378460846423598035, id: 195, copy_id: 0, condition_id: 2 (_condition_2), result: False
+type: PIPELINE_DONE, switch_id: 0, cxt_id : 0, sig: 4378460846423598035, id: 195, copy_id: 0, pipeline_id: 0 (ingress)
+type: PARSER_START, switch_id: 0, cxt_id : 0, sig: 4378460846423598035, id: 195, copy_id: 1, parser_id: 0 (parser)
+type: PARSER_EXTRACT, switch_id: 0, cxt_id : 0, sig: 4378460846423598035, id: 195, copy_id: 1, header_id: 3 (bitfield_256)
+type: PARSER_DONE, switch_id: 0, cxt_id : 0, sig: 4378460846423598035, id: 195, copy_id: 1, parser_id: 0 (parser)
+type: PIPELINE_START, switch_id: 0, cxt_id : 0, sig: 4378460846423598035, id: 195, copy_id: 1, pipeline_id: 0 (ingress)
+type: CONDITION_EVAL, switch_id: 0, cxt_id : 0, sig: 4378460846423598035, id: 195, copy_id: 1, condition_id: 0 (_condition_0), result: False
+type: CONDITION_EVAL, switch_id: 0, cxt_id : 0, sig: 4378460846423598035, id: 195, copy_id: 1, condition_id: 1 (_condition_1), result: True
+type: TABLE_MISS, switch_id: 0, cxt_id : 0, sig: 4378460846423598035, id: 195, copy_id: 1, table_id: 1 (t_norm)
+type: ACTION_EXECUTE, switch_id: 0, cxt_id : 0, sig: 4378460846423598035, id: 195, copy_id: 1, action_id: 17 (a_norm_256)
+type: TABLE_HIT, switch_id: 0, cxt_id : 0, sig: 4378460846423598035, id: 195, copy_id: 1, table_id: 2 (t_prog_select), entry_hdl: 0
+type: ACTION_EXECUTE, switch_id: 0, cxt_id : 0, sig: 4378460846423598035, id: 195, copy_id: 1, action_id: 30 (set_program)
+type: CONDITION_EVAL, switch_id: 0, cxt_id : 0, sig: 4378460846423598035, id: 195, copy_id: 1, condition_id: 2 (_condition_2), result: True
+type: CONDITION_EVAL, switch_id: 0, cxt_id : 0, sig: 4378460846423598035, id: 195, copy_id: 1, condition_id: 3 (_condition_3), result: True
+type: TABLE_MISS, switch_id: 0, cxt_id : 0, sig: 4378460846423598035, id: 195, copy_id: 1, table_id: 15 (t1_extracted_exact)
+type: PIPELINE_DONE, switch_id: 0, cxt_id : 0, sig: 4378460846423598035, id: 195, copy_id: 1, pipeline_id: 0 (ingress)
+type: PIPELINE_START, switch_id: 0, cxt_id : 0, sig: 4378460846423598035, id: 195, copy_id: 1, pipeline_id: 1 (egress)
+type: CONDITION_EVAL, switch_id: 0, cxt_id : 0, sig: 4378460846423598035, id: 195, copy_id: 1, condition_id: 75 (_condition_75), result: False
+type: TABLE_MISS, switch_id: 0, cxt_id : 0, sig: 4378460846423598035, id: 195, copy_id: 1, table_id: 89 (csum16)
+type: ACTION_EXECUTE, switch_id: 0, cxt_id : 0, sig: 4378460846423598035, id: 195, copy_id: 1, action_id: 7 (_no_op)
+type: TABLE_MISS, switch_id: 0, cxt_id : 0, sig: 4378460846423598035, id: 195, copy_id: 1, table_id: 88 (prepare_for_deparsing)
+type: ACTION_EXECUTE, switch_id: 0, cxt_id : 0, sig: 4378460846423598035, id: 195, copy_id: 1, action_id: 12 (a_prep_deparse_256)
+type: PIPELINE_DONE, switch_id: 0, cxt_id : 0, sig: 4378460846423598035, id: 195, copy_id: 1, pipeline_id: 1 (egress)
+type: DEPARSER_START, switch_id: 0, cxt_id : 0, sig: 4378460846423598035, id: 195, copy_id: 1, deparser_id: 0 (deparser)
+type: DEPARSER_EMIT, switch_id: 0, cxt_id : 0, sig: 4378460846423598035, id: 195, copy_id: 1, header_id: 3 (bitfield_256)
+type: DEPARSER_DONE, switch_id: 0, cxt_id : 0, sig: 4378460846423598035, id: 195, copy_id: 1, deparser_id: 0 (deparser)
+type: PACKET_OUT, switch_id: 0, cxt_id : 0, sig: 4378460846423598035, id: 195, copy_id: 1, port_out: 0
+type: PACKET_IN, switch_id: 0, cxt_id : 0, sig: 15217833238269013903, id: 196, copy_id: 0, port_in: 3
+type: PARSER_START, switch_id: 0, cxt_id : 0, sig: 15217833238269013903, id: 196, copy_id: 0, parser_id: 0 (parser)
+type: PARSER_DONE, switch_id: 0, cxt_id : 0, sig: 15217833238269013903, id: 196, copy_id: 0, parser_id: 0 (parser)
+type: PIPELINE_START, switch_id: 0, cxt_id : 0, sig: 15217833238269013903, id: 196, copy_id: 0, pipeline_id: 0 (ingress)
+type: CONDITION_EVAL, switch_id: 0, cxt_id : 0, sig: 15217833238269013903, id: 196, copy_id: 0, condition_id: 0 (_condition_0), result: True
+type: TABLE_MISS, switch_id: 0, cxt_id : 0, sig: 15217833238269013903, id: 196, copy_id: 0, table_id: 0 (t_packet_init)
+type: ACTION_EXECUTE, switch_id: 0, cxt_id : 0, sig: 15217833238269013903, id: 196, copy_id: 0, action_id: 16 (a_packet_init)
+type: CONDITION_EVAL, switch_id: 0, cxt_id : 0, sig: 15217833238269013903, id: 196, copy_id: 0, condition_id: 2 (_condition_2), result: False
+type: PIPELINE_DONE, switch_id: 0, cxt_id : 0, sig: 15217833238269013903, id: 196, copy_id: 0, pipeline_id: 0 (ingress)
+type: PARSER_START, switch_id: 0, cxt_id : 0, sig: 15217833238269013903, id: 196, copy_id: 1, parser_id: 0 (parser)
+type: PARSER_EXTRACT, switch_id: 0, cxt_id : 0, sig: 15217833238269013903, id: 196, copy_id: 1, header_id: 3 (bitfield_256)
+type: PARSER_DONE, switch_id: 0, cxt_id : 0, sig: 15217833238269013903, id: 196, copy_id: 1, parser_id: 0 (parser)
+type: PIPELINE_START, switch_id: 0, cxt_id : 0, sig: 15217833238269013903, id: 196, copy_id: 1, pipeline_id: 0 (ingress)
+type: CONDITION_EVAL, switch_id: 0, cxt_id : 0, sig: 15217833238269013903, id: 196, copy_id: 1, condition_id: 0 (_condition_0), result: False
+type: CONDITION_EVAL, switch_id: 0, cxt_id : 0, sig: 15217833238269013903, id: 196, copy_id: 1, condition_id: 1 (_condition_1), result: True
+type: TABLE_MISS, switch_id: 0, cxt_id : 0, sig: 15217833238269013903, id: 196, copy_id: 1, table_id: 1 (t_norm)
+type: ACTION_EXECUTE, switch_id: 0, cxt_id : 0, sig: 15217833238269013903, id: 196, copy_id: 1, action_id: 17 (a_norm_256)
+type: TABLE_HIT, switch_id: 0, cxt_id : 0, sig: 15217833238269013903, id: 196, copy_id: 1, table_id: 2 (t_prog_select), entry_hdl: 2
+type: ACTION_EXECUTE, switch_id: 0, cxt_id : 0, sig: 15217833238269013903, id: 196, copy_id: 1, action_id: 30 (set_program)
+type: CONDITION_EVAL, switch_id: 0, cxt_id : 0, sig: 15217833238269013903, id: 196, copy_id: 1, condition_id: 2 (_condition_2), result: True
+type: CONDITION_EVAL, switch_id: 0, cxt_id : 0, sig: 15217833238269013903, id: 196, copy_id: 1, condition_id: 3 (_condition_3), result: True
+type: TABLE_MISS, switch_id: 0, cxt_id : 0, sig: 15217833238269013903, id: 196, copy_id: 1, table_id: 15 (t1_extracted_exact)
+type: PIPELINE_DONE, switch_id: 0, cxt_id : 0, sig: 15217833238269013903, id: 196, copy_id: 1, pipeline_id: 0 (ingress)
+type: PIPELINE_START, switch_id: 0, cxt_id : 0, sig: 15217833238269013903, id: 196, copy_id: 1, pipeline_id: 1 (egress)
+type: CONDITION_EVAL, switch_id: 0, cxt_id : 0, sig: 15217833238269013903, id: 196, copy_id: 1, condition_id: 75 (_condition_75), result: False
+type: TABLE_MISS, switch_id: 0, cxt_id : 0, sig: 15217833238269013903, id: 196, copy_id: 1, table_id: 89 (csum16)
+type: ACTION_EXECUTE, switch_id: 0, cxt_id : 0, sig: 15217833238269013903, id: 196, copy_id: 1, action_id: 7 (_no_op)
+type: TABLE_MISS, switch_id: 0, cxt_id : 0, sig: 15217833238269013903, id: 196, copy_id: 1, table_id: 88 (prepare_for_deparsing)
+type: ACTION_EXECUTE, switch_id: 0, cxt_id : 0, sig: 15217833238269013903, id: 196, copy_id: 1, action_id: 12 (a_prep_deparse_256)
+type: PIPELINE_DONE, switch_id: 0, cxt_id : 0, sig: 15217833238269013903, id: 196, copy_id: 1, pipeline_id: 1 (egress)
+type: DEPARSER_START, switch_id: 0, cxt_id : 0, sig: 15217833238269013903, id: 196, copy_id: 1, deparser_id: 0 (deparser)
+type: DEPARSER_EMIT, switch_id: 0, cxt_id : 0, sig: 15217833238269013903, id: 196, copy_id: 1, header_id: 3 (bitfield_256)
+type: DEPARSER_DONE, switch_id: 0, cxt_id : 0, sig: 15217833238269013903, id: 196, copy_id: 1, deparser_id: 0 (deparser)
+type: PACKET_OUT, switch_id: 0, cxt_id : 0, sig: 15217833238269013903, id: 196, copy_id: 1, port_out: 0
+type: PACKET_IN, switch_id: 0, cxt_id : 0, sig: 9678993803857325402, id: 197, copy_id: 0, port_in: 1
+type: PARSER_START, switch_id: 0, cxt_id : 0, sig: 9678993803857325402, id: 197, copy_id: 0, parser_id: 0 (parser)
+type: PARSER_DONE, switch_id: 0, cxt_id : 0, sig: 9678993803857325402, id: 197, copy_id: 0, parser_id: 0 (parser)
+type: PIPELINE_START, switch_id: 0, cxt_id : 0, sig: 9678993803857325402, id: 197, copy_id: 0, pipeline_id: 0 (ingress)
+type: CONDITION_EVAL, switch_id: 0, cxt_id : 0, sig: 9678993803857325402, id: 197, copy_id: 0, condition_id: 0 (_condition_0), result: True
+type: TABLE_MISS, switch_id: 0, cxt_id : 0, sig: 9678993803857325402, id: 197, copy_id: 0, table_id: 0 (t_packet_init)
+type: ACTION_EXECUTE, switch_id: 0, cxt_id : 0, sig: 9678993803857325402, id: 197, copy_id: 0, action_id: 16 (a_packet_init)
+type: CONDITION_EVAL, switch_id: 0, cxt_id : 0, sig: 9678993803857325402, id: 197, copy_id: 0, condition_id: 2 (_condition_2), result: False
+type: PIPELINE_DONE, switch_id: 0, cxt_id : 0, sig: 9678993803857325402, id: 197, copy_id: 0, pipeline_id: 0 (ingress)
+type: PARSER_START, switch_id: 0, cxt_id : 0, sig: 9678993803857325402, id: 197, copy_id: 1, parser_id: 0 (parser)
+type: PARSER_EXTRACT, switch_id: 0, cxt_id : 0, sig: 9678993803857325402, id: 197, copy_id: 1, header_id: 3 (bitfield_256)
+type: PARSER_DONE, switch_id: 0, cxt_id : 0, sig: 9678993803857325402, id: 197, copy_id: 1, parser_id: 0 (parser)
+type: PIPELINE_START, switch_id: 0, cxt_id : 0, sig: 9678993803857325402, id: 197, copy_id: 1, pipeline_id: 0 (ingress)
+type: CONDITION_EVAL, switch_id: 0, cxt_id : 0, sig: 9678993803857325402, id: 197, copy_id: 1, condition_id: 0 (_condition_0), result: False
+type: CONDITION_EVAL, switch_id: 0, cxt_id : 0, sig: 9678993803857325402, id: 197, copy_id: 1, condition_id: 1 (_condition_1), result: True
+type: TABLE_MISS, switch_id: 0, cxt_id : 0, sig: 9678993803857325402, id: 197, copy_id: 1, table_id: 1 (t_norm)
+type: ACTION_EXECUTE, switch_id: 0, cxt_id : 0, sig: 9678993803857325402, id: 197, copy_id: 1, action_id: 17 (a_norm_256)
+type: TABLE_HIT, switch_id: 0, cxt_id : 0, sig: 9678993803857325402, id: 197, copy_id: 1, table_id: 2 (t_prog_select), entry_hdl: 0
+type: ACTION_EXECUTE, switch_id: 0, cxt_id : 0, sig: 9678993803857325402, id: 197, copy_id: 1, action_id: 30 (set_program)
+type: CONDITION_EVAL, switch_id: 0, cxt_id : 0, sig: 9678993803857325402, id: 197, copy_id: 1, condition_id: 2 (_condition_2), result: True
+type: CONDITION_EVAL, switch_id: 0, cxt_id : 0, sig: 9678993803857325402, id: 197, copy_id: 1, condition_id: 3 (_condition_3), result: True
+type: TABLE_HIT, switch_id: 0, cxt_id : 0, sig: 9678993803857325402, id: 197, copy_id: 1, table_id: 15 (t1_extracted_exact), entry_hdl: 3
+type: ACTION_EXECUTE, switch_id: 0, cxt_id : 0, sig: 9678993803857325402, id: 197, copy_id: 1, action_id: 29 (init_program_state)
+type: TABLE_HIT, switch_id: 0, cxt_id : 0, sig: 9678993803857325402, id: 197, copy_id: 1, table_id: 24 (set_primitive_metadata_11), entry_hdl: 1
+type: ACTION_EXECUTE, switch_id: 0, cxt_id : 0, sig: 9678993803857325402, id: 197, copy_id: 1, action_id: 4 (a_set_primitive_metadata)
+type: CONDITION_EVAL, switch_id: 0, cxt_id : 0, sig: 9678993803857325402, id: 197, copy_id: 1, condition_id: 10 (_condition_10), result: False
+type: CONDITION_EVAL, switch_id: 0, cxt_id : 0, sig: 9678993803857325402, id: 197, copy_id: 1, condition_id: 11 (_condition_11), result: False
+type: CONDITION_EVAL, switch_id: 0, cxt_id : 0, sig: 9678993803857325402, id: 197, copy_id: 1, condition_id: 12 (_condition_12), result: False
+type: CONDITION_EVAL, switch_id: 0, cxt_id : 0, sig: 9678993803857325402, id: 197, copy_id: 1, condition_id: 13 (_condition_13), result: True
+type: TABLE_HIT, switch_id: 0, cxt_id : 0, sig: 9678993803857325402, id: 197, copy_id: 1, table_id: 60 (t_multicast_11), entry_hdl: 0
+type: ACTION_EXECUTE, switch_id: 0, cxt_id : 0, sig: 9678993803857325402, id: 197, copy_id: 1, action_id: 24 (a_multicast)
+type: TABLE_HIT, switch_id: 0, cxt_id : 0, sig: 9678993803857325402, id: 197, copy_id: 1, table_id: 78 (set_program_state_11), entry_hdl: 1
+type: ACTION_EXECUTE, switch_id: 0, cxt_id : 0, sig: 9678993803857325402, id: 197, copy_id: 1, action_id: 0 (set_program_state)
+type: CONDITION_EVAL, switch_id: 0, cxt_id : 0, sig: 9678993803857325402, id: 197, copy_id: 1, condition_id: 15 (_condition_15), result: False
+type: CONDITION_EVAL, switch_id: 0, cxt_id : 0, sig: 9678993803857325402, id: 197, copy_id: 1, condition_id: 27 (_condition_27), result: False
+type: CONDITION_EVAL, switch_id: 0, cxt_id : 0, sig: 9678993803857325402, id: 197, copy_id: 1, condition_id: 28 (_condition_28), result: False
+type: CONDITION_EVAL, switch_id: 0, cxt_id : 0, sig: 9678993803857325402, id: 197, copy_id: 1, condition_id: 29 (_condition_29), result: False
+type: TABLE_MISS, switch_id: 0, cxt_id : 0, sig: 9678993803857325402, id: 197, copy_id: 1, table_id: 27 (set_primitive_metadata_21)
+type: PIPELINE_DONE, switch_id: 0, cxt_id : 0, sig: 9678993803857325402, id: 197, copy_id: 1, pipeline_id: 0 (ingress)
+type: PIPELINE_START, switch_id: 0, cxt_id : 0, sig: 9678993803857325402, id: 197, copy_id: 1, pipeline_id: 1 (egress)
+type: CONDITION_EVAL, switch_id: 0, cxt_id : 0, sig: 9678993803857325402, id: 197, copy_id: 1, condition_id: 75 (_condition_75), result: True
+type: TABLE_HIT, switch_id: 0, cxt_id : 0, sig: 9678993803857325402, id: 197, copy_id: 1, table_id: 87 (t_multicast), entry_hdl: 0
+type: ACTION_EXECUTE, switch_id: 0, cxt_id : 0, sig: 9678993803857325402, id: 197, copy_id: 1, action_id: 3 (mod_and_clone)
+type: TABLE_MISS, switch_id: 0, cxt_id : 0, sig: 9678993803857325402, id: 197, copy_id: 1, table_id: 89 (csum16)
+type: ACTION_EXECUTE, switch_id: 0, cxt_id : 0, sig: 9678993803857325402, id: 197, copy_id: 1, action_id: 7 (_no_op)
+type: TABLE_MISS, switch_id: 0, cxt_id : 0, sig: 9678993803857325402, id: 197, copy_id: 1, table_id: 88 (prepare_for_deparsing)
+type: ACTION_EXECUTE, switch_id: 0, cxt_id : 0, sig: 9678993803857325402, id: 197, copy_id: 1, action_id: 12 (a_prep_deparse_256)
+type: PIPELINE_DONE, switch_id: 0, cxt_id : 0, sig: 9678993803857325402, id: 197, copy_id: 1, pipeline_id: 1 (egress)
+type: DEPARSER_START, switch_id: 0, cxt_id : 0, sig: 9678993803857325402, id: 197, copy_id: 1, deparser_id: 0 (deparser)
+type: DEPARSER_EMIT, switch_id: 0, cxt_id : 0, sig: 9678993803857325402, id: 197, copy_id: 1, header_id: 3 (bitfield_256)
+type: DEPARSER_DONE, switch_id: 0, cxt_id : 0, sig: 9678993803857325402, id: 197, copy_id: 1, deparser_id: 0 (deparser)
+type: PIPELINE_START, switch_id: 0, cxt_id : 0, sig: 11996644358271800679, id: 197, copy_id: 1, pipeline_id: 1 (egress)
+type: CONDITION_EVAL, switch_id: 0, cxt_id : 0, sig: 11996644358271800679, id: 197, copy_id: 1, condition_id: 75 (_condition_75), result: True
+type: TABLE_HIT, switch_id: 0, cxt_id : 0, sig: 11996644358271800679, id: 197, copy_id: 1, table_id: 87 (t_multicast), entry_hdl: 1
+type: ACTION_EXECUTE, switch_id: 0, cxt_id : 0, sig: 11996644358271800679, id: 197, copy_id: 1, action_id: 3 (mod_and_clone)
+type: TABLE_MISS, switch_id: 0, cxt_id : 0, sig: 11996644358271800679, id: 197, copy_id: 1, table_id: 89 (csum16)
+type: ACTION_EXECUTE, switch_id: 0, cxt_id : 0, sig: 11996644358271800679, id: 197, copy_id: 1, action_id: 7 (_no_op)
+type: TABLE_MISS, switch_id: 0, cxt_id : 0, sig: 11996644358271800679, id: 197, copy_id: 1, table_id: 88 (prepare_for_deparsing)
+type: ACTION_EXECUTE, switch_id: 0, cxt_id : 0, sig: 11996644358271800679, id: 197, copy_id: 1, action_id: 12 (a_prep_deparse_256)
+type: PIPELINE_DONE, switch_id: 0, cxt_id : 0, sig: 11996644358271800679, id: 197, copy_id: 1, pipeline_id: 1 (egress)
+type: DEPARSER_START, switch_id: 0, cxt_id : 0, sig: 11996644358271800679, id: 197, copy_id: 1, deparser_id: 0 (deparser)
+type: DEPARSER_EMIT, switch_id: 0, cxt_id : 0, sig: 11996644358271800679, id: 197, copy_id: 1, header_id: 3 (bitfield_256)
+type: DEPARSER_DONE, switch_id: 0, cxt_id : 0, sig: 11996644358271800679, id: 197, copy_id: 1, deparser_id: 0 (deparser)
+type: PIPELINE_START, switch_id: 0, cxt_id : 0, sig: 11996644358271800679, id: 197, copy_id: 2, pipeline_id: 1 (egress)
+type: CONDITION_EVAL, switch_id: 0, cxt_id : 0, sig: 11996644358271800679, id: 197, copy_id: 2, condition_id: 75 (_condition_75), result: True
+type: TABLE_HIT, switch_id: 0, cxt_id : 0, sig: 11996644358271800679, id: 197, copy_id: 2, table_id: 87 (t_multicast), entry_hdl: 2
+type: ACTION_EXECUTE, switch_id: 0, cxt_id : 0, sig: 11996644358271800679, id: 197, copy_id: 2, action_id: 7 (_no_op)
+type: TABLE_MISS, switch_id: 0, cxt_id : 0, sig: 11996644358271800679, id: 197, copy_id: 2, table_id: 89 (csum16)
+type: ACTION_EXECUTE, switch_id: 0, cxt_id : 0, sig: 11996644358271800679, id: 197, copy_id: 2, action_id: 7 (_no_op)
+type: TABLE_MISS, switch_id: 0, cxt_id : 0, sig: 11996644358271800679, id: 197, copy_id: 2, table_id: 88 (prepare_for_deparsing)
+type: ACTION_EXECUTE, switch_id: 0, cxt_id : 0, sig: 11996644358271800679, id: 197, copy_id: 2, action_id: 12 (a_prep_deparse_256)
+type: PIPELINE_DONE, switch_id: 0, cxt_id : 0, sig: 11996644358271800679, id: 197, copy_id: 2, pipeline_id: 1 (egress)
+type: DEPARSER_START, switch_id: 0, cxt_id : 0, sig: 11996644358271800679, id: 197, copy_id: 2, deparser_id: 0 (deparser)
+type: DEPARSER_EMIT, switch_id: 0, cxt_id : 0, sig: 11996644358271800679, id: 197, copy_id: 2, header_id: 3 (bitfield_256)
+type: DEPARSER_DONE, switch_id: 0, cxt_id : 0, sig: 11996644358271800679, id: 197, copy_id: 2, deparser_id: 0 (deparser)
+type: PACKET_OUT, switch_id: 0, cxt_id : 0, sig: 9678993803857325402, id: 197, copy_id: 1, port_out: 3
+type: PACKET_OUT, switch_id: 0, cxt_id : 0, sig: 11996644358271800679, id: 197, copy_id: 1, port_out: 2
+type: PACKET_OUT, switch_id: 0, cxt_id : 0, sig: 11996644358271800679, id: 197, copy_id: 2, port_out: 1
+type: PACKET_IN, switch_id: 0, cxt_id : 0, sig: 6361016857725115302, id: 198, copy_id: 0, port_in: 2
+type: PARSER_START, switch_id: 0, cxt_id : 0, sig: 6361016857725115302, id: 198, copy_id: 0, parser_id: 0 (parser)
+type: PARSER_DONE, switch_id: 0, cxt_id : 0, sig: 6361016857725115302, id: 198, copy_id: 0, parser_id: 0 (parser)
+type: PIPELINE_START, switch_id: 0, cxt_id : 0, sig: 6361016857725115302, id: 198, copy_id: 0, pipeline_id: 0 (ingress)
+type: CONDITION_EVAL, switch_id: 0, cxt_id : 0, sig: 6361016857725115302, id: 198, copy_id: 0, condition_id: 0 (_condition_0), result: True
+type: TABLE_MISS, switch_id: 0, cxt_id : 0, sig: 6361016857725115302, id: 198, copy_id: 0, table_id: 0 (t_packet_init)
+type: ACTION_EXECUTE, switch_id: 0, cxt_id : 0, sig: 6361016857725115302, id: 198, copy_id: 0, action_id: 16 (a_packet_init)
+type: CONDITION_EVAL, switch_id: 0, cxt_id : 0, sig: 6361016857725115302, id: 198, copy_id: 0, condition_id: 2 (_condition_2), result: False
+type: PIPELINE_DONE, switch_id: 0, cxt_id : 0, sig: 6361016857725115302, id: 198, copy_id: 0, pipeline_id: 0 (ingress)
+type: PARSER_START, switch_id: 0, cxt_id : 0, sig: 6361016857725115302, id: 198, copy_id: 1, parser_id: 0 (parser)
+type: PARSER_EXTRACT, switch_id: 0, cxt_id : 0, sig: 6361016857725115302, id: 198, copy_id: 1, header_id: 3 (bitfield_256)
+type: PARSER_DONE, switch_id: 0, cxt_id : 0, sig: 6361016857725115302, id: 198, copy_id: 1, parser_id: 0 (parser)
+type: PIPELINE_START, switch_id: 0, cxt_id : 0, sig: 6361016857725115302, id: 198, copy_id: 1, pipeline_id: 0 (ingress)
+type: CONDITION_EVAL, switch_id: 0, cxt_id : 0, sig: 6361016857725115302, id: 198, copy_id: 1, condition_id: 0 (_condition_0), result: False
+type: CONDITION_EVAL, switch_id: 0, cxt_id : 0, sig: 6361016857725115302, id: 198, copy_id: 1, condition_id: 1 (_condition_1), result: True
+type: TABLE_MISS, switch_id: 0, cxt_id : 0, sig: 6361016857725115302, id: 198, copy_id: 1, table_id: 1 (t_norm)
+type: ACTION_EXECUTE, switch_id: 0, cxt_id : 0, sig: 6361016857725115302, id: 198, copy_id: 1, action_id: 17 (a_norm_256)
+type: TABLE_HIT, switch_id: 0, cxt_id : 0, sig: 6361016857725115302, id: 198, copy_id: 1, table_id: 2 (t_prog_select), entry_hdl: 1
+type: ACTION_EXECUTE, switch_id: 0, cxt_id : 0, sig: 6361016857725115302, id: 198, copy_id: 1, action_id: 30 (set_program)
+type: CONDITION_EVAL, switch_id: 0, cxt_id : 0, sig: 6361016857725115302, id: 198, copy_id: 1, condition_id: 2 (_condition_2), result: True
+type: CONDITION_EVAL, switch_id: 0, cxt_id : 0, sig: 6361016857725115302, id: 198, copy_id: 1, condition_id: 3 (_condition_3), result: True
+type: TABLE_MISS, switch_id: 0, cxt_id : 0, sig: 6361016857725115302, id: 198, copy_id: 1, table_id: 15 (t1_extracted_exact)
+type: PIPELINE_DONE, switch_id: 0, cxt_id : 0, sig: 6361016857725115302, id: 198, copy_id: 1, pipeline_id: 0 (ingress)
+type: PIPELINE_START, switch_id: 0, cxt_id : 0, sig: 6361016857725115302, id: 198, copy_id: 1, pipeline_id: 1 (egress)
+type: CONDITION_EVAL, switch_id: 0, cxt_id : 0, sig: 6361016857725115302, id: 198, copy_id: 1, condition_id: 75 (_condition_75), result: False
+type: TABLE_MISS, switch_id: 0, cxt_id : 0, sig: 6361016857725115302, id: 198, copy_id: 1, table_id: 89 (csum16)
+type: ACTION_EXECUTE, switch_id: 0, cxt_id : 0, sig: 6361016857725115302, id: 198, copy_id: 1, action_id: 7 (_no_op)
+type: TABLE_MISS, switch_id: 0, cxt_id : 0, sig: 6361016857725115302, id: 198, copy_id: 1, table_id: 88 (prepare_for_deparsing)
+type: ACTION_EXECUTE, switch_id: 0, cxt_id : 0, sig: 6361016857725115302, id: 198, copy_id: 1, action_id: 12 (a_prep_deparse_256)
+type: PIPELINE_DONE, switch_id: 0, cxt_id : 0, sig: 6361016857725115302, id: 198, copy_id: 1, pipeline_id: 1 (egress)
+type: DEPARSER_START, switch_id: 0, cxt_id : 0, sig: 6361016857725115302, id: 198, copy_id: 1, deparser_id: 0 (deparser)
+type: DEPARSER_EMIT, switch_id: 0, cxt_id : 0, sig: 6361016857725115302, id: 198, copy_id: 1, header_id: 3 (bitfield_256)
+type: DEPARSER_DONE, switch_id: 0, cxt_id : 0, sig: 6361016857725115302, id: 198, copy_id: 1, deparser_id: 0 (deparser)
+type: PACKET_OUT, switch_id: 0, cxt_id : 0, sig: 6361016857725115302, id: 198, copy_id: 1, port_out: 0
+type: PACKET_IN, switch_id: 0, cxt_id : 0, sig: 6110227522652958231, id: 199, copy_id: 0, port_in: 3
+type: PARSER_START, switch_id: 0, cxt_id : 0, sig: 6110227522652958231, id: 199, copy_id: 0, parser_id: 0 (parser)
+type: PARSER_DONE, switch_id: 0, cxt_id : 0, sig: 6110227522652958231, id: 199, copy_id: 0, parser_id: 0 (parser)
+type: PIPELINE_START, switch_id: 0, cxt_id : 0, sig: 6110227522652958231, id: 199, copy_id: 0, pipeline_id: 0 (ingress)
+type: CONDITION_EVAL, switch_id: 0, cxt_id : 0, sig: 6110227522652958231, id: 199, copy_id: 0, condition_id: 0 (_condition_0), result: True
+type: TABLE_MISS, switch_id: 0, cxt_id : 0, sig: 6110227522652958231, id: 199, copy_id: 0, table_id: 0 (t_packet_init)
+type: ACTION_EXECUTE, switch_id: 0, cxt_id : 0, sig: 6110227522652958231, id: 199, copy_id: 0, action_id: 16 (a_packet_init)
+type: CONDITION_EVAL, switch_id: 0, cxt_id : 0, sig: 6110227522652958231, id: 199, copy_id: 0, condition_id: 2 (_condition_2), result: False
+type: PIPELINE_DONE, switch_id: 0, cxt_id : 0, sig: 6110227522652958231, id: 199, copy_id: 0, pipeline_id: 0 (ingress)
+type: PARSER_START, switch_id: 0, cxt_id : 0, sig: 6110227522652958231, id: 199, copy_id: 1, parser_id: 0 (parser)
+type: PARSER_EXTRACT, switch_id: 0, cxt_id : 0, sig: 6110227522652958231, id: 199, copy_id: 1, header_id: 3 (bitfield_256)
+type: PARSER_DONE, switch_id: 0, cxt_id : 0, sig: 6110227522652958231, id: 199, copy_id: 1, parser_id: 0 (parser)
+type: PIPELINE_START, switch_id: 0, cxt_id : 0, sig: 6110227522652958231, id: 199, copy_id: 1, pipeline_id: 0 (ingress)
+type: CONDITION_EVAL, switch_id: 0, cxt_id : 0, sig: 6110227522652958231, id: 199, copy_id: 1, condition_id: 0 (_condition_0), result: False
+type: CONDITION_EVAL, switch_id: 0, cxt_id : 0, sig: 6110227522652958231, id: 199, copy_id: 1, condition_id: 1 (_condition_1), result: True
+type: TABLE_MISS, switch_id: 0, cxt_id : 0, sig: 6110227522652958231, id: 199, copy_id: 1, table_id: 1 (t_norm)
+type: ACTION_EXECUTE, switch_id: 0, cxt_id : 0, sig: 6110227522652958231, id: 199, copy_id: 1, action_id: 17 (a_norm_256)
+type: TABLE_HIT, switch_id: 0, cxt_id : 0, sig: 6110227522652958231, id: 199, copy_id: 1, table_id: 2 (t_prog_select), entry_hdl: 2
+type: ACTION_EXECUTE, switch_id: 0, cxt_id : 0, sig: 6110227522652958231, id: 199, copy_id: 1, action_id: 30 (set_program)
+type: CONDITION_EVAL, switch_id: 0, cxt_id : 0, sig: 6110227522652958231, id: 199, copy_id: 1, condition_id: 2 (_condition_2), result: True
+type: CONDITION_EVAL, switch_id: 0, cxt_id : 0, sig: 6110227522652958231, id: 199, copy_id: 1, condition_id: 3 (_condition_3), result: True
+type: TABLE_MISS, switch_id: 0, cxt_id : 0, sig: 6110227522652958231, id: 199, copy_id: 1, table_id: 15 (t1_extracted_exact)
+type: PIPELINE_DONE, switch_id: 0, cxt_id : 0, sig: 6110227522652958231, id: 199, copy_id: 1, pipeline_id: 0 (ingress)
+type: PIPELINE_START, switch_id: 0, cxt_id : 0, sig: 6110227522652958231, id: 199, copy_id: 1, pipeline_id: 1 (egress)
+type: CONDITION_EVAL, switch_id: 0, cxt_id : 0, sig: 6110227522652958231, id: 199, copy_id: 1, condition_id: 75 (_condition_75), result: False
+type: TABLE_MISS, switch_id: 0, cxt_id : 0, sig: 6110227522652958231, id: 199, copy_id: 1, table_id: 89 (csum16)
+type: ACTION_EXECUTE, switch_id: 0, cxt_id : 0, sig: 6110227522652958231, id: 199, copy_id: 1, action_id: 7 (_no_op)
+type: TABLE_MISS, switch_id: 0, cxt_id : 0, sig: 6110227522652958231, id: 199, copy_id: 1, table_id: 88 (prepare_for_deparsing)
+type: ACTION_EXECUTE, switch_id: 0, cxt_id : 0, sig: 6110227522652958231, id: 199, copy_id: 1, action_id: 12 (a_prep_deparse_256)
+type: PIPELINE_DONE, switch_id: 0, cxt_id : 0, sig: 6110227522652958231, id: 199, copy_id: 1, pipeline_id: 1 (egress)
+type: DEPARSER_START, switch_id: 0, cxt_id : 0, sig: 6110227522652958231, id: 199, copy_id: 1, deparser_id: 0 (deparser)
+type: DEPARSER_EMIT, switch_id: 0, cxt_id : 0, sig: 6110227522652958231, id: 199, copy_id: 1, header_id: 3 (bitfield_256)
+type: DEPARSER_DONE, switch_id: 0, cxt_id : 0, sig: 6110227522652958231, id: 199, copy_id: 1, deparser_id: 0 (deparser)
+type: PACKET_OUT, switch_id: 0, cxt_id : 0, sig: 6110227522652958231, id: 199, copy_id: 1, port_out: 0
+type: PACKET_IN, switch_id: 0, cxt_id : 0, sig: 9678993803857325402, id: 200, copy_id: 0, port_in: 1
+type: PARSER_START, switch_id: 0, cxt_id : 0, sig: 9678993803857325402, id: 200, copy_id: 0, parser_id: 0 (parser)
+type: PARSER_DONE, switch_id: 0, cxt_id : 0, sig: 9678993803857325402, id: 200, copy_id: 0, parser_id: 0 (parser)
+type: PIPELINE_START, switch_id: 0, cxt_id : 0, sig: 9678993803857325402, id: 200, copy_id: 0, pipeline_id: 0 (ingress)
+type: CONDITION_EVAL, switch_id: 0, cxt_id : 0, sig: 9678993803857325402, id: 200, copy_id: 0, condition_id: 0 (_condition_0), result: True
+type: TABLE_MISS, switch_id: 0, cxt_id : 0, sig: 9678993803857325402, id: 200, copy_id: 0, table_id: 0 (t_packet_init)
+type: ACTION_EXECUTE, switch_id: 0, cxt_id : 0, sig: 9678993803857325402, id: 200, copy_id: 0, action_id: 16 (a_packet_init)
+type: CONDITION_EVAL, switch_id: 0, cxt_id : 0, sig: 9678993803857325402, id: 200, copy_id: 0, condition_id: 2 (_condition_2), result: False
+type: PIPELINE_DONE, switch_id: 0, cxt_id : 0, sig: 9678993803857325402, id: 200, copy_id: 0, pipeline_id: 0 (ingress)
+type: PARSER_START, switch_id: 0, cxt_id : 0, sig: 9678993803857325402, id: 200, copy_id: 1, parser_id: 0 (parser)
+type: PARSER_EXTRACT, switch_id: 0, cxt_id : 0, sig: 9678993803857325402, id: 200, copy_id: 1, header_id: 3 (bitfield_256)
+type: PARSER_DONE, switch_id: 0, cxt_id : 0, sig: 9678993803857325402, id: 200, copy_id: 1, parser_id: 0 (parser)
+type: PIPELINE_START, switch_id: 0, cxt_id : 0, sig: 9678993803857325402, id: 200, copy_id: 1, pipeline_id: 0 (ingress)
+type: CONDITION_EVAL, switch_id: 0, cxt_id : 0, sig: 9678993803857325402, id: 200, copy_id: 1, condition_id: 0 (_condition_0), result: False
+type: CONDITION_EVAL, switch_id: 0, cxt_id : 0, sig: 9678993803857325402, id: 200, copy_id: 1, condition_id: 1 (_condition_1), result: True
+type: TABLE_MISS, switch_id: 0, cxt_id : 0, sig: 9678993803857325402, id: 200, copy_id: 1, table_id: 1 (t_norm)
+type: ACTION_EXECUTE, switch_id: 0, cxt_id : 0, sig: 9678993803857325402, id: 200, copy_id: 1, action_id: 17 (a_norm_256)
+type: TABLE_HIT, switch_id: 0, cxt_id : 0, sig: 9678993803857325402, id: 200, copy_id: 1, table_id: 2 (t_prog_select), entry_hdl: 0
+type: ACTION_EXECUTE, switch_id: 0, cxt_id : 0, sig: 9678993803857325402, id: 200, copy_id: 1, action_id: 30 (set_program)
+type: CONDITION_EVAL, switch_id: 0, cxt_id : 0, sig: 9678993803857325402, id: 200, copy_id: 1, condition_id: 2 (_condition_2), result: True
+type: CONDITION_EVAL, switch_id: 0, cxt_id : 0, sig: 9678993803857325402, id: 200, copy_id: 1, condition_id: 3 (_condition_3), result: True
+type: TABLE_HIT, switch_id: 0, cxt_id : 0, sig: 9678993803857325402, id: 200, copy_id: 1, table_id: 15 (t1_extracted_exact), entry_hdl: 3
+type: ACTION_EXECUTE, switch_id: 0, cxt_id : 0, sig: 9678993803857325402, id: 200, copy_id: 1, action_id: 29 (init_program_state)
+type: TABLE_HIT, switch_id: 0, cxt_id : 0, sig: 9678993803857325402, id: 200, copy_id: 1, table_id: 24 (set_primitive_metadata_11), entry_hdl: 1
+type: ACTION_EXECUTE, switch_id: 0, cxt_id : 0, sig: 9678993803857325402, id: 200, copy_id: 1, action_id: 4 (a_set_primitive_metadata)
+type: CONDITION_EVAL, switch_id: 0, cxt_id : 0, sig: 9678993803857325402, id: 200, copy_id: 1, condition_id: 10 (_condition_10), result: False
+type: CONDITION_EVAL, switch_id: 0, cxt_id : 0, sig: 9678993803857325402, id: 200, copy_id: 1, condition_id: 11 (_condition_11), result: False
+type: CONDITION_EVAL, switch_id: 0, cxt_id : 0, sig: 9678993803857325402, id: 200, copy_id: 1, condition_id: 12 (_condition_12), result: False
+type: CONDITION_EVAL, switch_id: 0, cxt_id : 0, sig: 9678993803857325402, id: 200, copy_id: 1, condition_id: 13 (_condition_13), result: True
+type: TABLE_HIT, switch_id: 0, cxt_id : 0, sig: 9678993803857325402, id: 200, copy_id: 1, table_id: 60 (t_multicast_11), entry_hdl: 0
+type: ACTION_EXECUTE, switch_id: 0, cxt_id : 0, sig: 9678993803857325402, id: 200, copy_id: 1, action_id: 24 (a_multicast)
+type: TABLE_HIT, switch_id: 0, cxt_id : 0, sig: 9678993803857325402, id: 200, copy_id: 1, table_id: 78 (set_program_state_11), entry_hdl: 1
+type: ACTION_EXECUTE, switch_id: 0, cxt_id : 0, sig: 9678993803857325402, id: 200, copy_id: 1, action_id: 0 (set_program_state)
+type: CONDITION_EVAL, switch_id: 0, cxt_id : 0, sig: 9678993803857325402, id: 200, copy_id: 1, condition_id: 15 (_condition_15), result: False
+type: CONDITION_EVAL, switch_id: 0, cxt_id : 0, sig: 9678993803857325402, id: 200, copy_id: 1, condition_id: 27 (_condition_27), result: False
+type: CONDITION_EVAL, switch_id: 0, cxt_id : 0, sig: 9678993803857325402, id: 200, copy_id: 1, condition_id: 28 (_condition_28), result: False
+type: CONDITION_EVAL, switch_id: 0, cxt_id : 0, sig: 9678993803857325402, id: 200, copy_id: 1, condition_id: 29 (_condition_29), result: False
+type: TABLE_MISS, switch_id: 0, cxt_id : 0, sig: 9678993803857325402, id: 200, copy_id: 1, table_id: 27 (set_primitive_metadata_21)
+type: PIPELINE_DONE, switch_id: 0, cxt_id : 0, sig: 9678993803857325402, id: 200, copy_id: 1, pipeline_id: 0 (ingress)
+type: PIPELINE_START, switch_id: 0, cxt_id : 0, sig: 9678993803857325402, id: 200, copy_id: 1, pipeline_id: 1 (egress)
+type: CONDITION_EVAL, switch_id: 0, cxt_id : 0, sig: 9678993803857325402, id: 200, copy_id: 1, condition_id: 75 (_condition_75), result: True
+type: TABLE_HIT, switch_id: 0, cxt_id : 0, sig: 9678993803857325402, id: 200, copy_id: 1, table_id: 87 (t_multicast), entry_hdl: 0
+type: ACTION_EXECUTE, switch_id: 0, cxt_id : 0, sig: 9678993803857325402, id: 200, copy_id: 1, action_id: 3 (mod_and_clone)
+type: TABLE_MISS, switch_id: 0, cxt_id : 0, sig: 9678993803857325402, id: 200, copy_id: 1, table_id: 89 (csum16)
+type: ACTION_EXECUTE, switch_id: 0, cxt_id : 0, sig: 9678993803857325402, id: 200, copy_id: 1, action_id: 7 (_no_op)
+type: TABLE_MISS, switch_id: 0, cxt_id : 0, sig: 9678993803857325402, id: 200, copy_id: 1, table_id: 88 (prepare_for_deparsing)
+type: ACTION_EXECUTE, switch_id: 0, cxt_id : 0, sig: 9678993803857325402, id: 200, copy_id: 1, action_id: 12 (a_prep_deparse_256)
+type: PIPELINE_DONE, switch_id: 0, cxt_id : 0, sig: 9678993803857325402, id: 200, copy_id: 1, pipeline_id: 1 (egress)
+type: DEPARSER_START, switch_id: 0, cxt_id : 0, sig: 9678993803857325402, id: 200, copy_id: 1, deparser_id: 0 (deparser)
+type: DEPARSER_EMIT, switch_id: 0, cxt_id : 0, sig: 9678993803857325402, id: 200, copy_id: 1, header_id: 3 (bitfield_256)
+type: DEPARSER_DONE, switch_id: 0, cxt_id : 0, sig: 9678993803857325402, id: 200, copy_id: 1, deparser_id: 0 (deparser)
+type: PIPELINE_START, switch_id: 0, cxt_id : 0, sig: 11996644358271800679, id: 200, copy_id: 1, pipeline_id: 1 (egress)
+type: CONDITION_EVAL, switch_id: 0, cxt_id : 0, sig: 11996644358271800679, id: 200, copy_id: 1, condition_id: 75 (_condition_75), result: True
+type: TABLE_HIT, switch_id: 0, cxt_id : 0, sig: 11996644358271800679, id: 200, copy_id: 1, table_id: 87 (t_multicast), entry_hdl: 1
+type: ACTION_EXECUTE, switch_id: 0, cxt_id : 0, sig: 11996644358271800679, id: 200, copy_id: 1, action_id: 3 (mod_and_clone)
+type: TABLE_MISS, switch_id: 0, cxt_id : 0, sig: 11996644358271800679, id: 200, copy_id: 1, table_id: 89 (csum16)
+type: ACTION_EXECUTE, switch_id: 0, cxt_id : 0, sig: 11996644358271800679, id: 200, copy_id: 1, action_id: 7 (_no_op)
+type: TABLE_MISS, switch_id: 0, cxt_id : 0, sig: 11996644358271800679, id: 200, copy_id: 1, table_id: 88 (prepare_for_deparsing)
+type: ACTION_EXECUTE, switch_id: 0, cxt_id : 0, sig: 11996644358271800679, id: 200, copy_id: 1, action_id: 12 (a_prep_deparse_256)
+type: PIPELINE_DONE, switch_id: 0, cxt_id : 0, sig: 11996644358271800679, id: 200, copy_id: 1, pipeline_id: 1 (egress)
+type: PACKET_OUT, switch_id: 0, cxt_id : 0, sig: 9678993803857325402, id: 200, copy_id: 1, port_out: 3
+type: PIPELINE_START, switch_id: 0, cxt_id : 0, sig: 11996644358271800679, id: 200, copy_id: 2, pipeline_id: 1 (egress)
+type: CONDITION_EVAL, switch_id: 0, cxt_id : 0, sig: 11996644358271800679, id: 200, copy_id: 2, condition_id: 75 (_condition_75), result: True
+type: TABLE_HIT, switch_id: 0, cxt_id : 0, sig: 11996644358271800679, id: 200, copy_id: 2, table_id: 87 (t_multicast), entry_hdl: 2
+type: ACTION_EXECUTE, switch_id: 0, cxt_id : 0, sig: 11996644358271800679, id: 200, copy_id: 2, action_id: 7 (_no_op)
+type: TABLE_MISS, switch_id: 0, cxt_id : 0, sig: 11996644358271800679, id: 200, copy_id: 2, table_id: 89 (csum16)
+type: ACTION_EXECUTE, switch_id: 0, cxt_id : 0, sig: 11996644358271800679, id: 200, copy_id: 2, action_id: 7 (_no_op)
+type: TABLE_MISS, switch_id: 0, cxt_id : 0, sig: 11996644358271800679, id: 200, copy_id: 2, table_id: 88 (prepare_for_deparsing)
+type: ACTION_EXECUTE, switch_id: 0, cxt_id : 0, sig: 11996644358271800679, id: 200, copy_id: 2, action_id: 12 (a_prep_deparse_256)
+type: PIPELINE_DONE, switch_id: 0, cxt_id : 0, sig: 11996644358271800679, id: 200, copy_id: 2, pipeline_id: 1 (egress)
+type: DEPARSER_START, switch_id: 0, cxt_id : 0, sig: 11996644358271800679, id: 200, copy_id: 2, deparser_id: 0 (deparser)
+type: DEPARSER_EMIT, switch_id: 0, cxt_id : 0, sig: 11996644358271800679, id: 200, copy_id: 2, header_id: 3 (bitfield_256)
+type: DEPARSER_DONE, switch_id: 0, cxt_id : 0, sig: 11996644358271800679, id: 200, copy_id: 2, deparser_id: 0 (deparser)
+type: PACKET_OUT, switch_id: 0, cxt_id : 0, sig: 11996644358271800679, id: 200, copy_id: 2, port_out: 1
+type: DEPARSER_START, switch_id: 0, cxt_id : 0, sig: 11996644358271800679, id: 200, copy_id: 1, deparser_id: 0 (deparser)
+type: DEPARSER_EMIT, switch_id: 0, cxt_id : 0, sig: 11996644358271800679, id: 200, copy_id: 1, header_id: 3 (bitfield_256)
+type: DEPARSER_DONE, switch_id: 0, cxt_id : 0, sig: 11996644358271800679, id: 200, copy_id: 1, deparser_id: 0 (deparser)
+type: PACKET_OUT, switch_id: 0, cxt_id : 0, sig: 11996644358271800679, id: 200, copy_id: 1, port_out: 2
+type: PACKET_IN, switch_id: 0, cxt_id : 0, sig: 9678993803857325402, id: 201, copy_id: 0, port_in: 1
+type: PARSER_START, switch_id: 0, cxt_id : 0, sig: 9678993803857325402, id: 201, copy_id: 0, parser_id: 0 (parser)
+type: PARSER_DONE, switch_id: 0, cxt_id : 0, sig: 9678993803857325402, id: 201, copy_id: 0, parser_id: 0 (parser)
+type: PIPELINE_START, switch_id: 0, cxt_id : 0, sig: 9678993803857325402, id: 201, copy_id: 0, pipeline_id: 0 (ingress)
+type: CONDITION_EVAL, switch_id: 0, cxt_id : 0, sig: 9678993803857325402, id: 201, copy_id: 0, condition_id: 0 (_condition_0), result: True
+type: TABLE_MISS, switch_id: 0, cxt_id : 0, sig: 9678993803857325402, id: 201, copy_id: 0, table_id: 0 (t_packet_init)
+type: ACTION_EXECUTE, switch_id: 0, cxt_id : 0, sig: 9678993803857325402, id: 201, copy_id: 0, action_id: 16 (a_packet_init)
+type: CONDITION_EVAL, switch_id: 0, cxt_id : 0, sig: 9678993803857325402, id: 201, copy_id: 0, condition_id: 2 (_condition_2), result: False
+type: PIPELINE_DONE, switch_id: 0, cxt_id : 0, sig: 9678993803857325402, id: 201, copy_id: 0, pipeline_id: 0 (ingress)
+type: PARSER_START, switch_id: 0, cxt_id : 0, sig: 9678993803857325402, id: 201, copy_id: 1, parser_id: 0 (parser)
+type: PARSER_EXTRACT, switch_id: 0, cxt_id : 0, sig: 9678993803857325402, id: 201, copy_id: 1, header_id: 3 (bitfield_256)
+type: PARSER_DONE, switch_id: 0, cxt_id : 0, sig: 9678993803857325402, id: 201, copy_id: 1, parser_id: 0 (parser)
+type: PIPELINE_START, switch_id: 0, cxt_id : 0, sig: 9678993803857325402, id: 201, copy_id: 1, pipeline_id: 0 (ingress)
+type: CONDITION_EVAL, switch_id: 0, cxt_id : 0, sig: 9678993803857325402, id: 201, copy_id: 1, condition_id: 0 (_condition_0), result: False
+type: CONDITION_EVAL, switch_id: 0, cxt_id : 0, sig: 9678993803857325402, id: 201, copy_id: 1, condition_id: 1 (_condition_1), result: True
+type: TABLE_MISS, switch_id: 0, cxt_id : 0, sig: 9678993803857325402, id: 201, copy_id: 1, table_id: 1 (t_norm)
+type: ACTION_EXECUTE, switch_id: 0, cxt_id : 0, sig: 9678993803857325402, id: 201, copy_id: 1, action_id: 17 (a_norm_256)
+type: TABLE_HIT, switch_id: 0, cxt_id : 0, sig: 9678993803857325402, id: 201, copy_id: 1, table_id: 2 (t_prog_select), entry_hdl: 0
+type: ACTION_EXECUTE, switch_id: 0, cxt_id : 0, sig: 9678993803857325402, id: 201, copy_id: 1, action_id: 30 (set_program)
+type: CONDITION_EVAL, switch_id: 0, cxt_id : 0, sig: 9678993803857325402, id: 201, copy_id: 1, condition_id: 2 (_condition_2), result: True
+type: CONDITION_EVAL, switch_id: 0, cxt_id : 0, sig: 9678993803857325402, id: 201, copy_id: 1, condition_id: 3 (_condition_3), result: True
+type: TABLE_HIT, switch_id: 0, cxt_id : 0, sig: 9678993803857325402, id: 201, copy_id: 1, table_id: 15 (t1_extracted_exact), entry_hdl: 3
+type: ACTION_EXECUTE, switch_id: 0, cxt_id : 0, sig: 9678993803857325402, id: 201, copy_id: 1, action_id: 29 (init_program_state)
+type: TABLE_HIT, switch_id: 0, cxt_id : 0, sig: 9678993803857325402, id: 201, copy_id: 1, table_id: 24 (set_primitive_metadata_11), entry_hdl: 1
+type: ACTION_EXECUTE, switch_id: 0, cxt_id : 0, sig: 9678993803857325402, id: 201, copy_id: 1, action_id: 4 (a_set_primitive_metadata)
+type: CONDITION_EVAL, switch_id: 0, cxt_id : 0, sig: 9678993803857325402, id: 201, copy_id: 1, condition_id: 10 (_condition_10), result: False
+type: CONDITION_EVAL, switch_id: 0, cxt_id : 0, sig: 9678993803857325402, id: 201, copy_id: 1, condition_id: 11 (_condition_11), result: False
+type: CONDITION_EVAL, switch_id: 0, cxt_id : 0, sig: 9678993803857325402, id: 201, copy_id: 1, condition_id: 12 (_condition_12), result: False
+type: CONDITION_EVAL, switch_id: 0, cxt_id : 0, sig: 9678993803857325402, id: 201, copy_id: 1, condition_id: 13 (_condition_13), result: True
+type: TABLE_HIT, switch_id: 0, cxt_id : 0, sig: 9678993803857325402, id: 201, copy_id: 1, table_id: 60 (t_multicast_11), entry_hdl: 0
+type: ACTION_EXECUTE, switch_id: 0, cxt_id : 0, sig: 9678993803857325402, id: 201, copy_id: 1, action_id: 24 (a_multicast)
+type: TABLE_HIT, switch_id: 0, cxt_id : 0, sig: 9678993803857325402, id: 201, copy_id: 1, table_id: 78 (set_program_state_11), entry_hdl: 1
+type: ACTION_EXECUTE, switch_id: 0, cxt_id : 0, sig: 9678993803857325402, id: 201, copy_id: 1, action_id: 0 (set_program_state)
+type: CONDITION_EVAL, switch_id: 0, cxt_id : 0, sig: 9678993803857325402, id: 201, copy_id: 1, condition_id: 15 (_condition_15), result: False
+type: CONDITION_EVAL, switch_id: 0, cxt_id : 0, sig: 9678993803857325402, id: 201, copy_id: 1, condition_id: 27 (_condition_27), result: False
+type: CONDITION_EVAL, switch_id: 0, cxt_id : 0, sig: 9678993803857325402, id: 201, copy_id: 1, condition_id: 28 (_condition_28), result: False
+type: CONDITION_EVAL, switch_id: 0, cxt_id : 0, sig: 9678993803857325402, id: 201, copy_id: 1, condition_id: 29 (_condition_29), result: False
+type: TABLE_MISS, switch_id: 0, cxt_id : 0, sig: 9678993803857325402, id: 201, copy_id: 1, table_id: 27 (set_primitive_metadata_21)
+type: PIPELINE_DONE, switch_id: 0, cxt_id : 0, sig: 9678993803857325402, id: 201, copy_id: 1, pipeline_id: 0 (ingress)
+type: PIPELINE_START, switch_id: 0, cxt_id : 0, sig: 9678993803857325402, id: 201, copy_id: 1, pipeline_id: 1 (egress)
+type: CONDITION_EVAL, switch_id: 0, cxt_id : 0, sig: 9678993803857325402, id: 201, copy_id: 1, condition_id: 75 (_condition_75), result: True
+type: TABLE_HIT, switch_id: 0, cxt_id : 0, sig: 9678993803857325402, id: 201, copy_id: 1, table_id: 87 (t_multicast), entry_hdl: 0
+type: ACTION_EXECUTE, switch_id: 0, cxt_id : 0, sig: 9678993803857325402, id: 201, copy_id: 1, action_id: 3 (mod_and_clone)
+type: TABLE_MISS, switch_id: 0, cxt_id : 0, sig: 9678993803857325402, id: 201, copy_id: 1, table_id: 89 (csum16)
+type: ACTION_EXECUTE, switch_id: 0, cxt_id : 0, sig: 9678993803857325402, id: 201, copy_id: 1, action_id: 7 (_no_op)
+type: TABLE_MISS, switch_id: 0, cxt_id : 0, sig: 9678993803857325402, id: 201, copy_id: 1, table_id: 88 (prepare_for_deparsing)
+type: ACTION_EXECUTE, switch_id: 0, cxt_id : 0, sig: 9678993803857325402, id: 201, copy_id: 1, action_id: 12 (a_prep_deparse_256)
+type: PIPELINE_DONE, switch_id: 0, cxt_id : 0, sig: 9678993803857325402, id: 201, copy_id: 1, pipeline_id: 1 (egress)
+type: DEPARSER_START, switch_id: 0, cxt_id : 0, sig: 9678993803857325402, id: 201, copy_id: 1, deparser_id: 0 (deparser)
+type: DEPARSER_EMIT, switch_id: 0, cxt_id : 0, sig: 9678993803857325402, id: 201, copy_id: 1, header_id: 3 (bitfield_256)
+type: DEPARSER_DONE, switch_id: 0, cxt_id : 0, sig: 9678993803857325402, id: 201, copy_id: 1, deparser_id: 0 (deparser)
+type: PIPELINE_START, switch_id: 0, cxt_id : 0, sig: 11996644358271800679, id: 201, copy_id: 1, pipeline_id: 1 (egress)
+type: CONDITION_EVAL, switch_id: 0, cxt_id : 0, sig: 11996644358271800679, id: 201, copy_id: 1, condition_id: 75 (_condition_75), result: True
+type: PACKET_OUT, switch_id: 0, cxt_id : 0, sig: 9678993803857325402, id: 201, copy_id: 1, port_out: 3
+type: TABLE_HIT, switch_id: 0, cxt_id : 0, sig: 11996644358271800679, id: 201, copy_id: 1, table_id: 87 (t_multicast), entry_hdl: 1
+type: ACTION_EXECUTE, switch_id: 0, cxt_id : 0, sig: 11996644358271800679, id: 201, copy_id: 1, action_id: 3 (mod_and_clone)
+type: TABLE_MISS, switch_id: 0, cxt_id : 0, sig: 11996644358271800679, id: 201, copy_id: 1, table_id: 89 (csum16)
+type: ACTION_EXECUTE, switch_id: 0, cxt_id : 0, sig: 11996644358271800679, id: 201, copy_id: 1, action_id: 7 (_no_op)
+type: TABLE_MISS, switch_id: 0, cxt_id : 0, sig: 11996644358271800679, id: 201, copy_id: 1, table_id: 88 (prepare_for_deparsing)
+type: ACTION_EXECUTE, switch_id: 0, cxt_id : 0, sig: 11996644358271800679, id: 201, copy_id: 1, action_id: 12 (a_prep_deparse_256)
+type: PIPELINE_DONE, switch_id: 0, cxt_id : 0, sig: 11996644358271800679, id: 201, copy_id: 1, pipeline_id: 1 (egress)
+type: DEPARSER_START, switch_id: 0, cxt_id : 0, sig: 11996644358271800679, id: 201, copy_id: 1, deparser_id: 0 (deparser)
+type: DEPARSER_EMIT, switch_id: 0, cxt_id : 0, sig: 11996644358271800679, id: 201, copy_id: 1, header_id: 3 (bitfield_256)
+type: DEPARSER_DONE, switch_id: 0, cxt_id : 0, sig: 11996644358271800679, id: 201, copy_id: 1, deparser_id: 0 (deparser)
+type: PIPELINE_START, switch_id: 0, cxt_id : 0, sig: 11996644358271800679, id: 201, copy_id: 1, pipeline_id: 1 (egress)
+type: CONDITION_EVAL, switch_id: 0, cxt_id : 0, sig: 11996644358271800679, id: 201, copy_id: 1, condition_id: 75 (_condition_75), result: True
+type: TABLE_HIT, switch_id: 0, cxt_id : 0, sig: 11996644358271800679, id: 201, copy_id: 1, table_id: 87 (t_multicast), entry_hdl: 2
+type: ACTION_EXECUTE, switch_id: 0, cxt_id : 0, sig: 11996644358271800679, id: 201, copy_id: 1, action_id: 7 (_no_op)
+type: TABLE_MISS, switch_id: 0, cxt_id : 0, sig: 11996644358271800679, id: 201, copy_id: 1, table_id: 89 (csum16)
+type: ACTION_EXECUTE, switch_id: 0, cxt_id : 0, sig: 11996644358271800679, id: 201, copy_id: 1, action_id: 7 (_no_op)
+type: TABLE_MISS, switch_id: 0, cxt_id : 0, sig: 11996644358271800679, id: 201, copy_id: 1, table_id: 88 (prepare_for_deparsing)
+type: ACTION_EXECUTE, switch_id: 0, cxt_id : 0, sig: 11996644358271800679, id: 201, copy_id: 1, action_id: 12 (a_prep_deparse_256)
+type: PIPELINE_DONE, switch_id: 0, cxt_id : 0, sig: 11996644358271800679, id: 201, copy_id: 1, pipeline_id: 1 (egress)
+type: DEPARSER_START, switch_id: 0, cxt_id : 0, sig: 11996644358271800679, id: 201, copy_id: 1, deparser_id: 0 (deparser)
+type: DEPARSER_EMIT, switch_id: 0, cxt_id : 0, sig: 11996644358271800679, id: 201, copy_id: 1, header_id: 3 (bitfield_256)
+type: DEPARSER_DONE, switch_id: 0, cxt_id : 0, sig: 11996644358271800679, id: 201, copy_id: 1, deparser_id: 0 (deparser)
+type: PACKET_OUT, switch_id: 0, cxt_id : 0, sig: 11996644358271800679, id: 201, copy_id: 1, port_out: 2
+type: PACKET_OUT, switch_id: 0, cxt_id : 0, sig: 11996644358271800679, id: 201, copy_id: 1, port_out: 1
