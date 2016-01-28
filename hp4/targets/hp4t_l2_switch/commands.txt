@@ -1,20 +1,19 @@
 mirroring_add 1 1
 mirroring_add 2 2
 mirroring_add 3 3
-table_set_default t_packet_init a_packet_init 256
-table_set_default t_norm a_norm_256
+table_add t_prog_select set_program 1 => 1 1 256
+table_add t_prog_select set_program 2 => 1 1 256
+table_add t_prog_select set_program 3 => 1 1 256
+table_add t_norm a_norm_256 1 =>
 table_set_default prepare_for_deparsing a_prep_deparse_512
-table_set_default csum16 _no_op
-table_add t_prog_select set_program 1 0x00&&&0x00 => 1 1 1
-table_add t_prog_select set_program 2 0x00&&&0x00 => 1 1 1
-table_add t_prog_select set_program 3 0x00&&&0x00 => 1 1 1
+table_add csum16 _no_op 1 =>
 table_add t1_extracted_exact init_program_state 1 0x0004000000000000000000000000000000000000000000000000000000000000&&&0xFFFFFFFFFFFF0000000000000000000000000000000000000000000000000000 => 2 1 1 2 0 1
 table_add t1_extracted_exact init_program_state 1 0x0004000000010000000000000000000000000000000000000000000000000000&&&0xFFFFFFFFFFFF0000000000000000000000000000000000000000000000000000 => 2 2 1 2 0 1
 table_add t1_extracted_exact init_program_state 1 0x0004000000020000000000000000000000000000000000000000000000000000&&&0xFFFFFFFFFFFF0000000000000000000000000000000000000000000000000000 => 2 3 1 2 0 1
 table_add t1_extracted_exact init_program_state 1 0xffffffffffff0000000000000000000000000000000000000000000000000000&&&0xFFFFFFFFFFFF0000000000000000000000000000000000000000000000000000 => 3 4 1 2 0 1
-table_add t_multicast mod_and_clone 1 3 => 2
-table_add t_multicast mod_and_clone 1 2 => 1
-table_add t_multicast _no_op 1 1 =>
+table_add t_multicast mod_and_clone 1 1 3 => 2
+table_add t_multicast mod_and_clone 1 1 2 => 1
+table_add t_multicast _no_op 1 1 1 =>
 table_add set_primitive_metadata_11 a_set_primitive_metadata 1 2 1 => 0 8
 table_add set_primitive_metadata_11 a_set_primitive_metadata 1 3 1 => 19 0
 table_add t_multicast_11 a_multicast 1 => 1 3

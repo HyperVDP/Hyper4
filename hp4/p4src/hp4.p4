@@ -67,6 +67,7 @@ action mod_and_clone(port) {
 
 table t_multicast {
   reads {
+    meta_ctrl.program : exact;
     meta_ctrl.multicast_seq_id : exact;
     meta_ctrl.multicast_current_egress : exact;
   }
@@ -139,6 +140,9 @@ action a_ipv4_csum16(rshift_base, div) {
 }
 
 table csum16 {
+  reads {
+    meta_ctrl.program : exact;
+  }
   actions {
     a_ipv4_csum16;
     _no_op;

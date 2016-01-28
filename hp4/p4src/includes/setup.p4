@@ -14,23 +14,6 @@ setup.p4:
 - Set program and first table
 */
 
-// ------ Initialize local metadata and resubmit
-field_list f_packet_init {
-  meta_parse;
-  standard_metadata;
-}
-
-action a_packet_init(parse_width) {
-  modify_field(meta_parse.parse_width, parse_width);
-  resubmit(f_packet_init);
-}
-
-table t_packet_init {
-  actions {
-    a_packet_init;
-  }
-}
-
 // ------ Normalize data to 768-bit bitfield
 action a_norm_256() {
   modify_field(extracted.data, bitfield_256.data);
@@ -45,6 +28,9 @@ action a_norm_768() {
 }
 
 table t_norm {
+  reads {
+    meta_ctrl.program : exact;
+  }
   actions {
     a_norm_256;
     a_norm_512;
@@ -52,18 +38,27 @@ table t_norm {
   }
 }
 
-// ------ Set program and first table
-action set_program(program, table_ID) {
+// ------ Initialize local metadata and resubmit
+field_list f_packet_init {
+  meta_parse;
+  meta_ctrl;
+  standard_metadata;
+}
+
+// ------ Set program and first table and parse width
+action set_program(program, table_ID, parse_width) {
   modify_field(meta_ctrl.program, program);
   modify_field(meta_ctrl.next_table, table_ID);
+  modify_field(meta_parse.parse_width, parse_width);
+  resubmit(f_packet_init);
 }
 
 table t_prog_select {
   reads {
-    standard_metadata.ingress_port : exact; // want range! but compiler bug? nets "KeyError: P4_MATCH_RANGE"
-    //standard_metadata.packet_length : exact; // want range! but compiler bug? nets "KeyError: P4_MATCH_RANGE"
-    //standard_metadata.instance_type : exact; // want range! but compiler bug? nets "KeyError: P4_MATCH_RANGE"
-    extracted.data : ternary;
+    standard_metadata.ingress_port : exact; // range not yet supported by bmv2
+    //standard_metadata.packet_length : exact; // range not yet supported by bmv2
+    //standard_metadata.instance_type : exact; // range not yet supported by bmv2
+    //extracted.data : ternary;
   }
   actions {
     set_program;
@@ -73,10 +68,9 @@ table t_prog_select {
 // ------ Setup
 control setup {
   if (meta_ctrl.stage == INIT) { //_condition_0
-    apply(t_packet_init);
+    apply(t_prog_select);
   }
   else if ( meta_ctrl.stage == NORM ) { //_condition_1
     apply(t_norm);
-    apply(t_prog_select);
   }
 }
