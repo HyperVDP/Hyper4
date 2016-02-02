@@ -28,7 +28,8 @@ CLI_PATH=$BMV2_PATH/targets/simple_switch/sswitch_CLI
 
 $P4C_BM_SCRIPT p4src/$PROJ.p4 --json $PROJ.json
 sudo PYTHONPATH=$PYTHONPATH:$BMV2_PATH/mininet/ \
-    python $THIS_DIR/mininet/topo_two_progs.py \
+    python $THIS_DIR/mininet/topo_l3.py \
     --behavioral-exe $BMV2_PATH/targets/simple_switch/simple_switch \
     --json $PROJ.json \
-    --cli $CLI_PATH
+    --cli $CLI_PATH \
+    --commands $THIS_DIR/hp4/targets/simple_router/commands.txt

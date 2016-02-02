@@ -88,7 +88,7 @@ table send_frame {
     }
     size: 256;
 }
-
+/*
 action a_is_icmp() {
 }
 
@@ -101,15 +101,16 @@ table is_icmp {
     _drop;
   }
 }
+*/
 
 control ingress {
-    apply(is_icmp) {
-      a_is_icmp {
+//    apply(is_icmp) {
+//      a_is_icmp {
         apply(ipv4_lpm);
         apply(forward);
         apply(send_frame);
-      }
-    }
+//      }
+//    }
 }
 
 action a_csum() {
@@ -142,5 +143,3 @@ table csum {
 control egress {
   apply(csum);
 }
-
-

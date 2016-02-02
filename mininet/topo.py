@@ -37,6 +37,8 @@ parser.add_argument('--json', help='Path to JSON config file',
                     type=str, action="store", required=True)
 parser.add_argument('--cli', help='Path to BM CLI',
                     type=str, action="store", required=True)
+parser.add_argument('--commands', help='Path to initial CLI commands',
+                    type=str, action="store", default="commands.txt")
 
 args = parser.parse_args()
 
@@ -108,7 +110,7 @@ def main():
     for i in xrange(nb_switches):
         cmd = [args.cli, args.json,
                str(_THRIFT_BASE_PORT + i)]
-        with open("commands.txt", "r") as f:
+        with open(args.commands, "r") as f:
             print " ".join(cmd)
             try:
                 output = subprocess.check_output(cmd, stdin = f)

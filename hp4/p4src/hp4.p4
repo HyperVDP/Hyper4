@@ -25,23 +25,7 @@ metadata csum_t csum;
 //  bmv2 requires this intrinsic metadata structure in order to do a resubmit
 metadata intrinsic_metadata_t intrinsic_metadata;
 
-/*
-action a_is_icmp() {
-}
-
-table is_icmp {
-  reads {
-    meta_parse.do_process : exact;
-  }
-  actions {
-    a_is_icmp;
-    a_drop;
-  }
-}
-*/
 control ingress {
-//  apply(is_icmp) {
-//    a_is_icmp {
       // setup.p4
       setup();
 
@@ -51,8 +35,6 @@ control ingress {
       stage2();
       stage3();
       }
-//    }
-//  }
 }
 
 field_list clone_fl {
