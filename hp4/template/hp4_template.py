@@ -2,6 +2,7 @@
 
 import argparse
 import stages_t
+import parser_t
 
 parser = argparse.ArgumentParser(description='HP4 Source Code Generator')
 parser.add_argument('--numstages', help='Max number of match-action stages',
@@ -121,6 +122,7 @@ class GenHp4():
 def main():
   GenHp4(args.numstages, args.numprimitives, args.parse_opt)
   stages_t.GenStages(args.numstages, args.numprimitives)
+  parser_t.GenParser(args.parse_opt)
 
 if __name__ == '__main__':
     main()
