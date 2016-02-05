@@ -52,3 +52,9 @@ defines.p4: Define constants
 #define A_CLONE_EGRESS_EGRESS	18
 #define A_MULTICAST		19
 #define A_ADD_TO_FIELD		20
+
+// extracted data width
+#define EXTRACTED_WIDTH		768
+
+// target metadata width
+#define TMETA_WIDTH		256
