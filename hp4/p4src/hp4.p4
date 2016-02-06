@@ -11,6 +11,7 @@ hp4.p4: Define the ingress and egress pipelines, including multicast support.
 
 #include "includes/defines.p4"
 #include "includes/headers.p4"
+#include "includes/parse_opts.p4"
 #include "includes/parser.p4"
 #include "includes/setup.p4"
 #include "includes/stages.p4"
