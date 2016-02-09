@@ -1,0 +1,61 @@
+// 1
+action mod_meta_stdmeta_ingressport(leftshift, tmeta_mask) { 
+  modify_field(tmeta.data, (tmeta.data & ~tmeta_mask) | ((standard_metadata.ingress_port << leftshift) & tmeta_mask)); // last "& mask" probably unnecessary
+}
+
+// 2
+action mod_meta_stdmeta_packetlength(leftshift, tmeta_mask) {
+  modify_field(tmeta.data, (tmeta.data & ~tmeta_mask) | ((standard_metadata.packet_length << leftshift) & tmeta_mask));
+}
+
+// 3
+action mod_meta_stdmeta_egressspec(leftshift, tmeta_mask) {
+  modify_field(tmeta.data, (tmeta.data & ~tmeta_mask) | ((standard_metadata.egress_spec << leftshift) & tmeta_mask));
+}
+
+// 4
+action mod_meta_stdmeta_egressport(leftshift, tmeta_mask) {
+  modify_field(tmeta.data, (tmeta.data & ~tmeta_mask) | ((standard_metadata.egress_port << leftshift) & tmeta_mask));
+}
+
+// 5
+action mod_meta_stdmeta_egressinst(leftshift, tmeta_mask) {
+  modify_field(tmeta.data, (tmeta.data & ~tmeta_mask) | ((standard_metadata.egress_instance << leftshift) & tmeta_mask));
+}
+
+// 6
+action mod_meta_stdmeta_insttype(leftshift, tmeta_mask) {
+  modify_field(tmeta.data, (tmeta.data & ~tmeta_mask) | ((standard_metadata.instance_type << leftshift) & tmeta_mask));
+}
+
+// 7
+action mod_stdmeta_egressspec_meta() {
+  modify_field(standard_metadata.egress_spec, tmeta.dcpy);
+}
+
+// 8
+action mod_meta_const(val, leftshift, tmeta_mask) {
+  modify_field(tmeta.data, (tmeta.data & ~tmeta_mask) | ((val << leftshift) & tmeta_mask));
+}
+
+// 9
+action mod_stdmeta_egressspec_const(val) {
+  modify_field(standard_metadata.egress_spec, val);
+}
+
+// 10
+action mod_extracted_const(val, leftshift, emask) {
+    modify_field(extracted.data, (extracted.data & ~emask) | ((val << leftshift) & emask));
+}
+// TODO: add rest of the modify_field actions
+
+// result: tmeta.dcpy is the value of a field embedded within tmeta.data
+action a_mod_prep(leftshift, rightshift) {
+  modify_field(tmeta.dcpy, tmeta.data);
+  modify_field(tmeta.dcpy, tmeta.dcpy << leftshift);
+  modify_field(tmeta.dcpy, tmeta.dcpy >> rightshift);
+}
+
+action _no_op() {
+  no_op();
+}
