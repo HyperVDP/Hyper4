@@ -11,6 +11,7 @@ import match_t
 import modify_field_t
 import multicast_t
 import setup_t
+import switch_primitivetype_t
 
 parser = argparse.ArgumentParser(description='HP4 Source Code Generator')
 parser.add_argument('--numstages', help='Max number of match-action stages',
@@ -140,6 +141,7 @@ def main():
   modify_field_t.GenModify_Field(args.numstages, args.numprimitives)
   multicast_t.GenMulticast(args.numstages, args.numprimitives)
   setup_t.GenSetup(args.parse_opt)
+  switch_primitivetype_t.GenSwitch_PrimitiveType(args.numstages, args.numprimitives)
 
 if __name__ == '__main__':
     main()
