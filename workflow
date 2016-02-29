@@ -10,6 +10,9 @@ Using bmv2:
 - enter CLI:
   sudo ~/p4factory/submodules/bm/tools/runtime_CLI.py --json HyPer4.json \
   [--thrift-port <thrift port#>]
+  OR [preferred]:
+  sudo ~/p4factory/submodules/bm/targets/simple_switch/sswitch_CLI HyPer4.json \
+  <thrift port#>
 
 Using bmv1:
 - if necessary, create new target:
