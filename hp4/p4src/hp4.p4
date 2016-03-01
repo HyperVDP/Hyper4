@@ -11,11 +11,9 @@ hp4.p4: Define the ingress and egress pipelines, including multicast support.
 
 #include "includes/defines.p4"
 #include "includes/headers.p4"
-#include "includes/parse_opts.p4"
 #include "includes/parser.p4"
 #include "includes/setup.p4"
 #include "includes/stages.p4"
-#include "includes/checksums.p4"
 
 metadata meta_primitive_state_t meta_primitive_state;
 metadata meta_stdmeta_t meta_stdmeta;
@@ -78,6 +76,58 @@ table prepare_for_deparsing {
     a_prep_deparse_256;
     a_prep_deparse_512;
     a_prep_deparse_768;
+  }
+}
+
+action a_ipv4_csum16(rshift_base, div) {
+  modify_field(csum.rshift, rshift_base);
+  modify_field(csum.div, div);
+  // dst low
+  modify_field(csum.sum, csum.sum + ((extracted.data >> csum.rshift) & 0xFFFF));
+  modify_field(csum.rshift, csum.rshift + csum.div);
+  // dst high
+  modify_field(csum.sum, csum.sum + ((extracted.data >> csum.rshift) & 0xFFFF));
+  modify_field(csum.rshift, csum.rshift + csum.div);
+  // src low
+  modify_field(csum.sum, csum.sum + ((extracted.data >> csum.rshift) & 0xFFFF));
+  modify_field(csum.rshift, csum.rshift + csum.div);
+  // src high
+  modify_field(csum.sum, csum.sum + ((extracted.data >> csum.rshift) & 0xFFFF));
+  modify_field(csum.rshift, csum.rshift + csum.div);
+  // skip csum
+  modify_field(csum.rshift, csum.rshift + csum.div);
+  // TTL+protocol
+  modify_field(csum.sum, csum.sum + ((extracted.data >> csum.rshift) & 0xFFFF));
+  modify_field(csum.rshift, csum.rshift + csum.div);
+  // flags+frag offset
+  modify_field(csum.sum, csum.sum + ((extracted.data >> csum.rshift) & 0xFFFF));
+  modify_field(csum.rshift, csum.rshift + csum.div);
+  // ID
+  modify_field(csum.sum, csum.sum + ((extracted.data >> csum.rshift) & 0xFFFF));
+  modify_field(csum.rshift, csum.rshift + csum.div);
+  // totalLen
+  modify_field(csum.sum, csum.sum + ((extracted.data >> csum.rshift) & 0xFFFF));
+  modify_field(csum.rshift, csum.rshift + csum.div);
+  // version+IHL+DSCP
+  modify_field(csum.sum, csum.sum + ((extracted.data >> csum.rshift) & 0xFFFF));
+  
+  // add carry
+  modify_field(csum.sum, (csum.sum + (csum.sum >> csum.div)) & 0xFFFF);
+
+  // invert and store
+  modify_field(csum.final, ~csum.sum);
+
+  modify_field(csum.csmask, 0xFFFF << 304);
+  modify_field(extracted.data, (extracted.data & ~csum.csmask) | ((csum.final << 304) & csum.csmask));
+}
+
+table csum16 {
+  reads {
+    meta_ctrl.program : exact;
+  }
+  actions {
+    a_ipv4_csum16;
+    _no_op;
   }
 }
 

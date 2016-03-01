@@ -1,6 +1,6 @@
 class GenAdd_to_Field():
   def __init__(self, nstages, nprimitives):
-    f_a2f = open('../p4src/includes/add_to_fieldtest.p4', 'w')
+    f_a2f = open('../p4src/includes/add_to_field.p4', 'w')
 
     std_h = open('std_header', 'r')
     f_a2f.write("/*\n")
@@ -40,7 +40,7 @@ class GenAdd_to_Field():
     for i in range(nstages):
       for j in range(nprimitives):
         out = "\n\ncontrol do_add_to_field_" + str(i+1) + str(j+1) + " {\n"
-        out += indent + "apply(t_add_to_field_" + str(i+1) + str(j+1) + ";\n"
+        out += indent + "apply(t_add_to_field_" + str(i+1) + str(j+1) + ");\n"
         out += "}"
         f_a2f.write(out)
 

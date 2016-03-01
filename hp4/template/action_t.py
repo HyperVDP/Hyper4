@@ -1,6 +1,6 @@
 class GenAction():
   def __init__(self, nstages, nprimitives):
-    f_action = open('../p4src/includes/actiontest.p4', 'w')
+    f_action = open('../p4src/includes/action.p4', 'w')
 
     std_h = open('std_header', 'r')
     f_action.write("/*\n")
@@ -27,6 +27,7 @@ class GenAction():
         out = "\n\ntable set_primitive_metadata_" + str(i+1) + str(j+1) + " {\n"
         out += indent + "reads {\n"
         out += indent + indent + "meta_ctrl.program : exact;\n"
+        out += indent + indent + "meta_primitive_state.action_ID : exact;\n"
         out += indent + indent + "meta_primitive_state.primitive_index : exact;\n"
         out += indent + "}\n"
         out += indent + "actions {\n"

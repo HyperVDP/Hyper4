@@ -1,6 +1,6 @@
 class GenSwitch_StdMeta():
   def __init__(self, nstages):
-    f_swstdm = open('../p4src/includes/switch_stdmetatest.p4', 'w')
+    f_swstdm = open('../p4src/includes/switch_stdmeta.p4', 'w')
 
     std_h = open('std_header', 'r')
     f_swstdm.write("/*\n")
@@ -15,7 +15,7 @@ class GenSwitch_StdMeta():
   
     indent = "  "
 
-    fields = ["ingressport", "packetlength", "insttype", "egressspec"]
+    fields = ["ingress_port", "packet_length", "instance_type", "egress_spec"]
 
     for i in range(nstages):
       for field in fields:

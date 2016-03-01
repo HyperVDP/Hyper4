@@ -14,3 +14,7 @@ action set_program_state(action_ID, primitive_index, stage_state, next_table) {
   modify_field(meta_ctrl.stage_state, stage_state);
   modify_field(meta_ctrl.next_table, next_table);
 }
+
+action set_meta_stdmeta(stdmeta_ID) {
+  modify_field(meta_stdmeta.stdmeta_ID, stdmeta_ID);
+}

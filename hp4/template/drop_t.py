@@ -1,6 +1,6 @@
 class GenDrop():
   def __init__(self, nstages, nprimitives):
-    f_drop = open('../p4src/includes/droptest.p4', 'w')
+    f_drop = open('../p4src/includes/drop.p4', 'w')
 
     std_h = open('std_header', 'r')
     f_drop.write("/*\n")
@@ -33,7 +33,7 @@ class GenDrop():
     for i in range(nstages):
       for j in range(nprimitives):
         out = "\n\ncontrol do_drop_" + str(i+1) + str(j+1) + " {\n"
-        out += indent + "apply(t_drop_" + str(i+1) + str(j+1) + ";\n"
+        out += indent + "apply(t_drop_" + str(i+1) + str(j+1) + ");\n"
         out += "}"
         f_drop.write(out)
 

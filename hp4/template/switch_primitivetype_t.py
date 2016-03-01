@@ -1,6 +1,6 @@
 class GenSwitch_PrimitiveType():
   def __init__(self, nstages, nprimitives):
-    f_swprim = open('../p4src/includes/switch_primitivetypetest.p4', 'w')
+    f_swprim = open('../p4src/includes/switch_primitivetype.p4', 'w')
 
     std_h = open('std_header', 'r')
     f_swprim.write("/*\n")
@@ -30,12 +30,12 @@ class GenSwitch_PrimitiveType():
         out += indent + "else if(meta_primitive_state.primitive == A_DROP) {\n"
         out += indent + indent + "do_drop_" + str(i+1) + str(j+1) + "();\n"
         out += indent + "}\n"
-        out += indent + "else if(meta_primitive.state.primitive == A_NO_OP) {\n"
+        out += indent + "else if(meta_primitive_state.primitive == A_NO_OP) {\n"
         out += indent + "}\n"
-        out += indent + "else if(meta_primitive.state.primitive == A_MULTICAST) {\n"
+        out += indent + "else if(meta_primitive_state.primitive == A_MULTICAST) {\n"
         out += indent + indent + "do_multicast_" + str(i+1) + str(j+1) + "();\n"
         out += indent + "}\n"
-        out += indent + "else if(meta_primitive.state.primitive == A_ADD_TO_FIELD) {\n"
+        out += indent + "else if(meta_primitive_state.primitive == A_ADD_TO_FIELD) {\n"
         out += indent + indent + "do_add_to_field_" + str(i+1) + str(j+1) + "();\n"
         out += indent + "}\n"
         out += "}"

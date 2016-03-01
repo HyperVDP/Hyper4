@@ -77,15 +77,33 @@ header_type meta_stdmeta_t {
 // extracted: stores extracted data in a standard width field
 header_type extracted_t {
   fields {
-    data : EXTRACTED_WIDTH;
-    dcpy : EXTRACTED_WIDTH;
+    data : 768;
+    dcpy : 768;
   }
 }
 
 // tmeta: HyPer4's representation of the target's metadata
 header_type tmeta_t {
   fields {
-    data : TMETA_WIDTH;
-    dcpy : TMETA_WIDTH;
+    data : 256;
+    dcpy : 256;
+  }
+}
+
+header_type bitfield_256_t {
+  fields {
+    data : 256;
+  }
+}
+
+header_type bitfield_512_t {
+  fields {
+    data : 512;
+  }
+}
+
+header_type bitfield_768_t {
+  fields {
+    data : 768;
   }
 }
