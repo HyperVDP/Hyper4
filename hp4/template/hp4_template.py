@@ -14,6 +14,9 @@ import setup_t
 import switch_primitivetype_t
 import switch_stdmeta_t
 import truncate_t
+import checksums_t
+import defines_t
+import headers_t
 
 parser = argparse.ArgumentParser(description='HP4 Source Code Generator')
 parser.add_argument('--numstages', help='Max number of match-action stages',
@@ -27,7 +30,7 @@ args = parser.parse_args()
 
 class GenHp4():
   def __init__(self, nstages, nprimitives, parse_opts):
-    f_hp4 = open('../p4src/hp4.p4', 'w')
+    f_hp4 = open('../p4src/template/hp4.p4', 'w')
 
     std_h = open('std_header', 'r')
     f_hp4.write("/*\n")
@@ -146,6 +149,9 @@ def main():
   switch_primitivetype_t.GenSwitch_PrimitiveType(args.numstages, args.numprimitives)
   switch_stdmeta_t.GenSwitch_StdMeta(args.numstages)
   truncate_t.GenTruncate(args.numstages, args.numprimitives)
+  checksums_t.GenChecksums()
+  defines_t.GenDefines()
+  headers_t.GenHeaders()
 
 if __name__ == '__main__':
     main()

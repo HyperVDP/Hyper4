@@ -1,6 +1,6 @@
 class GenMatch():
   def __init__(self, nstages):
-    f_match = open('../p4src/includes/match.p4', 'w')
+    f_match = open('../p4src/template/includes/match.p4', 'w')
 
     std_h = open('std_header', 'r')
     f_match.write("/*\n")

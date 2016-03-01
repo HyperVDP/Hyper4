@@ -1,6 +1,6 @@
 class GenParse_Opts():
   def __init__(self, parse_opts):
-    f_po = open('../p4src/includes/parse_opts.p4', 'w')
+    f_po = open('../p4src/template/includes/parse_opts.p4', 'w')
 
     std_h = open('std_header', 'r')
     f_po.write("/*\n")
