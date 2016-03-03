@@ -1,6 +1,6 @@
 class GenSwitch_StdMeta():
   def __init__(self, nstages):
-    f_swstdm = open('../p4src/template/includes/switch_stdmeta.p4', 'w')
+    f_swstdm = open('../p4src/includes/switch_stdmeta.p4', 'w')
 
     std_h = open('std_header', 'r')
     f_swstdm.write("/*\n")

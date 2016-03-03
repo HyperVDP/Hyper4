@@ -1,6 +1,6 @@
 class GenDefines():
   def __init__(self):
-    f_defines = open('../p4src/template/includes/defines.p4', 'w')
+    f_defines = open('../p4src/includes/defines.p4', 'w')
 
     std_h = open('std_header', 'r')
     f_defines.write("/*\n")

@@ -1,3 +1,14 @@
+/*
+David Hancock
+FLUX Research Group
+University of Utah
+dhancock@cs.utah.edu
+
+HyPer4: A P4 Program to Run Other P4 Programs
+
+checksums.p4: Implements checksums.
+*/
+
 action a_ipv4_csum16(rshift_base, div) {
   modify_field(csum.rshift, rshift_base);
   modify_field(csum.div, div);

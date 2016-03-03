@@ -30,7 +30,7 @@ args = parser.parse_args()
 
 class GenHp4():
   def __init__(self, nstages, nprimitives, parse_opts):
-    f_hp4 = open('../p4src/template/hp4.p4', 'w')
+    f_hp4 = open('../p4src/hp4.p4', 'w')
 
     std_h = open('std_header', 'r')
     f_hp4.write("/*\n")

@@ -9,6 +9,7 @@ HyPer4: A P4 Program to Run Other P4 Programs
 switch_stdmeta.p4: Handles table matching: exact, using standard metadata
 */
 
+
 table t1_stdmeta_ingress_port {
   reads {
     meta_ctrl.program : exact;
@@ -39,26 +40,6 @@ table t1_stdmeta_instance_type {
   }
 }
 
-/*
-table t1_stdmeta_parserstat {
-  reads {
-    standard_metadata.parser_status : exact;
-  }
-  actions {
-    init_program_state;
-  }
-}
-
-table t1_stdmeta_parsererror {
-  reads {
-    standard_metadata.parser_error_location : exact;
-  }
-  actions {
-    init_program_state;
-  }
-}
-*/
-
 table t1_stdmeta_egress_spec {
   reads {
     meta_ctrl.program : exact;
@@ -70,52 +51,85 @@ table t1_stdmeta_egress_spec {
 }
 
 table t2_stdmeta_ingress_port {
-  reads { meta_ctrl.program : exact; standard_metadata.ingress_port : exact; }
-  actions { init_program_state; } }
+  reads {
+    meta_ctrl.program : exact;
+    standard_metadata.ingress_port : exact;
+  }
+  actions {
+    init_program_state;
+  }
+}
 
 table t2_stdmeta_packet_length {
-  reads { meta_ctrl.program : exact; standard_metadata.packet_length : exact; }
-  actions { init_program_state; } }
+  reads {
+    meta_ctrl.program : exact;
+    standard_metadata.packet_length : exact;
+  }
+  actions {
+    init_program_state;
+  }
+}
 
 table t2_stdmeta_instance_type {
-  reads { meta_ctrl.program : exact; standard_metadata.instance_type : exact; }
-  actions { init_program_state; } }
-
-/*
-table t2_stdmeta_parserstat { reads { standard_metadata.parser_status : exact; }
-  actions { init_program_state; } }
-
-table t2_stdmeta_parsererror { reads { standard_metadata.parser_error_location : exact; }
-  actions { init_program_state; } }
-*/
+  reads {
+    meta_ctrl.program : exact;
+    standard_metadata.instance_type : exact;
+  }
+  actions {
+    init_program_state;
+  }
+}
 
 table t2_stdmeta_egress_spec {
-  reads { meta_ctrl.program : exact; standard_metadata.egress_spec : exact; }
-  actions { init_program_state; } }
+  reads {
+    meta_ctrl.program : exact;
+    standard_metadata.egress_spec : exact;
+  }
+  actions {
+    init_program_state;
+  }
+}
 
 table t3_stdmeta_ingress_port {
-  reads { meta_ctrl.program : exact; standard_metadata.ingress_port : exact; }
-  actions { init_program_state; } }
+  reads {
+    meta_ctrl.program : exact;
+    standard_metadata.ingress_port : exact;
+  }
+  actions {
+    init_program_state;
+  }
+}
 
 table t3_stdmeta_packet_length {
-  reads { meta_ctrl.program : exact; standard_metadata.packet_length : exact; }
-  actions { init_program_state; } }
+  reads {
+    meta_ctrl.program : exact;
+    standard_metadata.packet_length : exact;
+  }
+  actions {
+    init_program_state;
+  }
+}
 
 table t3_stdmeta_instance_type {
-  reads { meta_ctrl.program : exact; standard_metadata.instance_type : exact; }
-  actions { init_program_state; } }
-
-/*
-table t3_stdmeta_parserstat { reads { standard_metadata.parser_status : exact; }
-  actions { init_program_state; } }
-
-table t3_stdmeta_parsererror { reads { standard_metadata.parser_error_location : exact; }
-  actions { init_program_state; } }
-*/
+  reads {
+    meta_ctrl.program : exact;
+    standard_metadata.instance_type : exact;
+  }
+  actions {
+    init_program_state;
+  }
+}
 
 table t3_stdmeta_egress_spec {
-  reads { meta_ctrl.program : exact; standard_metadata.egress_spec : exact; }
-  actions { init_program_state; } }
+  reads {
+    meta_ctrl.program : exact;
+    standard_metadata.egress_spec : exact;
+  }
+  actions {
+    init_program_state;
+  }
+}
+
 
 control switch_stdmeta_1 {
   if(meta_stdmeta.stdmeta_ID == STDMETA_INGRESS_PORT) {
@@ -130,14 +144,6 @@ control switch_stdmeta_1 {
   else if(meta_stdmeta.stdmeta_ID == STDMETA_EGRESS_SPEC) {
     apply(t1_stdmeta_egress_spec);
   }
-/*
-  else if(meta_stdmeta.stdmeta_ID == STDMETA_PARSERSTAT) {
-    apply(t1_stdmeta_parserstat);
-  }
-  else if(meta_stdmeta.stdmeta_ID == PARSERERROR) {
-    apply(t1_stdmeta_parsererror);
-  }
-*/
 }
 
 control switch_stdmeta_2 {
@@ -153,14 +159,6 @@ control switch_stdmeta_2 {
   else if(meta_stdmeta.stdmeta_ID == STDMETA_EGRESS_SPEC) {
     apply(t2_stdmeta_egress_spec);
   }
-/*
-  else if(meta_stdmeta.stdmeta_ID == STDMETA_PARSERSTAT) {
-    apply(t2_stdmeta_parserstat);
-  }
-  else if(meta_stdmeta.stdmeta_ID == PARSERERROR) {
-    apply(t2_stdmeta_parsererror);
-  }
-*/
 }
 
 control switch_stdmeta_3 {
@@ -176,12 +174,4 @@ control switch_stdmeta_3 {
   else if(meta_stdmeta.stdmeta_ID == STDMETA_EGRESS_SPEC) {
     apply(t3_stdmeta_egress_spec);
   }
-/*
-  else if(meta_stdmeta.stdmeta_ID == STDMETA_PARSERSTAT) {
-    apply(t3_stdmeta_parserstat);
-  }
-  else if(meta_stdmeta.stdmeta_ID == PARSERERROR) {
-    apply(t3_stdmeta_parsererror);
-  }
-*/
 }

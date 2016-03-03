@@ -23,20 +23,16 @@ metadata extracted_t extracted;
 metadata tmeta_t tmeta;
 metadata csum_t csum;
 
-// Unfortunately, despite the stated goal of HyPer4 to provide target independent features,
-//  bmv2 requires this intrinsic metadata structure in order to do a resubmit
 metadata intrinsic_metadata_t intrinsic_metadata;
 
 control ingress {
-      // setup.p4
-      setup();
+  setup();
 
-      if (meta_ctrl.stage == NORM) { // c02
-      // stages.p4
-      stage1();
-      stage2();
-      stage3();
-      }
+  if (meta_ctrl.stage == NORM) {
+    stage1();
+    stage2();
+    stage3();
+  }
 }
 
 field_list clone_fl {

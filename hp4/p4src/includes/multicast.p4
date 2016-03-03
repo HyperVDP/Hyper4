@@ -28,24 +28,110 @@ table t_multicast_11 {
   }
 }
 
-table t_multicast_12 { reads { meta_ctrl.program : exact; } actions { a_multicast; }}
-table t_multicast_13 { reads { meta_ctrl.program : exact; } actions { a_multicast; }}
-table t_multicast_21 { reads { meta_ctrl.program : exact; } actions { a_multicast; }}
-table t_multicast_22 { reads { meta_ctrl.program : exact; } actions { a_multicast; }}
-table t_multicast_23 { reads { meta_ctrl.program : exact; } actions { a_multicast; }}
-table t_multicast_31 { reads { meta_ctrl.program : exact; } actions { a_multicast; }}
-table t_multicast_32 { reads { meta_ctrl.program : exact; } actions { a_multicast; }}
-table t_multicast_33 { reads { meta_ctrl.program : exact; } actions { a_multicast; }}
+table t_multicast_12 {
+  reads {
+    meta_ctrl.program : exact;
+  }
+  actions {
+    a_multicast;
+  }
+}
+
+table t_multicast_13 {
+  reads {
+    meta_ctrl.program : exact;
+  }
+  actions {
+    a_multicast;
+  }
+}
+
+table t_multicast_21 {
+  reads {
+    meta_ctrl.program : exact;
+  }
+  actions {
+    a_multicast;
+  }
+}
+
+table t_multicast_22 {
+  reads {
+    meta_ctrl.program : exact;
+  }
+  actions {
+    a_multicast;
+  }
+}
+
+table t_multicast_23 {
+  reads {
+    meta_ctrl.program : exact;
+  }
+  actions {
+    a_multicast;
+  }
+}
+
+table t_multicast_31 {
+  reads {
+    meta_ctrl.program : exact;
+  }
+  actions {
+    a_multicast;
+  }
+}
+
+table t_multicast_32 {
+  reads {
+    meta_ctrl.program : exact;
+  }
+  actions {
+    a_multicast;
+  }
+}
+
+table t_multicast_33 {
+  reads {
+    meta_ctrl.program : exact;
+  }
+  actions {
+    a_multicast;
+  }
+}
 
 control do_multicast_11 {
   apply(t_multicast_11);
 }
 
-control do_multicast_12 { apply(t_multicast_12); }
-control do_multicast_13 { apply(t_multicast_13); }
-control do_multicast_21 { apply(t_multicast_21); }
-control do_multicast_22 { apply(t_multicast_22); }
-control do_multicast_23 { apply(t_multicast_23); }
-control do_multicast_31 { apply(t_multicast_31); }
-control do_multicast_32 { apply(t_multicast_32); }
-control do_multicast_33 { apply(t_multicast_33); }
+control do_multicast_12 {
+  apply(t_multicast_12);
+}
+
+control do_multicast_13 {
+  apply(t_multicast_13);
+}
+
+control do_multicast_21 {
+  apply(t_multicast_21);
+}
+
+control do_multicast_22 {
+  apply(t_multicast_22);
+}
+
+control do_multicast_23 {
+  apply(t_multicast_23);
+}
+
+control do_multicast_31 {
+  apply(t_multicast_31);
+}
+
+control do_multicast_32 {
+  apply(t_multicast_32);
+}
+
+control do_multicast_33 {
+  apply(t_multicast_33);
+}

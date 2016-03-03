@@ -1,6 +1,6 @@
 class GenSetup():
   def __init__(self, parse_opts):
-    f_setup = open('../p4src/template/includes/setup.p4', 'w')
+    f_setup = open('../p4src/includes/setup.p4', 'w')
 
     std_h = open('std_header', 'r')
     f_setup.write("/*\n")

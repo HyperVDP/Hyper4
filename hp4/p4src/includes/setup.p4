@@ -14,7 +14,7 @@ setup.p4:
 - Set program and first table
 */
 
-// ------ Normalize data to 768-bit bitfield
+
 action a_norm_256() {
   modify_field(extracted.data, bitfield_256.data);
 }

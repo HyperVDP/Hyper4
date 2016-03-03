@@ -30,6 +30,7 @@ action set_meta_stdmeta(stdmeta_ID) {
   modify_field(meta_stdmeta.stdmeta_ID, stdmeta_ID);
 }
 
+
 table t1_extracted_exact {
   reads {
     meta_ctrl.program : exact;
@@ -79,7 +80,14 @@ table t2_metadata_exact {
   }
 }
 
-table t2_stdmeta_exact { reads { meta_ctrl.program : exact; } actions { set_meta_stdmeta; } }
+table t2_stdmeta_exact {
+  reads {
+    meta_ctrl.program : exact;
+  }
+  actions {
+    set_meta_stdmeta;
+  }
+}
 
 table t3_extracted_exact {
   reads {
@@ -101,11 +109,17 @@ table t3_metadata_exact {
   }
 }
 
-table t3_stdmeta_exact { reads { meta_ctrl.program : exact; } actions { set_meta_stdmeta; } }
+table t3_stdmeta_exact {
+  reads {
+    meta_ctrl.program : exact;
+  }
+  actions {
+    set_meta_stdmeta;
+  }
+}
 
 control match_1 {
-// target match -> set program state
-  if(meta_ctrl.next_table == EXTRACTED_EXACT) { // condition_3
+  if(meta_ctrl.next_table == EXTRACTED_EXACT) {
     apply(t1_extracted_exact);
   }
   else if(meta_ctrl.next_table == METADATA_EXACT) {
@@ -115,26 +129,22 @@ control match_1 {
     apply(t1_stdmeta_exact);
     switch_stdmeta_1();
   }
-  // ... TODO: (other t1 match tables)
 }
 
 control match_2 {
-// target match -> set program state
-  if(meta_ctrl.next_table == EXTRACTED_EXACT) { // c_24
+  if(meta_ctrl.next_table == EXTRACTED_EXACT) {
     apply(t2_extracted_exact);
   }
-  else if(meta_ctrl.next_table == METADATA_EXACT) { // c_25
+  else if(meta_ctrl.next_table == METADATA_EXACT) {
     apply(t2_metadata_exact);
   }
-  else if(meta_ctrl.next_table == STDMETA_EXACT) { // c_27
+  else if(meta_ctrl.next_table == STDMETA_EXACT) {
     apply(t2_stdmeta_exact);
     switch_stdmeta_2();
   }
-  // ... TODO: (other t2 match tables)
 }
 
 control match_3 {
-// target match -> set program state
   if(meta_ctrl.next_table == EXTRACTED_EXACT) {
     apply(t3_extracted_exact);
   }
@@ -145,5 +155,4 @@ control match_3 {
     apply(t3_stdmeta_exact);
     switch_stdmeta_3();
   }
-  // ... TODO: (other t3 match tables)
 }

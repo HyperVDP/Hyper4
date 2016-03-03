@@ -1,6 +1,6 @@
 class GenHeaders():
   def __init__(self):
-    f_headers = open('../p4src/template/includes/headers.p4', 'w')
+    f_headers = open('../p4src/includes/headers.p4', 'w')
 
     std_h = open('std_header', 'r')
     f_headers.write("/*\n")

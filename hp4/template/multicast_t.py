@@ -1,6 +1,6 @@
 class GenMulticast():
   def __init__(self, nstages, nprimitives):
-    f_mcast = open('../p4src/template/includes/multicast.p4', 'w')
+    f_mcast = open('../p4src/includes/multicast.p4', 'w')
 
     std_h = open('std_header', 'r')
     f_mcast.write("/*\n")

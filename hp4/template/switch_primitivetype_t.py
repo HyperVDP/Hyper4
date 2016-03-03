@@ -1,6 +1,6 @@
 class GenSwitch_PrimitiveType():
   def __init__(self, nstages, nprimitives):
-    f_swprim = open('../p4src/template/includes/switch_primitivetype.p4', 'w')
+    f_swprim = open('../p4src/includes/switch_primitivetype.p4', 'w')
 
     std_h = open('std_header', 'r')
     f_swprim.write("/*\n")

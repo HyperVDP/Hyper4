@@ -1,6 +1,6 @@
 class GenStages():
   def __init__(self, nstages, nprimitives):
-    f_stages = open('../p4src/template/includes/stages.p4', 'w')
+    f_stages = open('../p4src/includes/stages.p4', 'w')
 
     std_h = open('std_header', 'r')
     f_stages.write("/*\n")
