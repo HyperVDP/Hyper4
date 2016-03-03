@@ -62,6 +62,17 @@ action mod_extracted_const(val, leftshift, emask) {
 }
 // TODO: add rest of the modify_field actions
 
+// result: tmeta.dcpy is the value of a field embedded within tmeta.data
+action a_mod_prep(leftshift, rightshift) {
+  modify_field(tmeta.dcpy, tmeta.data);
+  modify_field(tmeta.dcpy, tmeta.dcpy << leftshift);
+  modify_field(tmeta.dcpy, tmeta.dcpy >> rightshift);
+}
+
+action _no_op() {
+  no_op();
+}
+
 table t_mod_11 {
   reads {
     meta_ctrl.program : exact;
@@ -208,17 +219,6 @@ table t_mod_33 { reads {
     mod_stdmeta_egressspec_const;
     mod_extracted_const;
   }
-}
-
-// result: tmeta.dcpy is the value of a field embedded within tmeta.data
-action a_mod_prep(leftshift, rightshift) {
-  modify_field(tmeta.dcpy, tmeta.data);
-  modify_field(tmeta.dcpy, tmeta.dcpy << leftshift);
-  modify_field(tmeta.dcpy, tmeta.dcpy >> rightshift);
-}
-
-action _no_op() {
-  no_op();
 }
 
 /*

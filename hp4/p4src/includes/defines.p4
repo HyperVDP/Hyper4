@@ -23,12 +23,12 @@ defines.p4: Define constants
 #define CONTINUE	2
 
 // meta_stdmeta.stdmeta_ID
-#define STDMETA_INGRESSPORT	1
-#define STDMETA_PACKETLENGTH	2
-#define STDMETA_INSTTYPE	3
+#define STDMETA_INGRESS_PORT	1
+#define STDMETA_PACKET_LENGTH	2
+#define STDMETA_INSTANCE_TYPE	3
 #define STDMETA_PARSERSTAT	4
 #define STDMETA_PARSERERROR	5
-#define STDMETA_EGRESSSPEC	6
+#define STDMETA_EGRESS_SPEC	6
 
 // meta_primitive_state.primitive
 #define A_MODIFY_FIELD		0
