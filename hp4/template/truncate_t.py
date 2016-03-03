@@ -33,7 +33,7 @@ class GenTruncate():
     for i in range(nstages):
       for j in range(nprimitives):
         out = "\n\ncontrol do_truncate_" + str(i+1) + str(j+1) + " {\n"
-        out += indent + "apply(t_truncate_" + str(i+1) + str(j+1) + ";\n"
+        out += indent + "apply(t_truncate_" + str(i+1) + str(j+1) + ");\n"
         out += "}"
         f_trunc.write(out)
 

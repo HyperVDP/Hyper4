@@ -20,7 +20,7 @@ action a_add2f_extracted_const(val, leftshift, rightshift, emask) {
 table t_add_to_field_11 {
   reads {
     meta_ctrl.program : exact;
-    meta_primitive_state.primitive_index : exact;
+    meta_primitive_state.subtype : exact;
     meta_primitive_state.match_ID : exact;
   }
   actions {
@@ -31,7 +31,7 @@ table t_add_to_field_11 {
 table t_add_to_field_12 {
   reads {
     meta_ctrl.program : exact;
-    meta_primitive_state.primitive_index : exact;
+    meta_primitive_state.subtype : exact;
     meta_primitive_state.match_ID : exact;
   }
   actions {
@@ -42,7 +42,7 @@ table t_add_to_field_12 {
 table t_add_to_field_13 {
   reads {
     meta_ctrl.program : exact;
-    meta_primitive_state.primitive_index : exact;
+    meta_primitive_state.subtype : exact;
     meta_primitive_state.match_ID : exact;
   }
   actions {
@@ -53,7 +53,7 @@ table t_add_to_field_13 {
 table t_add_to_field_21 {
   reads {
     meta_ctrl.program : exact;
-    meta_primitive_state.primitive_index : exact;
+    meta_primitive_state.subtype : exact;
     meta_primitive_state.match_ID : exact;
   }
   actions {
@@ -64,7 +64,7 @@ table t_add_to_field_21 {
 table t_add_to_field_22 {
   reads {
     meta_ctrl.program : exact;
-    meta_primitive_state.primitive_index : exact;
+    meta_primitive_state.subtype : exact;
     meta_primitive_state.match_ID : exact;
   }
   actions {
@@ -75,7 +75,7 @@ table t_add_to_field_22 {
 table t_add_to_field_23 {
   reads {
     meta_ctrl.program : exact;
-    meta_primitive_state.primitive_index : exact;
+    meta_primitive_state.subtype : exact;
     meta_primitive_state.match_ID : exact;
   }
   actions {
@@ -86,7 +86,7 @@ table t_add_to_field_23 {
 table t_add_to_field_31 {
   reads {
     meta_ctrl.program : exact;
-    meta_primitive_state.primitive_index : exact;
+    meta_primitive_state.subtype : exact;
     meta_primitive_state.match_ID : exact;
   }
   actions {
@@ -97,7 +97,7 @@ table t_add_to_field_31 {
 table t_add_to_field_32 {
   reads {
     meta_ctrl.program : exact;
-    meta_primitive_state.primitive_index : exact;
+    meta_primitive_state.subtype : exact;
     meta_primitive_state.match_ID : exact;
   }
   actions {
@@ -108,7 +108,7 @@ table t_add_to_field_32 {
 table t_add_to_field_33 {
   reads {
     meta_ctrl.program : exact;
-    meta_primitive_state.primitive_index : exact;
+    meta_primitive_state.subtype : exact;
     meta_primitive_state.match_ID : exact;
   }
   actions {

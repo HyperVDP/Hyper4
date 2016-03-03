@@ -28,7 +28,7 @@ class GenAdd_to_Field():
         out = "\n\ntable t_add_to_field_" + str(i+1) + str(j+1) + " {\n"
         out += indent + "reads {\n"
         out += indent + indent + "meta_ctrl.program : exact;\n"
-        out += indent + indent + "meta_primitive_state.primitive_index : exact;\n"
+        out += indent + indent + "meta_primitive_state.subtype : exact;\n"
         out += indent + indent + "meta_primitive_state.match_ID : exact;\n"
         out += indent + "}\n"
         out += indent + "actions {\n"
