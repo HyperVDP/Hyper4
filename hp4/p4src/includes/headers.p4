@@ -36,7 +36,6 @@ header_type intrinsic_metadata_t {
 header_type meta_parse_t {
   fields {
     parse_width : 16;
-    debug : 16;
 //    do_process : 8;
   }
 }

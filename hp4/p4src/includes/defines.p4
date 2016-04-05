@@ -52,4 +52,3 @@ defines.p4: Define constants
 #define A_CLONE_EGRESS_EGRESS	18
 #define A_MULTICAST		19
 #define A_ADD_TO_FIELD		20
-#define A_ADD         21

@@ -52,6 +52,7 @@ class GenHp4():
     out += prefix + "setup.p4\"\n"
     out += prefix + "stages.p4\"\n"
     out += prefix + "checksums.p4\"\n"
+    out += "//" + prefix + "debug.p4\"\n"
     out += "\n"
 
     f_hp4.write(out)
@@ -82,6 +83,7 @@ class GenHp4():
     out = "field_list clone_fl {\n"
     out += indent + "standard_metadata;\n"
     out += indent + "meta_ctrl;\n"
+    out += indent + "extracted;\n"
     out += "}\n\n"
 
     out += "action mod_and_clone(port) {\n"

@@ -28,6 +28,7 @@ metadata intrinsic_metadata_t intrinsic_metadata;
 
 control ingress {
   setup();
+
   if (meta_ctrl.stage == NORM) {
     stage1();
     stage2();
