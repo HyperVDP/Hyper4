@@ -11,11 +11,10 @@ match.p4: Support various types of matching used by the target P4 program.
 
 #include "switch_stdmeta.p4"
 
-action init_program_state(action_ID, match_ID, stage_state, next_table) {
+action init_program_state(action_ID, match_ID, next_table) {
   modify_field(meta_primitive_state.action_ID, action_ID);
   modify_field(meta_primitive_state.match_ID, match_ID);
   modify_field(meta_primitive_state.primitive_index, 1);
-  modify_field(meta_ctrl.stage_state, stage_state);
   modify_field(meta_ctrl.next_table, next_table);
 }
 
