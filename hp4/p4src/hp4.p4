@@ -16,6 +16,7 @@ hp4.p4: Define the ingress and egress pipelines, including multicast support.
 #include "includes/setup.p4"
 #include "includes/stages.p4"
 #include "includes/checksums.p4"
+//#include "includes/debug.p4"
 
 metadata meta_primitive_state_t meta_primitive_state;
 metadata meta_stdmeta_t meta_stdmeta;
@@ -27,7 +28,6 @@ metadata intrinsic_metadata_t intrinsic_metadata;
 
 control ingress {
   setup();
-
   if (meta_ctrl.stage == NORM) {
     stage1();
     stage2();
@@ -38,6 +38,7 @@ control ingress {
 field_list clone_fl {
   standard_metadata;
   meta_ctrl;
+  extracted;
 }
 
 action mod_and_clone(port) {

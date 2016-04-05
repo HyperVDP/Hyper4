@@ -19,11 +19,10 @@ action init_program_state(action_ID, match_ID, primitive_index, stage_state, nex
   modify_field(meta_ctrl.next_table, next_table);
 }
 
-action set_program_state(action_ID, primitive_index, stage_state, next_table) {
+action set_program_state(action_ID, primitive_index, stage_state) {
   modify_field(meta_primitive_state.action_ID, action_ID);
   modify_field(meta_primitive_state.primitive_index, primitive_index);
   modify_field(meta_ctrl.stage_state, stage_state);
-  modify_field(meta_ctrl.next_table, next_table);
 }
 
 action set_meta_stdmeta(stdmeta_ID) {

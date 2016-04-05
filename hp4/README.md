@@ -46,7 +46,7 @@ These two programs are used in four demos, all in the /hp4 directory:
 4. Run both the L2 switch program AND the simple router program simultaneously,  
    each taking action on a different set of packets (separated by ingress port):
    ```
-   run_two_progs.sh
+   run_two_progs_demo.sh
    ```
    From the mininet prompt, you may verify connectivity between h1, h2, and h3  
    (these are using the L2 switch program), and between h4 and h5 (these are  
