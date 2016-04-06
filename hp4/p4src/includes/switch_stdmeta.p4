@@ -132,46 +132,46 @@ table t3_stdmeta_egress_spec {
 
 
 control switch_stdmeta_1 {
-  if(meta_stdmeta.stdmeta_ID == STDMETA_INGRESS_PORT) {
+  if(meta_ctrl.stdmeta_ID == STDMETA_INGRESS_PORT) {
     apply(t1_stdmeta_ingress_port);
   }
-  else if(meta_stdmeta.stdmeta_ID == STDMETA_PACKET_LENGTH) {
+  else if(meta_ctrl.stdmeta_ID == STDMETA_PACKET_LENGTH) {
     apply(t1_stdmeta_packet_length);
   }
-  else if(meta_stdmeta.stdmeta_ID == STDMETA_INSTANCE_TYPE) {
+  else if(meta_ctrl.stdmeta_ID == STDMETA_INSTANCE_TYPE) {
     apply(t1_stdmeta_instance_type);
   }
-  else if(meta_stdmeta.stdmeta_ID == STDMETA_EGRESS_SPEC) {
+  else if(meta_ctrl.stdmeta_ID == STDMETA_EGRESS_SPEC) {
     apply(t1_stdmeta_egress_spec);
   }
 }
 
 control switch_stdmeta_2 {
-  if(meta_stdmeta.stdmeta_ID == STDMETA_INGRESS_PORT) {
+  if(meta_ctrl.stdmeta_ID == STDMETA_INGRESS_PORT) {
     apply(t2_stdmeta_ingress_port);
   }
-  else if(meta_stdmeta.stdmeta_ID == STDMETA_PACKET_LENGTH) {
+  else if(meta_ctrl.stdmeta_ID == STDMETA_PACKET_LENGTH) {
     apply(t2_stdmeta_packet_length);
   }
-  else if(meta_stdmeta.stdmeta_ID == STDMETA_INSTANCE_TYPE) {
+  else if(meta_ctrl.stdmeta_ID == STDMETA_INSTANCE_TYPE) {
     apply(t2_stdmeta_instance_type);
   }
-  else if(meta_stdmeta.stdmeta_ID == STDMETA_EGRESS_SPEC) {
+  else if(meta_ctrl.stdmeta_ID == STDMETA_EGRESS_SPEC) {
     apply(t2_stdmeta_egress_spec);
   }
 }
 
 control switch_stdmeta_3 {
-  if(meta_stdmeta.stdmeta_ID == STDMETA_INGRESS_PORT) {
+  if(meta_ctrl.stdmeta_ID == STDMETA_INGRESS_PORT) {
     apply(t3_stdmeta_ingress_port);
   }
-  else if(meta_stdmeta.stdmeta_ID == STDMETA_PACKET_LENGTH) {
+  else if(meta_ctrl.stdmeta_ID == STDMETA_PACKET_LENGTH) {
     apply(t3_stdmeta_packet_length);
   }
-  else if(meta_stdmeta.stdmeta_ID == STDMETA_INSTANCE_TYPE) {
+  else if(meta_ctrl.stdmeta_ID == STDMETA_INSTANCE_TYPE) {
     apply(t3_stdmeta_instance_type);
   }
-  else if(meta_stdmeta.stdmeta_ID == STDMETA_EGRESS_SPEC) {
+  else if(meta_ctrl.stdmeta_ID == STDMETA_EGRESS_SPEC) {
     apply(t3_stdmeta_egress_spec);
   }
 }

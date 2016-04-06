@@ -12,7 +12,7 @@
 #define COMPLETE	1
 #define CONTINUE	2
 
-// meta_stdmeta.stdmeta_ID
+// meta_ctrl.stdmeta_ID
 #define STDMETA_INGRESS_PORT	1
 #define STDMETA_PACKET_LENGTH	2
 #define STDMETA_INSTANCE_TYPE	3

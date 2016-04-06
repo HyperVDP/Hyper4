@@ -13,8 +13,7 @@ class GenParser():
     parser_d.close()
     f_parser.write("*/\n\n")
 
-    out = "metadata meta_parse_t meta_parse;\n"
-    out += "metadata meta_ctrl_t meta_ctrl;\n\n"
+    out = "metadata meta_parse_t meta_parse;\n\n"
 
     for i in parse_opts:
       out += "header bitfield_" + str(i) + "_t bitfield_" + str(i) + ";\n"

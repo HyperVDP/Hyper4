@@ -11,7 +11,6 @@ parser.p4: Define various parse functions allowing us to extract a specified
 */
 
 metadata meta_parse_t meta_parse;
-metadata meta_ctrl_t meta_ctrl;
 
 header bitfield_256_t bitfield_256;
 header bitfield_512_t bitfield_512;

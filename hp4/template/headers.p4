@@ -41,6 +41,7 @@ header_type meta_ctrl_t {
     multicast_current_egress : 8;
     multicast_seq_id : 8;
     do_multicast : 8;
+    stdmeta_ID : 8;
   }
 }
 
@@ -52,14 +53,6 @@ header_type meta_primitive_state_t {
     primitive_index : 8; // place within compound action
     primitive : 8; // e.g. modify_field, add_header, etc.
     subtype : 8; // maps to a set identifying the parameters' types
-  }
-}
-
-// meta_stdmeta: stores ID of standard metadata field on which to match during
-// matching (when meta_ctrl.next_table == STDMETA_EXACT)
-header_type meta_stdmeta_t {
-  fields {
-    stdmeta_ID : 8;
   }
 }
 

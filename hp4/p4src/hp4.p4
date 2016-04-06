@@ -18,8 +18,8 @@ hp4.p4: Define the ingress and egress pipelines, including multicast support.
 #include "includes/checksums.p4"
 //#include "includes/debug.p4"
 
+metadata meta_ctrl_t meta_ctrl;
 metadata meta_primitive_state_t meta_primitive_state;
-metadata meta_stdmeta_t meta_stdmeta;
 metadata extracted_t extracted;
 metadata tmeta_t tmeta;
 metadata csum_t csum;

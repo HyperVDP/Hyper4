@@ -8,5 +8,5 @@ action init_program_state(action_ID, match_ID, next_table) {
 }
 
 action set_meta_stdmeta(stdmeta_ID) {
-  modify_field(meta_stdmeta.stdmeta_ID, stdmeta_ID);
+  modify_field(meta_ctrl.stdmeta_ID, stdmeta_ID);
 }

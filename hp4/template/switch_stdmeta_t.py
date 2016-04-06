@@ -34,7 +34,7 @@ class GenSwitch_StdMeta():
       out = "\n\ncontrol switch_stdmeta_" + str(i+1) + " {\n"
       out += indent + "if"
       for field in fields:
-        out += "(meta_stdmeta.stdmeta_ID == STDMETA_" + field.upper() + ") {\n"
+        out += "(meta_ctrl.stdmeta_ID == STDMETA_" + field.upper() + ") {\n"
         out += indent + indent + "apply(t" + str(i+1) + "_stdmeta_" + field + ");\n"
         out += indent + "}\n"
         f_swstdm.write(out)

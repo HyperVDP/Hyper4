@@ -57,8 +57,8 @@ class GenHp4():
 
     f_hp4.write(out)
 
-    out = "metadata meta_primitive_state_t meta_primitive_state;\n"
-    out += "metadata meta_stdmeta_t meta_stdmeta;\n"
+    out = "metadata meta_ctrl_t meta_ctrl;\n"
+    out += "metadata meta_primitive_state_t meta_primitive_state;\n"
     out += "metadata extracted_t extracted;\n"
     out += "metadata tmeta_t tmeta;\n"
     out += "metadata csum_t csum;\n\n"
