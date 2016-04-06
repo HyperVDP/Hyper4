@@ -72,9 +72,17 @@ class GenHp4():
     out += indent + "setup();\n\n"
     out += indent + "if (meta_ctrl.stage == NORM) {\n"
 
-    for i in range(nstages):
-      out += indent + indent + "stage" + str(i+1) + "();\n"
+    indent = indent + "  "
 
+    for i in range(nstages):
+      out += indent + "if (meta_ctrl.next_table != DONE) {\n"
+      indent = indent + "  "
+      out += indent + "stage" + str(i+1) + "();\n"
+    for i in range(nstages):
+      indent = indent[0:len(indent)-2]
+      out += indent + "}\n"
+
+    indent = indent[0:len(indent)-2]
     out += indent + "}\n"
     out += "}\n\n"
 
