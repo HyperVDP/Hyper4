@@ -1,9 +1,11 @@
 #include "includes/headers.p4"
 
 metadata parse_ctrl_t parse_ctrl;
-header ext_t ext[100];
+header ext_t ext[100]; // "100" modifiable at code generation time
 
 parser start {
+  set_metadata(parse_ctrl.next_action, 0);
+  // number of extract statements modifiable at code generation time
   extract(ext[next]);
   extract(ext[next]);
   extract(ext[next]);
@@ -24,6 +26,7 @@ parser start {
   extract(ext[next]);
   extract(ext[next]);
   extract(ext[next]);
+  // "20-29" modifiable at code generation time
   return select(parse_ctrl.numbytes) {
     0 : ingress;
     20 : ingress;
@@ -317,29 +320,50 @@ parser p100 {
   return ingress;
 }
 
-field_list fl_setup {
+field_list fl_extract_more {
   parse_ctrl;
 }
 
-action initialize(state, numbytes) {
-  modify_field(parse_ctrl.state, state);
-  modify_field(parse_ctrl.numbytes, numbytes);
+action inspect_SEB() {
 }
 
-table check_state {
+action inspect_20_29() {
+}
+
+action inspect_30_39() {
+}
+
+action inspect_40_49() {
+}
+
+action proceed() {
+}
+
+action set_next_action(next_action) {
+  modify_field(parse_ctrl.next_action, next_action);
+}
+
+action extract_more(numbytes, state) {
+  modify_field(parse_ctrl.numbytes, numbytes);
+  modify_field(parse_ctrl.state, state);
+  modify_field(parse_ctrl.next_action, EXTRACT_MORE);
+  resubmit(fl_extract_more);
+}
+
+table parse_control {
   reads {
+    parse_ctrl.numbytes : exact;
     parse_ctrl.state : exact;
   }
   actions {
-    initialize;
-    inspect_0_19;
-    inspect_20_29;
-    inspect_30_39;
-    inspect_40_49;
+    set_next_action;
+    extract_more;
   }
 }
 
-table t_inspect_0_19 {
+// SEB: standard extracted bytes, selectable
+//  at code generation time
+table t_inspect_SEB {
   reads {
     ext[0].data : ternary;
     ext[1].data : ternary;
@@ -363,11 +387,72 @@ table t_inspect_0_19 {
     ext[19].data : ternary;
   }
   actions {
-    _no_op;
+    set_next_action;
+    extract_more;
   }
 }
 
-table test2 {
+table t_inspect_20_29 {
+  reads {
+    ext[20].data : ternary;
+    ext[21].data : ternary;
+    ext[22].data : ternary;
+    ext[23].data : ternary;
+    ext[24].data : ternary;
+    ext[25].data : ternary;
+    ext[26].data : ternary;
+    ext[27].data : ternary;
+    ext[28].data : ternary;
+    ext[29].data : ternary;
+  }
+  actions {
+    set_next_action;
+    extract_more;
+  }
+}
+
+table t_inspect_30_39 {
+  reads {
+    ext[30].data : ternary;
+    ext[31].data : ternary;
+    ext[32].data : ternary;
+    ext[33].data : ternary;
+    ext[34].data : ternary;
+    ext[35].data : ternary;
+    ext[36].data : ternary;
+    ext[37].data : ternary;
+    ext[38].data : ternary;
+    ext[39].data : ternary;
+  }
+  actions {
+    set_next_action;
+    extract_more;
+  }
+}
+
+table t_inspect_40_49 {
+  reads {
+    ext[40].data : ternary;
+    ext[41].data : ternary;
+    ext[42].data : ternary;
+    ext[43].data : ternary;
+    ext[44].data : ternary;
+    ext[45].data : ternary;
+    ext[46].data : ternary;
+    ext[47].data : ternary;
+    ext[48].data : ternary;
+    ext[49].data : ternary;
+  }
+  actions {
+    set_next_action;
+    extract_more;
+  }
+}
+
+action _no_op() {
+}
+
+table test {
   reads {
     ext[4] : valid;
     ext[14] : valid;
@@ -385,10 +470,25 @@ table test2 {
 }
 
 control ingress {
-  apply(setup) {
-    _no_op {
-      apply(test1);
-      apply(test2);
-    }
+
+  apply(parse_control);
+  if(parse_ctrl.next_action == INSPECT_SEB) {
+    apply(t_inspect_SEB);
   }
+  if(parse_ctrl.next_action == INSPECT_20_29) {
+    apply(t_inspect_20_29);
+  }
+  if(parse_ctrl.next_action == INSPECT_30_39) {
+    apply(t_inspect_30_39);
+  }
+  if(parse_ctrl.next_action == INSPECT_40_49) {
+    apply(t_inspect_40_49);
+  }
+  if(parse_ctrl.next_action == PROCEED) {
+    remainder();
+  }
+}
+
+control remainder {
+  apply(test);
 }
