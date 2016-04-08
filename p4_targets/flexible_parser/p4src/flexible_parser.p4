@@ -1,5 +1,6 @@
 #include "includes/headers.p4"
 
+metadata intrinsic_metadata_t intrinsic_metadata;
 metadata parse_ctrl_t parse_ctrl;
 header ext_t ext[100]; // "100" modifiable at code generation time
 
@@ -320,27 +321,13 @@ parser p100 {
   return ingress;
 }
 
-field_list fl_extract_more {
-  parse_ctrl;
-}
-
-action inspect_SEB() {
-}
-
-action inspect_20_29() {
-}
-
-action inspect_30_39() {
-}
-
-action inspect_40_49() {
-}
-
-action proceed() {
-}
-
 action set_next_action(next_action) {
   modify_field(parse_ctrl.next_action, next_action);
+}
+
+field_list fl_extract_more {
+  parse_ctrl;
+  standard_metadata;
 }
 
 action extract_more(numbytes, state) {
@@ -470,25 +457,23 @@ table test {
 }
 
 control ingress {
-
   apply(parse_control);
-  if(parse_ctrl.next_action == INSPECT_SEB) {
+  if(parse_ctrl.next_action == INSPECT_SEB) { // _condition_0
     apply(t_inspect_SEB);
   }
-  if(parse_ctrl.next_action == INSPECT_20_29) {
+  if(parse_ctrl.next_action == INSPECT_20_29) { // _condition_1
     apply(t_inspect_20_29);
   }
-  if(parse_ctrl.next_action == INSPECT_30_39) {
+  if(parse_ctrl.next_action == INSPECT_30_39) { // _condition_2
     apply(t_inspect_30_39);
   }
-  if(parse_ctrl.next_action == INSPECT_40_49) {
+  if(parse_ctrl.next_action == INSPECT_40_49) { // _condition_3
     apply(t_inspect_40_49);
   }
-  if(parse_ctrl.next_action == PROCEED) {
-    remainder();
+  if(parse_ctrl.next_action == PROCEED) { // _condition_4
+    apply(test);
   }
 }
 
-control remainder {
-  apply(test);
+control egress {
 }
