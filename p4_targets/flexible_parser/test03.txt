@@ -4,7 +4,9 @@ table_add t_inspect_SEB extract_more 0&&&0 0&&&0 0&&&0 0&&&0 0&&&0 0&&&0 0&&&0 0
 table_set_default t_inspect_SEB set_next_action 0
 table_add parse_control set_next_action 34 1 => 0
 table_add parse_control set_next_action 42 2 => 0
+table_add test _no_op 1 0 0 0 0 0 0 0 0 =>
 table_add test _no_op 1 1 0 0 0 0 0 0 0 =>
 table_add test _no_op 1 1 1 0 0 0 0 0 0 =>
 table_add test _no_op 1 1 1 1 0 0 0 0 0 =>
 table_add test _no_op 1 1 1 1 1 0 0 0 0 =>
+table_add test _no_op 1 1 1 1 1 1 0 0 0 =>

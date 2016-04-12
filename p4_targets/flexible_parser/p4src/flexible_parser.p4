@@ -381,6 +381,7 @@ table t_inspect_SEB {
 
 table t_inspect_20_29 {
   reads {
+    parse_ctrl.state : exact;
     ext[20].data : ternary;
     ext[21].data : ternary;
     ext[22].data : ternary;
@@ -400,6 +401,7 @@ table t_inspect_20_29 {
 
 table t_inspect_30_39 {
   reads {
+    parse_ctrl.state : exact;
     ext[30].data : ternary;
     ext[31].data : ternary;
     ext[32].data : ternary;
@@ -417,8 +419,29 @@ table t_inspect_30_39 {
   }
 }
 
+table t_inspect_50_59 {
+  reads {
+    parse_ctrl.state : exact;
+    ext[50].data : ternary;
+    ext[51].data : ternary;
+    ext[52].data : ternary;
+    ext[53].data : ternary;
+    ext[54].data : ternary;
+    ext[55].data : ternary;
+    ext[56].data : ternary;
+    ext[57].data : ternary;
+    ext[58].data : ternary;
+    ext[59].data : ternary;
+  }
+  actions {
+    set_next_action;
+    extract_more;
+  }
+}
+
 table t_inspect_40_49 {
   reads {
+    parse_ctrl.state : exact;
     ext[40].data : ternary;
     ext[41].data : ternary;
     ext[42].data : ternary;
@@ -429,6 +452,86 @@ table t_inspect_40_49 {
     ext[47].data : ternary;
     ext[48].data : ternary;
     ext[49].data : ternary;
+  }
+  actions {
+    set_next_action;
+    extract_more;
+  }
+}
+
+table t_inspect_60_69 {
+  reads {
+    parse_ctrl.state : exact;
+    ext[60].data : ternary;
+    ext[61].data : ternary;
+    ext[62].data : ternary;
+    ext[63].data : ternary;
+    ext[64].data : ternary;
+    ext[65].data : ternary;
+    ext[66].data : ternary;
+    ext[67].data : ternary;
+    ext[68].data : ternary;
+    ext[69].data : ternary;
+  }
+  actions {
+    set_next_action;
+    extract_more;
+  }
+}
+
+table t_inspect_70_79 {
+  reads {
+    parse_ctrl.state : exact;
+    ext[70].data : ternary;
+    ext[71].data : ternary;
+    ext[72].data : ternary;
+    ext[73].data : ternary;
+    ext[74].data : ternary;
+    ext[75].data : ternary;
+    ext[76].data : ternary;
+    ext[77].data : ternary;
+    ext[78].data : ternary;
+    ext[79].data : ternary;
+  }
+  actions {
+    set_next_action;
+    extract_more;
+  }
+}
+
+table t_inspect_80_89 {
+  reads {
+    parse_ctrl.state : exact;
+    ext[80].data : ternary;
+    ext[81].data : ternary;
+    ext[82].data : ternary;
+    ext[83].data : ternary;
+    ext[84].data : ternary;
+    ext[85].data : ternary;
+    ext[86].data : ternary;
+    ext[87].data : ternary;
+    ext[88].data : ternary;
+    ext[89].data : ternary;
+  }
+  actions {
+    set_next_action;
+    extract_more;
+  }
+}
+
+table t_inspect_90_99 {
+  reads {
+    parse_ctrl.state : exact;
+    ext[90].data : ternary;
+    ext[91].data : ternary;
+    ext[92].data : ternary;
+    ext[93].data : ternary;
+    ext[94].data : ternary;
+    ext[95].data : ternary;
+    ext[96].data : ternary;
+    ext[97].data : ternary;
+    ext[98].data : ternary;
+    ext[99].data : ternary;
   }
   actions {
     set_next_action;
@@ -469,6 +572,21 @@ control ingress {
   }
   if(parse_ctrl.next_action == INSPECT_40_49) { // _condition_3
     apply(t_inspect_40_49);
+  }
+  if(parse_ctrl.next_action == INSPECT_50_59) { // _condition_3
+    apply(t_inspect_50_59);
+  }
+  if(parse_ctrl.next_action == INSPECT_60_69) { // _condition_3
+    apply(t_inspect_60_69);
+  }
+  if(parse_ctrl.next_action == INSPECT_70_79) { // _condition_3
+    apply(t_inspect_70_79);
+  }
+  if(parse_ctrl.next_action == INSPECT_80_89) { // _condition_3
+    apply(t_inspect_80_89);
+  }
+  if(parse_ctrl.next_action == INSPECT_90_99) { // _condition_3
+    apply(t_inspect_90_99);
   }
   if(parse_ctrl.next_action == PROCEED) { // _condition_4
     apply(test);
