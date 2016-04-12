@@ -18,20 +18,21 @@ THIS_DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 
 source $THIS_DIR/../../env.sh
 
-CLI_PATH=$BMV2_PATH/targets/simple_switch/sswitch_CLI
-
 PROJ=${PWD##*/}
 
-P4F=
+# Useful if we need to use runtime_CLI instead of sswitch_CLI:
+# P4F=
 
 if [ "$#" -gt "0" ]; then
   if [[ $1 == p4f ]]; then
     BMV2_PATH=$THIS_DIR/../p4factory/submodules/bm
     P4C_BM_PATH=$THIS_DIR/../p4factory/submodules/p4c-bm
-    CLI_PATH=$BMV2_PATH/targets/simple_switch/runtime_CLI
-    P4F="--p4factory"
+    # Useful if we need to use runtime_CLI instead of sswitch_CLI:
+    # P4F="--p4factory"
   fi
 fi
+
+CLI_PATH=$BMV2_PATH/targets/simple_switch/sswitch_CLI
 
 P4C_BM_SCRIPT=$P4C_BM_PATH/p4c_bm/__main__.py
 
@@ -42,5 +43,5 @@ sudo PYTHONPATH=$PYTHONPATH:$BMV2_PATH/mininet/ \
     python $THIS_DIR/mininet/topo.py \
     --behavioral-exe $SWITCH_PATH \
     --json $PROJ.json \
-    --cli $CLI_PATH \
-    $P4F
+    --cli $CLI_PATH #\
+#    $P4F

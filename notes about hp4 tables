@@ -1,0 +1,29 @@
+t_prog_select
+- set_program
+
+t_norm
+- a_norm
+
+prepare_for_deparsing
+- a_prep_deparse_512
+
+t1_extracted_exact
+- init_program_state
+
+t_multicast
+- mod_and_clone
+
+set_primitive_metadata_11
+- a_set_primitive_metadata
+
+t_multicast_11
+- a_multicast
+
+set_program_state_11
+- set_program_state
+
+set_primitive_metadata_12
+- set_program_state
+
+t_mod_11
+- mod_stdmeta_egressspec_const

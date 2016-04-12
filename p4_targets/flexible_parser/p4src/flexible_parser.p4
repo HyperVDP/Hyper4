@@ -5,7 +5,7 @@ metadata parse_ctrl_t parse_ctrl;
 header ext_t ext[100]; // "100" modifiable at code generation time
 
 parser start {
-  set_metadata(parse_ctrl.next_action, 0);
+  set_metadata(parse_ctrl.next_action, PROCEED);
   // number of extract statements modifiable at code generation time
   extract(ext[next]);
   extract(ext[next]);

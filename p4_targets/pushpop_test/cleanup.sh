@@ -1,5 +1,5 @@
 #!/bin/bash
 
 sudo mn -c
-sudo killall behavioral-model
+sudo pkill -f 'simple_switch'
 redis-cli FLUSHALL

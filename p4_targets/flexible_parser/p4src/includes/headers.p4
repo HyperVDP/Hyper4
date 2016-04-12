@@ -1,3 +1,4 @@
+// next_action codes
 #define PROCEED       0
 #define INSPECT_SEB   1
 #define INSPECT_20_29 2
@@ -18,7 +19,7 @@ header_type intrinsic_metadata_t {
 header_type parse_ctrl_t {
   fields {
     numbytes : 16;
-    state : 8;
+    state : 8; // this field is for the user; distinguishes states that can't be distinguished by numbytes alone
     next_action : 8;
   }
 }

@@ -39,8 +39,9 @@ parser.add_argument('--cli', help='Path to BM CLI',
                     type=str, action="store", required=True)
 parser.add_argument('--commands', help='Path to initial CLI commands',
                     type=str, action="store", default="commands.txt")
-parser.add_argument('--p4factory', help='Use p4factory intead of standalone repos',
-                    action="store_true")
+# Useful if we need to use runtime_CLI instead of sswitch_CLI:
+#parser.add_argument('--p4factory', help='Use p4factory intead of standalone repos',
+#                    action="store_true")
 
 args = parser.parse_args()
 
@@ -110,12 +111,13 @@ def main():
     sleep(1)
 
     for i in xrange(nb_switches):
-        if args.p4factory:
-          cmd = [args.cli, "--json", args.json,
-                 "--thrift-port", str(_THRIFT_BASE_PORT + i)]
-        else:
-          cmd = [args.cli, args.json,
-                 str(_THRIFT_BASE_PORT + i)]
+        # Useful if we need to use runtime_CLI instead of sswitch_CLI:
+        #if args.p4factory:
+        #  cmd = [args.cli, "--json", args.json,
+        #         "--thrift-port", str(_THRIFT_BASE_PORT + i)]
+        #else:
+        cmd = [args.cli, args.json,
+               str(_THRIFT_BASE_PORT + i)]
         with open(args.commands, "r") as f:
             print " ".join(cmd)
             try:

@@ -1,5 +1,5 @@
 #!/bin/bash
 
 sudo mn -c
-sudo killall lt-simple_switch
+sudo pkill -f 'simple_switch'
 redis-cli FLUSHALL
