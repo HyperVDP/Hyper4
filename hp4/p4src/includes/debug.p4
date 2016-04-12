@@ -1,3 +1,4 @@
+/*
 table ext_debug_256 {
   reads {
     bitfield_256 : valid;
@@ -24,7 +25,9 @@ table ext_debug_768 {
     _no_op;
   }
 }
+*/
 
+/*
 table t_meta_parse_debug {
   reads {
     meta_parse.debug : exact;
@@ -33,6 +36,7 @@ table t_meta_parse_debug {
     _no_op;
   }
 }
+*/
 
 table extracted_debug {
   reads {

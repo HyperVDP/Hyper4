@@ -9,6 +9,19 @@ HyPer4: A P4 Program to Run Other P4 Programs
 defines.p4: Define constants
 */
 
+// parse_ctrl.next_action
+#define PROCEED       0
+#define INSPECT_SEB   1
+#define INSPECT_20_29 2
+#define INSPECT_30_39 3
+#define INSPECT_40_49 4
+#define INSPECT_50_59 5
+#define INSPECT_60_69 6
+#define INSPECT_70_79 7
+#define INSPECT_80_89 8
+#define INSPECT_90_99 9
+#define EXTRACT_MORE  10
+
 // meta_ctrl.stage
 #define INIT	0
 #define NORM	1

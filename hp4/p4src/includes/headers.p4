@@ -33,10 +33,20 @@ header_type intrinsic_metadata_t {
 
 // meta_parse: stores the parse width (e.g. 256 | 512 | 768): # bits to
 // extract
+/*
 header_type meta_parse_t {
   fields {
     parse_width : 16;
 //    do_process : 8;
+  }
+}
+*/
+
+header_type parse_ctrl_t {
+  fields {
+    numbytes : 16;
+    state : 16;
+    next_action : 8;
   }
 }
 
@@ -67,7 +77,14 @@ header_type meta_primitive_state_t {
   }
 }
 
-// extracted: stores extracted data in a standard width field
+// ext: element of header stack where extracted data is stored during parsing
+header_type ext_t {
+  fields {
+    data : 8;
+  }
+}
+
+// extracted: stores extracted data after parsing
 header_type extracted_t {
   fields {
     data : 768;
