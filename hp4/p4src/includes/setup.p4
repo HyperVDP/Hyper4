@@ -83,31 +83,28 @@ table t_norm_20_39 {
 
 action a_norm_SEB() {
   modify_field(extracted.data, ext[19].data << 640);
-  modify_field(extracted.data, extracted.data + ext[18].data << 648);
-  modify_field(extracted.data, extracted.data + ext[17].data << 656);
-  modify_field(extracted.data, extracted.data + ext[16].data << 664);
-  modify_field(extracted.data, extracted.data + ext[15].data << 672);
-  modify_field(extracted.data, extracted.data + ext[14].data << 680);
-  modify_field(extracted.data, extracted.data + ext[13].data << 688);
-  modify_field(extracted.data, extracted.data + ext[12].data << 696);
-  modify_field(extracted.data, extracted.data + ext[11].data << 704);
-  modify_field(extracted.data, extracted.data + ext[10].data << 712);
-  modify_field(extracted.data, extracted.data + ext[9].data << 720);
-  modify_field(extracted.data, extracted.data + ext[8].data << 728);
-  modify_field(extracted.data, extracted.data + ext[7].data << 736);
-  modify_field(extracted.data, extracted.data + ext[6].data << 744);
-  modify_field(extracted.data, extracted.data + ext[5].data << 752);
-  modify_field(extracted.data, extracted.data + ext[4].data << 760);
-  modify_field(extracted.data, extracted.data + ext[3].data << 768);
-  modify_field(extracted.data, extracted.data + ext[2].data << 776);
-  modify_field(extracted.data, extracted.data + ext[1].data << 784);
-  modify_field(extracted.data, extracted.data + ext[0].data << 792);
+  modify_field(extracted.data, extracted.data + (ext[18].data << 648));
+  modify_field(extracted.data, extracted.data + (ext[17].data << 656));
+  modify_field(extracted.data, extracted.data + (ext[16].data << 664));
+  modify_field(extracted.data, extracted.data + (ext[15].data << 672));
+  modify_field(extracted.data, extracted.data + (ext[14].data << 680));
+  modify_field(extracted.data, extracted.data + (ext[13].data << 688));
+  modify_field(extracted.data, extracted.data + (ext[12].data << 696));
+  modify_field(extracted.data, extracted.data + (ext[11].data << 704));
+  modify_field(extracted.data, extracted.data + (ext[10].data << 712));
+  modify_field(extracted.data, extracted.data + (ext[9].data << 720));
+  modify_field(extracted.data, extracted.data + (ext[8].data << 728));
+  modify_field(extracted.data, extracted.data + (ext[7].data << 736));
+  modify_field(extracted.data, extracted.data + (ext[6].data << 744));
+  modify_field(extracted.data, extracted.data + (ext[5].data << 752));
+  modify_field(extracted.data, extracted.data + (ext[4].data << 760));
+  modify_field(extracted.data, extracted.data + (ext[3].data << 768));
+  modify_field(extracted.data, extracted.data + (ext[2].data << 776));
+  modify_field(extracted.data, extracted.data + (ext[1].data << 784));
+  modify_field(extracted.data, extracted.data + (ext[0].data << 792));
 }
 
 table t_norm_SEB {
-  reads {
-    meta_ctrl.program : exact;
-  }
   actions {
     a_norm_SEB;
   }
@@ -412,6 +409,7 @@ table t_inspect_90_99 {
 
 action a_set_first_table(tableID) {
   modify_field(meta_ctrl.next_table, tableID);
+  modify_field(meta_ctrl.stage, 1);
 }
 
 table t_set_first_table {

@@ -87,8 +87,8 @@ header_type ext_t {
 // extracted: stores extracted data after parsing
 header_type extracted_t {
   fields {
-    data : 768;
-    dcpy : 768;
+    data : 800;
+    dcpy : 800;
   }
 }
 
