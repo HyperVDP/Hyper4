@@ -1,2 +1,8 @@
+table_add test _no_op 0x000400000000FFFFFFFFFFFF =>
+table_add test _no_op 0x000000000400FFFFFFFFFFFF =>
+table_add test _no_op 0xFFFFFFFFFFFF000400000000 =>
+table_add test _no_op 0x000400000001000400000000 =>
+table_add test _no_op 0x000400000000000400000001 =>
+table_set_default test _no_op
 table_add fwd set_egr 1 => 2
 table_add fwd set_egr 2 => 1

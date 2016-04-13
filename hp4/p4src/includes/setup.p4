@@ -28,12 +28,88 @@ action a_norm_768() {
 }
 */
 
-table t_norm {
+// TODO: Consider this (for performance):
+//  A separate table/action pair for each 10-byte range
+//  in the 100 byte ext stack.  A first table is used to
+//  set flags for each of the 10 10-byte range match
+//  tables, where the flag indicates whether to extract
+//  or that the operation is done (which also means
+//  skipping the remainder of the tables).
+/*
+action a_norm() {
+  modify_field(extracted.data, ext[99].data);
+  modify_field(extracted.data, extracted.data + ext[98].data << 8);
+  modify_field(extracted.data, extracted.data + ext[97].data << 16);
+  // ...
+  modify_field(extracted.data, extracted.data + ext[0].data << 792);
+}
+
+action a_norm_half() {
+  modify_field(extracted.data, ext[49].data << 400);
+  modify_field(extracted.data, extracted.data + ext[48].data << 408);
+  // ...
+  modify_field(extracted.data, extracted.data + ext[0].data << 792);
+}
+*/
+
+action a_norm_20_39() {
+  modify_field(extracted.data, extracted.data + ext[39].data << 480);
+  modify_field(extracted.data, extracted.data + ext[38].data << 488);
+  modify_field(extracted.data, extracted.data + ext[37].data << 496);
+  modify_field(extracted.data, extracted.data + ext[36].data << 504);
+  modify_field(extracted.data, extracted.data + ext[35].data << 512);
+  modify_field(extracted.data, extracted.data + ext[34].data << 520);
+  modify_field(extracted.data, extracted.data + ext[33].data << 528);
+  modify_field(extracted.data, extracted.data + ext[32].data << 536);
+  modify_field(extracted.data, extracted.data + ext[31].data << 544);
+  modify_field(extracted.data, extracted.data + ext[30].data << 552);
+  modify_field(extracted.data, extracted.data + ext[29].data << 560);
+  modify_field(extracted.data, extracted.data + ext[28].data << 568);
+  modify_field(extracted.data, extracted.data + ext[27].data << 576);
+  modify_field(extracted.data, extracted.data + ext[26].data << 584);
+  modify_field(extracted.data, extracted.data + ext[25].data << 592);
+  modify_field(extracted.data, extracted.data + ext[24].data << 600);
+  modify_field(extracted.data, extracted.data + ext[23].data << 608);
+  modify_field(extracted.data, extracted.data + ext[22].data << 616);
+  modify_field(extracted.data, extracted.data + ext[21].data << 624);
+  modify_field(extracted.data, extracted.data + ext[20].data << 632);
+}
+
+table t_norm_20_39 {
+  actions {
+    a_norm_20_39;
+  }
+}
+
+action a_norm_SEB() {
+  modify_field(extracted.data, ext[19].data << 640);
+  modify_field(extracted.data, extracted.data + ext[18].data << 648);
+  modify_field(extracted.data, extracted.data + ext[17].data << 656);
+  modify_field(extracted.data, extracted.data + ext[16].data << 664);
+  modify_field(extracted.data, extracted.data + ext[15].data << 672);
+  modify_field(extracted.data, extracted.data + ext[14].data << 680);
+  modify_field(extracted.data, extracted.data + ext[13].data << 688);
+  modify_field(extracted.data, extracted.data + ext[12].data << 696);
+  modify_field(extracted.data, extracted.data + ext[11].data << 704);
+  modify_field(extracted.data, extracted.data + ext[10].data << 712);
+  modify_field(extracted.data, extracted.data + ext[9].data << 720);
+  modify_field(extracted.data, extracted.data + ext[8].data << 728);
+  modify_field(extracted.data, extracted.data + ext[7].data << 736);
+  modify_field(extracted.data, extracted.data + ext[6].data << 744);
+  modify_field(extracted.data, extracted.data + ext[5].data << 752);
+  modify_field(extracted.data, extracted.data + ext[4].data << 760);
+  modify_field(extracted.data, extracted.data + ext[3].data << 768);
+  modify_field(extracted.data, extracted.data + ext[2].data << 776);
+  modify_field(extracted.data, extracted.data + ext[1].data << 784);
+  modify_field(extracted.data, extracted.data + ext[0].data << 792);
+}
+
+table t_norm_SEB {
   reads {
     meta_ctrl.program : exact;
   }
   actions {
-
+    a_norm_SEB;
   }
 }
 
@@ -76,6 +152,11 @@ action set_next_action(next_action) {
   modify_field(parse_ctrl.next_action, next_action);
 }
 
+action set_next_action_chg_program(next_action, programID) {
+  modify_field(parse_ctrl.next_action, next_action);
+  modify_field(meta_ctrl.program, programID);
+}
+
 field_list fl_extract_more {
   meta_ctrl;
   parse_ctrl;
@@ -89,14 +170,25 @@ action extract_more(numbytes, state) {
   resubmit(fl_extract_more);
 }
 
+action extract_more_chg_program(numbytes, state, programID) {
+  modify_field(parse_ctrl.numbytes, numbytes);
+  modify_field(parse_ctrl.state, state);
+  modify_field(parse_ctrl.next_action, EXTRACT_MORE);
+  modify_field(meta_ctrl.program, programID);
+  resubmit(fl_extract_more);
+}
+
 table parse_control {
   reads {
+    meta_ctrl.program : exact;
     parse_ctrl.numbytes : exact;
     parse_ctrl.state : exact;
   }
   actions {
     set_next_action;
+    set_next_action_chg_program;
     extract_more;
+    extract_more_chg_program;
   }
 }
 
@@ -128,7 +220,9 @@ table t_inspect_SEB {
   }
   actions {
     set_next_action;
+    set_next_action_chg_program;
     extract_more;
+    extract_more_chg_program;
   }
 }
 
@@ -149,7 +243,9 @@ table t_inspect_20_29 {
   }
   actions {
     set_next_action;
+    set_next_action_chg_program;
     extract_more;
+    extract_more_chg_program;
   }
 }
 
@@ -170,7 +266,9 @@ table t_inspect_30_39 {
   }
   actions {
     set_next_action;
+    set_next_action_chg_program;
     extract_more;
+    extract_more_chg_program;
   }
 }
 
@@ -191,7 +289,9 @@ table t_inspect_40_49 {
   }
   actions {
     set_next_action;
+    set_next_action_chg_program;
     extract_more;
+    extract_more_chg_program;
   }
 }
 
@@ -212,7 +312,9 @@ table t_inspect_50_59 {
   }
   actions {
     set_next_action;
+    set_next_action_chg_program;
     extract_more;
+    extract_more_chg_program;
   }
 }
 
@@ -233,7 +335,9 @@ table t_inspect_60_69 {
   }
   actions {
     set_next_action;
+    set_next_action_chg_program;
     extract_more;
+    extract_more_chg_program;
   }
 }
 
@@ -254,7 +358,9 @@ table t_inspect_70_79 {
   }
   actions {
     set_next_action;
+    set_next_action_chg_program;
     extract_more;
+    extract_more_chg_program;
   }
 }
 
@@ -275,7 +381,9 @@ table t_inspect_80_89 {
   }
   actions {
     set_next_action;
+    set_next_action_chg_program;
     extract_more;
+    extract_more_chg_program;
   }
 }
 
@@ -296,7 +404,9 @@ table t_inspect_90_99 {
   }
   actions {
     set_next_action;
+    set_next_action_chg_program;
     extract_more;
+    extract_more_chg_program;
   }
 }
 
@@ -356,7 +466,11 @@ control setup {
     apply(t_inspect_90_99);
   }
   if(parse_ctrl.next_action == PROCEED) { 
-    apply(t_norm);
+    apply(t_norm_SEB);
+    if(parse_ctrl.numbytes > 20) {
+      apply(t_norm_20_39);
+      // etc., e.g., if(parse_ctrl.numbytes > 40) { apply(t_norm_40_59); } etc.
+    }
     apply(t_set_first_table);
   }
 }
