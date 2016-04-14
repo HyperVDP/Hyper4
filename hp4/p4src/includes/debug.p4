@@ -38,7 +38,7 @@ table t_meta_parse_debug {
 }
 */
 
-table extracted_debug {
+table t_debug_extracted {
   reads {
     extracted.data : ternary;
   }

@@ -53,26 +53,26 @@ action a_norm_half() {
 */
 
 action a_norm_20_39() {
-  modify_field(extracted.data, extracted.data + ext[39].data << 480);
-  modify_field(extracted.data, extracted.data + ext[38].data << 488);
-  modify_field(extracted.data, extracted.data + ext[37].data << 496);
-  modify_field(extracted.data, extracted.data + ext[36].data << 504);
-  modify_field(extracted.data, extracted.data + ext[35].data << 512);
-  modify_field(extracted.data, extracted.data + ext[34].data << 520);
-  modify_field(extracted.data, extracted.data + ext[33].data << 528);
-  modify_field(extracted.data, extracted.data + ext[32].data << 536);
-  modify_field(extracted.data, extracted.data + ext[31].data << 544);
-  modify_field(extracted.data, extracted.data + ext[30].data << 552);
-  modify_field(extracted.data, extracted.data + ext[29].data << 560);
-  modify_field(extracted.data, extracted.data + ext[28].data << 568);
-  modify_field(extracted.data, extracted.data + ext[27].data << 576);
-  modify_field(extracted.data, extracted.data + ext[26].data << 584);
-  modify_field(extracted.data, extracted.data + ext[25].data << 592);
-  modify_field(extracted.data, extracted.data + ext[24].data << 600);
-  modify_field(extracted.data, extracted.data + ext[23].data << 608);
-  modify_field(extracted.data, extracted.data + ext[22].data << 616);
-  modify_field(extracted.data, extracted.data + ext[21].data << 624);
-  modify_field(extracted.data, extracted.data + ext[20].data << 632);
+  modify_field(extracted.data, extracted.data + (ext[39].data << 480));
+  modify_field(extracted.data, extracted.data + (ext[38].data << 488));
+  modify_field(extracted.data, extracted.data + (ext[37].data << 496));
+  modify_field(extracted.data, extracted.data + (ext[36].data << 504));
+  modify_field(extracted.data, extracted.data + (ext[35].data << 512));
+  modify_field(extracted.data, extracted.data + (ext[34].data << 520));
+  modify_field(extracted.data, extracted.data + (ext[33].data << 528));
+  modify_field(extracted.data, extracted.data + (ext[32].data << 536));
+  modify_field(extracted.data, extracted.data + (ext[31].data << 544));
+  modify_field(extracted.data, extracted.data + (ext[30].data << 552));
+  modify_field(extracted.data, extracted.data + (ext[29].data << 560));
+  modify_field(extracted.data, extracted.data + (ext[28].data << 568));
+  modify_field(extracted.data, extracted.data + (ext[27].data << 576));
+  modify_field(extracted.data, extracted.data + (ext[26].data << 584));
+  modify_field(extracted.data, extracted.data + (ext[25].data << 592));
+  modify_field(extracted.data, extracted.data + (ext[24].data << 600));
+  modify_field(extracted.data, extracted.data + (ext[23].data << 608));
+  modify_field(extracted.data, extracted.data + (ext[22].data << 616));
+  modify_field(extracted.data, extracted.data + (ext[21].data << 624));
+  modify_field(extracted.data, extracted.data + (ext[20].data << 632));
 }
 
 table t_norm_20_39 {
@@ -193,7 +193,7 @@ table parse_control {
 //  at code generation time
 table t_inspect_SEB {
   reads {
-    meta_ctrl.program : ternary;
+    meta_ctrl.program : exact;
     ext[0].data : ternary;
     ext[1].data : ternary;
     ext[2].data : ternary;
@@ -225,7 +225,7 @@ table t_inspect_SEB {
 
 table t_inspect_20_29 {
   reads {
-    meta_ctrl.program : ternary;
+    meta_ctrl.program : exact;
     parse_ctrl.state : exact;
     ext[20].data : ternary;
     ext[21].data : ternary;
@@ -248,7 +248,7 @@ table t_inspect_20_29 {
 
 table t_inspect_30_39 {
   reads {
-    meta_ctrl.program : ternary;
+    meta_ctrl.program : exact;
     parse_ctrl.state : exact;
     ext[30].data : ternary;
     ext[31].data : ternary;
@@ -271,7 +271,7 @@ table t_inspect_30_39 {
 
 table t_inspect_40_49 {
   reads {
-    meta_ctrl.program : ternary;
+    meta_ctrl.program : exact;
     parse_ctrl.state : exact;
     ext[40].data : ternary;
     ext[41].data : ternary;
@@ -294,7 +294,7 @@ table t_inspect_40_49 {
 
 table t_inspect_50_59 {
   reads {
-    meta_ctrl.program : ternary;
+    meta_ctrl.program : exact;
     parse_ctrl.state : exact;
     ext[50].data : ternary;
     ext[51].data : ternary;
@@ -317,7 +317,7 @@ table t_inspect_50_59 {
 
 table t_inspect_60_69 {
   reads {
-    meta_ctrl.program : ternary;
+    meta_ctrl.program : exact;
     parse_ctrl.state : exact;
     ext[60].data : ternary;
     ext[61].data : ternary;
@@ -340,7 +340,7 @@ table t_inspect_60_69 {
 
 table t_inspect_70_79 {
   reads {
-    meta_ctrl.program : ternary;
+    meta_ctrl.program : exact;
     parse_ctrl.state : exact;
     ext[70].data : ternary;
     ext[71].data : ternary;
@@ -363,7 +363,7 @@ table t_inspect_70_79 {
 
 table t_inspect_80_89 {
   reads {
-    meta_ctrl.program : ternary;
+    meta_ctrl.program : exact;
     parse_ctrl.state : exact;
     ext[80].data : ternary;
     ext[81].data : ternary;
@@ -386,7 +386,7 @@ table t_inspect_80_89 {
 
 table t_inspect_90_99 {
   reads {
-    meta_ctrl.program : ternary;
+    meta_ctrl.program : exact;
     parse_ctrl.state : exact;
     ext[90].data : ternary;
     ext[91].data : ternary;
@@ -432,40 +432,40 @@ control setup {
     apply(t_norm);
   }
 */
-  if (meta_ctrl.stage == INIT) {
+  if (meta_ctrl.stage == INIT) { //_condition_0
     apply(t_prog_select);
   }
   apply(parse_control);
-  if(parse_ctrl.next_action == INSPECT_SEB) { 
+  if(parse_ctrl.next_action == INSPECT_SEB) { //_condition_1
     apply(t_inspect_SEB);
   }
-  if(parse_ctrl.next_action == INSPECT_20_29) { 
+  if(parse_ctrl.next_action == INSPECT_20_29) { //_condition_2
     apply(t_inspect_20_29);
   }
-  if(parse_ctrl.next_action == INSPECT_30_39) { 
+  if(parse_ctrl.next_action == INSPECT_30_39) { //_condition_3
     apply(t_inspect_30_39);
   }
-  if(parse_ctrl.next_action == INSPECT_40_49) { 
+  if(parse_ctrl.next_action == INSPECT_40_49) { //_condition_4
     apply(t_inspect_40_49);
   }
-  if(parse_ctrl.next_action == INSPECT_50_59) { 
+  if(parse_ctrl.next_action == INSPECT_50_59) { //_condition_5
     apply(t_inspect_50_59);
   }
-  if(parse_ctrl.next_action == INSPECT_60_69) { 
+  if(parse_ctrl.next_action == INSPECT_60_69) { //_condition_6
     apply(t_inspect_60_69);
   }
-  if(parse_ctrl.next_action == INSPECT_70_79) { 
+  if(parse_ctrl.next_action == INSPECT_70_79) { //_condition_7
     apply(t_inspect_70_79);
   }
-  if(parse_ctrl.next_action == INSPECT_80_89) { 
+  if(parse_ctrl.next_action == INSPECT_80_89) { //_condition_8
     apply(t_inspect_80_89);
   }
-  if(parse_ctrl.next_action == INSPECT_90_99) { 
+  if(parse_ctrl.next_action == INSPECT_90_99) { //_condition_9
     apply(t_inspect_90_99);
   }
-  if(parse_ctrl.next_action == PROCEED) { 
+  if(parse_ctrl.next_action == PROCEED) { //_condition_10
     apply(t_norm_SEB);
-    if(parse_ctrl.numbytes > 20) {
+    if(parse_ctrl.numbytes > 20) { //_condition_11
       apply(t_norm_20_39);
       // etc., e.g., if(parse_ctrl.numbytes > 40) { apply(t_norm_40_59); } etc.
     }
