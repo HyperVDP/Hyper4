@@ -52,6 +52,35 @@ action a_norm_half() {
 }
 */
 
+action a_norm_40_59() {
+  modify_field(extracted.data, extracted.data + (ext[59].data << 340));
+  modify_field(extracted.data, extracted.data + (ext[58].data << 348));
+  modify_field(extracted.data, extracted.data + (ext[57].data << 346));
+  modify_field(extracted.data, extracted.data + (ext[56].data << 354));
+  modify_field(extracted.data, extracted.data + (ext[55].data << 362));
+  modify_field(extracted.data, extracted.data + (ext[54].data << 370));
+  modify_field(extracted.data, extracted.data + (ext[53].data << 378));
+  modify_field(extracted.data, extracted.data + (ext[52].data << 386));
+  modify_field(extracted.data, extracted.data + (ext[51].data << 384));
+  modify_field(extracted.data, extracted.data + (ext[50].data << 392));
+  modify_field(extracted.data, extracted.data + (ext[49].data << 400));
+  modify_field(extracted.data, extracted.data + (ext[48].data << 408));
+  modify_field(extracted.data, extracted.data + (ext[47].data << 416));
+  modify_field(extracted.data, extracted.data + (ext[46].data << 424));
+  modify_field(extracted.data, extracted.data + (ext[45].data << 432));
+  modify_field(extracted.data, extracted.data + (ext[44].data << 440));
+  modify_field(extracted.data, extracted.data + (ext[43].data << 448));
+  modify_field(extracted.data, extracted.data + (ext[42].data << 456));
+  modify_field(extracted.data, extracted.data + (ext[41].data << 464));
+  modify_field(extracted.data, extracted.data + (ext[40].data << 472));
+}
+
+table t_norm_40_59 {
+  actions {
+    a_norm_40_59;
+  }
+}
+
 action a_norm_20_39() {
   modify_field(extracted.data, extracted.data + (ext[39].data << 480));
   modify_field(extracted.data, extracted.data + (ext[38].data << 488));
@@ -467,7 +496,10 @@ control setup {
     apply(t_norm_SEB);
     if(parse_ctrl.numbytes > 20) { //_condition_11
       apply(t_norm_20_39);
-      // etc., e.g., if(parse_ctrl.numbytes > 40) { apply(t_norm_40_59); } etc.
+      if(parse_ctrl.numbytes > 40) { //_condition_12
+        apply(t_norm_40_59);
+        // etc., e.g., if(parse_ctrl.numbytes > 60) { apply(t_norm_60_79); } etc.
+      }
     }
     apply(t_set_first_table);
   }
