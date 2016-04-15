@@ -11,11 +11,10 @@ parser.p4: Define various parse functions allowing us to extract a specified
 */
 
 metadata parse_ctrl_t parse_ctrl;
-header ext_t ext[100]; // "100" modifiable at code generation time
+header ext_t ext[100];
 
 parser start {
   set_metadata(parse_ctrl.next_action, PROCEED);
-  // number of extract statements modifiable at code generation time
   extract(ext[next]);
   extract(ext[next]);
   extract(ext[next]);
@@ -36,13 +35,12 @@ parser start {
   extract(ext[next]);
   extract(ext[next]);
   extract(ext[next]);
-  // "20-29" modifiable at code generation time
-  return select(parse_ctrl.numbytes) {
+return select(parse_ctrl.numbytes) {
     0 : ingress;
     20 : ingress;
-    21 : pr01; // parse remainder, 1 byte
-    22 : pr02; // parse remainder, 2 bytes
-    23 : pr03; // etc.
+    21 : pr01;
+    22 : pr02;
+    23 : pr03;
     24 : pr04;
     25 : pr05;
     26 : pr06;
@@ -147,9 +145,9 @@ parser p30 {
   extract(ext[next]);
   return select(parse_ctrl.numbytes) {
     30 : ingress;
-    31 : pr01; // parse remainder, 1 byte
-    32 : pr02; // parse remainder, 2 bytes
-    33 : pr03; // etc.
+    31 : pr01;
+    32 : pr02;
+    33 : pr03;
     34 : pr04;
     35 : pr05;
     36 : pr06;
@@ -173,9 +171,9 @@ parser p40 {
   extract(ext[next]);
   return select(parse_ctrl.numbytes) {
     40 : ingress;
-    41 : pr01; // parse remainder, 1 byte
-    42 : pr02; // parse remainder, 2 bytes
-    43 : pr03; // etc.
+    41 : pr01;
+    42 : pr02;
+    43 : pr03;
     44 : pr04;
     45 : pr05;
     46 : pr06;
@@ -199,9 +197,9 @@ parser p50 {
   extract(ext[next]);
   return select(parse_ctrl.numbytes) {
     50 : ingress;
-    51 : pr01; // parse remainder, 1 byte
-    52 : pr02; // parse remainder, 2 bytes
-    53 : pr03; // etc.
+    51 : pr01;
+    52 : pr02;
+    53 : pr03;
     54 : pr04;
     55 : pr05;
     56 : pr06;
@@ -225,9 +223,9 @@ parser p60 {
   extract(ext[next]);
   return select(parse_ctrl.numbytes) {
     60 : ingress;
-    61 : pr01; // parse remainder, 1 byte
-    62 : pr02; // parse remainder, 2 bytes
-    63 : pr03; // etc.
+    61 : pr01;
+    62 : pr02;
+    63 : pr03;
     64 : pr04;
     65 : pr05;
     66 : pr06;
@@ -251,9 +249,9 @@ parser p70 {
   extract(ext[next]);
   return select(parse_ctrl.numbytes) {
     70 : ingress;
-    71 : pr01; // parse remainder, 1 byte
-    72 : pr02; // parse remainder, 2 bytes
-    73 : pr03; // etc.
+    71 : pr01;
+    72 : pr02;
+    73 : pr03;
     74 : pr04;
     75 : pr05;
     76 : pr06;
@@ -277,9 +275,9 @@ parser p80 {
   extract(ext[next]);
   return select(parse_ctrl.numbytes) {
     80 : ingress;
-    81 : pr01; // parse remainder, 1 byte
-    82 : pr02; // parse remainder, 2 bytes
-    83 : pr03; // etc.
+    81 : pr01;
+    82 : pr02;
+    83 : pr03;
     84 : pr04;
     85 : pr05;
     86 : pr06;
@@ -303,9 +301,9 @@ parser p90 {
   extract(ext[next]);
   return select(parse_ctrl.numbytes) {
     90 : ingress;
-    91 : pr01; // parse remainder, 1 byte
-    92 : pr02; // parse remainder, 2 bytes
-    93 : pr03; // etc.
+    91 : pr01;
+    92 : pr02;
+    93 : pr03;
     94 : pr04;
     95 : pr05;
     96 : pr06;

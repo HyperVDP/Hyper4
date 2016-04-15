@@ -45,7 +45,7 @@ class GenSetup():
                str(j) + "].data << " + str(lshift) + "));\n"
       out += "}\n\n"
       out += "table t" + suffix + " {\n"
-      out += indent + "actions + {\n"
+      out += indent + "actions {\n"
       out += indent + indent + "a" + suffix + ";\n"
       out += indent + "}\n"
       out += "}\n\n"

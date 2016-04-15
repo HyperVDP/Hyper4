@@ -18,7 +18,7 @@ class GenParser():
     f_parser.write("*/\n\n")
 
     out = "metadata parse_ctrl_t parse_ctrl;\n"
-    out += "header ext_t[" + str(parse_opts[1]) + "];\n\n"        
+    out += "header ext_t ext[" + str(parse_opts[1]) + "];\n\n"        
     f_parser.write(out)
 
     indent = "  "

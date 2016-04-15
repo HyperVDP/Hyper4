@@ -111,7 +111,7 @@ table t3_stdmeta_exact {
 }
 
 control match_1 {
-  if(meta_ctrl.next_table == EXTRACTED_EXACT) { //_condition_15
+  if(meta_ctrl.next_table == EXTRACTED_EXACT) {
     apply(t1_extracted_exact);
   }
   else if(meta_ctrl.next_table == METADATA_EXACT) {

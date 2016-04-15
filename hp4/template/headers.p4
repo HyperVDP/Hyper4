@@ -63,4 +63,10 @@ header_type tmeta_t {
   }
 }
 
+header_type ext_t {
+  fields {
+    data : 8;
+  }
+}
+
 // extracted: stores extracted data in a standard width field
