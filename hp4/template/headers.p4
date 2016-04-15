@@ -20,12 +20,11 @@ header_type intrinsic_metadata_t {
   }
 }
 
-// meta_parse: stores the parse width (e.g. 256 | 512 | 768): # bits to
-// extract
-header_type meta_parse_t {
+header_type parse_ctrl_t {
   fields {
-    parse_width : 16;
-//    do_process : 8;
+    numbytes : 16;
+    state : 16;
+    next_action : 8;
   }
 }
 
@@ -56,14 +55,6 @@ header_type meta_primitive_state_t {
   }
 }
 
-// extracted: stores extracted data in a standard width field
-header_type extracted_t {
-  fields {
-    data : 768;
-    dcpy : 768;
-  }
-}
-
 // tmeta: HyPer4's representation of the target's metadata
 header_type tmeta_t {
   fields {
@@ -71,3 +62,5 @@ header_type tmeta_t {
     dcpy : 256;
   }
 }
+
+// extracted: stores extracted data in a standard width field

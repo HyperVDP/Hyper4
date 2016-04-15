@@ -1,6 +1,10 @@
 class GenParser():
-  def __init__(self, parse_opts):
-    f_parser = open('../p4src/includes/parser.p4', 'w')
+  def __init__(self, parse_opts, test):
+    fpath = '../p4src/hp4/includes/parser'
+    if test:
+      fpath += '_test'
+    fpath += '.p4'
+    f_parser = open(fpath, 'w')
 
     std_h = open('std_header', 'r')
     f_parser.write("/*\n")

@@ -1,6 +1,10 @@
 class GenTruncate():
-  def __init__(self, nstages, nprimitives):
-    f_trunc = open('../p4src/includes/truncate.p4', 'w')
+  def __init__(self, nstages, nprimitives, test):
+    fpath = '../p4src/hp4/includes/truncate'
+    if test:
+      fpath += '_test'
+    fpath += '.p4'
+    f_trunc = open(fpath, 'w')
 
     std_h = open('std_header', 'r')
     f_trunc.write("/*\n")

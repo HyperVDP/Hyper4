@@ -453,14 +453,6 @@ table t_set_first_table {
 
 // ------ Setup
 control setup {
-/*
-  if (meta_ctrl.stage == INIT) { //_condition_0
-    apply(t_prog_select);
-  }
-  else if ( meta_ctrl.stage == NORM ) { //_condition_1
-    apply(t_norm);
-  }
-*/
   if (meta_ctrl.stage == INIT) { //_condition_0
     apply(t_prog_select);
   }

@@ -1,6 +1,10 @@
 class GenChecksums():
-  def __init__(self):
-    f_chksums = open('../p4src/includes/checksums.p4', 'w')
+  def __init__(self, test):
+    fpath = '../p4src/hp4/includes/checksums'
+    if test:
+      fpath += '_test'
+    fpath += '.p4'
+    f_chksums = open(fpath, 'w')
 
     std_h = open('std_header', 'r')
     f_chksums.write("/*\n")

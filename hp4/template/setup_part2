@@ -1,27 +1,15 @@
-// ------ Initialize local metadata and resubmit
-field_list f_packet_init {
-  meta_parse;
-  meta_ctrl;
-  standard_metadata;
+action a_set_first_table(tableID) {
+  modify_field(meta_ctrl.next_table, tableID);
+  modify_field(meta_ctrl.stage, 1);
 }
 
-// ------ Set program and first table and parse width
-action set_program(program, table_ID, parse_width) {
-  modify_field(meta_ctrl.program, program);
-  modify_field(meta_ctrl.next_table, table_ID);
-  modify_field(meta_parse.parse_width, parse_width);
-  resubmit(f_packet_init);
-}
-
-table t_prog_select {
+table t_set_first_table {
   reads {
-    standard_metadata.ingress_port : exact; // range not yet supported by bmv2
-    //standard_metadata.packet_length : exact; // range not yet supported by bmv2
-    //standard_metadata.instance_type : exact; // range not yet supported by bmv2
-    //extracted.data : ternary;
+    meta_ctrl.program : exact;
+    parse_ctrl.state : exact;
   }
   actions {
-    set_program;
+    a_set_first_table;
   }
 }
 
@@ -30,7 +18,7 @@ control setup {
   if (meta_ctrl.stage == INIT) { //_condition_0
     apply(t_prog_select);
   }
-  else if ( meta_ctrl.stage == NORM ) { //_condition_1
-    apply(t_norm);
+  apply(parse_control);
+  if(parse_ctrl.next_action == INSPECT_SEB) { //_condition_1
+    apply(t_inspect_SEB);
   }
-}

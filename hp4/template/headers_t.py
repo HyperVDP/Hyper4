@@ -1,6 +1,10 @@
 class GenHeaders():
-  def __init__(self):
-    f_headers = open('../p4src/includes/headers.p4', 'w')
+  def __init__(self, parse_opts, test):
+    fpath = '../p4src/hp4/includes/headers'
+    if test:
+      fpath += '_test'
+    fpath += '.p4'
+    f_headers = open(fpath, 'w')
 
     std_h = open('std_header', 'r')
     f_headers.write("/*\n")
@@ -16,5 +20,13 @@ class GenHeaders():
     headers_src = open('headers.p4', 'r')
     f_headers.write(headers_src.read())
     headers_src.close()
+
+    out = "header_type extracted_t {\n"
+    out += "  fields {\n"
+    out += "    data : " + str(parse_opts[1] * 8) + ";\n"
+    out += "    dcpy : " + str(parse_opts[1] * 8) + ";\n"
+    out += "  }\n"
+    out += "}"
+    f_headers.write(out)
 
     f_headers.close()

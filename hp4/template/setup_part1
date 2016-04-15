@@ -1,0 +1,59 @@
+action set_program(program) {
+  modify_field(meta_ctrl.program, program);
+}
+
+table t_prog_select {
+  reads {
+    standard_metadata.ingress_port : exact; // range not yet supported by bmv2
+    //standard_metadata.packet_length : exact; // range not yet supported by bmv2
+    //standard_metadata.instance_type : exact; // range not yet supported by bmv2
+    //extracted.data : ternary;
+  }
+  actions {
+    set_program;
+  }
+}
+
+action set_next_action(next_action) {
+  modify_field(parse_ctrl.next_action, next_action);
+}
+
+action set_next_action_chg_program(next_action, programID) {
+  modify_field(parse_ctrl.next_action, next_action);
+  modify_field(meta_ctrl.program, programID);
+}
+
+field_list fl_extract_more {
+  meta_ctrl;
+  parse_ctrl;
+  standard_metadata;
+}
+
+action extract_more(numbytes, state) {
+  modify_field(parse_ctrl.numbytes, numbytes);
+  modify_field(parse_ctrl.state, state);
+  modify_field(parse_ctrl.next_action, EXTRACT_MORE);
+  resubmit(fl_extract_more);
+}
+
+action extract_more_chg_program(numbytes, state, programID) {
+  modify_field(parse_ctrl.numbytes, numbytes);
+  modify_field(parse_ctrl.state, state);
+  modify_field(parse_ctrl.next_action, EXTRACT_MORE);
+  modify_field(meta_ctrl.program, programID);
+  resubmit(fl_extract_more);
+}
+
+table parse_control {
+  reads {
+    meta_ctrl.program : exact;
+    parse_ctrl.numbytes : exact;
+    parse_ctrl.state : exact;
+  }
+  actions {
+    set_next_action;
+    set_next_action_chg_program;
+    extract_more;
+    extract_more_chg_program;
+  }
+}

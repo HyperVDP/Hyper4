@@ -1,6 +1,10 @@
 class GenDrop():
-  def __init__(self, nstages, nprimitives):
-    f_drop = open('../p4src/includes/drop.p4', 'w')
+  def __init__(self, nstages, nprimitives, test):
+    fpath = '../p4src/hp4/includes/drop'
+    if test:
+      fpath += '_test'
+    fpath += '.p4'
+    f_drop = open(fpath, 'w')
 
     std_h = open('std_header', 'r')
     f_drop.write("/*\n")

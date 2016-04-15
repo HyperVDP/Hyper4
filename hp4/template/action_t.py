@@ -1,6 +1,10 @@
 class GenAction():
-  def __init__(self, nstages, nprimitives):
-    f_action = open('../p4src/includes/action.p4', 'w')
+  def __init__(self, nstages, nprimitives, test):
+    fpath = '../p4src/hp4/includes/action'
+    if test:
+      fpath += '_test'
+    fpath += '.p4'
+    f_action = open(fpath, 'w')
 
     std_h = open('std_header', 'r')
     f_action.write("/*\n")
