@@ -1,6 +1,6 @@
 class GenMulticast():
   def __init__(self, nstages, nprimitives, test):
-    fpath = '../p4src/hp4/includes/multicast'
+    fpath = '../p4src/includes/multicast'
     if test:
       fpath += '_test'
     fpath += '.p4'

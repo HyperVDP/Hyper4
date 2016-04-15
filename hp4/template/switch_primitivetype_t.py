@@ -1,6 +1,6 @@
 class GenSwitch_PrimitiveType():
   def __init__(self, nstages, nprimitives, test):
-    fpath = '../p4src/hp4/includes/switch_primitivetype'
+    fpath = '../p4src/includes/switch_primitivetype'
     if test:
       fpath += '_test'
     fpath += '.p4'

@@ -1,6 +1,6 @@
 class GenSwitch_StdMeta():
   def __init__(self, nstages, test):
-    fpath = '../p4src/hp4/includes/switch_stdmeta'
+    fpath = '../p4src/includes/switch_stdmeta'
     if test:
       fpath += '_test'
     fpath += '.p4'

@@ -1,6 +1,6 @@
 class GenHeaders():
   def __init__(self, parse_opts, test):
-    fpath = '../p4src/hp4/includes/headers'
+    fpath = '../p4src/includes/headers'
     if test:
       fpath += '_test'
     fpath += '.p4'

@@ -1,6 +1,6 @@
 class GenTruncate():
   def __init__(self, nstages, nprimitives, test):
-    fpath = '../p4src/hp4/includes/truncate'
+    fpath = '../p4src/includes/truncate'
     if test:
       fpath += '_test'
     fpath += '.p4'

@@ -1,6 +1,6 @@
 class GenDefines():
   def __init__(self, parse_opts, test):
-    fpath = '../p4src/hp4/includes/defines'
+    fpath = '../p4src/includes/defines'
     if test:
       fpath += '_test'
     fpath += '.p4'

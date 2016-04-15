@@ -1,6 +1,6 @@
 class GenParser():
   def __init__(self, parse_opts, test):
-    fpath = '../p4src/hp4/includes/parser'
+    fpath = '../p4src/includes/parser'
     if test:
       fpath += '_test'
     fpath += '.p4'

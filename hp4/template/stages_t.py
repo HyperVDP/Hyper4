@@ -1,6 +1,6 @@
 class GenStages():
   def __init__(self, nstages, nprimitives, test):
-    fpath = '../p4src/hp4/includes/stages'
+    fpath = '../p4src/includes/stages'
     if test:
       fpath += '_test'
     fpath += '.p4'

@@ -1,6 +1,6 @@
 class GenDrop():
   def __init__(self, nstages, nprimitives, test):
-    fpath = '../p4src/hp4/includes/drop'
+    fpath = '../p4src/includes/drop'
     if test:
       fpath += '_test'
     fpath += '.p4'

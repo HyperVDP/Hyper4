@@ -1,6 +1,6 @@
 class GenAction():
   def __init__(self, nstages, nprimitives, test):
-    fpath = '../p4src/hp4/includes/action'
+    fpath = '../p4src/includes/action'
     if test:
       fpath += '_test'
     fpath += '.p4'

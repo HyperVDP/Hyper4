@@ -1,6 +1,6 @@
 class GenSetup():
   def __init__(self, parse_opts, test):
-    fpath = '../p4src/hp4/includes/setup'
+    fpath = '../p4src/includes/setup'
     if test:
       fpath += '_test'
     fpath += '.p4'

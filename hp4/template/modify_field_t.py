@@ -1,6 +1,6 @@
 class GenModify_Field():
   def __init__(self, nstages, nprimitives, test):
-    fpath = '../p4src/hp4/includes/modify_field'
+    fpath = '../p4src/includes/modify_field'
     if test:
       fpath += '_test'
     fpath += '.p4'

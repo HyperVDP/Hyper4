@@ -1,6 +1,6 @@
 class GenMatch():
   def __init__(self, nstages, test):
-    fpath = '../p4src/hp4/includes/match'
+    fpath = '../p4src/includes/match'
     if test:
       fpath += '_test'
     fpath += '.p4'

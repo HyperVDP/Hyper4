@@ -1,6 +1,6 @@
 class GenChecksums():
   def __init__(self, test):
-    fpath = '../p4src/hp4/includes/checksums'
+    fpath = '../p4src/includes/checksums'
     if test:
       fpath += '_test'
     fpath += '.p4'
