@@ -11,7 +11,6 @@ hp4.p4: Define the ingress and egress pipelines, including multicast support.
 
 #include "includes/defines.p4"
 #include "includes/headers.p4"
-//#include "includes/parse_opts.p4"
 #include "includes/parser.p4"
 #include "includes/setup.p4"
 #include "includes/stages.p4"
@@ -65,20 +64,6 @@ table t_multicast {
   }
 }
 
-/*
-action a_prep_deparse_256() {
-  modify_field(bitfield_256.data, extracted.data);
-}
-
-action a_prep_deparse_512() {
-  modify_field(bitfield_512.data, extracted.data);
-}
-
-action a_prep_deparse_768() {
-  modify_field(bitfield_768.data, extracted.data);
-}
-*/
-
 action a_prep_deparse_SEB() {
   modify_field(ext[0].data, extracted.data >> 792);
   modify_field(ext[1].data, (extracted.data >> 784) & 0xFF);
@@ -104,9 +89,6 @@ action a_prep_deparse_SEB() {
 
 table t_prep_deparse_SEB {
   actions {
-    //a_prep_deparse_256;
-    //a_prep_deparse_512;
-    //a_prep_deparse_768;
     a_prep_deparse_SEB;
   }
 }

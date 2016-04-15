@@ -6,7 +6,6 @@ import parser_t
 import action_t
 import add_to_field_t
 import drop_t
-import parse_opts_t
 import match_t
 import modify_field_t
 import multicast_t
@@ -18,13 +17,17 @@ import checksums_t
 import defines_t
 import headers_t
 
+DEFAULT = 0
+MAX = 1
+STEP = 2
+
 parser = argparse.ArgumentParser(description='HP4 Source Code Generator')
 parser.add_argument('--numstages', help='Max number of match-action stages',
                     type=int, action="store", default=3)
 parser.add_argument('--numprimitives', help='Max number of primitives per compound action',
                     type=int, action="store", default=3)
-parser.add_argument('--parse_opt', help='Add an option for parsing',
-                    type=int, nargs='*', action="store", default=[256, 512, 768])
+parser.add_argument('--parse_opt', help='Set default, max, and step for parsing',
+                    type=int, nargs='*', action="store", default=[20, 100, 20])
 
 args = parser.parse_args()
 
@@ -47,7 +50,6 @@ class GenHp4():
 
     out = prefix + "defines.p4\"\n"
     out += prefix + "headers.p4\"\n"
-    out += prefix + "parse_opts.p4\"\n"
     out += prefix + "parser.p4\"\n"
     out += prefix + "setup.p4\"\n"
     out += prefix + "stages.p4\"\n"
@@ -118,26 +120,51 @@ class GenHp4():
     out = ""
     t_prep4deparse_actions = ""
 
-    for i in parse_opts:
-      out += "action a_prep_deparse_" + str(i) + "() {\n"
-      out += indent + "modify_field(bitfield_" + str(i) + ".data, extracted.data);\n"
-      out += "}\n\n"
-      t_prep4deparse_actions += indent + indent + "a_prep_deparse_" + str(i) + ";\n"
-
-    out += "table prepare_for_deparsing {\n"
+    out += "action a_prep_deparse_SEB() {\n"
+    rshift = parse_opts[MAX] * 8;
+    for i in range(0, parse_opts[DEFAULT]):
+      rshift -= 8;
+      out += indent + "modify_field(ext[" + str(i) + "].data, (extracted.data >> " + \
+             str(rshift) + ") & 0xFF);\n"
+    out += "}\n\n"
+    f_hp4.write(out)
+    out = "table t_prep_deparse_SEB {\n"
     out += indent + "actions {\n"
-    out += t_prep4deparse_actions
+    out += indent + indent + "a_prep_deparse_SEB;\n"
     out += indent + "}\n"
     out += "}\n\n"
-
     f_hp4.write(out)
+
+    for i in range(parse_opts[0], parse_opts[1], parse_opts[2]):
+      suffix = "_prep_deparse_"+ str(i) + "_" + str(i + parse_opts[2] - 1)
+      out = "action a" + suffix + "() {\n"
+      for j in range(i, i+parse_opts[2]):
+        rshift -=8;
+        out += indent + "modify_field(ext[" + str(j) + "].data, (extracted.data >> " + \
+               str(rshift) + ") & 0xFF);\n"
+      out += "}\n\n"
+      out += "table t" + suffix + "{\n"
+      out += indent + "actions {\n"
+      out += indent + indent + "a" + suffix + ";\n"
+      out += indent + "}\n"
+      out += "}\n\n"
+      f_hp4.write(out)
 
     out = "control egress {\n"
     out += indent + "if(meta_ctrl.do_multicast == 1) {\n"
     out += indent + indent + "apply(t_multicast);\n"
     out += indent + "}\n"
     out += indent + "apply(csum16);\n"
-    out += indent + "apply(prepare_for_deparsing);\n"
+    out += indent + "apply(t_prep_deparse_SEB);\n"
+    for i in range(parse_opts[0], parse_opts[1], parse_opts[2]):
+      tname = "t_prep_deparse_" + str(i) + "_" + str(i + parse_opts[2] - 1)
+      out += indent + "if(parse_ctrl.numbytes > " + str(i) + ") {\n"
+      indent = indent + "  "
+      out += indent + "apply(" + tname + ");\n"
+    for i in range(parse_opts[0], parse_opts[1], parse_opts[2]):
+      indent = indent[0:len(indent) - 2]
+      out += indent + "}\n"
+
     out += "}\n"
 
     f_hp4.write(out)
@@ -145,23 +172,26 @@ class GenHp4():
     f_hp4.close()
 
 def main():
+  """
   GenHp4(args.numstages, args.numprimitives, args.parse_opt)
   stages_t.GenStages(args.numstages, args.numprimitives)
   parser_t.GenParser(args.parse_opt)
   action_t.GenAction(args.numstages, args.numprimitives)
   add_to_field_t.GenAdd_to_Field(args.numstages, args.numprimitives)
   drop_t.GenDrop(args.numstages, args.numprimitives)
-  parse_opts_t.GenParse_Opts(args.parse_opt)
   match_t.GenMatch(args.numstages)
   modify_field_t.GenModify_Field(args.numstages, args.numprimitives)
   multicast_t.GenMulticast(args.numstages, args.numprimitives)
+  """
   setup_t.GenSetup(args.parse_opt)
+  """
   switch_primitivetype_t.GenSwitch_PrimitiveType(args.numstages, args.numprimitives)
   switch_stdmeta_t.GenSwitch_StdMeta(args.numstages)
   truncate_t.GenTruncate(args.numstages, args.numprimitives)
   checksums_t.GenChecksums()
   defines_t.GenDefines()
   headers_t.GenHeaders()
+  """
 
 if __name__ == '__main__':
     main()
