@@ -8,6 +8,11 @@ import add_to_field_t
 import drop_t
 import match_t
 import modify_field_t
+import add_header_t
+import copy_header_t
+import remove_header_t
+import push_t
+import pop_t
 import multicast_t
 import setup_t
 import switch_primitivetype_t
@@ -186,6 +191,11 @@ def main():
   drop_t.GenDrop(args.numstages, args.numprimitives, args.test)
   match_t.GenMatch(args.numstages, args.test)
   modify_field_t.GenModify_Field(args.numstages, args.numprimitives, args.test)
+  add_header_t.GenAdd_Header(args.numstages, args.numprimitives, args.test)
+  copy_header_t.GenCopy_Header(args.numstages, args.numprimitives, args.test)
+  remove_header_t.GenRemove_Header(args.numstages, args.numprimitives, args.test)
+  push_t.GenPush(args.numstages, args.numprimitives, args.test)
+  pop_t.GenPop(args.numstages, args.numprimitives, args.test)
   multicast_t.GenMulticast(args.numstages, args.numprimitives, args.test)
   setup_t.GenSetup(args.parse_opt, args.test)
   switch_primitivetype_t.GenSwitch_PrimitiveType(args.numstages, args.numprimitives, args.test)
