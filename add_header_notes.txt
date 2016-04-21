@@ -8,6 +8,15 @@ Algorithm for inserting A bytes between segments of size X and Y:
 
 DETAILS
 
+UPDATE: For the steps below involving push and pop primitives, I have rediscovered
+that despite what spec 1.04 says, these primitives will not likely ever accept
+anything but constants as the second parameter (which indicates how many elements
+to push or pop).  So the final solution is a little more complicated because I
+have to hard code an action for every constant we might want to pass to the
+push and pop primitives.  I still think there are net code size savings taking
+this approach vs. auto-generating an action for every starting position and
+number of elements to insert.
+
 Step 1: Copy X bytes to temp storage
 
 Maybe easiest thing is to copy entire ext header stack to ext_cpy header stack:
@@ -53,6 +62,9 @@ to be very big, because say n = 10, and the user wants to insert more than
 10 bytes.  In this case, the user does step 3 with max n = 10, then step
 4 10 times, then repeats step 3 with n = whatever necessary, and complete
 step 4 as many times as necessary.
+
+Alternatively, it might make more sense to combine steps 3 and steps 4
+but like for one byte at a time.
 
 Step 5: Push X bytes into ext
 
