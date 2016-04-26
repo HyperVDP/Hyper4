@@ -101,6 +101,34 @@ table t_addh {
 }
 */
 
+action a_step0_01() { push(ext_cpy, 1); }
+action a_step0_02() { push(ext_cpy, 2); }
+action a_step0_03() { push(ext_cpy, 3); }
+action a_step0_04() { push(ext_cpy, 4); }
+action a_step0_05() { push(ext_cpy, 5); }
+action a_step0_06() { push(ext_cpy, 6); }
+action a_step0_07() { push(ext_cpy, 7); }
+action a_step0_08() { push(ext_cpy, 8); }
+action a_step0_09() { push(ext_cpy, 9); }
+action a_step0_10() { push(ext_cpy, 10); }
+action a_step0_12() { push(ext_cpy, 12); }
+
+table step0 {
+  actions {
+    a_step0_01;
+    a_step0_02;
+    a_step0_03;
+    a_step0_04;
+    a_step0_05;
+    a_step0_06;
+    a_step0_07;
+    a_step0_08;
+    a_step0_09;
+    a_step0_10;
+    a_step0_12;
+  }
+}
+/*
 action a_step1() {
   copy_header(ext_cpy[0], ext[0]);
   copy_header(ext_cpy[1], ext[1]);
@@ -122,6 +150,29 @@ action a_step1() {
   copy_header(ext_cpy[17], ext[17]);
   copy_header(ext_cpy[18], ext[18]);
   copy_header(ext_cpy[19], ext[19]);
+}
+*/
+action a_step1() {
+  modify_field(ext_cpy[0].data, ext[0].data);
+  modify_field(ext_cpy[1].data, ext[1].data);
+  modify_field(ext_cpy[2].data, ext[2].data);
+  modify_field(ext_cpy[3].data, ext[3].data);
+  modify_field(ext_cpy[4].data, ext[4].data);
+  modify_field(ext_cpy[5].data, ext[5].data);
+  modify_field(ext_cpy[6].data, ext[6].data);
+  modify_field(ext_cpy[7].data, ext[7].data);
+  modify_field(ext_cpy[8].data, ext[8].data);
+  modify_field(ext_cpy[9].data, ext[9].data);
+  modify_field(ext_cpy[10].data, ext[10].data);
+  modify_field(ext_cpy[11].data, ext[11].data);
+  modify_field(ext_cpy[12].data, ext[12].data);
+  modify_field(ext_cpy[13].data, ext[13].data);
+  modify_field(ext_cpy[14].data, ext[14].data);
+  modify_field(ext_cpy[15].data, ext[15].data);
+  modify_field(ext_cpy[16].data, ext[16].data);
+  modify_field(ext_cpy[17].data, ext[17].data);
+  modify_field(ext_cpy[18].data, ext[18].data);
+  modify_field(ext_cpy[19].data, ext[19].data);
 }
 
 table step1 {
@@ -155,7 +206,7 @@ table step1 {
     sections.  ext and ext_cpy have 20 elements.  So X = 12
     and size of ext - X = 8.
 */
-
+/*
 action a_step1b_01() {  push(ext_cpy, 1); pop(ext_cpy, 1); }
 action a_step1b_02() {  push(ext_cpy, 2); pop(ext_cpy, 2); }
 action a_step1b_03() {  push(ext_cpy, 3); pop(ext_cpy, 3); }
@@ -181,7 +232,8 @@ table step1b {
     a_step1b_10;
   }
 }
-
+*/
+/*
 action a_step1bpush_01() {  push(ext_cpy, 1); }
 action a_step1bpush_02() {  push(ext_cpy, 2); }
 action a_step1bpush_03() {  push(ext_cpy, 3); }
@@ -233,6 +285,7 @@ table step1bpop {
     a_step1bpop_10;
   }
 }
+*/
 
 action a_pop_ext_01() { pop(ext, 1);}
 action a_pop_ext_02() { pop(ext, 2);}
@@ -419,20 +472,55 @@ table check {
   }
 }
 
+table check2 {
+  reads {
+    ext[0].data : exact;
+    ext[1].data : exact;
+    ext[2].data : exact;
+    ext[3].data : exact;
+  }
+  actions {
+    _no_op;
+  }
+}
+
+table check3 {
+  reads {
+    ext[12].data : exact;
+    ext[13].data : exact;
+    ext[14].data : exact;
+    ext[15].data : exact;
+  }
+  actions {
+    _no_op;
+  }
+}
+
+table check4 {
+  reads {
+    ext[12].data : exact;
+    ext[13].data : exact;
+    ext[14].data : exact;
+    ext[15].data : exact;
+  }
+  actions {
+    _no_op;
+  }
+}
+
 control ingress {
   if(meta.tag_present == 0) {
-    apply(step1);  // copy all elements from ext to ext_cpy
-    // apply(step1b); // push / pop
-    // apply(check); <-- THIS TEST FAILS; problem with either
-    //                   parallelism or pop semantics
-    apply(step1bpush);
-    apply(step1bpop);
-    apply(check);
-    apply(step2);
-    apply(step3);
-    apply(step4);
-    apply(step5);
-    apply(step6);
+    apply(step0);  // push X elements into ext_cpy
+    apply(step1);  // use modify_field to copy all elements from ext to ext_cpy
+    apply(check);  // determine which elements are now valid
+    apply(step2);  // pop X elements from ext
+    apply(step3);  // push A elements into ext
+    apply(step4);  // write values for data fields in A elements
+    apply(check2); // verify these values have been written
+    apply(step5);  // push X elements into ext
+    apply(check3); // verify values written into A are still where they should be
+    apply(step6);  // use modify_field to copy all elements from ext_cpy to ext
+    apply(check4); // examine A again to see whether step6 destroyed it
   }
   apply(fwd);
 }

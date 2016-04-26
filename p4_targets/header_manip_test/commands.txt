@@ -1,11 +1,17 @@
+table_set_default step0 a_step0_12
 table_set_default step1 a_step1
-table_set_default step1bpush a_step1bpush_08
-table_set_default step1bpop a_step1bpop_08
 table_set_default step2 a_pop_ext_12
 table_set_default step3 a_push_ext_04
 table_set_default step4 a_step4_4 0x81 0x00 0xAA 0xBB
+table_add check2 _no_op 0x81 0x00 0xAA 0xBB =>
+table_set_default check2 _no_op
 table_set_default step5 a_push_ext_12
+table_add check3 _no_op 0x81 0x00 0xAA 0xBB =>
+table_set_default check3 _no_op
 table_set_default step6 a_step6
+table_add check4 _no_op 0x81 0x00 0xAA 0xBB =>
+table_add check4 _no_op 0x00 0x00 0x00 0x00 =>
+table_set_default check4 _no_op
 table_add fwd a_fwd 1 => 2
 table_add fwd a_fwd 2 => 1
 table_add check _no_op 0 0 0 0 0 0 0 0 0 =>

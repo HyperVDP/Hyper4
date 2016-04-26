@@ -5,15 +5,27 @@ header_type ext_t {
 }
 
 header ext_t ext[2];
+header ext_t ext_cpy[2];
 
 parser start {
-  extract(ext[0]);
-  extract(ext[1]);
+  extract(ext[next]);
+  extract(ext[next]);
   return ingress;
 }
 
+action a_copy() {
+  copy_header(ext_cpy[0], ext[0]);
+  copy_header(ext_cpy[1], ext[1]);
+}
+
+table t_copy {
+  actions {
+    a_copy;
+  }
+}
+
 action a_pop() {
-  pop(ext, 1);
+  pop(ext_cpy, 1);
 }
 
 table t_pop {
@@ -27,8 +39,8 @@ action _no_op() {
 
 table check1 {
   reads {
-    ext[0] : valid;
-    ext[1] : valid;
+    ext_cpy[0] : valid;
+    ext_cpy[1] : valid;
   }
   actions {
     _no_op;
@@ -37,8 +49,8 @@ table check1 {
 
 table check2 {
   reads {
-    ext[0] : valid;
-    ext[1] : valid;
+    ext_cpy[0] : valid;
+    ext_cpy[1] : valid;
   }
   actions {
     _no_op;
@@ -46,6 +58,7 @@ table check2 {
 }
 
 control ingress {
+  apply(t_copy);
   apply(check1);
   apply(t_pop);
   apply(check2);
