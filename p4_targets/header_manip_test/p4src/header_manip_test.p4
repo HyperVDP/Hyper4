@@ -18,7 +18,6 @@ The parser inspects bytes 13 & 14 to test for the value 0x8100,
 extracts Ether802_1Q and then EtherType if so, extracts just
 EtherType otherwise.
 
-
 If an Ether802_1Q tag is not present, the switch adds one
 via add_header, based on port on which the packet was received.
 */
@@ -76,31 +75,6 @@ parser p_ethertype {
   return ingress;
 }
 
-/*
-action a_copyh() {
-  copy_header(extcpy[0], ext[0]);
-  copy_header(extcpy[1], ext[1]);
-}
-
-table t_copyh {
-  actions {
-    a_copyh;
-  }
-}
-
-
-
-action a_addh() {
-  add_header(ext[0]);
-}
-
-table t_addh {
-  actions {
-    a_addh;
-  }
-}
-*/
-
 action a_step0_01() { push(ext_cpy, 1); }
 action a_step0_02() { push(ext_cpy, 2); }
 action a_step0_03() { push(ext_cpy, 3); }
@@ -128,7 +102,7 @@ table step0 {
     a_step0_12;
   }
 }
-/*
+
 action a_step1() {
   copy_header(ext_cpy[0], ext[0]);
   copy_header(ext_cpy[1], ext[1]);
@@ -151,141 +125,12 @@ action a_step1() {
   copy_header(ext_cpy[18], ext[18]);
   copy_header(ext_cpy[19], ext[19]);
 }
-*/
-action a_step1() {
-  modify_field(ext_cpy[0].data, ext[0].data);
-  modify_field(ext_cpy[1].data, ext[1].data);
-  modify_field(ext_cpy[2].data, ext[2].data);
-  modify_field(ext_cpy[3].data, ext[3].data);
-  modify_field(ext_cpy[4].data, ext[4].data);
-  modify_field(ext_cpy[5].data, ext[5].data);
-  modify_field(ext_cpy[6].data, ext[6].data);
-  modify_field(ext_cpy[7].data, ext[7].data);
-  modify_field(ext_cpy[8].data, ext[8].data);
-  modify_field(ext_cpy[9].data, ext[9].data);
-  modify_field(ext_cpy[10].data, ext[10].data);
-  modify_field(ext_cpy[11].data, ext[11].data);
-  modify_field(ext_cpy[12].data, ext[12].data);
-  modify_field(ext_cpy[13].data, ext[13].data);
-  modify_field(ext_cpy[14].data, ext[14].data);
-  modify_field(ext_cpy[15].data, ext[15].data);
-  modify_field(ext_cpy[16].data, ext[16].data);
-  modify_field(ext_cpy[17].data, ext[17].data);
-  modify_field(ext_cpy[18].data, ext[18].data);
-  modify_field(ext_cpy[19].data, ext[19].data);
-}
 
 table step1 {
   actions {
     a_step1;
   }
 }
-
-/*  After step1, we are left with ext_cpy having as many valid
-    elements as there are in ext, but really we only want to
-    have X valid elements and everything after should be
-    invalid (to take advantage of modify_field semantics during
-    step6).
-
-    The solution is to push (size of ext - X) elements and then
-    pop the same number, leaving X valid elements starting at
-    ext_cpy[0], and everything else invalid.
-
-    Despite spec 1.04 saying that push and pop should accept
-    VALs as second parameters, which VALs include action
-    parameters, e-mail from Valdimir Gurevich 25 Jan 2016
-    indicates that realistically targets will restrict the
-    second parameter of push/pop to a constant.  Hence, we
-    define a different action for every constant we need to
-    support.
-
-    In the test case described at the top of this file, we
-    should have a packet with 12 bytes for dest and source
-    MAC addresses, and then 2 bytes for EtherType, and we
-    want to insert a 4 byte 802.1Q tag between the two
-    sections.  ext and ext_cpy have 20 elements.  So X = 12
-    and size of ext - X = 8.
-*/
-/*
-action a_step1b_01() {  push(ext_cpy, 1); pop(ext_cpy, 1); }
-action a_step1b_02() {  push(ext_cpy, 2); pop(ext_cpy, 2); }
-action a_step1b_03() {  push(ext_cpy, 3); pop(ext_cpy, 3); }
-action a_step1b_04() {  push(ext_cpy, 4); pop(ext_cpy, 4); }
-action a_step1b_05() {  push(ext_cpy, 5); pop(ext_cpy, 5); }
-action a_step1b_06() {  push(ext_cpy, 6); pop(ext_cpy, 6); }
-action a_step1b_07() {  push(ext_cpy, 7); pop(ext_cpy, 7); }
-action a_step1b_08() {  push(ext_cpy, 8); pop(ext_cpy, 8); }
-action a_step1b_09() {  push(ext_cpy, 9); pop(ext_cpy, 9); }
-action a_step1b_10() {  push(ext_cpy, 10); pop(ext_cpy, 10); }
-
-table step1b {
-  actions {
-    a_step1b_01;
-    a_step1b_02;
-    a_step1b_03;
-    a_step1b_04;
-    a_step1b_05;
-    a_step1b_06;
-    a_step1b_07;
-    a_step1b_08;
-    a_step1b_09;
-    a_step1b_10;
-  }
-}
-*/
-/*
-action a_step1bpush_01() {  push(ext_cpy, 1); }
-action a_step1bpush_02() {  push(ext_cpy, 2); }
-action a_step1bpush_03() {  push(ext_cpy, 3); }
-action a_step1bpush_04() {  push(ext_cpy, 4); }
-action a_step1bpush_05() {  push(ext_cpy, 5); }
-action a_step1bpush_06() {  push(ext_cpy, 6); }
-action a_step1bpush_07() {  push(ext_cpy, 7); }
-action a_step1bpush_08() {  push(ext_cpy, 8); }
-action a_step1bpush_09() {  push(ext_cpy, 9); }
-action a_step1bpush_10() {  push(ext_cpy, 10); }
-
-table step1bpush {
-  actions {
-    a_step1bpush_01;
-    a_step1bpush_02;
-    a_step1bpush_03;
-    a_step1bpush_04;
-    a_step1bpush_05;
-    a_step1bpush_06;
-    a_step1bpush_07;
-    a_step1bpush_08;
-    a_step1bpush_09;
-    a_step1bpush_10;
-  }
-}
-
-action a_step1bpop_01() {  pop(ext_cpy, 1); }
-action a_step1bpop_02() {  pop(ext_cpy, 2); }
-action a_step1bpop_03() {  pop(ext_cpy, 3); }
-action a_step1bpop_04() {  pop(ext_cpy, 4); }
-action a_step1bpop_05() {  pop(ext_cpy, 5); }
-action a_step1bpop_06() {  pop(ext_cpy, 6); }
-action a_step1bpop_07() {  pop(ext_cpy, 7); }
-action a_step1bpop_08() {  pop(ext_cpy, 8); }
-action a_step1bpop_09() {  pop(ext_cpy, 9); }
-action a_step1bpop_10() {  pop(ext_cpy, 10); }
-
-table step1bpop {
-  actions {
-    a_step1bpop_01;
-    a_step1bpop_02;
-    a_step1bpop_03;
-    a_step1bpop_04;
-    a_step1bpop_05;
-    a_step1bpop_06;
-    a_step1bpop_07;
-    a_step1bpop_08;
-    a_step1bpop_09;
-    a_step1bpop_10;
-  }
-}
-*/
 
 action a_pop_ext_01() { pop(ext, 1);}
 action a_pop_ext_02() { pop(ext, 2);}
@@ -303,6 +148,28 @@ action a_pop_ext_13() { pop(ext, 13);}
 action a_pop_ext_14() { pop(ext, 14);}
 action a_pop_ext_15() { pop(ext, 15);}
 action a_pop_ext_16() { pop(ext, 16);}
+action a_pop_ext_17() { pop(ext, 17);}
+action a_pop_ext_18() { pop(ext, 18);}
+action a_pop_ext_19() { pop(ext, 19);}
+action a_push_ext_01() { push(ext, 1);}
+action a_push_ext_02() { push(ext, 2);}
+action a_push_ext_03() { push(ext, 3);}
+action a_push_ext_04() { push(ext, 4);}
+action a_push_ext_05() { push(ext, 5);}
+action a_push_ext_06() { push(ext, 6);}
+action a_push_ext_07() { push(ext, 7);}
+action a_push_ext_08() { push(ext, 8);}
+action a_push_ext_09() { push(ext, 9);}
+action a_push_ext_10() { push(ext, 10);}
+action a_push_ext_11() { push(ext, 11);}
+action a_push_ext_12() { push(ext, 12);}
+action a_push_ext_13() { push(ext, 13);}
+action a_push_ext_14() { push(ext, 14);}
+action a_push_ext_15() { push(ext, 15);}
+action a_push_ext_16() { push(ext, 16);}
+action a_push_ext_17() { push(ext, 17);}
+action a_push_ext_18() { push(ext, 18);}
+action a_push_ext_19() { push(ext, 19);}
 
 table step2 {
   actions {
@@ -322,28 +189,9 @@ table step2 {
     a_pop_ext_14;
     a_pop_ext_15;
     a_pop_ext_16;
-  }
-}
-
-action a_push_ext_01() { push(ext, 1); }
-action a_push_ext_02() { push(ext, 2); }
-action a_push_ext_03() { push(ext, 3); }
-action a_push_ext_04() { push(ext, 4); }
-action a_push_ext_05() { push(ext, 5); }
-action a_push_ext_06() { push(ext, 6); }
-action a_push_ext_07() { push(ext, 7); }
-action a_push_ext_08() { push(ext, 8); }
-action a_push_ext_09() { push(ext, 9); }
-action a_push_ext_10() { push(ext, 10); }
-action a_push_ext_11() { push(ext, 11); }
-action a_push_ext_12() { push(ext, 12); }
-action a_push_ext_13() { push(ext, 13); }
-action a_push_ext_14() { push(ext, 14); }
-action a_push_ext_15() { push(ext, 15); }
-action a_push_ext_16() { push(ext, 16); }
-
-table step3 {
-  actions {
+    a_pop_ext_17;
+    a_pop_ext_18;
+    a_pop_ext_19;
     a_push_ext_01;
     a_push_ext_02;
     a_push_ext_03;
@@ -354,41 +202,50 @@ table step3 {
     a_push_ext_08;
     a_push_ext_09;
     a_push_ext_10;
+    a_push_ext_11;
+    a_push_ext_12;
+    a_push_ext_13;
+    a_push_ext_14;
+    a_push_ext_15;
+    a_push_ext_16;
+    a_push_ext_17;
+    a_push_ext_18;
+    a_push_ext_19;
   }
 }
 
-action a_step4_1(val0) {
+action a_step3_1(val0) {
   modify_field(ext[0].data, val0);
 }
 
-action a_step4_2(val0, val1) {
+action a_step3_2(val0, val1) {
   modify_field(ext[0].data, val0);
   modify_field(ext[1].data, val1);
 }
 
-action a_step4_3(val0, val1, val2) {
+action a_step3_3(val0, val1, val2) {
   modify_field(ext[0].data, val0);
   modify_field(ext[1].data, val1);
   modify_field(ext[2].data, val2);
 }
 
-action a_step4_4(val0, val1, val2, val3) {
+action a_step3_4(val0, val1, val2, val3) {
   modify_field(ext[0].data, val0);
   modify_field(ext[1].data, val1);
   modify_field(ext[2].data, val2);
   modify_field(ext[3].data, val3);
 }
 
-table step4 {
+table step3 {
   actions {
-    a_step4_1;
-    a_step4_2;
-    a_step4_3;
-    a_step4_4;
+    a_step3_1;
+    a_step3_2;
+    a_step3_3;
+    a_step3_4;
   }
 }
 
-table step5 {
+table step4 {
   actions {
     a_push_ext_01;
     a_push_ext_02;
@@ -406,36 +263,35 @@ table step5 {
     a_push_ext_14;
     a_push_ext_15;
     a_push_ext_16;
+    a_push_ext_17;
+    a_push_ext_18;
+    a_push_ext_19;
   }
 }
 
-action a_step6() {
-  modify_field(ext[0].data, ext_cpy[0].data);
-  modify_field(ext[1].data, ext_cpy[1].data);
-  modify_field(ext[2].data, ext_cpy[2].data);
-  modify_field(ext[3].data, ext_cpy[3].data);
-  modify_field(ext[4].data, ext_cpy[4].data);
-  modify_field(ext[5].data, ext_cpy[5].data);
-  modify_field(ext[6].data, ext_cpy[6].data);
-  modify_field(ext[7].data, ext_cpy[7].data);
-  modify_field(ext[8].data, ext_cpy[8].data);
-  modify_field(ext[9].data, ext_cpy[9].data);
-  modify_field(ext[10].data, ext_cpy[10].data);
-  modify_field(ext[11].data, ext_cpy[11].data);
-  modify_field(ext[12].data, ext_cpy[12].data);
-  modify_field(ext[13].data, ext_cpy[13].data);
-  modify_field(ext[14].data, ext_cpy[14].data);
-  modify_field(ext[15].data, ext_cpy[15].data);
-  modify_field(ext[16].data, ext_cpy[16].data);
-  modify_field(ext[17].data, ext_cpy[17].data);
-  modify_field(ext[18].data, ext_cpy[18].data);
-  modify_field(ext[19].data, ext_cpy[19].data);
-  pop(ext_cpy, 20);
+action a_step5_01() {
+  copy_header(ext[0], ext_cpy[0]);
 }
 
-table step6 {
+action a_step5_12() {
+  copy_header(ext[0], ext_cpy[0]);
+  copy_header(ext[1], ext_cpy[1]);
+  copy_header(ext[2], ext_cpy[2]);
+  copy_header(ext[3], ext_cpy[3]);
+  copy_header(ext[4], ext_cpy[4]);
+  copy_header(ext[5], ext_cpy[5]);
+  copy_header(ext[6], ext_cpy[6]);
+  copy_header(ext[7], ext_cpy[7]);
+  copy_header(ext[8], ext_cpy[8]);
+  copy_header(ext[9], ext_cpy[9]);
+  copy_header(ext[10], ext_cpy[10]);
+  copy_header(ext[11], ext_cpy[11]);
+}
+
+table step5 {
   actions {
-    a_step6;
+    a_step5_01;
+    a_step5_12;
   }
 }
 
@@ -452,75 +308,14 @@ table fwd {
   }
 }
 
-action _no_op() {
-}
-
-table check {
-  reads {
-    ext_cpy[11] : valid;
-    ext_cpy[12] : valid;
-    ext_cpy[13] : valid;
-    ext_cpy[14] : valid;
-    ext_cpy[15] : valid;
-    ext_cpy[16] : valid;
-    ext_cpy[17] : valid;
-    ext_cpy[18] : valid;
-    ext_cpy[19] : valid;
-  }
-  actions {
-    _no_op;
-  }
-}
-
-table check2 {
-  reads {
-    ext[0].data : exact;
-    ext[1].data : exact;
-    ext[2].data : exact;
-    ext[3].data : exact;
-  }
-  actions {
-    _no_op;
-  }
-}
-
-table check3 {
-  reads {
-    ext[12].data : exact;
-    ext[13].data : exact;
-    ext[14].data : exact;
-    ext[15].data : exact;
-  }
-  actions {
-    _no_op;
-  }
-}
-
-table check4 {
-  reads {
-    ext[12].data : exact;
-    ext[13].data : exact;
-    ext[14].data : exact;
-    ext[15].data : exact;
-  }
-  actions {
-    _no_op;
-  }
-}
-
 control ingress {
   if(meta.tag_present == 0) {
     apply(step0);  // push X elements into ext_cpy
-    apply(step1);  // use modify_field to copy all elements from ext to ext_cpy
-    apply(check);  // determine which elements are now valid
-    apply(step2);  // pop X elements from ext
-    apply(step3);  // push A elements into ext
-    apply(step4);  // write values for data fields in A elements
-    apply(check2); // verify these values have been written
-    apply(step5);  // push X elements into ext
-    apply(check3); // verify values written into A are still where they should be
-    apply(step6);  // use modify_field to copy all elements from ext_cpy to ext
-    apply(check4); // examine A again to see whether step6 destroyed it
+    apply(step1);  // copy all elements from ext to ext_cpy
+    apply(step2);  // pop X-A or push A-X elements from/ into ext
+    apply(step3);  // write values for data fields in A elements
+    apply(step4);  // push X elements into ext
+    apply(step5);  // copy all elements from ext_cpy to ext
   }
   apply(fwd);
 }
