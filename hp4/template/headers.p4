@@ -52,6 +52,7 @@ header_type meta_primitive_state_t {
     primitive_index : 8; // place within compound action
     primitive : 8; // e.g. modify_field, add_header, etc.
     subtype : 8; // maps to a set identifying the parameters' types
+    hmanip_remaining : 8;
   }
 }
 

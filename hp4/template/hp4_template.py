@@ -33,6 +33,10 @@ parser.add_argument('--numprimitives', help='Max number of primitives per compou
                     type=int, action="store", default=3)
 parser.add_argument('--parse_opt', help='Set default, max, and step for parsing',
                     type=int, nargs='*', action="store", default=[20, 100, 20])
+parser.add_argument('--addh_opt', help='Set default header size options for add_header',
+                    type=int, nargs='*', action="store", default=[1, 4, 20])
+parser.add_argument('--addh_numsteps', help='Set max number of substeps for add_header',
+                    type=int, action="store", default=11)
 parser.add_argument('--test', help='Flags whether to output everything as *_test.p4',
                     action="store_true")
 
@@ -191,7 +195,7 @@ def main():
   drop_t.GenDrop(args.numstages, args.numprimitives, args.test)
   match_t.GenMatch(args.numstages, args.test)
   modify_field_t.GenModify_Field(args.numstages, args.numprimitives, args.test)
-  add_header_t.GenAdd_Header(args.numstages, args.numprimitives, args.test)
+  add_header_t.GenAdd_Header(args.addh_opt, args.addh_numsteps, args.parse_opt, args.numstages, args.numprimitives, args.test)
   copy_header_t.GenCopy_Header(args.numstages, args.numprimitives, args.test)
   remove_header_t.GenRemove_Header(args.numstages, args.numprimitives, args.test)
   push_t.GenPush(args.numstages, args.numprimitives, args.test)

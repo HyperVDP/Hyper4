@@ -1,3 +1,8 @@
+/*  P4 program demonstrating unexpected behavior of modify_field; specifically,
+    that the action takes effect even if the parent header instance of the
+    dest OR source field is not valid.
+*/
+
 header_type ext_t {
   fields {
     data : 8;

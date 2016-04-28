@@ -22,7 +22,7 @@ class GenSwitch_PrimitiveType():
     out += "#include \"copy_header.p4\"\n"
     out += "#include \"remove_header.p4\"\n"
     out += "#include \"push.p4\"\n"
-    out += "#inlude \"pop.p4\"\n"
+    out += "#include \"pop.p4\"\n"
     out += "#include \"drop.p4\"\n"
     out += "#include \"multicast.p4\"\n"
     out += "#include \"add_to_field.p4\"\n"
