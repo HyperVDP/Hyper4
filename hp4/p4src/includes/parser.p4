@@ -35,7 +35,7 @@ parser start {
   extract(ext[next]);
   extract(ext[next]);
   extract(ext[next]);
-return select(parse_ctrl.numbytes) {
+  return select(parse_ctrl.numbytes) {
     0 : ingress;
     20 : ingress;
     21 : pr01;

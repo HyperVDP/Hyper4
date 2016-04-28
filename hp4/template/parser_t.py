@@ -27,7 +27,7 @@ class GenParser():
     out += indent + "set_metadata(parse_ctrl.next_action, PROCEED);\n"
     for i in range(parse_opts[0]):
       out += indent + "extract(ext[next]);\n"
-    out += "return select(parse_ctrl.numbytes) {\n"
+    out += indent + "return select(parse_ctrl.numbytes) {\n"
     out += indent + indent + "0 : ingress;\n"
     out += indent + indent + str(parse_opts[0]) + " : ingress;\n"
 

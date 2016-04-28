@@ -15,6 +15,7 @@ hp4.p4: Define the ingress and egress pipelines, including multicast support.
 #include "includes/setup.p4"
 #include "includes/stages.p4"
 #include "includes/checksums.p4"
+#include "includes/resize_pr.p4"
 //#include "includes/debug.p4"
 
 metadata meta_ctrl_t meta_ctrl;
@@ -214,6 +215,7 @@ control egress {
     apply(t_multicast);
   }
   apply(csum16);
+  apply(t_resize_pr);
   apply(t_prep_deparse_SEB);
   if(parse_ctrl.numbytes > 20) {
     apply(t_prep_deparse_20_39);

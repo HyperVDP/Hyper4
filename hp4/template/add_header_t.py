@@ -1,5 +1,5 @@
 class GenAdd_Header():
-  def __init__(self, addh_opt, addh_numsteps, parse_opt, nstages, nprimitives, test):
+  def __init__(self, parse_opt, nstages, nprimitives, test):
     fpath = '../p4src/includes/add_header'
     if test:
       fpath += '_test'
@@ -20,74 +20,35 @@ class GenAdd_Header():
     indent = "  "
     out = ""
 
-    out += "action a_addh_prep(remaining) {\n"
-    out += indent + "modify_field(meta_primitive_state.hmanip_remaining, "
-    out += "remaining);\n}\n\n"
-
+    out += "action a_addh(sz, offset, msk) {\n"
+    out += indent + "modify_field(extracted.dcpy, extracted.data);\n"
+    out += indent + "modify_field(extracted.data, extracted.data >> (sz*8));\n"
+    out += indent + "modify_field(extracted.data, 0, msk);\n"
+    out += indent + "modify_field(extracted.data, extracted.dcpy, (~msk >> "
+    out += "(32 - (offset*8))) << (32 - (offset*8)));\n"
+    out += indent + "modify_field(parse_ctrl.numbytes, parse_ctrl.numbytes + sz);\n"
+    out += "}\n\n"
+    
     f_addh.write(out)
 
     for i in range(nstages):
       for j in range(nprimitives):
-        out = "table t_addh_prep_" + str(i+1) + str(j+1) + " {\n"
+        out = "table t_addh_" + str(i+1) + str(j+1) + " {\n"
         out += indent + "reads {\n"
         out += indent + indent + "meta_ctrl.program : exact;\n"
+        out += indent + indent + "meta_primitive_state.action_ID : exact;\n"
+        out += indent + indent + "meta_primitive_state.primitive_index : exact;\n"
         out += indent + "}\n"
         out += indent + "actions {\n"
-        out += indent + indent + "a_addh_prep;\n"
+        out += indent + indent + "a_addh;\n"
         out += indent + "}\n"
         out += "}\n\n"
         f_addh.write(out)
-
-    actionprofile = "action_profile addhs {\n"
-    actionprofile += indent + "actions {\n"
-
-    for i in range(parse_opt[1]):
-      for j in addh_opt:
-        if (i + j > parse_opt[1]):
-          continue
-        digit = ""
-        if i < 10:
-          digit = "0"
-        digit += str(i)
-        actionname = "a_add_header_" + digit + "_" + str(j)
-        actionprofile += indent + indent + actionname + ";\n"
-        out = "action " + actionname + "() {\n"
-        for k in range(j):
-          out += indent + "add_header(ext[" + str(i) + "]);\n"
-        out += indent + "modify_field(meta_primitive_state.hmanip_remaining, "
-        out += "meta_primitive_state.hmanip_remaining - " + str(j) + ");\n"
-        out += "}\n\n"
-        f_addh.write(out)
-
-    actionprofile += indent + "}\n"
-    actionprofile += "}\n\n"
-    f_addh.write(actionprofile)
-
-    for i in range(nstages):
-      for j in range(nprimitives):
-        for k in range(addh_numsteps):
-          out = "table t_add_header_" + str(i+1) + str(j+1) + "_" + str(k+1) + " {\n"
-          out += indent + "reads {\n"
-          out += indent + indent + "meta_ctrl.program : exact;\n"
-          out += indent + indent + "meta_primitive_state.action_ID : exact;\n"
-          out += indent + indent + "meta_primitive_state.primitive_index : exact;\n"
-          out += indent + "}\n"
-          out += indent + "action_profile : addhs;\n"
-          out += "}\n\n"
-          f_addh.write(out)
 
     for i in range(nstages):
       for j in range(nprimitives):
         out = "control do_add_header_" + str(i+1) + str(j+1) + " {\n"
-        out += indent + "apply(t_addh_prep_" + str(i+1) + str(j+1) + ");\n"
-        indent2 = indent
-        for k in range(addh_numsteps):
-          out += indent2 + "if (meta_primitive_state.hmanip_remaining > 0) {\n"
-          indent2 += indent
-          out += indent2 + "apply(t_add_header_" + str(i+1) + str(j+1) + "_" + str(k+1) + ");\n"
-        for k in range(addh_numsteps):
-          indent2 = indent2[:len(indent2)-len(indent)]
-          out += indent2 + "}\n"
+        out += indent + "apply(t_addh_" + str(i+1) + str(j+1) + ");\n"
         out += "}\n\n"
         f_addh.write(out)
 

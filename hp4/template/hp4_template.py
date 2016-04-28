@@ -19,6 +19,7 @@ import switch_primitivetype_t
 import switch_stdmeta_t
 import truncate_t
 import checksums_t
+import resize_pr_t
 import defines_t
 import headers_t
 
@@ -33,10 +34,6 @@ parser.add_argument('--numprimitives', help='Max number of primitives per compou
                     type=int, action="store", default=3)
 parser.add_argument('--parse_opt', help='Set default, max, and step for parsing',
                     type=int, nargs='*', action="store", default=[20, 100, 20])
-parser.add_argument('--addh_opt', help='Set default header size options for add_header',
-                    type=int, nargs='*', action="store", default=[1, 4, 20])
-parser.add_argument('--addh_numsteps', help='Set max number of substeps for add_header',
-                    type=int, action="store", default=11)
 parser.add_argument('--test', help='Flags whether to output everything as *_test.p4',
                     action="store_true")
 
@@ -69,6 +66,7 @@ class GenHp4():
     out += prefix + "setup.p4\"\n"
     out += prefix + "stages.p4\"\n"
     out += prefix + "checksums.p4\"\n"
+    out += prefix + "resize_pr.p4\"\n"
     out += "//" + prefix + "debug.p4\"\n"
     out += "\n"
 
@@ -170,6 +168,7 @@ class GenHp4():
     out += indent + indent + "apply(t_multicast);\n"
     out += indent + "}\n"
     out += indent + "apply(csum16);\n"
+    out += indent + "apply(t_resize_pr);\n"
     out += indent + "apply(t_prep_deparse_SEB);\n"
     for i in range(parse_opts[0], parse_opts[1], parse_opts[2]):
       tname = "t_prep_deparse_" + str(i) + "_" + str(i + parse_opts[2] - 1)
@@ -195,7 +194,7 @@ def main():
   drop_t.GenDrop(args.numstages, args.numprimitives, args.test)
   match_t.GenMatch(args.numstages, args.test)
   modify_field_t.GenModify_Field(args.numstages, args.numprimitives, args.test)
-  add_header_t.GenAdd_Header(args.addh_opt, args.addh_numsteps, args.parse_opt, args.numstages, args.numprimitives, args.test)
+  add_header_t.GenAdd_Header(args.parse_opt, args.numstages, args.numprimitives, args.test)
   copy_header_t.GenCopy_Header(args.numstages, args.numprimitives, args.test)
   remove_header_t.GenRemove_Header(args.numstages, args.numprimitives, args.test)
   push_t.GenPush(args.numstages, args.numprimitives, args.test)
@@ -206,6 +205,7 @@ def main():
   switch_stdmeta_t.GenSwitch_StdMeta(args.numstages, args.test)
   truncate_t.GenTruncate(args.numstages, args.numprimitives, args.test)
   checksums_t.GenChecksums(args.test)
+  resize_pr_t.GenResize_PR(args.parse_opt, args.test)
   defines_t.GenDefines(args.parse_opt, args.test)
   headers_t.GenHeaders(args.parse_opt, args.test)
 
