@@ -64,8 +64,7 @@ action mod_extracted_const(val, leftshift, emask) {
 
 // result: tmeta.dcpy is the value of a field embedded within tmeta.data
 action a_mod_prep(leftshift, rightshift) {
-  modify_field(tmeta.dcpy, tmeta.data);
-  modify_field(tmeta.dcpy, tmeta.dcpy << leftshift);
+  modify_field(tmeta.dcpy, tmeta.data << leftshift);
   modify_field(tmeta.dcpy, tmeta.dcpy >> rightshift);
 }
 

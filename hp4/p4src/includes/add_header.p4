@@ -9,12 +9,13 @@ HyPer4: A P4 Program to Run Other P4 Programs
 add_header.p4: Carry out the add_header primitive
 */
 
-action a_addh(sz, offset, msk) {
+action a_addh(sz, offset, msk, vbits) {
   modify_field(extracted.dcpy, extracted.data);
   modify_field(extracted.data, extracted.data >> (sz*8));
   modify_field(extracted.data, 0, msk);
   modify_field(extracted.data, extracted.dcpy, (~msk >> (32 - (offset*8))) << (32 - (offset*8)));
   modify_field(parse_ctrl.numbytes, parse_ctrl.numbytes + sz);
+  modify_field(extracted.validbits, extracted.validbits | vbits);
 }
 
 table t_addh_11 {

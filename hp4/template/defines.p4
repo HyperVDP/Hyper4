@@ -7,6 +7,7 @@
 #define EXTRACTED_EXACT	1
 #define METADATA_EXACT	2
 #define STDMETA_EXACT	  3
+#define EXTRACTED_VALID 4
 
 // meta_ctrl.stage_state
 #define COMPLETE	1

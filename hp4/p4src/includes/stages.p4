@@ -17,10 +17,11 @@ stages.p4: Each control function executes a single match-action stage of a
 #include "action.p4"
 #include "switch_primitivetype.p4"
 
-action set_program_state(action_ID, primitive_index, stage_state) {
+action set_program_state(action_ID, primitive_index, stage_state, next_stage) {
   modify_field(meta_primitive_state.action_ID, action_ID);
   modify_field(meta_primitive_state.primitive_index, primitive_index);
   modify_field(meta_ctrl.stage_state, stage_state);
+  modify_field(meta_ctrl.next_stage, next_stage);
 }
 
 table set_program_state_11 {

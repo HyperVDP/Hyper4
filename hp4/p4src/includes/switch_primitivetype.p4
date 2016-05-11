@@ -25,47 +25,47 @@ switch_primitivetype.p4: Redirect execution to the control function appropriate
 control switch_primitivetype_11 {
   if(meta_primitive_state.primitive == A_MODIFY_FIELD) {
     do_modify_field_11();
-}
+  }
   if(meta_primitive_state.primitive == A_ADD_HEADER) {
     do_add_header_11();
-}
+  }
   else if(meta_primitive_state.primitive == A_TRUNCATE) {
     do_truncate_11();
-}
+  }
   else if(meta_primitive_state.primitive == A_DROP) {
     do_drop_11();
-}
+  }
   else if(meta_primitive_state.primitive == A_NO_OP) {
   }
   else if(meta_primitive_state.primitive == A_MULTICAST) {
     do_multicast_11();
-}
+  }
   else if(meta_primitive_state.primitive == A_ADD_TO_FIELD) {
     do_add_to_field_11();
-}
+  }
 }
 
 control switch_primitivetype_12 {
   if(meta_primitive_state.primitive == A_MODIFY_FIELD) {
     do_modify_field_12();
-}
+  }
   if(meta_primitive_state.primitive == A_ADD_HEADER) {
     do_add_header_12();
-}
+  }
   else if(meta_primitive_state.primitive == A_TRUNCATE) {
     do_truncate_12();
-}
+  }
   else if(meta_primitive_state.primitive == A_DROP) {
     do_drop_12();
-}
+  }
   else if(meta_primitive_state.primitive == A_NO_OP) {
   }
   else if(meta_primitive_state.primitive == A_MULTICAST) {
     do_multicast_12();
-}
+  }
   else if(meta_primitive_state.primitive == A_ADD_TO_FIELD) {
     do_add_to_field_12();
-}
+  }
 }
 
 control switch_primitivetype_13 {

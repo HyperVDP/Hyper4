@@ -450,6 +450,21 @@ table t_set_first_table {
   }
 }
 
+action a_set_validbits(val) {
+  modify_field(extracted.validbits, val);
+}
+
+table t_set_validbits {
+  reads {
+    meta_ctrl.program : exact;
+    parse_ctrl.state : exact;
+  }
+  actions {
+    a_set_validbits;
+    _no_op;
+  }
+}
+
 // ------ Setup
 control setup {
   if (meta_ctrl.stage == INIT) { //_condition_0
@@ -498,5 +513,6 @@ control setup {
       }
     }
     apply(t_set_first_table);
+    apply(t_set_validbits);
   }
 }

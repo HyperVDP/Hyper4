@@ -52,6 +52,7 @@ header_type meta_ctrl_t {
     multicast_seq_id : 8;
     do_multicast : 8;
     stdmeta_ID : 8;
+    next_stage : 8;
   }
 }
 
@@ -86,5 +87,6 @@ header_type extracted_t {
   fields {
     data : 800;
     dcpy : 800;
+    validbits : 80;
   }
 }
