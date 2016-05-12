@@ -64,10 +64,6 @@ table init_meta_egress {
 }
 
 // action_ID: 2
-action _no_op() {
-}
-
-// action_ID: 3
 action arp_present() {
 }
 
@@ -81,7 +77,7 @@ table check_arp {
   }
 }
 
-// action_ID: 4
+// action_ID: 3
 action arp_request() {
 }
 
@@ -95,7 +91,7 @@ table check_opcode {
   }
 }
 
-// action_ID: 5
+// action_ID: 4
 action arp_reply(MAC) {
   // send back out same port on which request was received
   modify_field(standard_metadata.egress_spec, standard_metadata.ingress_port);
@@ -122,7 +118,7 @@ table handle_arp_request {
   }
 }
 
-// action_ID: 6
+// action_ID: 5
 action send_packet() {
   modify_field(standard_metadata.egress_spec, meta.egress);
 }

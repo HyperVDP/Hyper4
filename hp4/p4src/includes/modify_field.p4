@@ -60,6 +60,11 @@ action mod_stdmeta_egressspec_const(val) {
 action mod_extracted_const(val, leftshift, emask) {
     modify_field(extracted.data, (extracted.data & ~emask) | ((val << leftshift) & emask));
 }
+
+// 11
+action mod_stdmeta_egressspec_stdmeta_ingressport() {
+  modify_field(standard_metadata.egress_spec, standard_metadata.ingress_port);
+}
 // TODO: add rest of the modify_field actions
 
 // result: tmeta.dcpy is the value of a field embedded within tmeta.data
@@ -90,6 +95,7 @@ table t_mod_11 {
     mod_meta_const;
     mod_stdmeta_egressspec_const;
     mod_extracted_const;
+    mod_stdmeta_egressspec_stdmeta_ingressport;
   }
 }
 
@@ -110,6 +116,7 @@ table t_mod_12 {
     mod_meta_const;
     mod_stdmeta_egressspec_const;
     mod_extracted_const;
+    mod_stdmeta_egressspec_stdmeta_ingressport;
   }
 }
 
@@ -130,6 +137,7 @@ table t_mod_13 {
     mod_meta_const;
     mod_stdmeta_egressspec_const;
     mod_extracted_const;
+    mod_stdmeta_egressspec_stdmeta_ingressport;
   }
 }
 
@@ -150,6 +158,7 @@ table t_mod_21 {
     mod_meta_const;
     mod_stdmeta_egressspec_const;
     mod_extracted_const;
+    mod_stdmeta_egressspec_stdmeta_ingressport;
   }
 }
 
@@ -170,6 +179,7 @@ table t_mod_22 {
     mod_meta_const;
     mod_stdmeta_egressspec_const;
     mod_extracted_const;
+    mod_stdmeta_egressspec_stdmeta_ingressport;
   }
 }
 
@@ -190,6 +200,7 @@ table t_mod_23 {
     mod_meta_const;
     mod_stdmeta_egressspec_const;
     mod_extracted_const;
+    mod_stdmeta_egressspec_stdmeta_ingressport;
   }
 }
 
@@ -210,6 +221,7 @@ table t_mod_31 {
     mod_meta_const;
     mod_stdmeta_egressspec_const;
     mod_extracted_const;
+    mod_stdmeta_egressspec_stdmeta_ingressport;
   }
 }
 
@@ -230,6 +242,7 @@ table t_mod_32 {
     mod_meta_const;
     mod_stdmeta_egressspec_const;
     mod_extracted_const;
+    mod_stdmeta_egressspec_stdmeta_ingressport;
   }
 }
 
@@ -250,6 +263,7 @@ table t_mod_33 {
     mod_meta_const;
     mod_stdmeta_egressspec_const;
     mod_extracted_const;
+    mod_stdmeta_egressspec_stdmeta_ingressport;
   }
 }
 
