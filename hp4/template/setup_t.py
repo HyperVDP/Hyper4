@@ -107,6 +107,7 @@ class GenSetup():
       indentb = indentb[0:len(indentb) - 2]
       out += indentb + "}\n"
     out += indent + indent + "apply(t_set_first_table);\n"
+    out += indent + indent + "apply(t_set_validbits);\n"
     out += indent + "}\n"
     out += "}"
 

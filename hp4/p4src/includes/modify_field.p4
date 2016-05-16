@@ -58,7 +58,7 @@ action mod_stdmeta_egressspec_const(val) {
 
 // 10
 action mod_extracted_const(val, leftshift, emask) {
-    modify_field(extracted.data, (extracted.data & ~emask) | (val << leftshift) );
+    modify_field(extracted.data, (extracted.data & ~emask) | ((val << leftshift) & emask));
 }
 
 // 11
@@ -330,11 +330,9 @@ control do_modify_field_31 {
   apply(t_mod_31);
 }
 
-
 control do_modify_field_32 {
   apply(t_mod_32);
 }
-
 
 control do_modify_field_33 {
   apply(t_mod_33);

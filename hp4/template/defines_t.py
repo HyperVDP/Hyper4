@@ -19,6 +19,7 @@ class GenDefines():
 
     out = "// extracted.data/.dcpy field width\n"
     out += "#define EXTRACTED_SIZE\t" + str(parse_opts[1]*8) + "\n\n"
+    f_defines.write(out)
 
     out = "// parse_ctrl.next_action\n"
     out += "#define PROCEED\t\t\t\t0\n"

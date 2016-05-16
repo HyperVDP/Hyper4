@@ -34,13 +34,13 @@ class GenSwitch_PrimitiveType():
     ifprefix = "if(meta_primitive_state.primitive == "
     for i in range(nstages):
       for j in range(nprimitives):
-        ifsuffix = str(i+1) + str(j+1) + "();\n}\n"
+        ifsuffix = str(i+1) + str(j+1) + "();\n" + indent + "}\n"
         out = "\n\ncontrol switch_primitivetype_" + str(i+1) + str(j+1) + " {\n"
 
         out += indent + ifprefix + "A_MODIFY_FIELD) {\n"
         out += indent + indent + "do_modify_field_" + ifsuffix
 
-        out += indent + ifprefix + "A_ADD_HEADER) {\n"
+        out += indent + "else " + ifprefix + "A_ADD_HEADER) {\n"
         out += indent + indent + "do_add_header_" + ifsuffix
 
         out += indent + "else " + ifprefix + "A_TRUNCATE) {\n"
