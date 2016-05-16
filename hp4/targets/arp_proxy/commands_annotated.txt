@@ -58,8 +58,6 @@ table_add set_primitive_metadata_11 a_set_primitive_metadata 1 1 1 => 0 8 # MODI
 ## switch_primitivetype.p4
 
 ## modify_field.p4
-# t_mod_prep_11 _no_op [program ID] [action ID] [primitive_index] =>
-table_add t_mod_prep_11 _no_op 1 1 1 =>
 # t_mod_11 mod_meta_const [program ID] [primitive subtype] [match ID] => [val], [leftshift], [tmeta_mask]
 table_add t_mod_11 mod_meta_const 1 8 1 => 2 32 0xFF00000000
 table_add t_mod_11 mod_meta_const 1 8 2 => 1 32 0xFF00000000
@@ -96,10 +94,8 @@ table_add set_primitive_metadata_21 a_set_primitive_metadata 1 5 1 => 0 7 # modi
 ## switch_primitivetype.p4
 
 ## modify_field.p4
-# t_mod_prep_21 a_mod_prep [program ID] [action ID] [primitive index] => [leftshift] [rightshift]
-table_add t_mod_prep_21 a_mod_prep 1 5 1 => 0 32
 # t_mod_21 mod_stdmeta_egressspec_meta [program ID] [primitive subtype] [match ID] => 
-table_add t_mod_21 mod_stdmeta_egressspec_meta 1 7 2 =>
+table_add t_mod_21 mod_stdmeta_egressspec_meta 1 7 2 => 32 0xFF
 
 ## stages.p4: stage2()
 # set_program_state_21 set_program_state [program ID] [action ID] [primitive index] => [action ID] [primitive index] [stage state] [next stage]
@@ -131,10 +127,8 @@ table_add set_primitive_metadata_31 a_set_primitive_metadata 1 5 1 => 0 7 # modi
 ## switch_primitivetype.p4
 
 ## modify_field.p4
-# t_mod_prep_31 a_mod_prep [program ID] [action ID] [primitive index] =>
-table_add t_mod_prep_31 a_mod_prep 1 5 1 => 0 32
 # t_mod_21 mod_stdmeta_egressspec_meta [program ID] [primitive subtype] [match ID] =>
-table_add t_mod_31 mod_stdmeta_egressspec_meta 1 7 2 =>
+table_add t_mod_31 mod_stdmeta_egressspec_meta 1 7 2 => 32 0xFF
 
 ## stages.p4: stage3()
 # set_program_state_31 set_program_state [program ID] [action ID] [primitive index] => [action ID] [primitive index] [stage state] [next stage]
@@ -157,28 +151,67 @@ table_add t4_extracted_exact init_program_state 1 0x00&&&0x00 => 5 3 0 2 # send_
 ############# action arp_reply: modify_field(standard_metadata.egress_spec, standard_metadata.ingress_port)
 ############# action send_packet: modify_field(standard_metadata.egress_spec, meta.egress)
 
-## stages.p4: stage4() apply(set_primitive_metadata_41);
-
 ## action.p4
-# set_primitive_metadata_41 a_set_primitive_metadata [program ID] [action ID] [primitive index] => [primitive type], [primitive subtype]
-table_add set_primitive_metadata_41 a_set_primitive_metadata 1 4 1 => 0 11 # modify_field, stdmeta_egressspec_stdmeta_ingressport
-table_add set_primitive_metadata_41 a_set_primitive_metadata 1 5 1 => 0 7 # modify_field, stdmeta_egressspec_meta
-
-## switch_primitivetype.p4
-
-## modify_field.p4
-# t_mod_prep_41 _no_op [program ID] [action ID] [primitive index] =>
-table_add t_mod_prep_41 _no_op 1 4 1 =>
-table_add t_mod_prep_41 mod_stdmeta_egressspec_meta 1 5 1 => 0 32
-# t_mod_41 mod_stdmeta_egressspec_stdmeta_ingressport [program ID] [primitive subtype] [match ID] =>
-table_add t_mod_41 mod_stdmeta_egressspec_stdmeta_ingressport 1 11 1 =>
-table_add t_mod_41 mod_stdmeta_egressspec_stdmeta_ingressport 1 11 2 =>
-# t_mod_41 mod_stdmeta_egressspec_meta [program ID] [primitive subtype] [match ID] =>
-table_add t_mod_41 mod_stdmeta_egressspec_meta 1 7 3 =>
+# set_primitive_metadata_41 a_set_primitive_metadata [program ID] [action ID] [primitive index] => modify_field, [primitive subtype]
+table_add set_primitive_metadata_41 a_set_primitive_metadata 1 4 1 => 0 11 # stdmeta_egressspec_stdmeta_ingressport
+table_add set_primitive_metadata_41 a_set_primitive_metadata 1 5 1 => 0 7  # stdmeta_egressspec_meta
+table_add set_primitive_metadata_42 a_set_primitive_metadata 1 4 2 => 0 10 # extracted_const
+table_add set_primitive_metadata_43 a_set_primitive_metadata 1 4 3 => 0 12
+table_add set_primitive_metadata_44 a_set_primitive_metadata 1 4 4 => 0 10
+table_add set_primitive_metadata_45 a_set_primitive_metadata 1 4 5 => 0 13
+table_add set_primitive_metadata_46 a_set_primitive_metadata 1 4 6 => 0 12
+table_add set_primitive_metadata_47 a_set_primitive_metadata 1 4 7 => 0 14
+table_add set_primitive_metadata_48 a_set_primitive_metadata 1 4 8 => 0 12
+table_add set_primitive_metadata_49 a_set_primitive_metadata 1 4 9 => 0 10
 
 ## stages.p4: stage4()
-# set_program_state_41 set_program_state [program ID] [action ID] [primitive index] => [action ID] [primitive index] [stage stage] [next stage]
+# set_program_state_4X set_program_state [program ID] [action ID] [primitive index] => [action ID] [primitive index] [stage state]
 table_add set_program_state_41 set_program_state 1 4 1 => 4 2 2 0 # continue to second primitive in arp_reply
 table_add set_program_state_41 set_program_state 1 5 1 => 0 0 1 0 # stage complete, pipeline complete
+table_add set_program_state_42 set_program_state 1 4 2 => 4 3 2 0
+table_add set_program_state_43 set_program_state 1 4 3 => 4 4 2 0
+table_add set_program_state_44 set_program_state 1 4 4 => 4 5 2 0
+table_add set_program_state_45 set_program_state 1 4 5 => 4 6 2 0
+table_add set_program_state_46 set_program_state 1 4 6 => 4 7 2 0
+table_add set_program_state_47 set_program_state 1 4 7 => 4 8 2 0
+table_add set_program_state_48 set_program_state 1 4 8 => 4 9 2 0
+table_add set_program_state_49 set_program_state 1 4 9 => 0 0 1 0
 
+## modify_field.p4
+# t_mod_4X mod_<dest>_<src> [program ID] [primitive subtype] [match ID] =>
+# 58 B of 0's: 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+table_add t_mod_41 mod_stdmeta_egressspec_stdmeta_ingressport 1 11 1 =>
+table_add t_mod_41 mod_stdmeta_egressspec_stdmeta_ingressport 1 11 2 =>
+#                                                    => [rightshift] [tmask]
+table_add t_mod_41 mod_stdmeta_egressspec_meta 1 7 3 => 32 0xFF
+table_add t_mod_42 mod_extracted_const 1 10 1 => 2 624 0xFFFF0000000000000000000000000000000000000000
+table_add t_mod_42 mod_extracted_const 1 10 2 => 2 624 0xFFFF0000000000000000000000000000000000000000
+# modify_field(arp.target_MAC, arp.sender_MAC);
+table_add t_mod_43 mod_extracted_extracted 1 12 1 => 0 80 0xFFFFFFFFFFFF00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+table_add t_mod_43 mod_extracted_extracted 1 12 2 => 0 80 0xFFFFFFFFFFFF00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+# modify_field(arp.sender_MAC, MAC);
+table_add t_mod_44 mod_extracted_const 1 10 1 => 0x000400000001 576 0xFFFFFFFFFFFF000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+table_add t_mod_44 mod_extracted_const 1 10 2 => 0x000400000000 576 0xFFFFFFFFFFFF000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+# modify_field(meta.temp, arp.sender_IP);
+table_add t_mod_45 mod_meta_extracted 1 13 1 => 0 0xFFFFFFFF 544 0xFFFFFFFF
+table_add t_mod_45 mod_meta_extracted 1 13 2 => 0 0xFFFFFFFF 544 0xFFFFFFFF
+# modify_field(arp.sender_IP, arp.target_IP);
+table_add t_mod_46 mod_extracted_extracted 1 12 1 => 80 0 0xFFFFFFFF0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+table_add t_mod_46 mod_extracted_extracted 1 12 2 => 80 0 0xFFFFFFFF0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+# modify_field(arp.target_IP, meta.temp);
+table_add t_mod_47 mod_extracted_meta 1 14 1 => 0xFFFFFFFF 0 0xFFFFFFFF 464
+table_add t_mod_47 mod_extracted_meta 1 14 2 => 0xFFFFFFFF 0 0xFFFFFFFF 464
+# modify_field(ethernet.dest, ethernet.src);
+table_add t_mod_48 mod_extracted_extracted 1 12 1 => 48 0 0xFFFFFFFFFFFF00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+table_add t_mod_48 mod_extracted_extracted 1 12 2 => 48 0 0xFFFFFFFFFFFF00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+# modify_field(ethernet.src, MAC);
+table_add t_mod_49 mod_extracted_const 1 10 1 => 0x000400000001 704 0xFFFFFFFFFFFF00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+table_add t_mod_49 mod_extracted_const 1 10 2 => 0x000400000000 704 0xFFFFFFFFFFFF00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
 
+# egress
+table_add t_multicast _no_op 1 0 0 =>
+table_add csum16 _no_op 1 =>
+table_add t_resize_pr a_resize_pr_42 =>
+table_set_default t_prep_deparse_SEB a_prep_deparse_SEB
+table_set_default t_prep_deparse_20_39 a_prep_deparse_20_39
+table_set_default t_prep_deparse 40_59 a_prep_deparse_40_59

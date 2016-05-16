@@ -5,7 +5,7 @@ header_type ethernet_t {
     dest : 48;
     src : 48;
     etherType : 16;
-  }
+  } // 14 B / 112 b
 }
 
 header_type arp_t {
@@ -19,8 +19,10 @@ header_type arp_t {
     sender_IP : 32;
     target_MAC : 48;
     target_IP : 32;
-  }
+  } // 28 B / 224 b
 }
+
+// ethernet + arp = 42 B / 336 b
 
 header_type meta_t {
   fields {
@@ -94,17 +96,26 @@ table check_opcode {
 // action_ID: 4
 action arp_reply(MAC) {
   // send back out same port on which request was received
+  // 1
   modify_field(standard_metadata.egress_spec, standard_metadata.ingress_port);
   // build arp reply
+  // 2
   modify_field(arp.opcode, 2);
+  // 3
   modify_field(arp.target_MAC, arp.sender_MAC);
+  // 4
   modify_field(arp.sender_MAC, MAC);
+  // 5
   modify_field(meta.temp, arp.sender_IP);
+  // 6
   modify_field(arp.sender_IP, arp.target_IP);
+  // 7
   modify_field(arp.target_IP, meta.temp);
   
   // ethernet
+  // 8
   modify_field(ethernet.dest, ethernet.src);
+  // 9
   modify_field(ethernet.src, MAC);
 }
 

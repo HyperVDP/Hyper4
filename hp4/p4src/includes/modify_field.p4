@@ -42,8 +42,8 @@ action mod_meta_stdmeta_insttype(leftshift, tmeta_mask) {
 }
 
 // 7
-action mod_stdmeta_egressspec_meta() {
-  modify_field(standard_metadata.egress_spec, tmeta.dcpy);
+action mod_stdmeta_egressspec_meta(rightshift, tmask) {
+  modify_field(standard_metadata.egress_spec, (tmeta.data >> rightshift) & tmask);
 }
 
 // 8
@@ -58,25 +58,33 @@ action mod_stdmeta_egressspec_const(val) {
 
 // 10
 action mod_extracted_const(val, leftshift, emask) {
-    modify_field(extracted.data, (extracted.data & ~emask) | ((val << leftshift) & emask));
+    modify_field(extracted.data, (extracted.data & ~emask) | (val << leftshift) );
 }
 
 // 11
 action mod_stdmeta_egressspec_stdmeta_ingressport() {
   modify_field(standard_metadata.egress_spec, standard_metadata.ingress_port);
 }
-// TODO: add rest of the modify_field actions
 
-// result: tmeta.dcpy is the value of a field embedded within tmeta.data
-action a_mod_prep(leftshift, rightshift) {
-  modify_field(tmeta.dcpy, tmeta.data << leftshift);
-  modify_field(tmeta.dcpy, tmeta.dcpy >> rightshift);
+// 12
+action mod_extracted_extracted(leftshift, rightshift, msk) {
+  modify_field(extracted.data, (extracted.data & ~msk) | (((extracted.data << leftshift) >> rightshift) & msk) );
 }
+
+// 13
+action mod_meta_extracted(leftshift, tmeta_mask, rightshift, emask) {
+  modify_field(tmeta.data, (tmeta.data & ~tmeta_mask) | ( ((extracted.data >> rightshift) & emask) << leftshift ));
+}
+
+// 14
+action mod_extracted_meta(emask, rightshift, tmask, leftshift) {
+  modify_field(extracted.data, (extracted.data & ~emask) | ( ((tmeta.data >> rightshift) & tmask) << leftshift));
+}
+// TODO: add rest of the modify_field actions
 
 action _no_op() {
   no_op();
 }
-
 
 table t_mod_11 {
   reads {
@@ -267,163 +275,40 @@ table t_mod_33 {
   }
 }
 
-table t_mod_prep_11 {
-  reads {
-    meta_ctrl.program : exact;
-    meta_primitive_state.action_ID : exact;
-    meta_primitive_state.primitive_index : exact;
-  }
-  actions {
-    a_mod_prep;
-    _no_op;
-  }
-}
-
-table t_mod_prep_12 {
-  reads {
-    meta_ctrl.program : exact;
-    meta_primitive_state.action_ID : exact;
-    meta_primitive_state.primitive_index : exact;
-  }
-  actions {
-    a_mod_prep;
-    _no_op;
-  }
-}
-
-table t_mod_prep_13 {
-  reads {
-    meta_ctrl.program : exact;
-    meta_primitive_state.action_ID : exact;
-    meta_primitive_state.primitive_index : exact;
-  }
-  actions {
-    a_mod_prep;
-    _no_op;
-  }
-}
-
-table t_mod_prep_21 {
-  reads {
-    meta_ctrl.program : exact;
-    meta_primitive_state.action_ID : exact;
-    meta_primitive_state.primitive_index : exact;
-  }
-  actions {
-    a_mod_prep;
-    _no_op;
-  }
-}
-
-table t_mod_prep_22 {
-  reads {
-    meta_ctrl.program : exact;
-    meta_primitive_state.action_ID : exact;
-    meta_primitive_state.primitive_index : exact;
-  }
-  actions {
-    a_mod_prep;
-    _no_op;
-  }
-}
-
-table t_mod_prep_23 {
-  reads {
-    meta_ctrl.program : exact;
-    meta_primitive_state.action_ID : exact;
-    meta_primitive_state.primitive_index : exact;
-  }
-  actions {
-    a_mod_prep;
-    _no_op;
-  }
-}
-
-table t_mod_prep_31 {
-  reads {
-    meta_ctrl.program : exact;
-    meta_primitive_state.action_ID : exact;
-    meta_primitive_state.primitive_index : exact;
-  }
-  actions {
-    a_mod_prep;
-    _no_op;
-  }
-}
-
-table t_mod_prep_32 {
-  reads {
-    meta_ctrl.program : exact;
-    meta_primitive_state.action_ID : exact;
-    meta_primitive_state.primitive_index : exact;
-  }
-  actions {
-    a_mod_prep;
-    _no_op;
-  }
-}
-
-table t_mod_prep_33 {
-  reads {
-    meta_ctrl.program : exact;
-    meta_primitive_state.action_ID : exact;
-    meta_primitive_state.primitive_index : exact;
-  }
-  actions {
-    a_mod_prep;
-    _no_op;
-  }
-}
-
 control do_modify_field_11 {
-  apply(t_mod_prep_11);
   apply(t_mod_11);
 }
 
-
 control do_modify_field_12 {
-  apply(t_mod_prep_12);
   apply(t_mod_12);
 }
 
-
 control do_modify_field_13 {
-  apply(t_mod_prep_13);
   apply(t_mod_13);
 }
 
-
 control do_modify_field_21 {
-  apply(t_mod_prep_21);
   apply(t_mod_21);
 }
 
-
 control do_modify_field_22 {
-  apply(t_mod_prep_22);
   apply(t_mod_22);
 }
 
-
 control do_modify_field_23 {
-  apply(t_mod_prep_23);
   apply(t_mod_23);
 }
 
-
 control do_modify_field_31 {
-  apply(t_mod_prep_31);
   apply(t_mod_31);
 }
 
 
 control do_modify_field_32 {
-  apply(t_mod_prep_32);
   apply(t_mod_32);
 }
 
 
 control do_modify_field_33 {
-  apply(t_mod_prep_33);
   apply(t_mod_33);
 }
