@@ -140,6 +140,45 @@ table t3_extracted_valid {
   }
 }
 
+table t4_extracted_exact {
+  reads {
+    meta_ctrl.program : exact;
+    extracted.data : ternary;
+  }
+  actions {
+    init_program_state;
+  }
+}
+
+table t4_metadata_exact {
+  reads {
+    meta_ctrl.program : exact;
+    tmeta.data : ternary;
+  }
+  actions {
+    init_program_state;
+  }
+}
+
+table t4_stdmeta_exact {
+  reads {
+    meta_ctrl.program : exact;
+  }
+  actions {
+    set_meta_stdmeta;
+  }
+}
+
+table t4_extracted_valid {
+  reads {
+    meta_ctrl.program : exact;
+    extracted.validbits : ternary;
+  }
+  actions {
+    init_program_state;
+  }
+}
+
 control match_1 {
   if(meta_ctrl.next_table == EXTRACTED_EXACT) {
     apply(t1_extracted_exact);
@@ -185,5 +224,21 @@ control match_3 {
   }
   else if(meta_ctrl.next_table == EXTRACTED_VALID) {
     apply(t3_extracted_valid);
+  }
+}
+
+control match_4 {
+  if(meta_ctrl.next_table == EXTRACTED_EXACT) {
+    apply(t4_extracted_exact);
+  }
+  else if(meta_ctrl.next_table == METADATA_EXACT) {
+    apply(t4_metadata_exact);
+  }
+  else if(meta_ctrl.next_table == STDMETA_EXACT) {
+    apply(t4_stdmeta_exact);
+    switch_stdmeta_4();
+  }
+  else if(meta_ctrl.next_table == EXTRACTED_VALID) {
+    apply(t4_extracted_valid);
   }
 }

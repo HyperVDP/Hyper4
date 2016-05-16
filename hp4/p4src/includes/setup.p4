@@ -437,7 +437,7 @@ table t_inspect_90_99 {
 
 action a_set_first_table(tableID) {
   modify_field(meta_ctrl.next_table, tableID);
-  modify_field(meta_ctrl.stage, 1);
+  modify_field(meta_ctrl.stage, NORM);
 }
 
 table t_set_first_table {

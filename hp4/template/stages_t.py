@@ -60,10 +60,9 @@ class GenStages():
         out += indent + "apply(set_primitive_metadata_" + str(i+1) + str(j+1) + ");\n"
         out += indent + "switch_primitivetype_" + str(i+1) + str(j+1) + "();\n"
         out += indent + "apply(set_program_state_" + str(i+1) + str(j+1) + ");\n"
-      indent = indent[:len(indent)-2]
-      out += indent + "}\n"
-      indent = indent[:len(indent)-2]
-      out += indent + "}\n"
+      for j in range(1, nprimitives):
+        indent = indent[:len(indent)-2]
+        out += indent + "}\n"
       out += "}\n\n"
       f_stages.write(out)
 

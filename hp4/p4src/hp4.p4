@@ -39,6 +39,9 @@ control ingress {
     if (meta_ctrl.next_table != DONE and meta_ctrl.next_stage == 3) {
       stage3();
     }
+    if (meta_ctrl.next_table != DONE and meta_ctrl.next_stage == 4) {
+      stage4();
+    }
   }
 }
 
