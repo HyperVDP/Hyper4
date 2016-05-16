@@ -42,6 +42,10 @@ class GenModify_Field():
         out += indent + indent + "mod_meta_const;\n"
         out += indent + indent + "mod_stdmeta_egressspec_const;\n"
         out += indent + indent + "mod_extracted_const;\n"
+        out += indent + indent + "mod_stdmeta_egressspec_stdmeta_ingressport;\n"
+        out += indent + indent + "mod_extracted_extracted;\n"
+        out += indent + indent + "mod_meta_extracted;\n"
+        out += indent + indent + "mod_extracted_meta;\n"
         out += indent + "}\n"
         out += "}"
         f_modfld.write(out)

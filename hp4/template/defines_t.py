@@ -17,6 +17,9 @@ class GenDefines():
     defines_d.close()
     f_defines.write("*/\n\n")
 
+    out = "// extracted.data/.dcpy field width\n"
+    out += "#define EXTRACTED_SIZE\t" + str(parse_opts[1]*8) + "\n\n"
+
     out = "// parse_ctrl.next_action\n"
     out += "#define PROCEED\t\t\t\t0\n"
     out += "#define INSPECT_SEB\t\t1\n"

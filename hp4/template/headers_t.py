@@ -25,6 +25,7 @@ class GenHeaders():
     out += "  fields {\n"
     out += "    data : " + str(parse_opts[1] * 8) + ";\n"
     out += "    dcpy : " + str(parse_opts[1] * 8) + ";\n"
+    out += "    validbits : 80;\n"
     out += "  }\n"
     out += "}"
     f_headers.write(out)

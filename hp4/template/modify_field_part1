@@ -29,8 +29,8 @@ action mod_meta_stdmeta_insttype(leftshift, tmeta_mask) {
 }
 
 // 7
-action mod_stdmeta_egressspec_meta() {
-  modify_field(standard_metadata.egress_spec, tmeta.dcpy);
+action mod_stdmeta_egressspec_meta(rightshift, tmask) {
+  modify_field(standard_metadata.egress_spec, (tmeta.data >> rightshift) & tmask);
 }
 
 // 8
@@ -47,14 +47,27 @@ action mod_stdmeta_egressspec_const(val) {
 action mod_extracted_const(val, leftshift, emask) {
     modify_field(extracted.data, (extracted.data & ~emask) | ((val << leftshift) & emask));
 }
-// TODO: add rest of the modify_field actions
 
-// result: tmeta.dcpy is the value of a field embedded within tmeta.data
-action a_mod_prep(leftshift, rightshift) {
-  modify_field(tmeta.dcpy, tmeta.data);
-  modify_field(tmeta.dcpy, tmeta.dcpy << leftshift);
-  modify_field(tmeta.dcpy, tmeta.dcpy >> rightshift);
+// 11
+action mod_stdmeta_egressspec_stdmeta_ingressport() {
+  modify_field(standard_metadata.egress_spec, standard_metadata.ingress_port);
 }
+
+// 12
+action mod_extracted_extracted(leftshift, rightshift, msk) {
+  modify_field(extracted.data, (extracted.data & ~msk) | (((extracted.data << leftshift) >> rightshift) & msk) );
+}
+
+// 13
+action mod_meta_extracted(leftshift, tmeta_mask, rightshift, emask) {
+  modify_field(tmeta.data, (tmeta.data & ~tmeta_mask) | ( ((extracted.data >> rightshift) & emask) << leftshift ));
+}
+
+// 14
+action mod_extracted_meta(emask, rightshift, tmask, leftshift) {
+  modify_field(extracted.data, (extracted.data & ~emask) | ( ((tmeta.data >> rightshift) & tmask) << leftshift));
+}
+// TODO: add rest of the modify_field actions
 
 action _no_op() {
   no_op();

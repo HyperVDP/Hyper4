@@ -25,10 +25,11 @@ class GenStages():
 
     indent = "  "
 
-    out = "action set_program_state(action_ID, primitive_index, stage_state) {\n"
+    out = "action set_program_state(action_ID, primitive_index, stage_state, next_stage) {\n"
     out += indent + "modify_field(meta_primitive_state.action_ID, action_ID);\n"
     out += indent + "modify_field(meta_primitive_state.primitive_index, primitive_index);\n"
     out += indent + "modify_field(meta_ctrl.stage_state, stage_state);\n"
+    out += indent + "modify_field(meta_ctrl.next_stage, next_stage);\n"
     out += "}\n\n"
     f_stages.write(out)
 

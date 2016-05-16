@@ -25,6 +25,7 @@ table_set_default t_norm_40_59 a_norm_40_59
 
 # t_set_first_table a_set_first_table [program ID] [state] => [tableID]
 table_add t_set_first_table a_set_first_table 1 1 => 3 #STDMETA_EXACT
+table_add t_set_first_table a_set_first_table 1 0 => 3 #STDMETA_EXACT
 
 # t_set_validbits a_set_validbits [program ID] [state] => [val]
 table_add t_set_validbits a_set_validbits 1 1 => 0xC0000000000000000000 # first two bits turned on, representing ethernet and arp headers
@@ -94,7 +95,7 @@ table_add set_primitive_metadata_21 a_set_primitive_metadata 1 5 1 => 0 7 # modi
 ## switch_primitivetype.p4
 
 ## modify_field.p4
-# t_mod_21 mod_stdmeta_egressspec_meta [program ID] [primitive subtype] [match ID] => 
+# t_mod_21 mod_stdmeta_egressspec_meta [program ID] [primitive subtype] [match ID] => [rightshift] [tmask]
 table_add t_mod_21 mod_stdmeta_egressspec_meta 1 7 2 => 32 0xFF
 
 ## stages.p4: stage2()
@@ -127,7 +128,7 @@ table_add set_primitive_metadata_31 a_set_primitive_metadata 1 5 1 => 0 7 # modi
 ## switch_primitivetype.p4
 
 ## modify_field.p4
-# t_mod_21 mod_stdmeta_egressspec_meta [program ID] [primitive subtype] [match ID] =>
+# t_mod_21 mod_stdmeta_egressspec_meta [program ID] [primitive subtype] [match ID] => [rightshift] [tmask]
 table_add t_mod_31 mod_stdmeta_egressspec_meta 1 7 2 => 32 0xFF
 
 ## stages.p4: stage3()
@@ -144,8 +145,8 @@ table_add set_program_state_31 set_program_state 1 5 1 => 0 0 1 0 # stage comple
 
 ## match.p4: match_4()
 # t4_extracted_exact init_program_state [program ID] [extracted.data&&&mask] => [action ID] [match ID] [next table] [match priority]
-table_add t4_extracted_exact init_program_state 1 0x0a000002&&&0xFFFFFFFF => 4 1 0 1 # arp_reply, ..., DONE, priority 1
-table_add t4_extracted_exact init_program_state 1 0x0a000001&&&0xFFFFFFFF => 4 2 0 1 # arp_reply, ..., DONE, priority 1
+table_add t4_extracted_exact init_program_state 1 0x0a00000200000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000&&&0xFFFFFFFF00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000 => 4 1 0 1 # arp_reply, ..., DONE, priority 1
+table_add t4_extracted_exact init_program_state 1 0x0a00000100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000&&&0xFFFFFFFF00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000 => 4 2 0 1 # arp_reply, ..., DONE, priority 1
 table_add t4_extracted_exact init_program_state 1 0x00&&&0x00 => 5 3 0 2 # send_packet, ..., DONE, priority 2
 
 ############# action arp_reply: modify_field(standard_metadata.egress_spec, standard_metadata.ingress_port)

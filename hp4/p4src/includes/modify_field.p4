@@ -104,6 +104,9 @@ table t_mod_11 {
     mod_stdmeta_egressspec_const;
     mod_extracted_const;
     mod_stdmeta_egressspec_stdmeta_ingressport;
+    mod_extracted_extracted;
+    mod_meta_extracted;
+    mod_extracted_meta;
   }
 }
 
@@ -125,6 +128,9 @@ table t_mod_12 {
     mod_stdmeta_egressspec_const;
     mod_extracted_const;
     mod_stdmeta_egressspec_stdmeta_ingressport;
+    mod_extracted_extracted;
+    mod_meta_extracted;
+    mod_extracted_meta;
   }
 }
 
@@ -146,6 +152,9 @@ table t_mod_13 {
     mod_stdmeta_egressspec_const;
     mod_extracted_const;
     mod_stdmeta_egressspec_stdmeta_ingressport;
+    mod_extracted_extracted;
+    mod_meta_extracted;
+    mod_extracted_meta;
   }
 }
 
@@ -167,6 +176,9 @@ table t_mod_21 {
     mod_stdmeta_egressspec_const;
     mod_extracted_const;
     mod_stdmeta_egressspec_stdmeta_ingressport;
+    mod_extracted_extracted;
+    mod_meta_extracted;
+    mod_extracted_meta;
   }
 }
 
@@ -188,6 +200,9 @@ table t_mod_22 {
     mod_stdmeta_egressspec_const;
     mod_extracted_const;
     mod_stdmeta_egressspec_stdmeta_ingressport;
+    mod_extracted_extracted;
+    mod_meta_extracted;
+    mod_extracted_meta;
   }
 }
 
@@ -209,6 +224,9 @@ table t_mod_23 {
     mod_stdmeta_egressspec_const;
     mod_extracted_const;
     mod_stdmeta_egressspec_stdmeta_ingressport;
+    mod_extracted_extracted;
+    mod_meta_extracted;
+    mod_extracted_meta;
   }
 }
 
@@ -230,6 +248,9 @@ table t_mod_31 {
     mod_stdmeta_egressspec_const;
     mod_extracted_const;
     mod_stdmeta_egressspec_stdmeta_ingressport;
+    mod_extracted_extracted;
+    mod_meta_extracted;
+    mod_extracted_meta;
   }
 }
 
@@ -251,6 +272,9 @@ table t_mod_32 {
     mod_stdmeta_egressspec_const;
     mod_extracted_const;
     mod_stdmeta_egressspec_stdmeta_ingressport;
+    mod_extracted_extracted;
+    mod_meta_extracted;
+    mod_extracted_meta;
   }
 }
 
@@ -272,6 +296,9 @@ table t_mod_33 {
     mod_stdmeta_egressspec_const;
     mod_extracted_const;
     mod_stdmeta_egressspec_stdmeta_ingressport;
+    mod_extracted_extracted;
+    mod_meta_extracted;
+    mod_extracted_meta;
   }
 }
 

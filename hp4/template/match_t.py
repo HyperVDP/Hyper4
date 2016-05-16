@@ -24,7 +24,7 @@ class GenMatch():
     indent = "  "
 
     for i in range(nstages):
-      for src in ["extracted", "metadata", "stdmeta"]:
+      for src in ["extracted", "metadata", "stdmeta", "valid"]:
         out = "\n\ntable t" + str(i+1) + "_" + src + "_exact {\n"
         out += indent + "reads {\n"
         out += indent + indent + "meta_ctrl.program : exact;\n"
@@ -32,6 +32,8 @@ class GenMatch():
           out += indent + indent + "extracted.data : ternary;\n"
         elif (src == "metadata"):
           out += indent + indent + "tmeta.data : ternary;\n"
+        elif (src == "valid"):
+          out += indent + indent + "extracted.validbits : ternary;\n"
         out += indent + "}\n"
         out += indent + "actions {\n"
         if (src == "stdmeta"):
@@ -53,6 +55,9 @@ class GenMatch():
       out += indent + "else if(meta_ctrl.next_table == STDMETA_EXACT) {\n"
       out += indent + indent + "apply(t" + str(i+1) + "_stdmeta_exact);\n"
       out += indent + indent + "switch_stdmeta_" + str(i+1) + "();\n"
+      out += indent + "}\n"
+      out += indent + "else if(meta_ctrl.next_table == EXTRACTED_VALID) {\n"
+      out += indent + indent + "apply(t" + str(i+1) + "_extracted_valid);\n"
       out += indent + "}\n"
       out += "}"
       f_match.write(out)

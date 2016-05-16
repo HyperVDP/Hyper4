@@ -87,6 +87,6 @@ header_type extracted_t {
   fields {
     data : 800;
     dcpy : 800;
-    validbits : 80;
+    validbits : 100;
   }
 }

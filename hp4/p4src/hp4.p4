@@ -30,15 +30,15 @@ control ingress {
   setup();
 
   if (meta_ctrl.stage == NORM) {
-    if (meta_ctrl.next_table != DONE && meta_ctrl.next_stage == 1) {
+    if (meta_ctrl.next_table != DONE and meta_ctrl.next_stage == 1) {
       stage1();
     }
 
-    if (meta_ctrl.next_table != DONE && meta_ctrl.next_stage == 2) {
+    if (meta_ctrl.next_table != DONE and meta_ctrl.next_stage == 2) {
       stage2();
     }
 
-    if (meta_ctrl.next_table != DONE && meta_ctrl.next_stage == 3) {
+    if (meta_ctrl.next_table != DONE and meta_ctrl.next_stage == 3) {
       stage3();
     }
   }

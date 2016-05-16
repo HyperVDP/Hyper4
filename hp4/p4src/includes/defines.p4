@@ -9,6 +9,9 @@ HyPer4: A P4 Program to Run Other P4 Programs
 defines.p4: Define constants
 */
 
+// extracted.data/.dcpy field width
+#define EXTRACTED_SIZE  800
+
 // parse_ctrl.next_action
 #define PROCEED				0
 #define INSPECT_SEB		1

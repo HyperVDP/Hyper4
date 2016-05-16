@@ -12,8 +12,18 @@ add_header.p4: Carry out the add_header primitive
 action a_addh(sz, offset, msk, vbits) {
   modify_field(extracted.dcpy, extracted.data);
   modify_field(extracted.data, extracted.data >> (sz*8));
-  modify_field(extracted.data, 0, msk);
-  modify_field(extracted.data, extracted.dcpy, (~msk >> (32 - (offset*8))) << (32 - (offset*8)));
+  modify_field(extracted.data, (extracted.data & ~msk));
+  // concept is to zero out all bytes we don't need by doing a right shift and
+  // then left shifting to bring the mask for the bytes we do need back into
+  // position
+  // modify_field(extracted.data, extracted.dcpy, (~msk >> (EXTRACTED_SIZE - (offset*8))) << (EXTRACTED_SIZE - (offset*8)));
+
+  // MSK: (~msk >> (EXTRACTED_SIZE - (offset*8))) << (EXTRACTED_SIZE - (offset*8))
+
+  // modify_field( extracted.data, (extracted.data & ~(MSK)) | (extracted.dcpy & (MSK)) );
+
+  modify_field( extracted.data, (extracted.data & ~((~msk >> (EXTRACTED_SIZE - (offset*8))) << (EXTRACTED_SIZE - (offset*8)))) | (extracted.dcpy & ((~msk >> (EXTRACTED_SIZE - (offset*8))) << (EXTRACTED_SIZE - (offset*8)))) );
+
   modify_field(parse_ctrl.numbytes, parse_ctrl.numbytes + sz);
   modify_field(extracted.validbits, extracted.validbits | vbits);
 }
