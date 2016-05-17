@@ -17,6 +17,7 @@ table_set_default t_norm_80_99 a_norm_80_99
 # [program ID] := 1
 # [INSPECT_SEB] := 1
 # [PROCEED] := 0
+# [STDMETA_INGRESS_PORT] := 1
 
 table_add t_prog_select set_program 1 => [program ID]
 table_add t_prog_select set_program 2 => [program ID]
@@ -36,8 +37,25 @@ table_add t_inspect_20_29 extract_more [program ID] 1 0&&&0 0&&&0 0&&&0 0x06&&&0
 table_add t_inspect_20_29 extract_more [program ID] 1 0&&&0 0&&&0 0&&&0 0x11&&&0xFF 0&&&0 0&&&0 0&&&0 0&&&0 0&&&0 0&&&0 => 42 3 1 #[numbytes] [state] [match priority]
 
 # [program ID] [parse_ctrl.state] => [table ID]
+table_add t_set_first_table a_set_first_table [program ID] 0 => [STDMETA_EXACT]
 table_add t_set_first_table a_set_first_table [program ID] 1 => [STDMETA_EXACT]
 table_add t_set_first_table a_set_first_table [program ID] 2 => [STDMETA_EXACT]
 table_add t_set_first_table a_set_first_table [program ID] 3 => [STDMETA_EXACT]
 
+# [program ID] [parse_ctrl.state] => [val]
+# ethernet
+table_add t_set_validbits a_set_validbits [program ID] 0 => 0x80000000000000000000
+# ethernet / ipv4
+table_add t_set_validbits a_set_validbits [program ID] 1 => 0xC0000000000000000000
+# ethernet / ipv4 / tcp
+table_add t_set_validbits a_set_validbits [program ID] 2 => 0xE0000000000000000000
+table_add t_set_validbits a_set_validbits [program ID] 3 => 0xD0000000000000000000
+
+table_add t1_stdmeta_exact set_meta_stdmeta [program ID] => [STDMETA_INGRESS_PORT]
+
+table_add t1_stdmeta_ingress_port init_program_state [program ID] 1 => 5 1 4 # action_ID, match_ID, next_table
+table_add t1_stdmeta_ingress_port init_program_state [program ID] 2 => 5 2 4 # action_ID, match_ID, next_table
+
+# [program ID] [action ID] [primitive index] => [primitive] [primitive_subtype]
+table_add set_primitive_metadata_11 a_set_primitive_metadata 1 5 1 => 0 9
 
