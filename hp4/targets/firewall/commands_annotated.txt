@@ -1,0 +1,43 @@
+# STANDARD COMMANDS
+mirroring_add 1 1
+mirroring_add 2 2
+mirroring_add 3 3
+table_set_default t_inspect_SEB set_next_action 0
+table_set_default t_norm_SEB a_norm_SEB
+table_set_default t_norm_20_39 a_norm_20_39
+table_set_default t_norm_40_59 a_norm_40_59
+table_set_default t_norm_60_79 a_norm_60_79
+table_set_default t_norm_80_99 a_norm_80_99
+
+# SEARCH AND REPLACE
+# [DONE] := 0
+# [EXTRACTED_EXACT] := 1
+# [STDMETA_EXACT] := 3
+# [EXTRACTED_VALID] := 4
+# [program ID] := 1
+# [INSPECT_SEB] := 1
+# [PROCEED] := 0
+
+table_add t_prog_select set_program 1 => [program ID]
+table_add t_prog_select set_program 2 => [program ID]
+
+# [program ID] [numbytes] [parse_ctrl.state] => [next action]
+table_add parse_control set_next_action [program ID] 0 0 => [INSPECT_SEB]
+# ip
+table_add parse_control set_next_action [program ID] 34 1 => [INSPECT_20_29]
+# tcp
+table_add parse_control set_next_action [program ID] 54 2 => [PROCEED]
+# udp
+table_add parse_control set_next_action [program ID] 42 3 => [PROCEED]
+
+table_add t_inspect_SEB extract_more [program ID] 0&&&0 0&&&0 0&&&0 0&&&0 0&&&0 0&&&0 0&&&0 0&&&0 0&&&0 0&&&0 0&&&0 0&&&0 0x08&&&0xFF 0x00&&&0xFF 0&&&0 0&&&0 0&&&0 0&&&0 0&&&0 0&&&0 => 34 1 1 # [numbytes] [parse_ctrl.state] [match priority]
+# [program ID] [parse_ctrl.state] [ext[20].data&&&msk] ...
+table_add t_inspect_20_29 extract_more [program ID] 1 0&&&0 0&&&0 0&&&0 0x06&&&0xFF 0&&&0 0&&&0 0&&&0 0&&&0 0&&&0 0&&&0 => 54 2 1 #[numbytes] [state] [match priority]
+table_add t_inspect_20_29 extract_more [program ID] 1 0&&&0 0&&&0 0&&&0 0x11&&&0xFF 0&&&0 0&&&0 0&&&0 0&&&0 0&&&0 0&&&0 => 42 3 1 #[numbytes] [state] [match priority]
+
+# [program ID] [parse_ctrl.state] => [table ID]
+table_add t_set_first_table a_set_first_table [program ID] 1 => [STDMETA_EXACT]
+table_add t_set_first_table a_set_first_table [program ID] 2 => [STDMETA_EXACT]
+table_add t_set_first_table a_set_first_table [program ID] 3 => [STDMETA_EXACT]
+
+
