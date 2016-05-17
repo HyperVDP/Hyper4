@@ -1,6 +1,12 @@
 /* simple firewall:
-     block by
-     (ipv4.srcAddr || ipv4.dstAddr) <&&|"||"> ( (udp.src_port || udp.dst_port) || (tcp.src_port || tcp.dst_port) )
+   block by
+   (ipv4.srcAddr <&&|"||"> ipv4.dstAddr)
+   <&&|"||">
+   ( (udp.src_port <&&|"||"> udp.dst_port)
+    ||
+     (tcp.src_port <&&|"||"> tcp.dst_port) )
+
+   EDIT: Let's keep it simple to start with and simply do TCP/UDP
 */
 
 header_type ethernet_t {
@@ -25,7 +31,7 @@ header_type ipv4_t {
         hdrChecksum : 16;
         srcAddr : 32;
         dstAddr: 32;
-    }
+    } // 20 B / 160 b
 }
 
 header_type tcp_t {
@@ -40,28 +46,31 @@ header_type tcp_t {
     window_sz : 16;
     checksum : 16;
     urgent_ptr : 16;
-  }
+  } // 20 B / 160 b
 }
 
 header_type udp_t {
   fields {
     src_port : 16;
     dst_port : 16;
-    length : 16;
+    len : 16;
     checksum : 16;
-  }
+  } // 8 B / 64 b
 }
-
+/*
 header_type meta_t {
   fields {
-    cond_block : 8;  // when block requires match on both ipv4 as well as tcp/udp fields
+    cond_block : 8;  // when block requires match on both ipv4 as well as
+                     // tcp/udp fields
   }
 }
+*/
 
 header ethernet_t ethernet;
 header ipv4_t ipv4;
 header tcp_t tcp;
-metadata meta_t meta;
+header udp_t udp;
+// metadata meta_t meta;
 
 parser start {
     extract(ethernet);
@@ -114,16 +123,20 @@ table is_tcp_or_udp_valid {
 action _drop() {
   drop();
 }
-
+/*
+action conditional_block(val) {
+  modify_field(meta.cond_block, val);
+}
+*/
 table tcp_block {
   reads {
     tcp.src_port : ternary;
     tcp.dst_port : ternary;
-    meta.cond_block : ternary;
   }
   actions {
     _drop;
     _no_op;
+    // conditional_block;
   }
 }
 
@@ -131,14 +144,14 @@ table udp_block {
   reads {
     udp.src_port : ternary;
     udp.dst_port : ternary;
-    meta.cond_block : ternary;
   }
   actions {
     _drop;
     _no_op;
+    // conditional_block;
   }
 }
-
+/*
 action ipv4_present() {
 }
 
@@ -156,15 +169,30 @@ table ipv4_block {
   reads {
     ipv4.srcAddr : ternary;
     ipv4.dstAddr : ternary;
+    meta.cond_block : ternary;
   }
   actions {
     _drop;
-    conditional_block;
     _no_op;
+  }
+}
+*/
+
+action a_fwd(port) {
+  modify_field(standard_metadata.egress_spec, port);
+}
+
+table fwd {
+  reads {
+    standard_metadata.ingress_port : exact;
+  }
+  actions {
+    a_fwd;
   }
 }
 
 control ingress {
+  apply(fwd);
   apply(is_tcp_or_udp_valid) {
     tcp_present {
       apply(tcp_block);
@@ -173,9 +201,11 @@ control ingress {
       apply(udp_block);
     }
   }
+/* let's keep it simple for now
   apply(is_ipv4_valid) {
     ipv4_present {
       apply(ipv4_block);
     }
   }
+*/
 }
