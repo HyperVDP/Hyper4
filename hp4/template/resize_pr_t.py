@@ -40,6 +40,7 @@ class GenResize_PR():
         number += "0"
       number += str(i+1)
       out += indent + indent + "a_resize_pr_" + number + ";\n"
+    out += indent + indent + "_no_op;\n"
     out += indent + "}\n}\n"
     f_resizepr.write(out)
 

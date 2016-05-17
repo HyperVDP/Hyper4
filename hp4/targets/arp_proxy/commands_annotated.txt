@@ -78,9 +78,9 @@ table_add set_program_state_11 set_program_state 1 1 1 => 0 0 1 2 # stage comple
 ## stages.p4: stage2(): match_2();
 
 ## match.p4: match_2()
-# t2_extracted_valid init_program_state [program ID] [validbits&&&mask] => [action_ID] [match ID] [next table]
-table_add t2_extracted_valid init_program_state 1 0xC0000000000000000000&&&0xC0000000000000000000 => 2 1 1 # arp_present, ..., EXTRACTED_EXACT
-table_add t2_extracted_valid init_program_state 1 0x80000000000000000000&&&0xC0000000000000000000 => 5 2 0 # send_packet, ..., DONE
+# t2_extracted_valid init_program_state [program ID] [validbits&&&mask] => [action_ID] [match ID] [next table] [tern match priority]
+table_add t2_extracted_valid init_program_state 1 0xC0000000000000000000&&&0xC0000000000000000000 => 2 1 1 1 # arp_present, ..., EXTRACTED_EXACT
+table_add t2_extracted_valid init_program_state 1 0x80000000000000000000&&&0xC0000000000000000000 => 5 2 0 1 # send_packet, ..., DONE
 
 ############# action arp_present: [no_op]
 ############# action send_packet: modify_field(standard_metadata.egress_spec, meta.egress);
@@ -112,7 +112,7 @@ table_add set_program_state_21 set_program_state 1 5 1 => 0 0 1 0 # stage comple
 
 ## match.p4: match_3()
 # t3_extracted_exact init_program_state [program ID] [extracted.data&&&mask] => [action ID] [match ID] [next table] [match priority]
-table_add t3_extracted_exact init_program_state 1 0x010000000000000000000000000000000000000000&&&0xFF0000000000000000000000000000000000000000 => 3 1 1 1 #arp_request, ..., EXTRACTED_EXACT, priority 1
+table_add t3_extracted_exact init_program_state 1 0x0001000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000&&&0xFFFF000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000 => 3 1 1 1 #arp_request, ..., EXTRACTED_EXACT, priority 1
 table_add t3_extracted_exact init_program_state 1 0x00&&&0x00 => 5 2 0 2 # send_packet, ..., DONE, priority 2
 
 ############# action arp_request: [no_op]

@@ -23,7 +23,7 @@ switch_primitivetype.p4: Redirect execution to the control function appropriate
 
 
 control switch_primitivetype_11 {
-  if(meta_primitive_state.primitive == A_MODIFY_FIELD) {
+  if(meta_primitive_state.primitive == A_MODIFY_FIELD) { //_condition_25
     do_modify_field_11();
   }
   else if(meta_primitive_state.primitive == A_ADD_HEADER) {
@@ -242,7 +242,7 @@ control switch_primitivetype_21 {
   else if(meta_primitive_state.primitive == A_DROP) {
     do_drop_21();
   }
-  else if(meta_primitive_state.primitive == A_NO_OP) {
+  else if(meta_primitive_state.primitive == A_NO_OP) { //_condition_109
   }
   else if(meta_primitive_state.primitive == A_MULTICAST) {
     do_multicast_21();

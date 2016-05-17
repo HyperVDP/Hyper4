@@ -172,7 +172,7 @@ table t4_stdmeta_egress_spec {
 
 
 control switch_stdmeta_1 {
-  if(meta_ctrl.stdmeta_ID == STDMETA_INGRESS_PORT) {
+  if(meta_ctrl.stdmeta_ID == STDMETA_INGRESS_PORT) {  //_condition_20
     apply(t1_stdmeta_ingress_port);
   }
   else if(meta_ctrl.stdmeta_ID == STDMETA_PACKET_LENGTH) {

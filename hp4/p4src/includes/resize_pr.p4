@@ -216,5 +216,6 @@ table t_resize_pr {
     a_resize_pr_98;
     a_resize_pr_99;
     a_resize_pr_100;
+    _no_op;
   }
 }

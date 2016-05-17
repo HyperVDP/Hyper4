@@ -68,7 +68,8 @@ action mod_stdmeta_egressspec_stdmeta_ingressport() {
 
 // 12
 action mod_extracted_extracted(leftshift, rightshift, msk) {
-  modify_field(extracted.data, (extracted.data & ~msk) | (((extracted.data << leftshift) >> rightshift) & msk) );
+  modify_field(extracted.dcpy, extracted.data);
+  modify_field(extracted.data, (extracted.data & ~msk) | (((extracted.dcpy << leftshift) >> rightshift) & msk) );
 }
 
 // 13
@@ -1082,8 +1083,18 @@ control do_modify_field_46 {
   apply(t_mod_46);
 }
 
+table debug_mod_47 {
+  reads {
+    extracted.data : ternary;
+  }
+  actions {
+    _no_op;
+  }
+}
+
 control do_modify_field_47 {
   apply(t_mod_47);
+  apply(debug_mod_47);
 }
 
 control do_modify_field_48 {

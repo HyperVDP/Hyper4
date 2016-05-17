@@ -180,13 +180,13 @@ table t4_extracted_valid {
 }
 
 control match_1 {
-  if(meta_ctrl.next_table == EXTRACTED_EXACT) {
+  if(meta_ctrl.next_table == EXTRACTED_EXACT) { //_condition_17
     apply(t1_extracted_exact);
   }
-  else if(meta_ctrl.next_table == METADATA_EXACT) {
+  else if(meta_ctrl.next_table == METADATA_EXACT) { //_condition_18
     apply(t1_metadata_exact);
   }
-  else if(meta_ctrl.next_table == STDMETA_EXACT) {
+  else if(meta_ctrl.next_table == STDMETA_EXACT) { //_condition_19
     apply(t1_stdmeta_exact);
     switch_stdmeta_1();
   }

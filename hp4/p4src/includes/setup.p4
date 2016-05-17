@@ -438,6 +438,7 @@ table t_inspect_90_99 {
 action a_set_first_table(tableID) {
   modify_field(meta_ctrl.next_table, tableID);
   modify_field(meta_ctrl.stage, NORM);
+  modify_field(meta_ctrl.next_stage, 1);
 }
 
 table t_set_first_table {
@@ -474,39 +475,39 @@ control setup {
   if(parse_ctrl.next_action == INSPECT_SEB) { //_condition_1
     apply(t_inspect_SEB);
   }
-  if(parse_ctrl.next_action == INSPECT_20_29) {
+  if(parse_ctrl.next_action == INSPECT_20_29) { //_condition_2
     apply(t_inspect_20_29);
   }
-  if(parse_ctrl.next_action == INSPECT_30_39) {
+  if(parse_ctrl.next_action == INSPECT_30_39) { //_condition_3
     apply(t_inspect_30_39);
   }
-  if(parse_ctrl.next_action == INSPECT_40_49) {
+  if(parse_ctrl.next_action == INSPECT_40_49) { //_condition_4
     apply(t_inspect_40_49);
   }
-  if(parse_ctrl.next_action == INSPECT_50_59) {
+  if(parse_ctrl.next_action == INSPECT_50_59) { //_condition_5
     apply(t_inspect_50_59);
   }
-  if(parse_ctrl.next_action == INSPECT_60_69) {
+  if(parse_ctrl.next_action == INSPECT_60_69) { //_condition_6
     apply(t_inspect_60_69);
   }
-  if(parse_ctrl.next_action == INSPECT_70_79) {
+  if(parse_ctrl.next_action == INSPECT_70_79) { //_condition_7
     apply(t_inspect_70_79);
   }
-  if(parse_ctrl.next_action == INSPECT_80_89) {
+  if(parse_ctrl.next_action == INSPECT_80_89) { //_condition_8
     apply(t_inspect_80_89);
   }
-  if(parse_ctrl.next_action == INSPECT_90_99) {
+  if(parse_ctrl.next_action == INSPECT_90_99) { //_condition_9
     apply(t_inspect_90_99);
   }
-  if(parse_ctrl.next_action == PROCEED) {
+  if(parse_ctrl.next_action == PROCEED) { //_condition_10
     apply(t_norm_SEB);
-    if(parse_ctrl.numbytes > 20) {
+    if(parse_ctrl.numbytes > 20) { //_condition_11
       apply(t_norm_20_39);
-      if(parse_ctrl.numbytes > 40) {
+      if(parse_ctrl.numbytes > 40) { //_condition_12
         apply(t_norm_40_59);
-        if(parse_ctrl.numbytes > 60) {
+        if(parse_ctrl.numbytes > 60) { //_condition_13
           apply(t_norm_60_79);
-          if(parse_ctrl.numbytes > 80) {
+          if(parse_ctrl.numbytes > 80) { //_condition_14
             apply(t_norm_80_99);
           }
         }
