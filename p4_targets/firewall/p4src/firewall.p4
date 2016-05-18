@@ -197,12 +197,16 @@ table fwd {
 }
 
 control ingress {
+  // stage 1
   apply(fwd);
+  // stage 2
   apply(is_tcp_or_udp_valid) {
     tcp_present {
+      // stage 3
       apply(tcp_block);
     }
     udp_present {
+      // stage 4
       apply(udp_block);
     }
   }
