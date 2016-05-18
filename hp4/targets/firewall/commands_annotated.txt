@@ -44,6 +44,7 @@ table_add t_inspect_SEB extract_more [program ID] 0&&&0 0&&&0 0&&&0 0&&&0 0&&&0 
 # [program ID] [parse_ctrl.state] [ext[20].data&&&msk] ...
 table_add t_inspect_20_29 extract_more [program ID] 1 0&&&0 0&&&0 0&&&0 0x06&&&0xFF 0&&&0 0&&&0 0&&&0 0&&&0 0&&&0 0&&&0 => 54 2 1 #[numbytes] [state] [match priority]
 table_add t_inspect_20_29 extract_more [program ID] 1 0&&&0 0&&&0 0&&&0 0x11&&&0xFF 0&&&0 0&&&0 0&&&0 0&&&0 0&&&0 0&&&0 => 42 3 1 #[numbytes] [state] [match priority]
+table_add t_inspect_20_29 set_next_action [program ID] 1 0&&&0 0&&&0 0&&&0 0&&&0 0&&&0 0&&&0 0&&&0 0&&&0 0&&&0 0&&&0 => [PROCEED] 2
 
 # [program ID] [parse_ctrl.state] => [table ID]
 table_add t_set_first_table a_set_first_table [program ID] 0 => [STDMETA_EXACT]
@@ -110,6 +111,8 @@ table_add set_program_state_31 set_program_state [program ID] [_no_op()] 1 => 0 
 # 62 00s: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
 table_add t4_extracted_exact init_program_state [program ID] 0x1388[62 00s]&&&0xFFFF[62 00s] => [_drop()] 1 [DONE] 1
 table_add t4_extracted_exact init_program_state [program ID] 0&&&0 => [_no_op()] 0 [DONE] 2
+
+table_add t_drop_41 a_drop =>
 
 table_add set_primitive_metadata_41 a_set_primitive_metadata [program ID] [_drop()] 1 => [DROP] 0
 table_add set_primitive_metadata_41 a_set_primitive_metadata [program ID] [_no_op()] 1 => [NO_OP] 0
