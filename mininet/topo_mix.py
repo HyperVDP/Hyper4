@@ -39,6 +39,8 @@ parser.add_argument('--cli', help='Path to BM CLI',
                     type=str, action="store", required=True)
 parser.add_argument('--commands', help='Paths to initial CLI commands',
                     type=str, nargs='*', action="store", default=["commands.txt"])
+parser.add_argument('--topo', help='Path to scenario topology file',
+                    type=str, action="store", default="topo.txt")
 # Useful if we need to use runtime_CLI instead of sswitch_CLI:
 #parser.add_argument('--p4factory', help='Use p4factory intead of standalone repos',
 #                    action="store_true")
@@ -72,7 +74,7 @@ def read_topo():
     nb_hosts = 0
     nb_switches = 0
     links = []
-    with open("topo.txt", "r") as f:
+    with open(args.topo, "r") as f:
         line = f.readline()[:-1]
         w, nb_switches = line.split()
         assert(w == "switches")
