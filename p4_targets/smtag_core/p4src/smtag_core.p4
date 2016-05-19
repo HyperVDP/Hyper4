@@ -127,6 +127,21 @@ table clone {
   }
 }
 
+table e_filter {
+  reads {
+    standard_metadata.ingress_port : exact;
+    meta.egress : exact;
+  }
+  actions {
+    _no_op;
+    _drop;
+  }
+}
+
 control egress {
-  apply(clone);
+  apply(e_filter) {
+    _no_op {
+      apply(clone);
+    }
+  }
 }

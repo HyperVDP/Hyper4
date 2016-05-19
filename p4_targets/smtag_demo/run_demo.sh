@@ -51,3 +51,11 @@ sudo PYTHONPATH=$PYTHONPATH:$BMV2_PATH/mininet/ \
     --cli $CLI_PATH \
     --commands commands_edge1.txt commands_core.txt commands_edge2.txt
 
+#sudo PYTHONPATH=$PYTHONPATH:$BMV2_PATH/mininet/ \
+#    python $THIS_DIR/mininet/topo_mix.py \
+#    --behavioral-exe $SWITCH_PATH \
+#    --jsons $DEMO_DIR/../passthrough/passthrough.json \
+#      $DEMO_DIR/../passthrough/passthrough.json \
+#      $DEMO_DIR/../passthrough/passthrough.json \
+#    --cli $CLI_PATH
+

@@ -38,7 +38,7 @@ parser.add_argument('--jsons', help='Paths to JSON config files',
 parser.add_argument('--cli', help='Path to BM CLI',
                     type=str, action="store", required=True)
 parser.add_argument('--commands', help='Paths to initial CLI commands',
-                    type=str, nargs='*', action="store", default="commands.txt")
+                    type=str, nargs='*', action="store", default=["commands.txt"])
 # Useful if we need to use runtime_CLI instead of sswitch_CLI:
 #parser.add_argument('--p4factory', help='Use p4factory intead of standalone repos',
 #                    action="store_true")
