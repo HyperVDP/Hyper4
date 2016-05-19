@@ -4,6 +4,10 @@ mirroring_add 3 3
 table_add t_prog_select set_program 1 => 1
 table_add t_prog_select set_program 2 => 1
 table_add t_prog_select set_program 3 => 1
+table_set_default t_e_filter _no_op
+table_add t_e_filter a_drop 1 1 =>
+table_add t_e_filter a_drop 2 2 =>
+table_add t_e_filter a_drop 3 3 =>
 table_add parse_control set_next_action 1 0 0 => 0
 table_set_default t_norm_SEB a_norm_SEB
 table_add t_set_first_table a_set_first_table 1 0 => 1

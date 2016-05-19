@@ -213,9 +213,24 @@ table t_prep_deparse_80_99{
   }
 }
 
+table t_e_filter {
+  reads {
+    standard_metadata.ingress_port : exact;
+    meta_ctrl.multicast_current_egress : exact;
+  }
+  actions {
+    _no_op;
+    a_drop;
+  }
+}
+
 control egress {
   if(meta_ctrl.do_multicast == 1) {
-    apply(t_multicast);
+    apply(t_e_filter) {
+      _no_op {
+        apply(t_multicast);
+      }
+    }
   }
   apply(csum16);
   apply(t_resize_pr);
