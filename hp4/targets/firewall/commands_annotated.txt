@@ -27,6 +27,8 @@ table_set_default t_norm_80_99 a_norm_80_99
 # [MODIFY_FIELD] := 0
 # [DROP] := 6
 # [NO_OP] := 7
+# [64_00s] := 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+# [62_00s] := 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
 
 table_add t_prog_select set_program 1 => [program ID]
 table_add t_prog_select set_program 2 => [program ID]
@@ -95,7 +97,7 @@ table_add set_program_state_21 set_program_state [program ID] [_no_op()] 1 => 0 
 # tcp_block
 # src port: 4000 == 0x0FA0; dst port: any
 # 64 00s: 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
-table_add t3_extracted_exact init_program_state [program ID] 0x0FA0[64 00s]&&&0xFFFF[64 00s] => [_drop()] 1 [DONE] 1
+table_add t3_extracted_exact init_program_state [program ID] 0x0FA0[64_00s]&&&0xFFFF[64_00s] => [_drop()] 1 [DONE] 1
 table_add t3_extracted_exact init_program_state [program ID] 0&&&0 => [_no_op()] 0 [DONE] 2
 
 table_add set_primitive_metadata_31 a_set_primitive_metadata [program ID] [_drop()] 1 => [DROP] 0
@@ -109,7 +111,7 @@ table_add set_program_state_31 set_program_state [program ID] [_no_op()] 1 => 0 
 # udp_block
 # src port: any; dst port: 5000 == 0x1388
 # 62 00s: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
-table_add t4_extracted_exact init_program_state [program ID] 0x1388[62 00s]&&&0xFFFF[62 00s] => [_drop()] 1 [DONE] 1
+table_add t4_extracted_exact init_program_state [program ID] 0x1388[62_00s]&&&0xFFFF[62_00s] => [_drop()] 1 [DONE] 1
 table_add t4_extracted_exact init_program_state [program ID] 0&&&0 => [_no_op()] 0 [DONE] 2
 
 table_add t_drop_41 a_drop =>

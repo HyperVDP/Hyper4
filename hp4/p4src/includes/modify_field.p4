@@ -1083,18 +1083,8 @@ control do_modify_field_46 {
   apply(t_mod_46);
 }
 
-table debug_mod_47 {
-  reads {
-    extracted.data : ternary;
-  }
-  actions {
-    _no_op;
-  }
-}
-
 control do_modify_field_47 {
   apply(t_mod_47);
-  apply(debug_mod_47);
 }
 
 control do_modify_field_48 {
