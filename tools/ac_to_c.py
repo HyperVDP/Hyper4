@@ -2,7 +2,7 @@
 
 import argparse
 
-parser = argparse.ArgumentParser(description='HP4 Commands Annotation Stripper')
+parser = argparse.ArgumentParser(description='HP4 Annotated Commands Converter')
 parser.add_argument('--input', help='Annotated hp4 commands file',
                     type=str, action="store", required=True)
 parser.add_argument('--output', help='Where to write hp4-ready commands file',
@@ -21,16 +21,27 @@ sr = {}
 sr['[program ID]'] = args.progID
 sr['[DONE]'] = '0'
 sr['[EXTRACTED_EXACT]'] = '1'
+sr['[METADATA_EXACT]'] = '2'
 sr['[STDMETA_EXACT]'] = '3'
 sr['[EXTRACTED_VALID]'] = '4'
 sr['[INSPECT_SEB]'] = '1'
 sr['[INSPECT_20_29]'] = '2'
+sr['[INSPECT_30_39]'] = '3'
+sr['[INSPECT_40_49]'] = '4'
+sr['[INSPECT_50_59]'] = '5'
+sr['[INSPECT_60_69]'] = '6'
+sr['[INSPECT_70_79]'] = '7'
+sr['[INSPECT_80_89]'] = '8'
+sr['[INSPECT_90_99]'] = '9'
 sr['[PROCEED]'] = '0'
 sr['[STDMETA_INGRESS_PORT]'] = '1'
 sr['[COMPLETE]'] = '1'
 sr['[MODIFY_FIELD]'] = '0'
 sr['[DROP]'] = '6'
 sr['[NO_OP]'] = '7'
+sr['[MULTICAST]'] = '19'
+
+found_sr = False
 
 for line in f_ac:
   if line == '# SEARCH AND REPLACE\n':
