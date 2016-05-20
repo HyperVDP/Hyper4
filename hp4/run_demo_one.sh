@@ -34,6 +34,6 @@ sudo PYTHONPATH=$PYTHONPATH:$BMV2_PATH/mininet/ \
     --jsons $PROJ.json $PROJ.json $PROJ.json \
     --cli $CLI_PATH \
     --commands $HP4_DIR/targets/demo_one/s1A.txt \
-      $HP4_DIR/targets/l2_switch_multi/commands_s2.txt \
-      $HP4_DIR/targets/l2_switch_multi/commands_s3.txt \
+      $HP4_DIR/targets/demo_one/s2A.txt \
+      $HP4_DIR/targets/demo_one/s3A.txt \
     --topo $HP4_DIR/targets/demo_one/topo.txt

@@ -26,6 +26,21 @@ metadata csum_t csum;
 
 metadata intrinsic_metadata_t intrinsic_metadata;
 
+action a_mc_skip() {
+  modify_field(standard_metadata.egress_spec, standard_metadata.egress_spec - 1);
+  modify_field(meta_ctrl.multicast_current_egress, meta_ctrl.multicast_current_egress - 1);
+}
+
+table mc_skip {
+  reads {
+    standard_metadata.egress_spec : exact;
+  }
+  actions {
+    a_mc_skip;
+    a_drop;
+  }
+}
+
 control ingress {
   setup();
 
@@ -41,6 +56,11 @@ control ingress {
     }
     if (meta_ctrl.next_table != DONE and meta_ctrl.next_stage == 4) {
       stage4();
+    }
+  }
+  if (meta_ctrl.do_multicast == 1) {
+    if (standard_metadata.egress_spec == standard_metadata.ingress_port) {
+      apply(mc_skip);
     }
   }
 }
@@ -61,6 +81,7 @@ table t_multicast {
     meta_ctrl.program : exact;
     meta_ctrl.multicast_seq_id : exact;
     meta_ctrl.multicast_current_egress : exact;
+    standard_metadata.ingress_port : ternary;
   }
   actions {
     mod_and_clone;
@@ -213,24 +234,9 @@ table t_prep_deparse_80_99{
   }
 }
 
-table t_e_filter {
-  reads {
-    standard_metadata.ingress_port : exact;
-    meta_ctrl.multicast_current_egress : exact;
-  }
-  actions {
-    _no_op;
-    a_drop;
-  }
-}
-
 control egress {
   if(meta_ctrl.do_multicast == 1) {
-    apply(t_e_filter) {
-      _no_op {
-        apply(t_multicast);
-      }
-    }
+    apply(t_multicast);
   }
   apply(csum16);
   apply(t_resize_pr);
