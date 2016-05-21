@@ -469,7 +469,9 @@ table t_set_validbits {
 // ------ Setup
 control setup {
   if (meta_ctrl.stage == INIT) { //_condition_0
-    apply(t_prog_select);
+    if (meta_ctrl.progam == 0) {
+      apply(t_prog_select);
+    }
   }
   apply(parse_control);
   if(parse_ctrl.next_action == INSPECT_SEB) { //_condition_1

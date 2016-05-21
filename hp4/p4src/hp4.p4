@@ -234,6 +234,25 @@ table t_prep_deparse_80_99{
   }
 }
 
+field_list fl_extract_more {
+  meta_ctrl.program;
+}
+
+action a_virt_net(next_prog) {
+  modify_field(meta_ctrl.program, next_prog);
+  recirculate(fl_virt_net);
+}
+
+table t_virt_net {
+  reads {
+    meta_ctrl.program : exact;
+  }
+  actions {
+    a_virt_net;
+    _no_op;
+  }
+}
+
 control egress {
   if(meta_ctrl.do_multicast == 1) {
     apply(t_multicast);
@@ -253,4 +272,5 @@ control egress {
       }
     }
   }
+  apply(t_virt_net);
 }
