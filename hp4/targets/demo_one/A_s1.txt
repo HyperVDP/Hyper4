@@ -1,23 +1,11 @@
-mirroring_add 1 1
-mirroring_add 2 2
-mirroring_add 3 3
-table_add mc_skip a_drop 1 =>
-table_set_default mc_skip a_mc_skip
 table_add t_multicast mod_and_clone 1 1 3 2&&&0xFF => 1 1
 table_add t_multicast mod_and_clone 1 1 3 0&&&0 => 2 2
 table_add t_multicast _no_op 1 1 2 1&&&0xFF => 1
 table_add t_multicast mod_and_clone 1 1 2 0&&&0 => 1 2
 table_add t_multicast _no_op 1 1 1 0&&&0 => 1
-table_add t_prog_select set_program 1 => 1
-table_add t_prog_select set_program 2 => 1
-table_add t_prog_select set_program 3 => 1
 table_add parse_control set_next_action 1 0 0 => 1
 table_add parse_control set_next_action 1 42 1 => 0
 table_add t_inspect_SEB extract_more 1 0&&&0 0&&&0 0&&&0 0&&&0 0&&&0 0&&&0 0&&&0 0&&&0 0&&&0 0&&&0 0&&&0 0&&&0 0x08&&&0xFF 0x06&&&0xFF 0&&&0 0&&&0 0&&&0 0&&&0 0&&&0 0&&&0 => 42 1 1
-table_set_default t_inspect_SEB set_next_action 0
-table_set_default t_norm_SEB a_norm_SEB
-table_set_default t_norm_20_39 a_norm_20_39
-table_set_default t_norm_40_59 a_norm_40_59
 table_add t_set_first_table a_set_first_table 1 1 => 4
 table_add t_set_first_table a_set_first_table 1 0 => 4
 table_add t_set_validbits a_set_validbits 1 1 => 0xC0000000000000000000
@@ -101,7 +89,3 @@ table_add t_mod_39 mod_extracted_const 1 10 4 => 0x000400000003 704 0xFFFFFFFFFF
 table_add t_multicast _no_op 1 0 0 0&&&0 => 1
 table_add csum16 _no_op 1 =>
 table_add t_resize_pr a_resize_pr_42 42 =>
-table_add t_resize_pr _no_op 0 =>
-table_set_default t_prep_deparse_SEB a_prep_deparse_SEB
-table_set_default t_prep_deparse_20_39 a_prep_deparse_20_39
-table_set_default t_prep_deparse_40_59 a_prep_deparse_40_59

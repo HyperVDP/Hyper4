@@ -17,7 +17,7 @@ f_c = open(args.output, 'w')
 
 sr = {}
 
-# TODO: add more
+# TODO: read defines.p4 directly
 sr['[program ID]'] = args.progID
 sr['[PROCEED]'] = '0'
 sr['[INSPECT_SEB]'] = '1'
@@ -42,6 +42,12 @@ sr['[MODIFY_FIELD]'] = '0'
 sr['[DROP]'] = '6'
 sr['[NO_OP]'] = '7'
 sr['[MULTICAST]'] = '19'
+sr['[STDMETA_INGRESS_PORT]'] = '1'
+sr['[STDMETA_PACKET_LENGTH]'] = '2'
+sr['[STDMETA_INSTANCE_TYPE]'] = '3'
+sr['[STDMETA_PARSERSTAT]'] = '4'
+sr['[STDMETA_PARSERERROR]'] = '5'
+sr['[STDMETA_EGRESS_SPEC]'] = '6'
 
 found_sr = False
 
