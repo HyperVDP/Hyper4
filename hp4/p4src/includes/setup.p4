@@ -469,7 +469,7 @@ table t_set_validbits {
 // ------ Setup
 control setup {
   if (meta_ctrl.stage == INIT) { //_condition_0
-    if (meta_ctrl.progam == 0) {
+    if (meta_ctrl.program == 0) {
       apply(t_prog_select);
     }
   }

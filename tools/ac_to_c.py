@@ -19,6 +19,7 @@ sr = {}
 
 # TODO: read defines.p4 directly
 sr['[program ID]'] = args.progID
+sr['[VIRT_NET]'] = '65'
 sr['[PROCEED]'] = '0'
 sr['[INSPECT_SEB]'] = '1'
 sr['[INSPECT_20_29]'] = '2'
@@ -42,6 +43,7 @@ sr['[MODIFY_FIELD]'] = '0'
 sr['[DROP]'] = '6'
 sr['[NO_OP]'] = '7'
 sr['[MULTICAST]'] = '19'
+sr['[ADD_TO_FIELD]'] = '20'
 sr['[STDMETA_INGRESS_PORT]'] = '1'
 sr['[STDMETA_PACKET_LENGTH]'] = '2'
 sr['[STDMETA_INSTANCE_TYPE]'] = '3'

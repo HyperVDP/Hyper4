@@ -12,6 +12,9 @@ defines.p4: Define constants
 // extracted.data/.dcpy field width
 #define EXTRACTED_SIZE	800
 
+// value for sm.egress_spec indicating virt net
+#define VIRT_NET 65
+
 // parse_ctrl.next_action
 #define PROCEED				0
 #define INSPECT_SEB		1

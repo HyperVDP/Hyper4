@@ -41,6 +41,17 @@ table mc_skip {
   }
 }
 
+action a_prep_virt_net() {
+  modify_field(standard_metadata.egress_spec, standard_metadata.ingress_port);
+  modify_field(meta_ctrl.virt_net, 1);
+}
+
+table t_prep_virt_net {
+  actions {
+    a_prep_virt_net;
+  }
+}
+
 control ingress {
   setup();
 
@@ -62,6 +73,9 @@ control ingress {
     if (standard_metadata.egress_spec == standard_metadata.ingress_port) {
       apply(mc_skip);
     }
+  }
+  if (standard_metadata.egress_spec == VIRT_NET) {
+    apply(t_prep_virt_net);
   }
 }
 
@@ -234,7 +248,7 @@ table t_prep_deparse_80_99{
   }
 }
 
-field_list fl_extract_more {
+field_list fl_virt_net {
   meta_ctrl.program;
 }
 
@@ -249,7 +263,6 @@ table t_virt_net {
   }
   actions {
     a_virt_net;
-    _no_op;
   }
 }
 
@@ -272,5 +285,7 @@ control egress {
       }
     }
   }
-  apply(t_virt_net);
+  if (meta_ctrl.virt_net == 1) {
+    apply(t_virt_net);
+  }
 }

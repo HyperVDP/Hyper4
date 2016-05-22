@@ -57,3 +57,4 @@ table_add t_mod_11 mod_stdmeta_egressspec_const [program ID] [STDMETA_EGRESSSPEC
 table_add t_mod_11 mod_stdmeta_egressspec_const [program ID] [STDMETA_EGRESSSPEC_CONST] 2 => 2
 table_add t_mod_11 mod_stdmeta_egressspec_const [program ID] [STDMETA_EGRESSSPEC_CONST] 3 => 3
 table_add t_mod_11 mod_stdmeta_egressspec_const [program ID] [STDMETA_EGRESSSPEC_CONST] 4 => 3
+table_add t_virt_net _no_op [program ID] =>
