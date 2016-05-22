@@ -12,3 +12,5 @@ $CLI_PATH ../../hp4.json 22224 < ./A_s3.txt
 $CLI_PATH ../../hp4.json 22222 < ./B_s1.txt
 $CLI_PATH ../../hp4.json 22223 < ./B_s2.txt
 $CLI_PATH ../../hp4.json 22224 < ./B_s3.txt
+$CLI_PATH ../../hp4.json 22222 < ./C_s2_1.txt
+$CLI_PATH ../../hp4.json 22222 < ./setup_vn_s2.txt
