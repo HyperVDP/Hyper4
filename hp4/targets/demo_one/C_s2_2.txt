@@ -49,4 +49,3 @@ table_add csum16 _no_op 4 =>
 table_add t_resize_pr a_resize_pr_34 34 =>
 table_add t_resize_pr a_resize_pr_54 54 =>
 table_add t_resize_pr a_resize_pr_42 42 =>
-table_add t_virt_net _no_op 4 =>
