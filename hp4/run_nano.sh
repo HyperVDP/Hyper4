@@ -6,4 +6,11 @@ NANO_PATH=$THIS_DIR/../tools/nanomsg_client.py
 
 PROJ=${PWD##*/}
 
-sudo $NANO_PATH --json $PROJ.json --socket ipc:///tmp/bm-0-log.ipc
+SW=0
+
+if [ $# -eq 1 ]
+  then
+    SW=$(($1-1))
+fi
+
+sudo $NANO_PATH --json $PROJ.json --socket ipc:///tmp/bm-$SW-log.ipc

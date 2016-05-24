@@ -52,8 +52,19 @@ table t_prep_virt_net {
   }
 }
 
+table debug_chk_prog {
+  reads {
+    meta_ctrl.program : exact;
+  }
+  actions {
+    _no_op;
+  }
+}
+
 control ingress {
   setup();
+
+  apply(debug_chk_prog);
 
   if (meta_ctrl.stage == NORM) { //_condition_15
     if (meta_ctrl.next_table != DONE and meta_ctrl.next_stage == 1) { //_condition_16
@@ -250,6 +261,7 @@ table t_prep_deparse_80_99{
 
 field_list fl_virt_net {
   meta_ctrl.program;
+  standard_metadata;
 }
 
 action a_virt_net(next_prog) {
@@ -262,6 +274,7 @@ table t_virt_net {
     meta_ctrl.program : exact;
   }
   actions {
+    _no_op;
     a_virt_net;
   }
 }
@@ -273,19 +286,19 @@ control egress {
   apply(csum16);
   apply(t_resize_pr);
   apply(t_prep_deparse_SEB);
-  if(parse_ctrl.numbytes > 20) {
+  if(parse_ctrl.numbytes > 20) { // 341
     apply(t_prep_deparse_20_39);
-    if(parse_ctrl.numbytes > 40) {
+    if(parse_ctrl.numbytes > 40) { // 342
       apply(t_prep_deparse_40_59);
-      if(parse_ctrl.numbytes > 60) {
+      if(parse_ctrl.numbytes > 60) { // 343
         apply(t_prep_deparse_60_79);
-        if(parse_ctrl.numbytes > 80) {
+        if(parse_ctrl.numbytes > 80) { // 344
           apply(t_prep_deparse_80_99);
         }
       }
     }
   }
-  if (meta_ctrl.virt_net == 1) {
+  if (meta_ctrl.virt_net == 1) { // 345
     apply(t_virt_net);
   }
 }

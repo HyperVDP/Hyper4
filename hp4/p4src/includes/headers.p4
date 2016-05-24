@@ -28,6 +28,7 @@ header_type intrinsic_metadata_t {
         mcast_hash : 16;
         lf_field_list : 32;
         resubmit_flag : 16;
+        recirculate_flag : 16;
   }
 }
 
