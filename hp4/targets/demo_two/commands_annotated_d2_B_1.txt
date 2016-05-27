@@ -46,8 +46,8 @@ table_add t1_stdmeta_ingress_port init_program_state [program ID] 2 => [a_fwd()]
 # [program ID] [action ID] [primitive index] => [primitive] [primitive_subtype]
 table_add set_primitive_metadata_11 a_set_primitive_metadata [program ID] [a_fwd()] 1 => [MODIFY_FIELD] [STDMETA_EGRESSSPEC_CONST]
 
-table_add t_mod_11 mod_stdmeta_egressspec_const [program ID] [STDMETA_EGRESSSPEC_CONST] 1 => [VIRT_NET]
-table_add t_mod_11 mod_stdmeta_egressspec_const [program ID] [STDMETA_EGRESSSPEC_CONST] 2 => [VIRT_NET]
+table_add t_mod_11 mod_stdmeta_egressspec_const [program ID] [STDMETA_EGRESSSPEC_CONST] 1 => 2
+table_add t_mod_11 mod_stdmeta_egressspec_const [program ID] [STDMETA_EGRESSSPEC_CONST] 2 => 1
 
 # [program ID] [action ID] [primitive index] => [action ID] [primitive_index] [stage_state] [next_stage]
 table_add set_program_state_11 set_program_state [program ID] [a_fwd()] 1 => 0 0 [COMPLETE] 2
@@ -78,8 +78,7 @@ table_add t3_extracted_exact init_program_state [program ID] 0&&&0 => [_no_op()]
 table_add set_primitive_metadata_31 a_set_primitive_metadata [program ID] [_drop()] 1 => [DROP] 0
 table_add set_primitive_metadata_31 a_set_primitive_metadata [program ID] [_no_op()] 1 => [NO_OP] 0
 
-# duplicate in B_s2:
-# table_add t_drop_31 a_drop =>
+table_add t_drop_31 a_drop =>
 
 table_add set_program_state_31 set_program_state [program ID] [_drop()] 1 => 0 0 [COMPLETE] 0
 table_add set_program_state_31 set_program_state [program ID] [_no_op()] 1 => 0 0 [COMPLETE] 0
@@ -90,8 +89,7 @@ table_add set_program_state_31 set_program_state [program ID] [_no_op()] 1 => 0 
 table_add t4_extracted_exact init_program_state [program ID] 0x1388[62_00s]&&&0xFFFF[62_00s] => [_drop()] 1 [DONE] 1
 table_add t4_extracted_exact init_program_state [program ID] 0&&&0 => [_no_op()] 0 [DONE] 2
 
-# duplicate in B_s2:
-# table_add t_drop_41 a_drop =>
+table_add t_drop_41 a_drop =>
 
 table_add set_primitive_metadata_41 a_set_primitive_metadata [program ID] [_drop()] 1 => [DROP] 0
 table_add set_primitive_metadata_41 a_set_primitive_metadata [program ID] [_no_op()] 1 => [NO_OP] 0
@@ -102,7 +100,6 @@ table_add set_program_state_41 set_program_state [program ID] [_no_op()] 1 => 0 
 # EGRESS
 table_add t_multicast _no_op [program ID] 0 0 0&&&0 => 1
 table_add csum16 _no_op [program ID] =>
-# duplicates in B_s2:
-# table_add t_resize_pr a_resize_pr_34 34 =>
-# table_add t_resize_pr a_resize_pr_54 54 =>
-# table_add t_resize_pr a_resize_pr_42 42 =>
+table_add t_resize_pr a_resize_pr_34 34 =>
+table_add t_resize_pr a_resize_pr_54 54 =>
+table_add t_resize_pr a_resize_pr_42 42 =>

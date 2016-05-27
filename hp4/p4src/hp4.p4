@@ -52,19 +52,8 @@ table t_prep_virt_net {
   }
 }
 
-table debug_chk_prog {
-  reads {
-    meta_ctrl.program : exact;
-  }
-  actions {
-    _no_op;
-  }
-}
-
 control ingress {
   setup();
-
-  apply(debug_chk_prog);
 
   if (meta_ctrl.stage == NORM) { //_condition_15
     if (meta_ctrl.next_table != DONE and meta_ctrl.next_stage == 1) { //_condition_16

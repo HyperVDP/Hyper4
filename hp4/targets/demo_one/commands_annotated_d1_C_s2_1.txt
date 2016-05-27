@@ -217,4 +217,6 @@ table_add t_mod_39 mod_extracted_const [program ID] 10 6 => 0x00aabb000001 704 0
 # egress
 table_add t_multicast _no_op [program ID] 0 0 0&&&0 => 1
 table_add csum16 _no_op [program ID] =>
-table_add t_resize_pr a_resize_pr_42 42 =>
+
+# duplicate in B_s2:
+# table_add t_resize_pr a_resize_pr_42 42 =>

@@ -1,11 +1,3 @@
-table_add debug_chk_prog _no_op 0 =>
-table_add debug_chk_prog _no_op 1 =>
-table_add debug_chk_prog _no_op 2 =>
-table_add debug_chk_prog _no_op 3 =>
-table_add debug_chk_prog _no_op 4 =>
-table_add debug_chk_prog _no_op 5 =>
-table_add debug_chk_prog _no_op 6 =>
-table_set_default debug_chk_prog _no_op
 table_add t_multicast mod_and_clone 3 1 3 2&&&0xFF => 1 1
 table_add t_multicast mod_and_clone 3 1 3 0&&&0 => 2 2
 table_add t_multicast _no_op 3 1 2 1&&&0xFF => 1
