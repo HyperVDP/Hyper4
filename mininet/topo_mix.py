@@ -41,6 +41,8 @@ parser.add_argument('--commands', help='Paths to initial CLI commands',
                     type=str, nargs='*', action="store", default=["commands.txt"])
 parser.add_argument('--topo', help='Path to scenario topology file',
                     type=str, action="store", default="topo.txt")
+parser.add_argument('--hmacs', help='Host MAC addresses',
+                    type=str, nargs='*', action="store", default=[])
 # Useful if we need to use runtime_CLI instead of sswitch_CLI:
 #parser.add_argument('--p4factory', help='Use p4factory intead of standalone repos',
 #                    action="store_true")
@@ -65,9 +67,12 @@ class MyTopo(Topo):
                                     device_id = i)
         
         for h in xrange(nb_hosts):
+            macstr = '00:04:00:00:00:%02x' %h
+            if(len(args.hmacs) > h):
+              macstr = args.hmacs[h]
             host = self.addHost('h%d' % (h + 1),
                                 ip = '10.0.0.%d/24' % (h + 1),
-                                mac = '00:04:00:00:00:%02x' %h)
+                                mac = macstr)
 
         for a, b in links:
             self.addLink(a, b)
