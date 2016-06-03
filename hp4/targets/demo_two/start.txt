@@ -19,3 +19,4 @@ table_set_default t_norm_60_79 a_norm_60_79
 table_set_default t_norm_80_99 a_norm_80_99
 table_set_default t_link _no_op
 table_set_default t_virt_net _no_op
+table_set_default t_virt_filter clear_dest_port

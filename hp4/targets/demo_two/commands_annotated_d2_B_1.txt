@@ -40,14 +40,14 @@ table_add t_set_validbits a_set_validbits [program ID] 3 => 0xD00000000000000000
 
 table_add t1_stdmeta_exact set_meta_stdmeta [program ID] => [STDMETA_INGRESS_PORT]
 
-table_add t1_stdmeta_ingress_port init_program_state [program ID] 1 => [a_fwd()] 1 [EXTRACTED_VALID] # action_ID, match_ID, next_table
-table_add t1_stdmeta_ingress_port init_program_state [program ID] 2 => [a_fwd()] 2 [EXTRACTED_VALID] # action_ID, match_ID, next_table
+table_add t1_stdmeta_ingress_port init_program_state [program ID] 3 => [a_fwd()] 1 [EXTRACTED_VALID] # action_ID, match_ID, next_table
+table_add t1_stdmeta_ingress_port init_program_state [program ID] 4 => [a_fwd()] 2 [EXTRACTED_VALID] # action_ID, match_ID, next_table
 
 # [program ID] [action ID] [primitive index] => [primitive] [primitive_subtype]
 table_add set_primitive_metadata_11 a_set_primitive_metadata [program ID] [a_fwd()] 1 => [MODIFY_FIELD] [STDMETA_EGRESSSPEC_CONST]
 
-table_add t_mod_11 mod_stdmeta_egressspec_const [program ID] [STDMETA_EGRESSSPEC_CONST] 1 => 2
-table_add t_mod_11 mod_stdmeta_egressspec_const [program ID] [STDMETA_EGRESSSPEC_CONST] 2 => 1
+table_add t_mod_11 mod_stdmeta_egressspec_const [program ID] [STDMETA_EGRESSSPEC_CONST] 1 => [VIRT_PORT_1]
+table_add t_mod_11 mod_stdmeta_egressspec_const [program ID] [STDMETA_EGRESSSPEC_CONST] 2 => [VIRT_PORT_1]
 
 # [program ID] [action ID] [primitive index] => [action ID] [primitive_index] [stage_state] [next_stage]
 table_add set_program_state_11 set_program_state [program ID] [a_fwd()] 1 => 0 0 [COMPLETE] 2
