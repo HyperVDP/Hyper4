@@ -54,7 +54,7 @@ table t_link {
   actions {
     a_set_dest_port;
     _no_op;
-    _drop;
+    a_drop;
   }
 }
 
@@ -80,11 +80,7 @@ control ingress {
       apply(mc_skip);
     }
   }
-/*
-  if (standard_metadata.egress_spec == VIRT_NET) {
-    apply(t_prep_virt_net);
-  }
-*/
+
   apply(t_link);
 }
 
@@ -298,6 +294,7 @@ control egress {
       }
     }
   }
-
-  apply(t_virt_net);
+  if(meta_ctrl.virt_dest_port > 0) {
+    apply(t_virt_net);
+  }
 }

@@ -184,4 +184,3 @@ table_add t_mod_39 mod_extracted_const [program ID] 10 4 => 0x000400000003 704 0
 table_add t_multicast _no_op [program ID] 0 0 0&&&0 => 1
 table_add csum16 _no_op [program ID] =>
 table_add t_resize_pr a_resize_pr_42 42 =>
-table_add t_virt_net _no_op [program ID] =>

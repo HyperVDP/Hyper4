@@ -9,6 +9,8 @@ parser.add_argument('--output', help='Where to write hp4-ready commands file',
                     type=str, action="store", required=True)
 parser.add_argument('--progID', help='Program ID',
                     type=str, action="store", default='1')
+parser.add_argument('--virt_ports', help='Numbers to assign to virtual ports 0-3',
+                    type=str, nargs='*', action="store", default=['65', '66', '67', '68'])
 
 args = parser.parse_args()
 
@@ -19,7 +21,10 @@ sr = {}
 
 # TODO: read defines.p4 directly
 sr['[program ID]'] = args.progID
-sr['[VIRT_NET]'] = '65'
+sr['[VIRT_PORT_0]'] = args.virt_ports[0]
+sr['[VIRT_PORT_1]'] = args.virt_ports[1]
+sr['[VIRT_PORT_2]'] = args.virt_ports[2]
+sr['[VIRT_PORT_3]'] = args.virt_ports[3]
 sr['[PROCEED]'] = '0'
 sr['[INSPECT_SEB]'] = '1'
 sr['[INSPECT_20_29]'] = '2'

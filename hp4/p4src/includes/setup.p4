@@ -466,11 +466,28 @@ table t_set_validbits {
   }
 }
 
+action clear_dest_port() {
+  modify_field(meta_ctrl.virt_dest_port, 0);
+}
+
+table t_virt_filter {
+  reads {
+    meta_ctrl.virt_dest_port : exact;
+  }
+  actions {
+    a_drop;
+    clear_dest_port;
+  }
+}
+
 // ------ Setup
 control setup {
   if (meta_ctrl.stage == INIT) { //_condition_0
     if (meta_ctrl.program == 0) {
       apply(t_prog_select);
+    }
+    if (meta_ctrl.virt_dest_port > 0) {
+      apply(t_virt_filter);
     }
   }
   apply(parse_control);

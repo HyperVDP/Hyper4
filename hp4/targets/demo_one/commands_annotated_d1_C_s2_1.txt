@@ -55,7 +55,7 @@ table_add set_primitive_metadata_11 a_set_primitive_metadata [program ID] [send_
 
 ## modify_field
 # t_mod_XY mod_stdmeta_egressspec_const [program ID] [subtype] [match ID] => [val]
-table_add t_mod_11 mod_stdmeta_egressspec_const [program ID] [STDMETA_EGRESSSPEC_CONST] 2 => [VIRT_NET]
+table_add t_mod_11 mod_stdmeta_egressspec_const [program ID] [STDMETA_EGRESSSPEC_CONST] 2 => [VIRT_PORT_1]
 
 ## stages.p4: stage1()
 # set_program_state_11 set_program_state [program ID] [action ID] [primitive index] => [action ID] [primitive index] [stage state] [next stage]
@@ -88,7 +88,7 @@ table_add set_primitive_metadata_21 a_set_primitive_metadata [program ID] [send_
 
 ## modify_field
 # t_mod_XY mod_stdmeta_egressspec_const [program ID] [subtype] [match ID] => [val]
-table_add t_mod_21 mod_stdmeta_egressspec_const [program ID] [STDMETA_EGRESSSPEC_CONST] 2 => [VIRT_NET]
+table_add t_mod_21 mod_stdmeta_egressspec_const [program ID] [STDMETA_EGRESSSPEC_CONST] 2 => [VIRT_PORT_1]
 
 ## stages.p4: stage2()
 # set_program_state_21 set_program_state [program ID] [action ID] [primitive index] => [action ID] [primitive index] [stage state] [next stage]
@@ -155,7 +155,7 @@ table_add t_mod_31 mod_stdmeta_egressspec_stdmeta_ingressport [program ID] 11 6 
 
 ## modify_field
 # t_mod_XY mod_stdmeta_egressspec_const [program ID] [subtype] [match ID] => [val]
-table_add t_mod_31 mod_stdmeta_egressspec_const [program ID] [STDMETA_EGRESSSPEC_CONST] 7 => [VIRT_NET]
+table_add t_mod_31 mod_stdmeta_egressspec_const [program ID] [STDMETA_EGRESSSPEC_CONST] 7 => [VIRT_PORT_1]
 
 table_add t_mod_32 mod_extracted_const [program ID] 10 1 => 2 624 0xFFFF000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
 table_add t_mod_32 mod_extracted_const [program ID] 10 2 => 2 624 0xFFFF000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000

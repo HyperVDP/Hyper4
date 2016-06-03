@@ -17,6 +17,6 @@ fi
 ~/hp4-src/tools/ac_to_c.py --input commands_annotated_d1_B_s2.txt --output B_s2$TEST_SUFFIX.txt --progID 2
 ~/hp4-src/tools/ac_to_c.py --input commands_annotated_d1_B_s3.txt --output B_s3$TEST_SUFFIX.txt --progID 2
 
-~/hp4-src/tools/ac_to_c.py --input commands_annotated_d1_C_s2_1.txt --output C_s2_1$TEST_SUFFIX.txt --progID 3
-~/hp4-src/tools/ac_to_c.py --input commands_annotated_d1_C_s2_2.txt --output C_s2_2$TEST_SUFFIX.txt --progID 4
-~/hp4-src/tools/ac_to_c.py --input commands_annotated_d1_C_s2_3.txt --output C_s2_3$TEST_SUFFIX.txt --progID 5
+~/hp4-src/tools/ac_to_c.py --input commands_annotated_d1_C_s2_1.txt --output C_s2_1$TEST_SUFFIX.txt --progID 3 --virt_ports 65 66 67 68
+~/hp4-src/tools/ac_to_c.py --input commands_annotated_d1_C_s2_2.txt --output C_s2_2$TEST_SUFFIX.txt --progID 4 --virt_ports 69 70 71 72
+~/hp4-src/tools/ac_to_c.py --input commands_annotated_d1_C_s2_3.txt --output C_s2_3$TEST_SUFFIX.txt --progID 5 --virt_ports 73 74 75 76

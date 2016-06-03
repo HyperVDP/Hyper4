@@ -46,8 +46,8 @@ table_add t1_stdmeta_ingress_port init_program_state [program ID] 2 => [a_fwd()]
 # [program ID] [action ID] [primitive index] => [primitive] [primitive_subtype]
 table_add set_primitive_metadata_11 a_set_primitive_metadata [program ID] [a_fwd()] 1 => [MODIFY_FIELD] [STDMETA_EGRESSSPEC_CONST]
 
-table_add t_mod_11 mod_stdmeta_egressspec_const [program ID] [STDMETA_EGRESSSPEC_CONST] 1 => [VIRT_NET]
-table_add t_mod_11 mod_stdmeta_egressspec_const [program ID] [STDMETA_EGRESSSPEC_CONST] 2 => [VIRT_NET]
+table_add t_mod_11 mod_stdmeta_egressspec_const [program ID] [STDMETA_EGRESSSPEC_CONST] 1 => [VIRT_PORT_1]
+table_add t_mod_11 mod_stdmeta_egressspec_const [program ID] [STDMETA_EGRESSSPEC_CONST] 2 => [VIRT_PORT_1]
 
 # [program ID] [action ID] [primitive index] => [action ID] [primitive_index] [stage_state] [next_stage]
 table_add set_program_state_11 set_program_state [program ID] [a_fwd()] 1 => 0 0 [COMPLETE] 2

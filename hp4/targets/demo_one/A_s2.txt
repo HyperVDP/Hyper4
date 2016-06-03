@@ -22,4 +22,3 @@ table_add t_mod_11 mod_stdmeta_egressspec_const 1 8 1 => 1
 table_add t_mod_11 mod_stdmeta_egressspec_const 1 8 2 => 1
 table_add t_mod_11 mod_stdmeta_egressspec_const 1 8 3 => 2
 table_add t_mod_11 mod_stdmeta_egressspec_const 1 8 4 => 2
-table_add t_virt_net _no_op 1 =>
