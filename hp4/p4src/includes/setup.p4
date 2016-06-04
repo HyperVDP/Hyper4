@@ -467,12 +467,13 @@ table t_set_validbits {
 }
 
 action clear_dest_port() {
+  modify_field(meta_ctrl.virt_ingress_port, meta_ctrl.virt_dest_port);
   modify_field(meta_ctrl.virt_dest_port, 0);
 }
 
 table t_virt_filter {
   reads {
-    meta_ctrl.virt_dest_port : exact;
+    meta_ctrl.virt_egress_port : exact;
   }
   actions {
     a_drop;
@@ -486,7 +487,7 @@ control setup {
     if (meta_ctrl.program == 0) {
       apply(t_prog_select);
     }
-    if (meta_ctrl.virt_dest_port > 0) {
+    if (meta_ctrl.virt_egress_port > 0) {
       apply(t_virt_filter);
     }
   }

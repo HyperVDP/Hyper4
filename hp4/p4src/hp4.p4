@@ -255,7 +255,7 @@ table t_prep_deparse_80_99{
 
 field_list fl_virt_net {
   meta_ctrl.program;
-  meta_ctrl.virt_dest_port;
+  meta_ctrl.virt_egress_port;
   standard_metadata;
 }
 

@@ -54,7 +54,10 @@ header_type meta_ctrl_t {
     do_multicast : 8;
     stdmeta_ID : 8;
     next_stage : 8;
-    virt_dest_port : 8;
+    mc_flag : 8;
+    virt_egress_port : 8;
+    virt_ingress_port : 8;
+    clone_program : 8;
   }
 }
 
