@@ -466,18 +466,30 @@ table t_set_validbits {
   }
 }
 
-action clear_dest_port() {
-  modify_field(meta_ctrl.virt_ingress_port, meta_ctrl.virt_dest_port);
-  modify_field(meta_ctrl.virt_dest_port, 0);
+action a_virt_ports_cleanup() {
+  modify_field(meta_ctrl.virt_ingress_port, meta_ctrl.virt_egress_port);
+  modify_field(meta_ctrl.virt_egress_port, 0);
 }
 
 table t_virt_filter {
   reads {
+    meta_ctrl.program : exact;
     meta_ctrl.virt_egress_port : exact;
   }
   actions {
     a_drop;
-    clear_dest_port;
+    a_virt_ports_cleanup;
+  }
+}
+
+action a_recirc_cleanup() {
+  modify_field(meta_ctrl.program, meta_ctrl.clone_program);
+  modify_field(meta_ctrl.clone_program, 0); // necessary b/c used at egress
+}
+
+table t_recirc_cleanup {
+  actions {
+    a_recirc_cleanup;
   }
 }
 
@@ -489,6 +501,9 @@ control setup {
     }
     if (meta_ctrl.virt_egress_port > 0) {
       apply(t_virt_filter);
+      if (meta_ctrl.clone_program > 0) {
+        apply(t_recirc_cleanup);
+      }
     }
   }
   apply(parse_control);

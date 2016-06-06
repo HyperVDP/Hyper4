@@ -4,16 +4,10 @@ action prep_phys_egress_single(port) {
   // modify_field(meta_ctrl.mc_flag, 0);
 }
 
-action prep_virt_egress_single(port) {
+action prep_virt_egress_single() {
+  modify_field(meta_ctrl.virt_egress_port, standard_metadata.egress_spec);
   modify_field(standard_metadata.egress_spec, standard_metadata.ingress_port);
-  modify_field(meta_ctrl.virt_egress_port, port);
   // modify_field(meta_ctrl.mc_flag, 0);
-}
-
-action prep_phys_egress_mc(mcgrp) {
-  modify_field(intrinsic_metadata.mcast_grp, mcgrp);
-  modify_field(meta_ctrl.mc_flag, 1);
-  // modify_field(meta_ctrl.virt_egress_port, 0);
 }
 
 action prep_virt_egress_mc(start_port) {
@@ -22,7 +16,7 @@ action prep_virt_egress_mc(start_port) {
   modify_field(meta_ctrl.mc_flag, 1);
 }
 
-action prep_mix_egress_mc(start_virt_port) {
+action prep_mix_egress_mc(start_virt_port, mcgrp) {
   modify_field(intrinsic_metadata.mcast_grp, mcgrp);
   modify_field(meta_ctrl.virt_egress_port, start_virt_port);
   modify_field(meta_ctrl.mc_flag, 1);
@@ -36,7 +30,6 @@ table t_link {
   actions {
     prep_phys_egress_single;
     prep_virt_egress_single;
-    prep_phys_egress_mc;
     prep_virt_egress_mc;
     prep_mix_egress_mc;
     _no_op;
@@ -45,19 +38,21 @@ table t_link {
 }  
 
 control ingress {
-  //...
+  setup();
+  //stage1() / ... / stageN()
   apply(t_link);
 }
 
-field_list fl_virt_net {
+field_list fl_recirc {
   standard_metadata;
   meta_ctrl.program;
   meta_ctrl.virt_egress_port;
+  meta_ctrl.clone_program;
 }
 
 action a_virt_forward(next_prog) {
   modify_field(meta_ctrl.program, next_prog);
-  recirculate(fl_virt_net);
+  recirculate(fl_recirc);
 }
 
 field_list fl_clone {
@@ -69,7 +64,7 @@ field_list fl_clone {
 action a_virt_multicast(next_prog) {
   modify_field(meta_ctrl.clone_program, next_prog);
   clone_egress_pkt_to_egress(standard_metadata.egress_port, fl_clone);
-  recirculate(fl_virt_net);
+  recirculate(fl_recirc);
 }
 
 table t_virt_net {
@@ -93,8 +88,7 @@ table mcast_src_pruning {
   size : 1;
 }
 
-action skip(programID, virt_egress_port) {
-  modify_field(meta_ctrl.program, programID);
+action skip(virt_egress_port) {
   modify_field(meta_ctrl.virt_egress_port, virt_egress_port);
 }
 
@@ -113,14 +107,17 @@ table virt_mcast_src_pruning {
   }
 }
 
-action a_clone_cleanup() {
-  modify_field(meta_ctrl.program, meta_ctrl.clone_program);
-  modify_field(meta_ctrl.clone_program, 0);
+action a_virt_mc_trans(virt_egress_port) {
+  modify_field(meta_ctrl.virt_egress_port, virt_egress_port);
+  modify_field(meta_ctrl.clone_program, 0); // is this necessary?
 }
 
 table clone_cleanup {
+  reads {
+    meta_ctrl.program : exact;
+    meta_ctrl.virt_egress_port : exact;
   actions {
-    a_clone_cleanup;
+    a_virt_mc_trans;
   }
 }
 
@@ -128,6 +125,16 @@ control egress {
   if(meta_ctrl.clone_program > 0) {
     apply(clone_cleanup);
   }
+  // THIS is problematic.  Packet will erroneously drop in following scenario:
+  // Original packet is an ARP request and comes in over pport 1, handled by
+  // vdevice X and sent to vdevice Y, which is an arp_proxy that returns the
+  // packet (modified to be the ARP response) to vdevice X over some vport
+  // attached to X.
+  // Probably the best solution is that when a packet is received over a pport,
+  // assign virtual_ingress_port (VIP) appropriately, and then skip this first
+  // test and proceed to check whether VIP == VEP.
+  // Will likely require modification to all demos so that VIP is always used
+  // instead of ingress_port.
   if(standard_metadata.egress_port == standard_metadata.ingress_port) {
     if(meta_ctrl.virt_egress_port == 0) { // phys_egress_mc needing filtering
       apply(mcast_src_pruning);
