@@ -81,18 +81,20 @@ table t_virt_net {
 }
 
 table mcast_src_pruning {
+  reads {
+    meta_ctrl.virtual_ingress_port : exact;
+    standard_metadata.ingress_port : exact;
   actions {
       _no_op;
       a_drop;
   }
-  size : 1;
 }
 
 action skip(virt_egress_port) {
   modify_field(meta_ctrl.virt_egress_port, virt_egress_port);
 }
 
-// Idea is to skip to next program / port in the sequence if during
+// Skip to next program / port in the sequence if during
 // virtual multicasting virt_ingress_port == virt_egress_port.
 // Table entries should agree with those of t_virt_net.
 table virt_mcast_src_pruning {
@@ -125,25 +127,16 @@ control egress {
   if(meta_ctrl.clone_program > 0) {
     apply(clone_cleanup);
   }
-  // THIS is problematic.  Packet will erroneously drop in following scenario:
-  // Original packet is an ARP request and comes in over pport 1, handled by
-  // vdevice X and sent to vdevice Y, which is an arp_proxy that returns the
-  // packet (modified to be the ARP response) to vdevice X over some vport
-  // attached to X.
-  // Probably the best solution is that when a packet is received over a pport,
-  // assign virtual_ingress_port (VIP) appropriately, and then skip this first
-  // test and proceed to check whether VIP == VEP.
-  // Will likely require modification to all demos so that VIP is always used
-  // instead of ingress_port.
-  if(standard_metadata.egress_port == standard_metadata.ingress_port) {
-    if(meta_ctrl.virt_egress_port == 0) { // phys_egress_mc needing filtering
-      apply(mcast_src_pruning);
-    }
-    else { // virt_egress_single or virt_egress_mc, depending on meta_ctrl.mc_flag
-      if(meta_ctrl.virt_ingress_port == meta_ctrl.virt_egress_port) {
-        apply(virt_mcast_src_pruning);
-      }
-      apply(t_virt_net);
-    }
-  } // else phys_egress_single or phys_egress_mc; no_op
+  if(meta_ctrl.virt_ingress_port == meta_ctrl.virt_egress_port) {
+    apply(virt_mcast_src_pruning);
+  }
+
+  apply(mcast_src_pruning) {
+    
+  }
+
+
+  if(meta_ctrl.virt_egress_port > 0) {
+    apply(t_virt_net);
+  }
 }

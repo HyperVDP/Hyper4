@@ -159,8 +159,9 @@ table t_norm_80_99 {
   }
 }
 
-action set_program(program) {
+action set_program(program, virt_ingress_port) {
   modify_field(meta_ctrl.program, program);
+  modify_field(meta_ctrl.virt_ingress_port, virt_ingress_port);
 }
 
 table t_prog_select {
