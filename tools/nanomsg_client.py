@@ -401,6 +401,7 @@ def recv_msgs():
     sub.connect(args.socket)
     sub.setsockopt(nnpy.SUB, nnpy.SUB_SUBSCRIBE, '')
     
+    count = 0
     while True:
         msg = sub.recv()
         msg_type = get_msg_type(msg)
@@ -410,8 +411,9 @@ def recv_msgs():
         except:
             print "Unknown msg type", msg_type
             continue
-        p.extract()
-        print p
+        if p.type_str == "PACKET_IN" or p.type_str == "TABLE_HIT" or p.type_str == "PACKET_OUT": 
+          p.extract()
+          print(p)
 
 def main():
     json_src = args.json

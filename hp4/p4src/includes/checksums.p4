@@ -54,6 +54,7 @@ action a_ipv4_csum16(rshift_base, div) {
 table csum16 {
   reads {
     meta_ctrl.program : exact;
+    // TODO: extracted.validbits : ternary
   }
   actions {
     a_ipv4_csum16;
