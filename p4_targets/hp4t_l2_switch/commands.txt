@@ -1,12 +1,5 @@
-mirroring_add 1 1
-mirroring_add 2 2
-mirroring_add 3 3
+mc_grp_create 1
+mc_node_create 1 1 2 3
 table_add dmac forward 00:04:00:00:00:00 => 1
 table_add dmac forward 00:04:00:00:00:01 => 2
 table_add dmac forward 00:04:00:00:00:02 => 3
-table_add dmac broadcast ff:ff:ff:ff:ff:ff => 3
-table_add clone _no_op 4 =>
-table_add clone mod_and_clone 3 => 2
-table_add clone mod_and_clone 2 => 1
-table_add clone mod_and_clone 1 => 0
-table_add clone _drop 0 =>

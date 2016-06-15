@@ -1,5 +1,3 @@
-#define NO_BROADCAST 4
-
 header_type ethernet_t {
     fields {
         dstAddr : 48;
@@ -8,14 +6,19 @@ header_type ethernet_t {
     }
 }
 
-header_type meta_t {
+header_type intrinsic_metadata_t {
   fields {
-    egress : 8;
+        mcast_grp : 4;
+        egress_rid : 4;
+        mcast_hash : 16;
+        lf_field_list : 32;
+        resubmit_flag : 16;
+        recirculate_flag : 16;
   }
 }
 
 header ethernet_t ethernet;
-metadata meta_t meta;
+metadata intrinsic_metadata_t intrinsic_metadata;
 
 parser start {
   extract(ethernet);
@@ -30,18 +33,11 @@ action _drop() {
 // .hp4 ACTION_ID: 2
 action forward(port) {
   modify_field(standard_metadata.egress_spec, port);
-  modify_field(meta.egress, NO_BROADCAST);
-}
-
-field_list clone_fl {
-  standard_metadata;
-  meta;
 }
 
 // .hp4 ACTION_ID: 3
-action broadcast(port) {
-  modify_field(standard_metadata.egress_spec, port);
-  modify_field(meta.egress, port);
+action broadcast(mcast) {
+  modify_field(intrinsic_metadata.mcast_grp, mcast);
 }
 
 table dmac {
@@ -60,26 +56,14 @@ control ingress {
   apply(dmac);
 }
 
-action mod_and_clone(port) {
-  modify_field(meta.egress, port);
-  clone_egress_pkt_to_egress(port, clone_fl);
-}
-
-action _no_op() {
-  no_op();
-}
-
-table clone {
-  reads {
-    meta.egress : exact;
-  }
+table filter_egress {
   actions {
-    mod_and_clone;
-    _no_op;
     _drop;
   }
 }
 
 control egress {
-  apply(clone);
+//  if(standard_metadata.egress_port == standard_metadata.ingress_port) {
+//    apply(filter_egress);
+//  }
 }

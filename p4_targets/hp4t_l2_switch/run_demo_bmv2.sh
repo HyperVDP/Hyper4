@@ -43,5 +43,4 @@ sudo PYTHONPATH=$PYTHONPATH:$BMV2_PATH/mininet/ \
     python $THIS_DIR/mininet/topo.py \
     --behavioral-exe $SWITCH_PATH \
     --json $PROJ.json \
-    --cli $CLI_PATH #\
-#    $P4F
+    --cli $CLI_PATH
