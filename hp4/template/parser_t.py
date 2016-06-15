@@ -1,9 +1,9 @@
 class GenParser():
-  def __init__(self, parse_opts, test):
-    fpath = '../p4src/includes/parser'
+  def __init__(self, nstages, nprimitives, parse_opts, test):
+    fpath = '../p4src/'
     if test:
-      fpath += '_test'
-    fpath += '.p4'
+      fpath += 'config_' + str(nstages) + str(nprimitives) + '/'
+    fpath += 'includes/parser.p4'
     f_parser = open(fpath, 'w')
 
     std_h = open('std_header', 'r')

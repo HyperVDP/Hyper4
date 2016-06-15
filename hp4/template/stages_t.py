@@ -1,9 +1,9 @@
 class GenStages():
   def __init__(self, nstages, nprimitives, test):
-    fpath = '../p4src/includes/stages'
+    fpath = '../p4src/'
     if test:
-      fpath += '_test'
-    fpath += '.p4'
+      fpath += 'config_' + str(nstages) + str(nprimitives) + '/'
+    fpath += 'includes/stages.p4'
     f_stages = open(fpath, 'w')
 
     std_h = open('std_header', 'r')

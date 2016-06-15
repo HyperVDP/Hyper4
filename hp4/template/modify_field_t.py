@@ -1,9 +1,9 @@
 class GenModify_Field():
   def __init__(self, nstages, nprimitives, test):
-    fpath = '../p4src/includes/modify_field'
+    fpath = '../p4src/'
     if test:
-      fpath += '_test'
-    fpath += '.p4'
+      fpath += 'config_' + str(nstages) + str(nprimitives) + '/'
+    fpath += 'includes/modify_field.p4'
     f_modfld = open(fpath, 'w')
 
     std_h = open('std_header', 'r')

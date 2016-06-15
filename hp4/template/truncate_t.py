@@ -1,9 +1,9 @@
 class GenTruncate():
   def __init__(self, nstages, nprimitives, test):
-    fpath = '../p4src/includes/truncate'
+    fpath = '../p4src/'
     if test:
-      fpath += '_test'
-    fpath += '.p4'
+      fpath += 'config_' + str(nstages) + str(nprimitives) + '/'
+    fpath += 'includes/truncate.p4'
     f_trunc = open(fpath, 'w')
 
     std_h = open('std_header', 'r')

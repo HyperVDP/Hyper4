@@ -1,9 +1,9 @@
 class GenAdd_to_Field():
   def __init__(self, nstages, nprimitives, test):
-    fpath = '../p4src/includes/add_to_field'
+    fpath = '../p4src/'
     if test:
-      fpath += '_test'
-    fpath += '.p4'
+      fpath += 'config_' + str(nstages) + str(nprimitives) + '/'
+    fpath += 'includes/add_to_field.p4'
     f_a2f = open(fpath, 'w')
 
     std_h = open('std_header', 'r')

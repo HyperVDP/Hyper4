@@ -1,9 +1,9 @@
 class GenSwitch_PrimitiveType():
   def __init__(self, nstages, nprimitives, test):
-    fpath = '../p4src/includes/switch_primitivetype'
+    fpath = '../p4src/'
     if test:
-      fpath += '_test'
-    fpath += '.p4'
+      fpath += 'config_' + str(nstages) + str(nprimitives) + '/'
+    fpath += 'includes/switch_primitivetype.p4'
     f_swprim = open(fpath, 'w')
 
     std_h = open('std_header', 'r')

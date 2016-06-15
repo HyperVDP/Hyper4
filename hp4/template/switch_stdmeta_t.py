@@ -1,9 +1,9 @@
 class GenSwitch_StdMeta():
-  def __init__(self, nstages, test):
-    fpath = '../p4src/includes/switch_stdmeta'
+  def __init__(self, nstages, nprimitives, test):
+    fpath = '../p4src/'
     if test:
-      fpath += '_test'
-    fpath += '.p4'
+      fpath += 'config_' + str(nstages) + str(nprimitives) + '/'
+    fpath += 'includes/switch_stdmeta.p4'
     f_swstdm = open(fpath, 'w')
 
     std_h = open('std_header', 'r')

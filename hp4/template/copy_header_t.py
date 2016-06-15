@@ -1,9 +1,9 @@
 class GenCopy_Header():
   def __init__(self, nstages, nprimitives, test):
-    fpath = '../p4src/includes/copy_header'
+    fpath = '../p4src/'
     if test:
-      fpath += '_test'
-    fpath += '.p4'
+      fpath += 'config_' + str(nstages) + str(nprimitives) + '/'
+    fpath += 'includes/copy_header.p4'
     f_copyh = open(fpath, 'w')
 
     std_h = open('std_header', 'r')

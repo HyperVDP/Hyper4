@@ -1,9 +1,9 @@
 class GenSetup():
-  def __init__(self, parse_opts, test):
-    fpath = '../p4src/includes/setup'
+  def __init__(self, nstages, nprimitives, parse_opts, test):
+    fpath = '../p4src/'
     if test:
-      fpath += '_test'
-    fpath += '.p4'
+      fpath += 'config_' + str(nstages) + str(nprimitives) + '/'
+    fpath += 'includes/setup.p4'
     f_setup = open(fpath, 'w')
 
     std_h = open('std_header', 'r')

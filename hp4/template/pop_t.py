@@ -1,9 +1,9 @@
 class GenPop():
   def __init__(self, nstages, nprimitives, test):
-    fpath = '../p4src/includes/pop'
+    fpath = '../p4src/'
     if test:
-      fpath += '_test'
-    fpath += '.p4'
+      fpath += 'config_' + str(nstages) + str(nprimitives) + '/'
+    fpath += 'includes/pop.p4'
     f_pop = open(fpath, 'w')
 
     std_h = open('std_header', 'r')

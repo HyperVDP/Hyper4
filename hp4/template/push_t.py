@@ -1,9 +1,9 @@
 class GenPush():
   def __init__(self, nstages, nprimitives, test):
-    fpath = '../p4src/includes/push'
+    fpath = '../p4src/'
     if test:
-      fpath += '_test'
-    fpath += '.p4'
+      fpath += 'config_' + str(nstages) + str(nprimitives) + '/'
+    fpath += 'includes/push.p4'
     f_push = open(fpath, 'w')
 
     std_h = open('std_header', 'r')

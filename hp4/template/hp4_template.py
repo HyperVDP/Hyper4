@@ -34,17 +34,17 @@ parser.add_argument('--numprimitives', help='Max number of primitives per compou
                     type=int, action="store", default=3)
 parser.add_argument('--parse_opt', help='Set default, max, and step for parsing',
                     type=int, nargs='*', action="store", default=[20, 100, 20])
-parser.add_argument('--test', help='Flags whether to output everything as *_test.p4',
-                    action="store_true")
+parser.add_argument('--test', help='Flags whether to append the supplied suffix',
+                    action="store")
 
 args = parser.parse_args()
 
 class GenHp4():
   def __init__(self, nstages, nprimitives, parse_opts, test):
-    fpath = '../p4src/hp4'
+    fpath = '../p4src/'
     if test:
-      fpath += '_test'
-    fpath += '.p4'
+      fpath += 'config_' + str(nstages) + str(nprimitives) + '/'
+    fpath += 'hp4.p4'
     f_hp4 = open(fpath, 'w')
 
     std_h = open('std_header', 'r')
@@ -183,26 +183,26 @@ class GenHp4():
 def main():
   GenHp4(args.numstages, args.numprimitives, args.parse_opt, args.test)
   stages_t.GenStages(args.numstages, args.numprimitives, args.test)
-  parser_t.GenParser(args.parse_opt, args.test)
+  parser_t.GenParser(args.numstages, args.numprimitives, args.parse_opt, args.test)
   action_t.GenAction(args.numstages, args.numprimitives, args.test)
   add_to_field_t.GenAdd_to_Field(args.numstages, args.numprimitives, args.test)
   drop_t.GenDrop(args.numstages, args.numprimitives, args.test)
-  match_t.GenMatch(args.numstages, args.test)
+  match_t.GenMatch(args.numstages, args.numprimitives, args.test)
   modify_field_t.GenModify_Field(args.numstages, args.numprimitives, args.test)
-  add_header_t.GenAdd_Header(args.parse_opt, args.numstages, args.numprimitives, args.test)
+  add_header_t.GenAdd_Header(args.numstages, args.numprimitives, args.parse_opt, args.test)
   copy_header_t.GenCopy_Header(args.numstages, args.numprimitives, args.test)
   remove_header_t.GenRemove_Header(args.numstages, args.numprimitives, args.test)
   push_t.GenPush(args.numstages, args.numprimitives, args.test)
   pop_t.GenPop(args.numstages, args.numprimitives, args.test)
   multicast_t.GenMulticast(args.numstages, args.numprimitives, args.test)
-  setup_t.GenSetup(args.parse_opt, args.test)
+  setup_t.GenSetup(args.numstages, args.numprimitives, args.parse_opt, args.test)
   switch_primitivetype_t.GenSwitch_PrimitiveType(args.numstages, args.numprimitives, args.test)
-  switch_stdmeta_t.GenSwitch_StdMeta(args.numstages, args.test)
+  switch_stdmeta_t.GenSwitch_StdMeta(args.numstages, args.numprimitives, args.test)
   truncate_t.GenTruncate(args.numstages, args.numprimitives, args.test)
-  checksums_t.GenChecksums(args.test)
-  resize_pr_t.GenResize_PR(args.parse_opt, args.test)
-  defines_t.GenDefines(args.parse_opt, args.test)
-  headers_t.GenHeaders(args.parse_opt, args.test)
+  checksums_t.GenChecksums(args.numstages, args.numprimitives, args.test)
+  resize_pr_t.GenResize_PR(args.numstages, args.numprimitives, args.parse_opt, args.test)
+  defines_t.GenDefines(args.numstages, args.numprimitives, args.parse_opt, args.test)
+  headers_t.GenHeaders(args.numstages, args.numprimitives, args.parse_opt, args.test)
 
 if __name__ == '__main__':
     main()
