@@ -40,13 +40,13 @@ SWITCH_PATH=$BMV2_PATH/targets/simple_switch/simple_switch
 
 $P4C_BM_SCRIPT $DEMO_DIR/../hp4t_l2_switch/p4src/hp4t_l2_switch.p4 --json $DEMO_DIR/../hp4t_l2_switch/hp4t_l2_switch.json
 
-$P4C_BM_SCRIPT $DEMO_DIR/../firewall/p4src/firewall.p4 --json $DEMO_DIR/../firewall/firewall.json
+$P4C_BM_SCRIPT $DEMO_DIR/../d1_C_s2_native/p4src/d1_C_s2_native.p4 --json $DEMO_DIR/../d1_C_s2_native/d1_C_s2_native.json
 
 sudo PYTHONPATH=$PYTHONPATH:$BMV2_PATH/mininet/ \
     python $THIS_DIR/mininet/topo_mix.py \
     --behavioral-exe $SWITCH_PATH \
     --jsons $DEMO_DIR/../hp4t_l2_switch/hp4t_l2_switch.json \
-      $DEMO_DIR/../firewall/firewall.json \
+      $DEMO_DIR/../d1_C_s2_native/d1_C_s2_native.json \
       $DEMO_DIR/../hp4t_l2_switch/hp4t_l2_switch.json \
     --cli $CLI_PATH \
     --commands commands_s1.txt commands_s2.txt commands_s3.txt

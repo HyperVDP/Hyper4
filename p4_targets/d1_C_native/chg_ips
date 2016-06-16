@@ -1,0 +1,6 @@
+h1 ifconfig eth0 10.0.0.10 netmask 255.255.255.0
+h1 route add default gw 10.0.0.1
+h1 arp -s 10.0.0.1 00:aa:bb:00:00:01
+h2 ifconfig eth0 10.0.1.10 netmask 255.255.255.0
+h2 route add default gw 10.0.1.1
+h2 arp -s 10.0.1.1 00:aa:bb:00:00:02
