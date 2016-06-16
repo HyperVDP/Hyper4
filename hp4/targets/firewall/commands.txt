@@ -7,8 +7,8 @@ table_set_default t_norm_20_39 a_norm_20_39
 table_set_default t_norm_40_59 a_norm_40_59
 table_set_default t_norm_60_79 a_norm_60_79
 table_set_default t_norm_80_99 a_norm_80_99
-table_add t_prog_select set_program 1 => 1
-table_add t_prog_select set_program 2 => 1
+table_add t_prog_select set_program 1 => 1 0
+table_add t_prog_select set_program 2 => 1 0
 table_add parse_control set_next_action 1 0 0 => 1
 table_add parse_control set_next_action 1 34 1 => 2
 table_add parse_control set_next_action 1 54 2 => 0
@@ -64,3 +64,6 @@ table_add t_resize_pr _no_op 0 =>
 table_set_default t_prep_deparse_SEB a_prep_deparse_SEB
 table_set_default t_prep_deparse_20_39 a_prep_deparse_20_39
 table_set_default t_prep_deparse_40_59 a_prep_deparse_40_59
+table_add t_link _no_op 1 1 =>
+table_add t_link _no_op 1 2 =>
+table_add t_virt_net _no_op 1 0 =>
