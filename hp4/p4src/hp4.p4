@@ -46,6 +46,10 @@ action a_set_dest_port(port) {
   modify_field(meta_ctrl.virt_egress_port, port);
 }
 
+action a_physical_egress(port) {
+  modify_field(standard_metadata.egress_spec, port);
+}
+
 table t_link {
   reads {
     meta_ctrl.program : exact;
@@ -53,6 +57,7 @@ table t_link {
   }
   actions {
     a_set_dest_port;
+    a_physical_egress;
     _no_op;
     a_drop;
   }
