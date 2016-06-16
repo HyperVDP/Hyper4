@@ -29,3 +29,7 @@ print("Items in %s not in %s:" % (args.filename2, args.filename1))
 for x in set2:
   if x not in set1:
     sys.stdout.write(x)
+print("Items in both %s and %s:" % (args.filename1, args.filename2))
+for x in set1:
+  if x in set2:
+    sys.stdout.write(x)
