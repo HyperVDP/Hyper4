@@ -63,7 +63,7 @@ table filter_egress {
 }
 
 control egress {
-//  if(standard_metadata.egress_port == standard_metadata.ingress_port) {
-//    apply(filter_egress);
-//  }
+  if(standard_metadata.egress_port == standard_metadata.ingress_port) {
+    apply(filter_egress);
+  }
 }
