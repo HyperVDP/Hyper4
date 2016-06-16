@@ -43,7 +43,7 @@ table mc_skip {
 
 action a_set_dest_port(port) {
   modify_field(standard_metadata.egress_spec, standard_metadata.ingress_port);
-  modify_field(meta_ctrl.virt_dest_port, port);
+  modify_field(meta_ctrl.virt_egress_port, port);
 }
 
 table t_link {
@@ -267,7 +267,7 @@ action a_virt_net(next_prog) {
 table t_virt_net {
   reads {
     meta_ctrl.program : exact;
-    meta_ctrl.virt_dest_port : exact;
+    meta_ctrl.virt_egress_port : exact;
   }
   actions {
     _no_op;
@@ -294,7 +294,7 @@ control egress {
       }
     }
   }
-  if(meta_ctrl.virt_dest_port > 0) {
+  if(meta_ctrl.virt_egress_port > 0) {
     apply(t_virt_net);
   }
 }
