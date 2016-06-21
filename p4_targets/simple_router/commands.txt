@@ -1,7 +1,0 @@
-table_add send_frame rewrite_mac 1 => 0x00aabb000000
-table_add send_frame rewrite_mac 2 => 0x00aabb000001
-table_add forward set_dmac 0x0A00000A => 0x000400000000
-table_add forward set_dmac 0x0A00010A => 0x000400000001
-table_add ipv4_lpm set_nhop 0x0A00000A/32 => 0x0A00000A 1
-table_add ipv4_lpm set_nhop 0x0A00010A/32 => 0x0A00010A 2
-table_set_default csum a_csum

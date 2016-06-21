@@ -1,7 +1,0 @@
-table_add is_tcp_or_udp_valid tcp_present 1 0 =>
-table_add is_tcp_or_udp_valid udp_present 0 1 =>
-table_set_default is_tcp_or_udp_valid _no_op
-table_add tcp_block _drop 4000&&&0xFFFF 0&&&0x00 => 1
-table_add udp_block _drop 0&&&0x00 5000&&&0xFFFF => 1
-table_add fwd a_fwd 1 => 2
-table_add fwd a_fwd 2 => 1

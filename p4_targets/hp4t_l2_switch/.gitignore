@@ -1,7 +1,0 @@
-/build
-/.*_ts
-/dependmodules.x
-/hp4t_l2_switch.mk
-/*.pcap
-/hp4t_l2_switch
-/tests/pd_thrift
