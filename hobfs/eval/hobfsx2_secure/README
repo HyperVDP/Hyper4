@@ -1,3 +1,0 @@
-The ping file includes two columns:
--1: Ping RTTs in ms
--2: Number of packets lost out of 1000

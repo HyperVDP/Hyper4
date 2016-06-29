@@ -10,7 +10,7 @@ The main development effort has been the HyPer4 *persona*, a P4 program capable 
 
 The [Flowvisor][3] project virtualizes the *control plane* and relies on [OpenFlow][4], which has a fixed data plane (relative to [P4][1]).
 
-## References
+[References]: #
 
 [1]: http://arxiv.org/pdf/1312.1719.pdf "P4: Programming Protocol Independent Packet Processors"
 [2]: https://www.usenix.org/system/files/conference/nsdi13/nsdi13-final232.pdf "Composing Software Defined Networks"
