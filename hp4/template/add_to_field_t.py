@@ -2,7 +2,7 @@ class GenAdd_to_Field():
   def __init__(self, nstages, nprimitives, test):
     fpath = '../p4src/'
     if test:
-      fpath += 'config_' + str(nstages) + str(nprimitives) + '/'
+      fpath += 'test/config_' + str(nstages) + str(nprimitives) + '/'
     fpath += 'includes/add_to_field.p4'
     f_a2f = open(fpath, 'w')
 

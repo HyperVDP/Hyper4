@@ -2,7 +2,7 @@ class GenChecksums():
   def __init__(self, nstages, nprimitives, test):
     fpath = '../p4src/'
     if test:
-      fpath += 'config_' + str(nstages) + str(nprimitives) + '/'
+      fpath += 'test/config_' + str(nstages) + str(nprimitives) + '/'
     fpath += 'includes/checksums.p4'
     f_chksums = open(fpath, 'w')
 

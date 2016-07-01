@@ -1,17 +1,25 @@
 #!/usr/bin/python
 
+# Generate lines of code report for every configuration of HyPer4 in the
+#  hp4/p4src/test directory from one stage, one primitive per stage to
+#  [numstages] stages and [numprimitives] primitives per stage
+#
+# David Hancock
+# University of Utah
+# dhancock@cs.utah.edu
+
 import csv
 import argparse
 
 parser = argparse.ArgumentParser(description='HP4 LoC Reporter')
 parser.add_argument('--numstages', help='Max number of match-action stages',
-                    type=int, action="store", default=5)
+                    type=int, action="store", default=3)
 parser.add_argument('--numprimitives', help='Max number of primitives per compound action',
-                    type=int, action="store", default=9)
+                    type=int, action="store", default=3)
 
 args = parser.parse_args()
 
-r = open('results_prims.csv', 'w')
+r = open('results_sum.csv', 'w')
 writer = csv.writer(r)
 headerrow = []
 for i in range(1, args.numstages + 1):
@@ -24,27 +32,11 @@ writer.writerow(headerrow)
 for npps in range(1, args.numprimitives + 1):
   nppslist = []
   for ns in range(1, args.numstages + 1):
-    total = 0
-    fname = './config_' + str(ns) + str(npps) + '/results_byfile.csv'
+    fname = '../p4src/test/config_' + str(ns) + str(npps) + '/results_sum.csv'
     f = open(fname, 'r')
     reader = csv.reader(f)
     reader.next()
-    # modify_field
-    total += int(reader.next()[4])
-    for i in range(4):
-      reader.next()
-    # add_header
-    total += int(reader.next()[4])
-    # add_to_field
-    total += int(reader.next()[4])
-    for i in range(4):
-      reader.next()
-    # truncate
-    total += int(reader.next()[4])
-    # drop
-    total += int(reader.next()[4])
-    avg = float(total) / 5.0
-    nppslist.append(avg)
+    nppslist.append(reader.next()[4])
     f.close()
   writer.writerow(nppslist)
 

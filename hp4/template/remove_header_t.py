@@ -2,7 +2,7 @@ class GenRemove_Header():
   def __init__(self, nstages, nprimitives, test):
     fpath = '../p4src/'
     if test:
-      fpath += 'config_' + str(nstages) + str(nprimitives) + '/'
+      fpath += 'test/config_' + str(nstages) + str(nprimitives) + '/'
     fpath += 'includes/remove_header.p4'
     f_remvh = open(fpath, 'w')
 

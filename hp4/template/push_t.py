@@ -2,7 +2,7 @@ class GenPush():
   def __init__(self, nstages, nprimitives, test):
     fpath = '../p4src/'
     if test:
-      fpath += 'config_' + str(nstages) + str(nprimitives) + '/'
+      fpath += 'test/config_' + str(nstages) + str(nprimitives) + '/'
     fpath += 'includes/push.p4'
     f_push = open(fpath, 'w')
 

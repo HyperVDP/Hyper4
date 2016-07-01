@@ -2,7 +2,7 @@ class GenSwitch_StdMeta():
   def __init__(self, nstages, nprimitives, test):
     fpath = '../p4src/'
     if test:
-      fpath += 'config_' + str(nstages) + str(nprimitives) + '/'
+      fpath += 'test/config_' + str(nstages) + str(nprimitives) + '/'
     fpath += 'includes/switch_stdmeta.p4'
     f_swstdm = open(fpath, 'w')
 

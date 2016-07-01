@@ -2,7 +2,7 @@ class GenResize_PR():
   def __init__(self, nstages, nprimitives, parse_opt, test):
     fpath = '../p4src/'
     if test:
-      fpath += 'config_' + str(nstages) + str(nprimitives) + '/'
+      fpath += 'test/config_' + str(nstages) + str(nprimitives) + '/'
     fpath += 'includes/resize_pr.p4'
     f_resizepr = open(fpath, 'w')
 
