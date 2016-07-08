@@ -54,6 +54,7 @@ action a_ipv4_csum16(rshift_base, div) {
 */
 
 action a_ipv4_csum16(rshift_base) {
+  modify_field(csum.sum, 0);
   modify_field(csum.rshift, rshift_base);
   // dst low
   modify_field(csum.sum, ((extracted.data >> csum.rshift) & 0xFFFF));
@@ -90,9 +91,8 @@ action a_ipv4_csum16(rshift_base) {
   // invert and store
   modify_field(csum.final, ~csum.sum);
 
-  // shouldn't it be 576 instead of 304?
-  modify_field(csum.csmask, 0xFFFF << 400);
-  modify_field(extracted.data, (extracted.data & ~csum.csmask) | ((csum.final << 400) & csum.csmask));
+  modify_field(csum.csmask, 0xFFFF << (rshift_base + 64));
+  modify_field(extracted.data, (extracted.data & ~csum.csmask) | ((csum.final << (rshift_base + 64)) & csum.csmask));
 }
 
 table csum16 {
