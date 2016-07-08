@@ -80,7 +80,7 @@ control ingress {
       stage4();
     }
   }
-  if (meta_ctrl.do_multicast == 1) {
+  if (meta_ctrl.mc_flag == 1) {
     if (standard_metadata.egress_spec == standard_metadata.ingress_port) {
       apply(mc_skip);
     }
@@ -281,7 +281,7 @@ table t_virt_net {
 }
 
 control egress {
-  if(meta_ctrl.do_multicast == 1) {
+  if(meta_ctrl.mc_flag == 1) {
     apply(t_multicast);
   }
   apply(csum16);

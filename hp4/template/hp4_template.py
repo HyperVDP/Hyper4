@@ -4,7 +4,7 @@ import argparse
 import stages_t
 import parser_t
 import action_t
-import add_to_field_t
+import math_on_field_t
 import drop_t
 import match_t
 import modify_field_t
@@ -185,7 +185,7 @@ def main():
   stages_t.GenStages(args.numstages, args.numprimitives, args.test)
   parser_t.GenParser(args.numstages, args.numprimitives, args.parse_opt, args.test)
   action_t.GenAction(args.numstages, args.numprimitives, args.test)
-  add_to_field_t.GenAdd_to_Field(args.numstages, args.numprimitives, args.test)
+  math_on_field_t.GenMath_on_Field(args.numstages, args.numprimitives, args.test)
   drop_t.GenDrop(args.numstages, args.numprimitives, args.test)
   match_t.GenMatch(args.numstages, args.numprimitives, args.test)
   modify_field_t.GenModify_Field(args.numstages, args.numprimitives, args.test)

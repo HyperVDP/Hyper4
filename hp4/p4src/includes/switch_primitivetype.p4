@@ -18,7 +18,7 @@ switch_primitivetype.p4: Redirect execution to the control function appropriate
 #include "pop.p4"
 #include "drop.p4"
 #include "multicast.p4"
-#include "add_to_field.p4"
+#include "math_on_field.p4"
 #include "truncate.p4"
 
 
@@ -40,8 +40,8 @@ control switch_primitivetype_11 {
   else if(meta_primitive_state.primitive == A_MULTICAST) {
     do_multicast_11();
   }
-  else if(meta_primitive_state.primitive == A_ADD_TO_FIELD) {
-    do_add_to_field_11();
+  else if(meta_primitive_state.primitive == A_MATH_ON_FIELD) {
+    do_math_on_field_11();
   }
 }
 
@@ -63,8 +63,8 @@ control switch_primitivetype_12 {
   else if(meta_primitive_state.primitive == A_MULTICAST) {
     do_multicast_12();
   }
-  else if(meta_primitive_state.primitive == A_ADD_TO_FIELD) {
-    do_add_to_field_12();
+  else if(meta_primitive_state.primitive == A_MATH_ON_FIELD) {
+    do_math_on_field_12();
   }
 }
 
@@ -86,8 +86,8 @@ control switch_primitivetype_13 {
   else if(meta_primitive_state.primitive == A_MULTICAST) {
     do_multicast_13();
   }
-  else if(meta_primitive_state.primitive == A_ADD_TO_FIELD) {
-    do_add_to_field_13();
+  else if(meta_primitive_state.primitive == A_MATH_ON_FIELD) {
+    do_math_on_field_13();
   }
 }
 
@@ -109,8 +109,8 @@ control switch_primitivetype_14 {
   else if(meta_primitive_state.primitive == A_MULTICAST) {
     do_multicast_14();
   }
-  else if(meta_primitive_state.primitive == A_ADD_TO_FIELD) {
-    do_add_to_field_14();
+  else if(meta_primitive_state.primitive == A_MATH_ON_FIELD) {
+    do_math_on_field_14();
   }
 }
 
@@ -132,8 +132,8 @@ control switch_primitivetype_15 {
   else if(meta_primitive_state.primitive == A_MULTICAST) {
     do_multicast_15();
   }
-  else if(meta_primitive_state.primitive == A_ADD_TO_FIELD) {
-    do_add_to_field_15();
+  else if(meta_primitive_state.primitive == A_MATH_ON_FIELD) {
+    do_math_on_field_15();
   }
 }
 
@@ -155,8 +155,8 @@ control switch_primitivetype_16 {
   else if(meta_primitive_state.primitive == A_MULTICAST) {
     do_multicast_16();
   }
-  else if(meta_primitive_state.primitive == A_ADD_TO_FIELD) {
-    do_add_to_field_16();
+  else if(meta_primitive_state.primitive == A_MATH_ON_FIELD) {
+    do_math_on_field_16();
   }
 }
 
@@ -178,8 +178,8 @@ control switch_primitivetype_17 {
   else if(meta_primitive_state.primitive == A_MULTICAST) {
     do_multicast_17();
   }
-  else if(meta_primitive_state.primitive == A_ADD_TO_FIELD) {
-    do_add_to_field_17();
+  else if(meta_primitive_state.primitive == A_MATH_ON_FIELD) {
+    do_math_on_field_17();
   }
 }
 
@@ -201,8 +201,8 @@ control switch_primitivetype_18 {
   else if(meta_primitive_state.primitive == A_MULTICAST) {
     do_multicast_18();
   }
-  else if(meta_primitive_state.primitive == A_ADD_TO_FIELD) {
-    do_add_to_field_18();
+  else if(meta_primitive_state.primitive == A_MATH_ON_FIELD) {
+    do_math_on_field_18();
   }
 }
 
@@ -224,8 +224,8 @@ control switch_primitivetype_19 {
   else if(meta_primitive_state.primitive == A_MULTICAST) {
     do_multicast_19();
   }
-  else if(meta_primitive_state.primitive == A_ADD_TO_FIELD) {
-    do_add_to_field_19();
+  else if(meta_primitive_state.primitive == A_MATH_ON_FIELD) {
+    do_math_on_field_19();
   }
 }
 
@@ -247,8 +247,8 @@ control switch_primitivetype_21 {
   else if(meta_primitive_state.primitive == A_MULTICAST) {
     do_multicast_21();
   }
-  else if(meta_primitive_state.primitive == A_ADD_TO_FIELD) {
-    do_add_to_field_21();
+  else if(meta_primitive_state.primitive == A_MATH_ON_FIELD) {
+    do_math_on_field_21();
   }
 }
 
@@ -270,8 +270,8 @@ control switch_primitivetype_22 {
   else if(meta_primitive_state.primitive == A_MULTICAST) {
     do_multicast_22();
   }
-  else if(meta_primitive_state.primitive == A_ADD_TO_FIELD) {
-    do_add_to_field_22();
+  else if(meta_primitive_state.primitive == A_MATH_ON_FIELD) {
+    do_math_on_field_22();
   }
 }
 
@@ -293,8 +293,8 @@ control switch_primitivetype_23 {
   else if(meta_primitive_state.primitive == A_MULTICAST) {
     do_multicast_23();
   }
-  else if(meta_primitive_state.primitive == A_ADD_TO_FIELD) {
-    do_add_to_field_23();
+  else if(meta_primitive_state.primitive == A_MATH_ON_FIELD) {
+    do_math_on_field_23();
   }
 }
 
@@ -316,8 +316,8 @@ control switch_primitivetype_24 {
   else if(meta_primitive_state.primitive == A_MULTICAST) {
     do_multicast_24();
   }
-  else if(meta_primitive_state.primitive == A_ADD_TO_FIELD) {
-    do_add_to_field_24();
+  else if(meta_primitive_state.primitive == A_MATH_ON_FIELD) {
+    do_math_on_field_24();
   }
 }
 
@@ -339,8 +339,8 @@ control switch_primitivetype_25 {
   else if(meta_primitive_state.primitive == A_MULTICAST) {
     do_multicast_25();
   }
-  else if(meta_primitive_state.primitive == A_ADD_TO_FIELD) {
-    do_add_to_field_25();
+  else if(meta_primitive_state.primitive == A_MATH_ON_FIELD) {
+    do_math_on_field_25();
   }
 }
 
@@ -362,8 +362,8 @@ control switch_primitivetype_26 {
   else if(meta_primitive_state.primitive == A_MULTICAST) {
     do_multicast_26();
   }
-  else if(meta_primitive_state.primitive == A_ADD_TO_FIELD) {
-    do_add_to_field_26();
+  else if(meta_primitive_state.primitive == A_MATH_ON_FIELD) {
+    do_math_on_field_26();
   }
 }
 
@@ -385,8 +385,8 @@ control switch_primitivetype_27 {
   else if(meta_primitive_state.primitive == A_MULTICAST) {
     do_multicast_27();
   }
-  else if(meta_primitive_state.primitive == A_ADD_TO_FIELD) {
-    do_add_to_field_27();
+  else if(meta_primitive_state.primitive == A_MATH_ON_FIELD) {
+    do_math_on_field_27();
   }
 }
 
@@ -408,8 +408,8 @@ control switch_primitivetype_28 {
   else if(meta_primitive_state.primitive == A_MULTICAST) {
     do_multicast_28();
   }
-  else if(meta_primitive_state.primitive == A_ADD_TO_FIELD) {
-    do_add_to_field_28();
+  else if(meta_primitive_state.primitive == A_MATH_ON_FIELD) {
+    do_math_on_field_28();
   }
 }
 
@@ -431,8 +431,8 @@ control switch_primitivetype_29 {
   else if(meta_primitive_state.primitive == A_MULTICAST) {
     do_multicast_29();
   }
-  else if(meta_primitive_state.primitive == A_ADD_TO_FIELD) {
-    do_add_to_field_29();
+  else if(meta_primitive_state.primitive == A_MATH_ON_FIELD) {
+    do_math_on_field_29();
   }
 }
 
@@ -454,8 +454,8 @@ control switch_primitivetype_31 {
   else if(meta_primitive_state.primitive == A_MULTICAST) {
     do_multicast_31();
   }
-  else if(meta_primitive_state.primitive == A_ADD_TO_FIELD) {
-    do_add_to_field_31();
+  else if(meta_primitive_state.primitive == A_MATH_ON_FIELD) {
+    do_math_on_field_31();
   }
 }
 
@@ -477,8 +477,8 @@ control switch_primitivetype_32 {
   else if(meta_primitive_state.primitive == A_MULTICAST) {
     do_multicast_32();
   }
-  else if(meta_primitive_state.primitive == A_ADD_TO_FIELD) {
-    do_add_to_field_32();
+  else if(meta_primitive_state.primitive == A_MATH_ON_FIELD) {
+    do_math_on_field_32();
   }
 }
 
@@ -500,8 +500,8 @@ control switch_primitivetype_33 {
   else if(meta_primitive_state.primitive == A_MULTICAST) {
     do_multicast_33();
   }
-  else if(meta_primitive_state.primitive == A_ADD_TO_FIELD) {
-    do_add_to_field_33();
+  else if(meta_primitive_state.primitive == A_MATH_ON_FIELD) {
+    do_math_on_field_33();
   }
 }
 
@@ -523,8 +523,8 @@ control switch_primitivetype_34 {
   else if(meta_primitive_state.primitive == A_MULTICAST) {
     do_multicast_34();
   }
-  else if(meta_primitive_state.primitive == A_ADD_TO_FIELD) {
-    do_add_to_field_34();
+  else if(meta_primitive_state.primitive == A_MATH_ON_FIELD) {
+    do_math_on_field_34();
   }
 }
 
@@ -546,8 +546,8 @@ control switch_primitivetype_35 {
   else if(meta_primitive_state.primitive == A_MULTICAST) {
     do_multicast_35();
   }
-  else if(meta_primitive_state.primitive == A_ADD_TO_FIELD) {
-    do_add_to_field_35();
+  else if(meta_primitive_state.primitive == A_MATH_ON_FIELD) {
+    do_math_on_field_35();
   }
 }
 
@@ -569,8 +569,8 @@ control switch_primitivetype_36 {
   else if(meta_primitive_state.primitive == A_MULTICAST) {
     do_multicast_36();
   }
-  else if(meta_primitive_state.primitive == A_ADD_TO_FIELD) {
-    do_add_to_field_36();
+  else if(meta_primitive_state.primitive == A_MATH_ON_FIELD) {
+    do_math_on_field_36();
   }
 }
 
@@ -592,8 +592,8 @@ control switch_primitivetype_37 {
   else if(meta_primitive_state.primitive == A_MULTICAST) {
     do_multicast_37();
   }
-  else if(meta_primitive_state.primitive == A_ADD_TO_FIELD) {
-    do_add_to_field_37();
+  else if(meta_primitive_state.primitive == A_MATH_ON_FIELD) {
+    do_math_on_field_37();
   }
 }
 
@@ -615,8 +615,8 @@ control switch_primitivetype_38 {
   else if(meta_primitive_state.primitive == A_MULTICAST) {
     do_multicast_38();
   }
-  else if(meta_primitive_state.primitive == A_ADD_TO_FIELD) {
-    do_add_to_field_38();
+  else if(meta_primitive_state.primitive == A_MATH_ON_FIELD) {
+    do_math_on_field_38();
   }
 }
 
@@ -638,8 +638,8 @@ control switch_primitivetype_39 {
   else if(meta_primitive_state.primitive == A_MULTICAST) {
     do_multicast_39();
   }
-  else if(meta_primitive_state.primitive == A_ADD_TO_FIELD) {
-    do_add_to_field_39();
+  else if(meta_primitive_state.primitive == A_MATH_ON_FIELD) {
+    do_math_on_field_39();
   }
 }
 
@@ -661,8 +661,8 @@ control switch_primitivetype_41 {
   else if(meta_primitive_state.primitive == A_MULTICAST) {
     do_multicast_41();
   }
-  else if(meta_primitive_state.primitive == A_ADD_TO_FIELD) {
-    do_add_to_field_41();
+  else if(meta_primitive_state.primitive == A_MATH_ON_FIELD) {
+    do_math_on_field_41();
   }
 }
 
@@ -684,8 +684,8 @@ control switch_primitivetype_42 {
   else if(meta_primitive_state.primitive == A_MULTICAST) {
     do_multicast_42();
   }
-  else if(meta_primitive_state.primitive == A_ADD_TO_FIELD) {
-    do_add_to_field_42();
+  else if(meta_primitive_state.primitive == A_MATH_ON_FIELD) {
+    do_math_on_field_42();
   }
 }
 
@@ -707,8 +707,8 @@ control switch_primitivetype_43 {
   else if(meta_primitive_state.primitive == A_MULTICAST) {
     do_multicast_43();
   }
-  else if(meta_primitive_state.primitive == A_ADD_TO_FIELD) {
-    do_add_to_field_43();
+  else if(meta_primitive_state.primitive == A_MATH_ON_FIELD) {
+    do_math_on_field_43();
   }
 }
 
@@ -730,8 +730,8 @@ control switch_primitivetype_44 {
   else if(meta_primitive_state.primitive == A_MULTICAST) {
     do_multicast_44();
   }
-  else if(meta_primitive_state.primitive == A_ADD_TO_FIELD) {
-    do_add_to_field_44();
+  else if(meta_primitive_state.primitive == A_MATH_ON_FIELD) {
+    do_math_on_field_44();
   }
 }
 
@@ -753,8 +753,8 @@ control switch_primitivetype_45 {
   else if(meta_primitive_state.primitive == A_MULTICAST) {
     do_multicast_45();
   }
-  else if(meta_primitive_state.primitive == A_ADD_TO_FIELD) {
-    do_add_to_field_45();
+  else if(meta_primitive_state.primitive == A_MATH_ON_FIELD) {
+    do_math_on_field_45();
   }
 }
 
@@ -776,8 +776,8 @@ control switch_primitivetype_46 {
   else if(meta_primitive_state.primitive == A_MULTICAST) {
     do_multicast_46();
   }
-  else if(meta_primitive_state.primitive == A_ADD_TO_FIELD) {
-    do_add_to_field_46();
+  else if(meta_primitive_state.primitive == A_MATH_ON_FIELD) {
+    do_math_on_field_46();
   }
 }
 
@@ -799,8 +799,8 @@ control switch_primitivetype_47 {
   else if(meta_primitive_state.primitive == A_MULTICAST) {
     do_multicast_47();
   }
-  else if(meta_primitive_state.primitive == A_ADD_TO_FIELD) {
-    do_add_to_field_47();
+  else if(meta_primitive_state.primitive == A_MATH_ON_FIELD) {
+    do_math_on_field_47();
   }
 }
 
@@ -822,8 +822,8 @@ control switch_primitivetype_48 {
   else if(meta_primitive_state.primitive == A_MULTICAST) {
     do_multicast_48();
   }
-  else if(meta_primitive_state.primitive == A_ADD_TO_FIELD) {
-    do_add_to_field_48();
+  else if(meta_primitive_state.primitive == A_MATH_ON_FIELD) {
+    do_math_on_field_48();
   }
 }
 
@@ -845,7 +845,7 @@ control switch_primitivetype_49 {
   else if(meta_primitive_state.primitive == A_MULTICAST) {
     do_multicast_49();
   }
-  else if(meta_primitive_state.primitive == A_ADD_TO_FIELD) {
-    do_add_to_field_49();
+  else if(meta_primitive_state.primitive == A_MATH_ON_FIELD) {
+    do_math_on_field_49();
   }
 }

@@ -35,10 +35,10 @@ table_add set_primitive_metadata_12 a_set_primitive_metadata [program ID] [set_n
 table_add t_mod_12 mod_stdmeta_egressspec_const [program ID] 9 1 => 1
 table_add t_mod_12 mod_stdmeta_egressspec_const [program ID] 9 2 => 2
 table_add set_program_state_12 set_program_state [program ID] [set_nhop()] 2 => [set_nhop()] 3 [CONTINUE] 2
-table_add set_primitive_metadata_13 a_set_primitive_metadata [program ID] [set_nhop()] 3 => [ADD_TO_FIELD] 0
+table_add set_primitive_metadata_13 a_set_primitive_metadata [program ID] [set_nhop()] 3 => [MATH_ON_FIELD] 0
 # [program ID] [subtype] [match ID]
-table_add t_add_to_field_13 a_add2f_extracted_const [program ID] 0 1 => -1 176 792 0xFF0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
-table_add t_add_to_field_13 a_add2f_extracted_const [program ID] 0 2 => -1 176 792 0xFF0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+table_add t_math_on_field_13 a_add2f_extracted_const [program ID] 0 1 => -1 176 792 0xFF0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+table_add t_math_on_field_13 a_add2f_extracted_const [program ID] 0 2 => -1 176 792 0xFF0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
 table_add set_program_state_13 set_program_state [program ID] [set_nhop()] 3 => 0 0 [COMPLETE] 2
 table_add t2_metadata_exact init_program_state [program ID] 0x0A00000A&&&0xFFFFFFFF => [set_dmac()] 1 [STDMETA_EXACT] 1
 table_add t2_metadata_exact init_program_state [program ID] 0x0A00010A&&&0xFFFFFFFF => [set_dmac()] 2 [STDMETA_EXACT] 1

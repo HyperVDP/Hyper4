@@ -34,9 +34,9 @@ header_type intrinsic_metadata_t {
 
 header_type parse_ctrl_t {
   fields {
-    numbytes : 16;
-    state : 16;
-    next_action : 8;
+    numbytes : 8;
+    state : 12;
+    next_action : 4;
   }
 }
 
@@ -46,15 +46,14 @@ header_type parse_ctrl_t {
 header_type meta_ctrl_t {
   fields {
     program : 8; // identifies which program to run
-    stage : 8; // e.g. INIT, NORM, etc.
-    next_table : 8;
-    stage_state : 8; // e.g. CONTINUE, COMPLETE
+    stage : 1; // INIT, NORM.
+    next_table : 4;
+    stage_state : 2; // CONTINUE, COMPLETE - 1 bit should be enough, certainly 2
     multicast_current_egress : 8;
     multicast_seq_id : 8;
-    do_multicast : 8;
-    stdmeta_ID : 8;
-    next_stage : 8;
-    mc_flag : 8;
+    stdmeta_ID : 3;
+    next_stage : 5;
+    mc_flag : 1;
     virt_egress_port : 8;
     virt_ingress_port : 8;
     clone_program : 8;
@@ -64,12 +63,11 @@ header_type meta_ctrl_t {
 // meta_primitive_state: information about a specific target primitive
 header_type meta_primitive_state_t {
   fields {
-    action_ID : 8; // identifies the compound action being executed
-    match_ID : 8; // identifies the match entry
-    primitive_index : 8; // place within compound action
-    primitive : 8; // e.g. modify_field, add_header, etc.
-    subtype : 8; // maps to a set identifying the parameters' types
-    hmanip_remaining : 8;
+    action_ID : 7; // identifies the compound action being executed
+    match_ID : 23; // identifies the match entry
+    primitive_index : 6; // place within compound action
+    primitive : 6; // e.g. modify_field, add_header, etc.
+    subtype : 6; // maps to a set identifying the parameters' types
   }
 }
 

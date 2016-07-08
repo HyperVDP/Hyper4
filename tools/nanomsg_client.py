@@ -1,5 +1,7 @@
 #!/usr/bin/python
 
+# Modified by David Hancock (dhancock@cs.utah.edu); original license info below.
+#
 # Copyright 2013-present Barefoot Networks, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -32,6 +34,8 @@ parser.add_argument('--socket', help='IPC socket to which to subscribe',
 
 parser.add_argument('--json', help='JSON description of P4 program',
                     action="store")
+parser.add_argument('--quiet', help='print only PACKET_IN, PACKET_OUT, and TABLE_* events',
+                    action="store_true")
 
 args = parser.parse_args()
 
@@ -411,7 +415,11 @@ def recv_msgs():
         except:
             print "Unknown msg type", msg_type
             continue
-        if p.type_str == "PACKET_IN" or ("TABLE" in p.type_str) or p.type_str == "PACKET_OUT": 
+        if args.quiet:
+          if p.type_str == "PACKET_IN" or ("TABLE" in p.type_str) or p.type_str == "PACKET_OUT": 
+            p.extract()
+            print(p)
+        else:
           p.extract()
           print(p)
 
