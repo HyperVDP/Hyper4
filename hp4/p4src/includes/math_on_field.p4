@@ -15,10 +15,24 @@ action a_add2f_extracted_const(val, leftshift, rightshift, emask) {
   modify_field(extracted.data, (extracted.data & ~emask) | ( ((extracted.dcpy << rightshift) >> leftshift) & emask));
 }
 
+// Faster and easier, but user can't use a mask to ensure only desired field is affected
+action a_add2f_extracted_const_u(val, leftshift) {
+  modify_field(extracted.data, extracted.data + (val << leftshift) );
+}
+
 action a_subff_extracted_const(val, leftshift, rightshift, emask) {
   modify_field(extracted.dcpy, (extracted.data << leftshift) >> rightshift);
   modify_field(extracted.dcpy, extracted.dcpy - val);
   modify_field(extracted.data, (extracted.data & ~emask) | ( ((extracted.dcpy << rightshift) >> leftshift) & emask));
+}
+
+action a_subff_extracted_const_s(val, leftshift, emask) {
+  modify_field(extracted.data, (extracted.data & ~emask) | ( extracted.data + (val << leftshift) ));
+}
+
+// Faster and easier, but user can't use a mask to ensure only desired field is affected
+action a_subff_extracted_const_u(val, leftshift) {
+  modify_field(extracted.data, extracted.data - (val << leftshift) );
 }
 
 table t_math_on_field_11 {
@@ -30,6 +44,7 @@ table t_math_on_field_11 {
   actions {
     a_add2f_extracted_const;
     a_subff_extracted_const;
+    a_subff_extracted_const_u;
   }
 }
 
@@ -42,6 +57,7 @@ table t_math_on_field_12 {
   actions {
     a_add2f_extracted_const;
     a_subff_extracted_const;
+    a_subff_extracted_const_u;
   }
 }
 
@@ -54,6 +70,7 @@ table t_math_on_field_13 {
   actions {
     a_add2f_extracted_const;
     a_subff_extracted_const;
+    a_subff_extracted_const_u;
   }
 }
 
