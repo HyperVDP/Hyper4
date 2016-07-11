@@ -35,8 +35,8 @@ table_add set_program_state_12 set_program_state [program ID] [set_nhop()] 2 => 
 table_add set_primitive_metadata_13 a_set_primitive_metadata [program ID] [set_nhop()] 3 => [MATH_ON_FIELD] 0
 # add_to_field(ipv4.ttl, -1);
 # [program ID] [subtype] [match ID]
-table_add t_math_on_field_13 a_add2f_extracted_const [program ID] 0 1 => -1 176 792 0xFF0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
-table_add t_math_on_field_13 a_add2f_extracted_const [program ID] 0 2 => -1 176 792 0xFF0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+table_add t_math_on_field_13 a_subff_extracted_const_u [program ID] 0 1 => 1 616
+table_add t_math_on_field_13 a_subff_extracted_const_u [program ID] 0 2 => 1 616
 table_add set_program_state_13 set_program_state [program ID] [set_nhop()] 3 => 0 0 [COMPLETE] 2
 table_add t2_metadata_exact init_program_state [program ID] 0x0A000103&&&0xFFFFFFFF => [set_dmac()] 1 [STDMETA_EXACT] 1
 table_add t2_metadata_exact init_program_state [program ID] 0x0A000204&&&0xFFFFFFFF => [set_dmac()] 2 [STDMETA_EXACT] 1

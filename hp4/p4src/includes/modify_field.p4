@@ -68,8 +68,7 @@ action mod_stdmeta_egressspec_stdmeta_ingressport() {
 
 // 12
 action mod_extracted_extracted(leftshift, rightshift, msk) {
-  modify_field(extracted.dcpy, extracted.data);
-  modify_field(extracted.data, (extracted.data & ~msk) | (((extracted.dcpy << leftshift) >> rightshift) & msk) );
+  modify_field(extracted.data, (extracted.data & ~msk) | (((extracted.data << leftshift) >> rightshift) & msk) );
 }
 
 // 13

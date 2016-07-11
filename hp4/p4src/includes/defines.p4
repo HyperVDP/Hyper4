@@ -9,7 +9,7 @@ HyPer4: A P4 Program to Run Other P4 Programs
 defines.p4: Define constants
 */
 
-// extracted.data/.dcpy field width
+// extracted.data field width
 #define EXTRACTED_SIZE	800
 
 // value for sm.egress_spec indicating virt net

@@ -75,9 +75,6 @@ header_type meta_primitive_state_t {
 header_type tmeta_t {
   fields {
     data : 256;
-    dcpy : 256;  // IF we are concerned about packet header vector space
-                 // limitations, this can be reduced.  It should be as wide as
-                 // the widest metadata field on which we envision doing math.
   }
 }
 
@@ -91,10 +88,6 @@ header_type ext_t {
 header_type extracted_t {
   fields {
     data : 800;
-    dcpy : 800; // IF we are concerned about packet header vector space
-                // limitations, this can be reduced significantly.  It
-                // should be as wide as the widest field on which we
-                // envision doing math.
     validbits : 80;
   }
 }

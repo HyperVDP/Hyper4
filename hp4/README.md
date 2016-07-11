@@ -26,13 +26,13 @@ These two programs are used in four demos, all in the /hp4 directory:
 
 1. Run the L2 switch program via HyPer4:  
    ```
-   run_l2_switch_demo.sh  
+   run\_l2\_switch\_demo.sh  
    ```   
    From the mininet prompt, you may verify connectivity between the three hosts.
 
 2. Run the simple router program via HyPer4:
    ```
-   run_simple_router_demo.sh
+   run\_simple\_router\_demo.sh
    ```
    From the mininet prompt, you may verify connectivity between h1<->h2, but  
    adding connectivity to/from h3 is left as an exercise.  (This may be  
@@ -41,19 +41,19 @@ These two programs are used in four demos, all in the /hp4 directory:
    
 3. Initialize HyPer4 to contain the L2 switch program as well as an extended  
    version of the same program; swap between the two at will, observing the impact  
-   on connectivity: see two_progs_sequential_demo.txt for detailed instructions.
+   on connectivity: see two\_progs\_sequential\_demo.txt for detailed instructions.
 
 4. Run both the L2 switch program AND the simple router program simultaneously,  
    each taking action on a different set of packets (separated by ingress port):
    ```
-   run_two_progs_demo.sh
+   run\_two\_progs\_demo.sh
    ```
    From the mininet prompt, you may verify connectivity between h1, h2, and h3  
    (these are using the L2 switch program), and between h4 and h5 (these are  
    using the simple router program).  h6 is grouped with h4 and h5 but, just  
    as in demo #2, we have not supplied the table entries required to establish  
    connectivity to/from h6.  You are welcome to give it a try; edit  
-   ./targets/two_progs_parallel.
+   ./targets/two\_progs\_parallel.
 
 There is much work to be done (templatizing HyPer4, making a "compiler" as well
 as a control plane translator, expanding the coverage of HyPer4 over more

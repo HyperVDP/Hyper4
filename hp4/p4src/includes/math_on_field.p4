@@ -9,28 +9,22 @@ HyPer4: A P4 Program to Run Other P4 Programs
 math_on_field.p4: Implements HP4 support for doing math to a field.
 */
 
-action a_add2f_extracted_const(val, leftshift, rightshift, emask) {
-  modify_field(extracted.dcpy, (extracted.data << leftshift) >> rightshift);
-  modify_field(extracted.dcpy, extracted.dcpy + val);
-  modify_field(extracted.data, (extracted.data & ~emask) | ( ((extracted.dcpy << rightshift) >> leftshift) & emask));
+// emask ensures change is isolated to the desired field
+action a_add2f_extracted_const_s(val, leftshift, emask) {
+  modify_field(extracted.data, (extracted.data & ~emask) | ( extracted.data + (val << leftshift) ));
 }
 
-// Faster and easier, but user can't use a mask to ensure only desired field is affected
+// faster and easier, but no protection
 action a_add2f_extracted_const_u(val, leftshift) {
   modify_field(extracted.data, extracted.data + (val << leftshift) );
 }
 
-action a_subff_extracted_const(val, leftshift, rightshift, emask) {
-  modify_field(extracted.dcpy, (extracted.data << leftshift) >> rightshift);
-  modify_field(extracted.dcpy, extracted.dcpy - val);
-  modify_field(extracted.data, (extracted.data & ~emask) | ( ((extracted.dcpy << rightshift) >> leftshift) & emask));
-}
-
+// emask ensures change is isolated to the desired field
 action a_subff_extracted_const_s(val, leftshift, emask) {
   modify_field(extracted.data, (extracted.data & ~emask) | ( extracted.data + (val << leftshift) ));
 }
 
-// Faster and easier, but user can't use a mask to ensure only desired field is affected
+// faster and easier, but no protection
 action a_subff_extracted_const_u(val, leftshift) {
   modify_field(extracted.data, extracted.data - (val << leftshift) );
 }
@@ -42,8 +36,9 @@ table t_math_on_field_11 {
     meta_primitive_state.match_ID : exact;
   }
   actions {
-    a_add2f_extracted_const;
-    a_subff_extracted_const;
+    a_add2f_extracted_const_s;
+    a_add2f_extracted_const_u;
+    a_subff_extracted_const_s;
     a_subff_extracted_const_u;
   }
 }
@@ -55,8 +50,9 @@ table t_math_on_field_12 {
     meta_primitive_state.match_ID : exact;
   }
   actions {
-    a_add2f_extracted_const;
-    a_subff_extracted_const;
+    a_add2f_extracted_const_s;
+    a_add2f_extracted_const_u;
+    a_subff_extracted_const_s;
     a_subff_extracted_const_u;
   }
 }
@@ -68,8 +64,9 @@ table t_math_on_field_13 {
     meta_primitive_state.match_ID : exact;
   }
   actions {
-    a_add2f_extracted_const;
-    a_subff_extracted_const;
+    a_add2f_extracted_const_s;
+    a_add2f_extracted_const_u;
+    a_subff_extracted_const_s;
     a_subff_extracted_const_u;
   }
 }
@@ -81,8 +78,10 @@ table t_math_on_field_14 {
     meta_primitive_state.match_ID : exact;
   }
   actions {
-    a_add2f_extracted_const;
-    a_subff_extracted_const;
+    a_add2f_extracted_const_s;
+    a_add2f_extracted_const_u;
+    a_subff_extracted_const_s;
+    a_subff_extracted_const_u;
   }
 }
 
@@ -93,8 +92,10 @@ table t_math_on_field_15 {
     meta_primitive_state.match_ID : exact;
   }
   actions {
-    a_add2f_extracted_const;
-    a_subff_extracted_const;
+    a_add2f_extracted_const_s;
+    a_add2f_extracted_const_u;
+    a_subff_extracted_const_s;
+    a_subff_extracted_const_u;
   }
 }
 
@@ -105,8 +106,10 @@ table t_math_on_field_16 {
     meta_primitive_state.match_ID : exact;
   }
   actions {
-    a_add2f_extracted_const;
-    a_subff_extracted_const;
+    a_add2f_extracted_const_s;
+    a_add2f_extracted_const_u;
+    a_subff_extracted_const_s;
+    a_subff_extracted_const_u;
   }
 }
 
@@ -117,8 +120,10 @@ table t_math_on_field_17 {
     meta_primitive_state.match_ID : exact;
   }
   actions {
-    a_add2f_extracted_const;
-    a_subff_extracted_const;
+    a_add2f_extracted_const_s;
+    a_add2f_extracted_const_u;
+    a_subff_extracted_const_s;
+    a_subff_extracted_const_u;
   }
 }
 
@@ -129,8 +134,10 @@ table t_math_on_field_18 {
     meta_primitive_state.match_ID : exact;
   }
   actions {
-    a_add2f_extracted_const;
-    a_subff_extracted_const;
+    a_add2f_extracted_const_s;
+    a_add2f_extracted_const_u;
+    a_subff_extracted_const_s;
+    a_subff_extracted_const_u;
   }
 }
 
@@ -141,8 +148,8 @@ table t_math_on_field_19 {
     meta_primitive_state.match_ID : exact;
   }
   actions {
-    a_add2f_extracted_const;
-    a_subff_extracted_const;
+    a_add2f_extracted_const_s;
+    a_subff_extracted_const_s;
   }
 }
 
@@ -153,8 +160,8 @@ table t_math_on_field_21 {
     meta_primitive_state.match_ID : exact;
   }
   actions {
-    a_add2f_extracted_const;
-    a_subff_extracted_const;
+    a_add2f_extracted_const_s;
+    a_subff_extracted_const_s;
   }
 }
 
@@ -165,8 +172,8 @@ table t_math_on_field_22 {
     meta_primitive_state.match_ID : exact;
   }
   actions {
-    a_add2f_extracted_const;
-    a_subff_extracted_const;
+    a_add2f_extracted_const_s;
+    a_subff_extracted_const_s;
   }
 }
 
@@ -177,8 +184,8 @@ table t_math_on_field_23 {
     meta_primitive_state.match_ID : exact;
   }
   actions {
-    a_add2f_extracted_const;
-    a_subff_extracted_const;
+    a_add2f_extracted_const_s;
+    a_subff_extracted_const_s;
   }
 }
 
@@ -189,8 +196,8 @@ table t_math_on_field_24 {
     meta_primitive_state.match_ID : exact;
   }
   actions {
-    a_add2f_extracted_const;
-    a_subff_extracted_const;
+    a_add2f_extracted_const_s;
+    a_subff_extracted_const_s;
   }
 }
 
@@ -201,8 +208,8 @@ table t_math_on_field_25 {
     meta_primitive_state.match_ID : exact;
   }
   actions {
-    a_add2f_extracted_const;
-    a_subff_extracted_const;
+    a_add2f_extracted_const_s;
+    a_subff_extracted_const_s;
   }
 }
 
@@ -213,8 +220,8 @@ table t_math_on_field_26 {
     meta_primitive_state.match_ID : exact;
   }
   actions {
-    a_add2f_extracted_const;
-    a_subff_extracted_const;
+    a_add2f_extracted_const_s;
+    a_subff_extracted_const_s;
   }
 }
 
@@ -225,8 +232,8 @@ table t_math_on_field_27 {
     meta_primitive_state.match_ID : exact;
   }
   actions {
-    a_add2f_extracted_const;
-    a_subff_extracted_const;
+    a_add2f_extracted_const_s;
+    a_subff_extracted_const_s;
   }
 }
 
@@ -237,8 +244,8 @@ table t_math_on_field_28 {
     meta_primitive_state.match_ID : exact;
   }
   actions {
-    a_add2f_extracted_const;
-    a_subff_extracted_const;
+    a_add2f_extracted_const_s;
+    a_subff_extracted_const_s;
   }
 }
 
@@ -249,8 +256,8 @@ table t_math_on_field_29 {
     meta_primitive_state.match_ID : exact;
   }
   actions {
-    a_add2f_extracted_const;
-    a_subff_extracted_const;
+    a_add2f_extracted_const_s;
+    a_subff_extracted_const_s;
   }
 }
 
@@ -261,8 +268,8 @@ table t_math_on_field_31 {
     meta_primitive_state.match_ID : exact;
   }
   actions {
-    a_add2f_extracted_const;
-    a_subff_extracted_const;
+    a_add2f_extracted_const_s;
+    a_subff_extracted_const_s;
   }
 }
 
@@ -273,8 +280,8 @@ table t_math_on_field_32 {
     meta_primitive_state.match_ID : exact;
   }
   actions {
-    a_add2f_extracted_const;
-    a_subff_extracted_const;
+    a_add2f_extracted_const_s;
+    a_subff_extracted_const_s;
   }
 }
 
@@ -285,8 +292,8 @@ table t_math_on_field_33 {
     meta_primitive_state.match_ID : exact;
   }
   actions {
-    a_add2f_extracted_const;
-    a_subff_extracted_const;
+    a_add2f_extracted_const_s;
+    a_subff_extracted_const_s;
   }
 }
 
@@ -297,8 +304,8 @@ table t_math_on_field_34 {
     meta_primitive_state.match_ID : exact;
   }
   actions {
-    a_add2f_extracted_const;
-    a_subff_extracted_const;
+    a_add2f_extracted_const_s;
+    a_subff_extracted_const_s;
   }
 }
 
@@ -309,8 +316,8 @@ table t_math_on_field_35 {
     meta_primitive_state.match_ID : exact;
   }
   actions {
-    a_add2f_extracted_const;
-    a_subff_extracted_const;
+    a_add2f_extracted_const_s;
+    a_subff_extracted_const_s;
   }
 }
 
@@ -321,8 +328,8 @@ table t_math_on_field_36 {
     meta_primitive_state.match_ID : exact;
   }
   actions {
-    a_add2f_extracted_const;
-    a_subff_extracted_const;
+    a_add2f_extracted_const_s;
+    a_subff_extracted_const_s;
   }
 }
 
@@ -333,8 +340,8 @@ table t_math_on_field_37 {
     meta_primitive_state.match_ID : exact;
   }
   actions {
-    a_add2f_extracted_const;
-    a_subff_extracted_const;
+    a_add2f_extracted_const_s;
+    a_subff_extracted_const_s;
   }
 }
 
@@ -345,8 +352,8 @@ table t_math_on_field_38 {
     meta_primitive_state.match_ID : exact;
   }
   actions {
-    a_add2f_extracted_const;
-    a_subff_extracted_const;
+    a_add2f_extracted_const_s;
+    a_subff_extracted_const_s;
   }
 }
 
@@ -357,8 +364,8 @@ table t_math_on_field_39 {
     meta_primitive_state.match_ID : exact;
   }
   actions {
-    a_add2f_extracted_const;
-    a_subff_extracted_const;
+    a_add2f_extracted_const_s;
+    a_subff_extracted_const_s;
   }
 }
 
@@ -369,8 +376,8 @@ table t_math_on_field_41 {
     meta_primitive_state.match_ID : exact;
   }
   actions {
-    a_add2f_extracted_const;
-    a_subff_extracted_const;
+    a_add2f_extracted_const_s;
+    a_subff_extracted_const_s;
   }
 }
 
@@ -381,8 +388,8 @@ table t_math_on_field_42 {
     meta_primitive_state.match_ID : exact;
   }
   actions {
-    a_add2f_extracted_const;
-    a_subff_extracted_const;
+    a_add2f_extracted_const_s;
+    a_subff_extracted_const_s;
   }
 }
 
@@ -393,8 +400,8 @@ table t_math_on_field_43 {
     meta_primitive_state.match_ID : exact;
   }
   actions {
-    a_add2f_extracted_const;
-    a_subff_extracted_const;
+    a_add2f_extracted_const_s;
+    a_subff_extracted_const_s;
   }
 }
 
@@ -405,8 +412,8 @@ table t_math_on_field_44 {
     meta_primitive_state.match_ID : exact;
   }
   actions {
-    a_add2f_extracted_const;
-    a_subff_extracted_const;
+    a_add2f_extracted_const_s;
+    a_subff_extracted_const_s;
   }
 }
 
@@ -417,8 +424,8 @@ table t_math_on_field_45 {
     meta_primitive_state.match_ID : exact;
   }
   actions {
-    a_add2f_extracted_const;
-    a_subff_extracted_const;
+    a_add2f_extracted_const_s;
+    a_subff_extracted_const_s;
   }
 }
 
@@ -429,8 +436,8 @@ table t_math_on_field_46 {
     meta_primitive_state.match_ID : exact;
   }
   actions {
-    a_add2f_extracted_const;
-    a_subff_extracted_const;
+    a_add2f_extracted_const_s;
+    a_subff_extracted_const_s;
   }
 }
 
@@ -441,8 +448,8 @@ table t_math_on_field_47 {
     meta_primitive_state.match_ID : exact;
   }
   actions {
-    a_add2f_extracted_const;
-    a_subff_extracted_const;
+    a_add2f_extracted_const_s;
+    a_subff_extracted_const_s;
   }
 }
 
@@ -453,8 +460,8 @@ table t_math_on_field_48 {
     meta_primitive_state.match_ID : exact;
   }
   actions {
-    a_add2f_extracted_const;
-    a_subff_extracted_const;
+    a_add2f_extracted_const_s;
+    a_subff_extracted_const_s;
   }
 }
 
@@ -465,8 +472,8 @@ table t_math_on_field_49 {
     meta_primitive_state.match_ID : exact;
   }
   actions {
-    a_add2f_extracted_const;
-    a_subff_extracted_const;
+    a_add2f_extracted_const_s;
+    a_subff_extracted_const_s;
   }
 }
 
