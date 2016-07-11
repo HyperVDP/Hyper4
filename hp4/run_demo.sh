@@ -14,10 +14,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-HP4_DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+THIS_DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 
-source $HP4_DIR/../env.sh
-# note that the above command changes $THIS_DIR to the directory of env.sh
+source $THIS_DIR/../env.sh
 
 PROJ=${PWD##*/}
 
@@ -29,11 +28,7 @@ CLI_PATH=$BMV2_PATH/targets/simple_switch/sswitch_CLI
 
 $P4C_BM_SCRIPT p4src/$PROJ.p4 --json $PROJ.json
 sudo PYTHONPATH=$PYTHONPATH:$BMV2_PATH/mininet/ \
-    python $THIS_DIR/mininet/topo_mix.py \
+    python $THIS_DIR/mininet/topo.py \
     --behavioral-exe $BMV2_PATH/targets/simple_switch/simple_switch \
-    --jsons $PROJ.json $PROJ.json $PROJ.json \
-    --cli $CLI_PATH \
-    --commands $HP4_DIR/targets/l2_switch_multi/commands_s1.txt \
-      $HP4_DIR/targets/l2_switch_multi/commands_s2.txt \
-      $HP4_DIR/targets/l2_switch_multi/commands_s3.txt \
-    --topo $HP4_DIR/targets/l2_switch_multi/topo.txt
+    --json $PROJ.json \
+    --cli $CLI_PATH

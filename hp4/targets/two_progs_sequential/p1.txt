@@ -17,7 +17,6 @@ table_add set_program_state_11 set_program_state 1 2 1 => 2 2 2 2
 table_add set_primitive_metadata_12 a_set_primitive_metadata 1 2 2 => 0 7
 table_add set_program_state_11 set_program_state 1 3 1 => 0 0 1 0
 table_add set_program_state_12 set_program_state 1 2 2 => 0 0 1 0
-table_add t_mod_prep_11 _no_op 1 2 1 =>
 table_add t_mod_11 mod_stdmeta_egressspec_const 1 8 1 => 1
 table_add t_mod_11 mod_stdmeta_egressspec_const 1 8 2 => 2
 table_add t_mod_11 mod_stdmeta_egressspec_const 1 8 3 => 3
