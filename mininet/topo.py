@@ -39,6 +39,8 @@ parser.add_argument('--cli', help='Path to BM CLI',
                     type=str, action="store", required=True)
 parser.add_argument('--commands', help='Path to initial CLI commands',
                     type=str, action="store", default="commands.txt")
+parser.add_argument('--pcap', help='Turns on pcap generation',
+                    action="store_true")
 # Useful if we need to use runtime_CLI instead of sswitch_CLI:
 #parser.add_argument('--p4factory', help='Use p4factory intead of standalone repos',
 #                    action="store_true")
@@ -55,7 +57,7 @@ class MyTopo(Topo):
                                     sw_path = sw_path,
                                     json_path = json_path,
                                     thrift_port = _THRIFT_BASE_PORT + i,
-                                    pcap_dump = True,
+                                    pcap_dump = args.pcap,
                                     device_id = i)
         
         for h in xrange(nb_hosts):
