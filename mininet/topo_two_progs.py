@@ -105,7 +105,7 @@ def main():
         h.setARP(sw_addr[n], sw_mac[n])
         h.setDefaultRoute("dev eth0 via %s" % sw_addr[n])
     for n in xrange(nb_hosts):
-	h = net.get('h%d' % (n + 1))
+        h = net.get('h%d' % (n + 1))
         for off in ["rx", "tx", "sg"]:
             cmd = "/sbin/ethtool --offload eth0 %s off" % off
             print cmd
@@ -130,6 +130,12 @@ def main():
             except subprocess.CalledProcessError as e:
                 print e
                 print e.output
+        s = net.get('s%d' % (i + 1))
+        cmd = "ifconfig | grep -o -E \'s%d\-eth.\'" % (i + 1)
+        ifaces = (s.cmd(cmd)).split()
+        for iface in ifaces:
+          print("Disconnecting %s" % iface)
+          s.cmd("nmcli dev disconnect iface %s" % iface)
 
     sleep(1)
 

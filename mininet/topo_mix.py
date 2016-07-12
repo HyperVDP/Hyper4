@@ -151,6 +151,12 @@ def main():
             except subprocess.CalledProcessError as e:
                 print e
                 print e.output
+        s = net.get('s%d' % (i + 1))
+        cmd = "ifconfig | grep -o -E \'s%d\-eth.\'" % (i + 1)
+        ifaces = (s.cmd(cmd)).split()
+        for iface in ifaces:
+          print("Disconnecting %s" % iface)
+          s.cmd("nmcli dev disconnect iface %s" % iface)
 
     sleep(1)
 
