@@ -41,7 +41,7 @@ Proposed:
    a. tset_context
    b. tset_virtnet
    c. tset_recirc
-   d. tset_parser
+   d. tset_parse_control
    e. tset_inspect_<XX>_<XX>
    f. tset_p_rep_<XX>_<XX>
    g. tset_match
