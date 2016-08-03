@@ -3,11 +3,14 @@
 
 #include "switch_stdmeta.p4"
 
-action init_program_state(action_ID, match_ID, next_table) {
+action init_program_state(action_ID, match_ID, next_table, primitive, primitive_subtype) {
   modify_field(meta_primitive_state.action_ID, action_ID);
   modify_field(meta_primitive_state.match_ID, match_ID);
   modify_field(meta_primitive_state.primitive_index, 1);
   modify_field(meta_ctrl.next_table, next_table);
+  modify_field(meta_primitive_state.primitive, primitive);
+  modify_field(meta_primitive_state.subtype, primitive_subtype);
+  modify_field(meta_ctrl.stage_state, CONTINUE);
 }
 
 action set_meta_stdmeta(stdmeta_ID) {
