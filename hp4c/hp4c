@@ -1,0 +1,58 @@
+#!/usr/bin/python
+
+from p4_hlir.main import HLIR
+import p4_hlir
+from p4_hlir.hlir.p4_core import p4_enum
+import argparse
+
+parser = argparse.ArgumentParser(description='HP4 Compiler')
+parser.add_argument('input', help='path for input .p4',
+                    type=str)
+parser.add_argument('-o', '--output', help='path for output .hp4t file',
+                    type=str, action="store", required=True)
+
+args = parser.parse_args()
+
+h = HLIR(args.input)
+h.build()
+
+p4_match_types = p4_enum.collection['p4_match_type']
+
+class HP4C:
+  def __init__(self, h):
+    self.actionUIDs = {}
+    self.actioncounter = 0
+    self.h = h
+    self.h.build()
+
+  def collectActions(self):
+    for table in self.h.p4_tables.values():
+      for action in table.actions:
+        if action not in self.actionUIDs:
+          self.actioncounter += 1
+          self.actionUIDs[action] = self.actioncounter
+
+  def getFirstTable(self):
+    if len(self.h.p4_ingress_ptr) > 1:
+      print("ERROR: multiple ingress entry points:")
+      for node in h.p4_ingress_ptr.keys():
+        print('  ' + node)
+      exit()        
+    first = self.h.p4_ingress_ptr.keys()[0]
+    # make sure node is a table, not a conditional:
+    if isinstance(first, p4_hlir.hlir.p4_tables.p4_conditional_node):
+      print("ERROR: conditional nodes not yet supported")
+      exit()
+    if len(first.match_fields) > 1:
+      print("ERROR: multiple match fields (%s) not yet supported" % first.name)
+      exit()
+    if first.match_fields[0][1] == p4_match_types.P4_MATCH_EXACT:
+    # TODO ...
+
+def main():
+  hp4compiler = HP4C(HLIR(args.input))
+  hp4compiler.collectActions()
+  hp4compiler.getFirstTable()
+
+if __name__ == '__main__':
+  main()
