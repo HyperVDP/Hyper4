@@ -1,6 +1,7 @@
 #!/usr/bin/python
 
 import argparse
+import re
 
 parser = argparse.ArgumentParser(description='HP4 Annotated Commands Converter')
 parser.add_argument('--input', help='Annotated hp4 commands file',
@@ -83,6 +84,16 @@ for line in f_ac:
     line += '\n'
   for key in sr.keys():
     line = line.replace(key, sr[key])
+  for token in re.findall("\[.*?\]", line):
+    replace = ""
+    if re.search("\[[0-9]*x00s\]", token):
+      numzeros = int(re.search("[0-9]+", token).group())
+      for i in range(numzeros):
+        replace += "00"
+    else:
+      print("Unrecognized token: %s" % token)
+      exit()
+    line = line.replace(token, replace)
   f_c.write(line)
 
 f_c.close()
