@@ -21,7 +21,9 @@ p4_match_types = p4_enum.collection['p4_match_type']
 class HP4C:
   def __init__(self, h):
     self.actionUIDs = {}
+    self.tables = {}
     self.actioncounter = 0
+    self.tablecounter = 0
     self.h = h
     self.h.build()
 
@@ -47,12 +49,29 @@ class HP4C:
       print("ERROR: multiple match fields (%s) not yet supported" % first.name)
       exit()
     if first.match_fields[0][1] == p4_match_types.P4_MATCH_EXACT:
-    # TODO ...
+      # TODO ...
+      pass
+  
+  def treeTraverse(self):
+    self.preorder(self.h.p4_ingress_ptr.keys()[0])
+  
+  def preorder(self, current):
+    if current:
+      # process
+      if current in tables:
+        print("ERROR: %s appears multiple times" % current.name)
+        exit()
+      self.tablecounter += 1
+      self.tables[current] = self.tablecounter
+      # recurse
+      for i in range(len(current.next_)):
+        self.preorder(current.next_[current.next_.keys()[i]])
 
 def main():
   hp4compiler = HP4C(HLIR(args.input))
   hp4compiler.collectActions()
   hp4compiler.getFirstTable()
+  hp4compiler.treeTraverse()
 
 if __name__ == '__main__':
   main()
