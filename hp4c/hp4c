@@ -3,7 +3,9 @@
 from p4_hlir.main import HLIR
 import p4_hlir
 from p4_hlir.hlir.p4_core import p4_enum
+from collections import OrderedDict
 import argparse
+import code
 
 parser = argparse.ArgumentParser(description='HP4 Compiler')
 parser.add_argument('input', help='path for input .p4',
@@ -13,19 +15,87 @@ parser.add_argument('-o', '--output', help='path for output .hp4t file',
 
 args = parser.parse_args()
 
-h = HLIR(args.input)
-h.build()
-
 p4_match_types = p4_enum.collection['p4_match_type']
+
+class HP4_Command:
+  def __init__(self, command, table, action, mparams, aparams):
+    self.command = command
+    self.table = table
+    self.action = action
+    self.match_params = mparams
+    self.action_params = aparams
+  def __str__(self):
+    ret = self.command + ' ' + self.table + ' ' + self.action
+    for param in self.match_params:
+      ret += ' ' + param
+    ret += ' =>'
+    for param in self.action_params:
+      ret += ' ' + param
 
 class HP4C:
   def __init__(self, h):
     self.actionUIDs = {}
-    self.tables = {}
+    self.tables = OrderedDict()
     self.actioncounter = 0
     self.tablecounter = 0
+    self.bits_needed = {}
     self.h = h
     self.h.build()
+    if len(self.h.p4_ingress_ptr) > 1:
+      print("ERROR: multiple ingress entry points:")
+      for node in h.p4_ingress_ptr.keys():
+        print('  ' + node)
+      exit()        
+
+  """
+  def collectParseNodes(self):
+    if 'start' not in self.h.p4_parse_states:
+      print("ERROR: Could not find \'start\' in parse_states")
+      exit()
+    start = self.h.p4_parse_states['start']
+    for call in start.call_sequence:
+      if call[0][0].value not 'extract':
+        print("ERROR: %s parser call not yet supported" % call[0][0].value)
+        exit()
+
+  total = 0
+  bits_extracted = 20*8
+  extract_more = {}
+
+  def collectParseNodes(self, node, state):
+    for call in node.call_sequence:
+      if call[0].value not 'extract':
+        print("ERROR: unsupported call %s" % call[0].value)
+        exit()
+      for field in call[1].fields:
+        total += field.width
+    if total > bits_extracted:
+      # register need to extract_more
+      extract_more[(node.name, state)] = total
+    else:
+      extract_more[(node.name, state)] = 0
+  """
+  def collectParseNodes(self):
+    
+
+  def collectParseStatesBitsNeeded(self):
+    for state in self.h.p4_parse_states.values():
+      self.getBitsNeeded(state)
+
+  def getBitsNeeded(self, state):
+    total = 0
+    for call in state.call_sequence:
+      if call[0].value not 'extract':
+        print("ERROR: unsupported call %s" % call[0].value)
+        exit()
+      for field in call[1].fields:
+        total += field.width
+    if state.return_statement[0] == 'select':
+      for element in state.return_statement[1]:
+        if isinstance(element, tuple):
+          print("ERROR: use of \'current\' in parser select_exp not yet supported")
+          exit()  
+    self.bits_needed[state] = total
 
   def collectActions(self):
     for table in self.h.p4_tables.values():
@@ -34,44 +104,46 @@ class HP4C:
           self.actioncounter += 1
           self.actionUIDs[action] = self.actioncounter
 
-  def getFirstTable(self):
-    if len(self.h.p4_ingress_ptr) > 1:
-      print("ERROR: multiple ingress entry points:")
-      for node in h.p4_ingress_ptr.keys():
-        print('  ' + node)
-      exit()        
-    first = self.h.p4_ingress_ptr.keys()[0]
-    # make sure node is a table, not a conditional:
-    if isinstance(first, p4_hlir.hlir.p4_tables.p4_conditional_node):
-      print("ERROR: conditional nodes not yet supported")
-      exit()
-    if len(first.match_fields) > 1:
-      print("ERROR: multiple match fields (%s) not yet supported" % first.name)
-      exit()
-    if first.match_fields[0][1] == p4_match_types.P4_MATCH_EXACT:
-      # TODO ...
-      pass
-  
-  def treeTraverse(self):
-    self.preorder(self.h.p4_ingress_ptr.keys()[0])
-  
-  def preorder(self, current):
-    if current:
-      # process
-      if current in tables:
-        print("ERROR: %s appears multiple times" % current.name)
-        exit()
+  # if first.match_fields[0][1] == p4_match_types.P4_MATCH_EXACT:
+
+  # credit: http://eli.thegreenplace.net/2015/directed-graph-traversal-orderings-and-applications-to-data-flow-analysis/
+  def collectTables(self):
+    visited = set()
+    order = []
+    
+    def dfs_walk(node):
+      if node:
+        visited.add(node)
+        for i in range(len(node.next_)):
+          succ = node.next_[node.next_.keys()[i]]
+          if not succ in visited:
+            dfs_walk(succ)
+        if isinstance(node, p4_hlir.hlir.p4_tables.p4_conditional_node):
+          print("ERROR: conditional nodes not yet supported")
+          exit()
+        if len(node.match_fields) > 1:
+          print("ERROR: multiple match fields (%s) not yet supported" % first.name)
+          exit()
+        order.append(node)
+
+    dfs_walk(self.h.p4_ingress_ptr.keys()[0])   
+    order.reverse()
+    for table in order:
       self.tablecounter += 1
-      self.tables[current] = self.tablecounter
-      # recurse
-      for i in range(len(current.next_)):
-        self.preorder(current.next_[current.next_.keys()[i]])
+      self.tables[table] = self.tablecounter
+  
+  def printTables(self):
+    for table in self.tables.keys():
+      print(table.name)
 
 def main():
   hp4compiler = HP4C(HLIR(args.input))
+  hp4compiler.collectParseNodes()
   hp4compiler.collectActions()
-  hp4compiler.getFirstTable()
-  hp4compiler.treeTraverse()
+  hp4compiler.collectTables()
+  hp4compiler.collectParseStatesBitsNeeded()
+  hp4compiler.printTables()
+  # code.interact(local=locals())
 
 if __name__ == '__main__':
   main()

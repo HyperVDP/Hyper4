@@ -163,13 +163,15 @@ table tset_context {
   }
 }
 
-action set_next_action(next_action) {
+action set_next_action(next_action, state) {
   modify_field(parse_ctrl.next_action, next_action);
+  modify_field(parse_ctrl.state, state);
 }
 
-action set_next_action_chg_program(next_action, programID) {
+action set_next_action_chg_program(next_action, state, programID) {
   modify_field(parse_ctrl.next_action, next_action);
   modify_field(meta_ctrl.program, programID);
+  modify_field(parse_ctrl.state, state);
 }
 
 field_list fl_extract_more {
@@ -178,16 +180,14 @@ field_list fl_extract_more {
   standard_metadata;
 }
 
-action extract_more(numbytes, state) {
+action extract_more(numbytes) {
   modify_field(parse_ctrl.numbytes, numbytes);
-  modify_field(parse_ctrl.state, state);
   modify_field(parse_ctrl.next_action, EXTRACT_MORE);
   resubmit(fl_extract_more);
 }
 
-action extract_more_chg_program(numbytes, state, programID) {
+action extract_more_chg_program(numbytes, programID) {
   modify_field(parse_ctrl.numbytes, numbytes);
-  modify_field(parse_ctrl.state, state);
   modify_field(parse_ctrl.next_action, EXTRACT_MORE);
   modify_field(meta_ctrl.program, programID);
   resubmit(fl_extract_more);
