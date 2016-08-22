@@ -38,7 +38,8 @@ class HP4C:
     self.tables = OrderedDict()
     self.actioncounter = 0
     self.tablecounter = 0
-    self.bits_needed = {}
+    self.bits_needed_explicit = {}
+    self.bits_needed_total = {}
     self.h = h
     self.h.build()
     if len(self.h.p4_ingress_ptr) > 1:
@@ -76,26 +77,73 @@ class HP4C:
       extract_more[(node.name, state)] = 0
   """
   def collectParseNodes(self):
-    
-
+    pass
+  
   def collectParseStatesBitsNeeded(self):
-    for state in self.h.p4_parse_states.values():
-      self.getBitsNeeded(state)
+    self.exp_parse_tree_traverse(self.h.p4_parse_states['start'], [], 0)
+    self.total_parse_tree_traverse(self.h.p4_parse_states['start'], [], 0)
 
-  def getBitsNeeded(self, state):
-    total = 0
+  """
+  - We must assign a pc.state to each parse function.  '0' for start.
+  - Determine byte requirements for each path (inc. partial paths) through the parse tree:
+    explicit = {(pc.state, [start, ..., state immediately preceding pc.state]): numbytes}
+    total = {(pc.state, [start, ..., state immediately preceding pc.state]): numbytes}
+    # 'total' includes current(X, Y)-imposed extraction requirements.
+    # Do in two steps.  First, explicit.
+    def exp_parse_tree_traverse(pc.state, list_of_preceding_states, so_far):
+      if pc.state == 'ingress':
+        return
+      numbytes = so_far
+      for extract_statement in call_sequence:
+        numbytes += extract_statement.header.total_width (e.g., for field in header, += field.width)
+      explicit[(pc.state, list_of_preceding_states)] = numbytes
+      for next_state in pc.state.return_select_exp:
+        exp_parse_tree_traverse(next_state, list_of_preceding_states.append(pc.state), numbytes)
+    def total_parse_tree_traverse(pc.state, list_of_preceding_states):
+      if pc.state == 'ingress':
+        return
+      numbytes = explicit[(pc.state, list_of_preceding_states)]
+
+      maxcurr = 0
+      for current_exp in return statement:
+        if current_exp.offset + current_exp.width > maxcurr:
+          maxcurr = current_exp.offset + current_exp.width
+      numbytes += maxcurr
+
+      total[(pc.state, list_of_preceding_states)] = numbytes
+      for next_state in pc.state.return_select_exp:
+        total_parse_tree_traverse(next_state, list_of_preceding_states.append(pc.state))
+    # Start at 'start'.  E.g., exp_parse_tree_traverse(h.p4_parse_states['start'], [], 0)
+    # Then total_parse_tree_traverse(h.p4_parse_states['start'], [], 0)
+  - Use total to populate {(pc.state, numbytes): next_numbytes} dictionary
+  """
+  def exp_parse_tree_traverse(self, state, preceding_states, so_far):
+    if state.name == 'ingress':
+      return
+    numbytes = so_far
     for call in state.call_sequence:
-      if call[0].value not 'extract':
+      if call[0].value != 'extract':
         print("ERROR: unsupported call %s" % call[0].value)
         exit()
-      for field in call[1].fields:
-        total += field.width
-    if state.return_statement[0] == 'select':
-      for element in state.return_statement[1]:
-        if isinstance(element, tuple):
-          print("ERROR: use of \'current\' in parser select_exp not yet supported")
-          exit()  
-    self.bits_needed[state] = total
+      for key in call[1].header_type.layout.keys():
+        numbytes += call[1].header_type.layout[key]
+    self.bits_needed_explicit[(state, preceding_states)] = numbytes
+    next_states = []
+    if state.return_statement[0] == 'immediate':
+      if state.return_statement[1] != 'ingress':
+        next_states.append(self.h.p4_parse_states[state.return_statement[1]])
+    elif state.return_statement[0] == 'select':
+      for case in state.return_statement[2]:
+        key = case[1]
+        if key != 'ingress':
+          next_states.append(self.h.p4_parse_states[key])
+    else:
+      print("ERROR: Unknown directive in return statement: %s" % state.return_statement[0])
+      exit()
+    for next_state in next_states:
+      exp_parse_tree_traverse(next_state, preceding_states.append(next_state), numbytes)
+
+  def total_parse_tree_traverse(self, state, preceding_states, so_far):
 
   def collectActions(self):
     for table in self.h.p4_tables.values():

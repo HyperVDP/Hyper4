@@ -210,6 +210,7 @@ table tset_control {
 table tset_inspect_SEB {
   reads {
     meta_ctrl.program : exact;
+    parse_ctrl.state: exact;
     ext[0].data : ternary;
     ext[1].data : ternary;
     ext[2].data : ternary;

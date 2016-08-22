@@ -66,8 +66,13 @@ tset_control:
       if pc.state == 'ingress':
         return
       numbytes = explicit[(pc.state, list_of_preceding_states)]
-      if [current expression found in return statement]:
-        numbytes += curr_statement.offset + curr_statement.width
+
+      maxcurr = 0
+      for current_exp in return statement:
+        if current_exp.offset + current_exp.width > maxcurr:
+          maxcurr = current_exp.offset + current_exp.width
+      numbytes += maxcurr
+
       total[(pc.state, list_of_preceding_states)] = numbytes
       for next_state in pc.state.return_select_exp:
         total_parse_tree_traverse(next_state, list_of_preceding_states.append(pc.state))
@@ -96,5 +101,23 @@ tset_control:
 At the end, we could have multiple possible offsets into extracted.data where a particular field may be stored.  This could multiply the number of table entries required where such table entries include a match for such a field.  And it would mean the validbits or final parse_ctrl.state must be included in the reads sections of tables implementing the ingress pipeline.
 
 tset_inspect_SEB:
-
-
+- input:
+  parser p {
+    // ...
+    return select(ext.field) {
+      0x0800: return q;
+      0x0801: return r;
+      default: return ingress;
+    }
+  }
+  or
+  parser p {
+    // ...
+    return select(current(0, 16)) {
+      0x0800: return q;
+      0x0801: return r;
+      default: return ingress;
+    }
+  - the field_or_data_ref in the select expression (e.g., ext.field or current(0, 16) above) must be mapped to the ext[] 
+- output:
+  table_add tset_inspect_SEB
