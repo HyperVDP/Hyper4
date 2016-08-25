@@ -42,6 +42,7 @@ class HP4C:
     self.bits_needed_explicit = {}
     self.bits_needed_total = {}
     self.tset_control_states_nextbits = {}
+    self.commands = []
     self.h = h
     self.h.build()
     if len(self.h.p4_ingress_ptr) > 1:
@@ -91,8 +92,13 @@ class HP4C:
                   self.tset_control_states_nextbits[(state, numbits)], nextnumbits))
         else:
           self.tset_control_state_nextbits[(state, numbits)] = nextnumbits
-      # now output tset_control table entry? use self.parseStateUIDs and
-      #  self.tset_control_state_nextbits
+    # now output tset_control table entries? use self.parseStateUIDs and
+    #  self.tset_control_state_nextbits
+    # for key in self.tset_control_state_nextbits.keys():
+      # action: extract_more or set_next_action
+      
+      # HP4_Command(command, table, action, mparams, aparams)
+      # command = HP4_Command("table_add", "tset_control", "
 
   def exp_parse_tree_traverse(self, state, preceding_states, so_far):
     numbits = so_far
@@ -124,9 +130,9 @@ class HP4C:
 
     # recurse for every next state reachable from this state
     for next_state in next_states:
-      next_preceding_states = preceding_states
-      next_preceding_states.append(next_state)
-      exp_parse_tree_traverse(next_state, next_preceding_states, numbits)
+      next_preceding_states = list(preceding_states)
+      next_preceding_states.append(state)
+      self.exp_parse_tree_traverse(next_state, next_preceding_states, numbits)
 
   def total_parse_tree_traverse(self, state, preceding_states):
     numbits = self.bits_needed_explicit[(state, tuple(preceding_states))]
@@ -155,7 +161,7 @@ class HP4C:
     
     # recurse for every next state reachable from this state
     for next_state in next_states:
-      next_preceding_states = preceding_states
+      next_preceding_states = list(preceding_states)
       next_preceding_states.append(next_state)
       total_parse_tree_traverse(next_state, next_preceding_states)
 
@@ -203,9 +209,9 @@ def main():
   hp4compiler.collectParseStates()
   hp4compiler.collectActions()
   hp4compiler.collectTables()
-  hp4compiler.collectParseStatesBitsNeeded()
+  # hp4compiler.collectParseStatesBitsNeeded()
   hp4compiler.printTables()
-  # code.interact(local=locals())
+  code.interact(local=locals())
 
 if __name__ == '__main__':
   main()
