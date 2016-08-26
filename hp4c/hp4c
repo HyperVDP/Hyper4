@@ -39,7 +39,7 @@ class HP4C:
     self.tables = OrderedDict()
     self.actioncounter = 0
     self.tablecounter = 0
-    self.bits_needed_explicit = {}
+    self.bits_needed_local = {}
     self.bits_needed_total = {}
     self.tset_control_states_nextbits = {}
     self.commands = []
@@ -57,6 +57,15 @@ class HP4C:
       self.parseStateUIDs[state] = i
       i += 1
 
+  def print_bits_needed_total(self):
+    # {(state, tuple([precedingstate1, precedingstate2, ...]): numbits
+    for key in self.bits_needed_total:
+      precstates = []
+      for state in key[1]:
+        precstates.append(state.name)
+      print('%s, %s: %i' % (key[0].name, str(precstates), mydict[key]))
+    
+
   """
   - We must assign a pc.state to each parse function.  '0' for start.
   - Determine bit requirements for each path (inc. partial paths) through the parse tree:
@@ -69,8 +78,10 @@ class HP4C:
   - Use total to populate {(pc.state, numbits): next_numbits} dictionary
   """  
   def collectParseStatesBitsNeeded(self):
-    self.exp_parse_tree_traverse(self.h.p4_parse_states['start'], [], 0)
-    self.total_parse_tree_traverse(self.h.p4_parse_states['start'], [])
+    for state in self.h.p4_parse_states.values():
+      self.collect_local_bits_needed(state)
+    self.collect_total_bits_needed(self.h.p4_parse_states['start'], [])
+
     # Next comes one more tricky part: building the {(state, numbits): next_numbits}
     # dictionary.  numbits in that tuple refers to the value coming INTO the state -
     # i.e., the number of bits extracted immediately prior to state.  next_numbits
@@ -100,8 +111,10 @@ class HP4C:
       # HP4_Command(command, table, action, mparams, aparams)
       # command = HP4_Command("table_add", "tset_control", "
 
-  def exp_parse_tree_traverse(self, state, preceding_states, so_far):
-    numbits = so_far
+  # Time to change the paradigm for this function s.t. it computes
+  #  the offset from entry to exit
+  def collect_local_bits_needed(self, state):
+    numbits = 0
     
     # collect total number of bits to extract in the state
     for call in state.call_sequence:
@@ -110,63 +123,46 @@ class HP4C:
         exit()
       for key in call[1].header_type.layout.keys():
         numbits += call[1].header_type.layout[key]
-    self.bits_needed_explicit[(state, tuple(preceding_states))] = numbits
 
-    # collect next states
-    next_states = []
-    if state.return_statement[0] == 'immediate':
-      if state.return_statement[1] != 'ingress':
-        next_states.append(self.h.p4_parse_states[state.return_statement[1]])
-      else:
-        return
-    elif state.return_statement[0] == 'select':
-      for case in state.return_statement[2]:
-        key = case[1]
-        if key != 'ingress':
-          next_states.append(self.h.p4_parse_states[key])
-    else:
+    # look for 'current' instances in the return statement
+    if state.return_statement[0] == 'select':
+      maxcurr = 0
+      for criteria in state.return_statement[1]:
+        if isinstance(criteria, tuple): # tuple indicates use of 'current'
+          if criteria[0] + criteria[1] > maxcurr:
+            maxcurr = criteria[0] + criteria[1]
+      numbits += maxcurr      
+    elif state.return_statement[0] != 'immediate':
       print("ERROR: Unknown directive in return statement: %s" % state.return_statement[0])
       exit()
 
-    # recurse for every next state reachable from this state
-    for next_state in next_states:
-      next_preceding_states = list(preceding_states)
-      next_preceding_states.append(state)
-      self.exp_parse_tree_traverse(next_state, next_preceding_states, numbits)
+    self.bits_needed_local[state] = numbits
 
-  def total_parse_tree_traverse(self, state, preceding_states):
-    numbits = self.bits_needed_total[(state, tuple(preceding_states))]
+  def collect_total_bits_needed(self, state, preceding_states):
+    numbits = self.bits_needed_local[state]
+    for state in preceding_states:
+      numbits += self.bits_needed_local[state]
+    self.bits_needed_total[(state, tuple(preceding_states))] = numbits
+
     next_states = []
-
-    # first handle trivial case; no 'current' because return type is immediate
     if state.return_statement[0] == 'immediate':
       if state.return_statement[1] != 'ingress':
         next_states.append(self.h.p4_parse_states[state.return_statement[1]])
       else:
         return
     elif state.return_statement[0] == 'select':
-      maxcurr = 0
-      for criteria in state.return_statement[1]:
-        # look for 'current' instances, represented as tuples in HLIR
-        if isinstance(criteria, tuple):
-          if criteria[0] + criteria[1] > maxcurr:
-            maxcurr = criteria[0] + criteria[1]
       for selectopt in state.return_statement[2]:
         if selectopt[1] != 'ingress':
           next_states.append(self.h.p4_parse_states[selectopt[1]])
-      numbits += maxcurr
-      
     else:
       print("ERROR: Unknown directive in return statement: %s" % state.return_statement[0])
       exit()
-
-    self.bits_needed_total[(state, tuple(preceding_states))] = numbits
     
     # recurse for every next state reachable from this state
     for next_state in next_states:
       next_preceding_states = list(preceding_states)
       next_preceding_states.append(state)
-      self.total_parse_tree_traverse(next_state, next_preceding_states)
+      self.collect_total_bits_needed(next_state, next_preceding_states)
 
   def collectActions(self):
     for table in self.h.p4_tables.values():
