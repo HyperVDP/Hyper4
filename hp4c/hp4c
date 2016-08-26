@@ -135,7 +135,7 @@ class HP4C:
       self.exp_parse_tree_traverse(next_state, next_preceding_states, numbits)
 
   def total_parse_tree_traverse(self, state, preceding_states):
-    numbits = self.bits_needed_explicit[(state, tuple(preceding_states))]
+    numbits = self.bits_needed_total[(state, tuple(preceding_states))]
     next_states = []
 
     # first handle trivial case; no 'current' because return type is immediate
@@ -151,6 +151,9 @@ class HP4C:
         if isinstance(criteria, tuple):
           if criteria[0] + criteria[1] > maxcurr:
             maxcurr = criteria[0] + criteria[1]
+      for selectopt in state.return_statement[2]:
+        if selectopt[1] != 'ingress':
+          next_states.append(self.h.p4_parse_states[selectopt[1]])
       numbits += maxcurr
       
     else:
@@ -162,8 +165,8 @@ class HP4C:
     # recurse for every next state reachable from this state
     for next_state in next_states:
       next_preceding_states = list(preceding_states)
-      next_preceding_states.append(next_state)
-      total_parse_tree_traverse(next_state, next_preceding_states)
+      next_preceding_states.append(state)
+      self.total_parse_tree_traverse(next_state, next_preceding_states)
 
   def collectActions(self):
     for table in self.h.p4_tables.values():
