@@ -140,8 +140,8 @@ class HP4C:
 
   def collect_total_bits_needed(self, state, preceding_states):
     numbits = self.bits_needed_local[state]
-    for state in preceding_states:
-      numbits += self.bits_needed_local[state]
+    for precstate in preceding_states:
+      numbits += self.bits_needed_local[precstate]
     self.bits_needed_total[(state, tuple(preceding_states))] = numbits
 
     next_states = []
