@@ -38,12 +38,9 @@ class HP4C:
   def __init__(self, h):
     self.actionUIDs = {}
     self.parseStateUIDs = {}
-    self.tables = OrderedDict()
-    self.actioncounter = 0
-    self.tablecounter = 0
+    self.tableUIDs = OrderedDict()
     self.bits_needed_local = {}
     self.bits_needed_total = {}
-    self.bits_needed_currents = {}
     self.tset_control_state_nextbits = {}
     self.commands = []
     self.h = h
@@ -164,8 +161,6 @@ class HP4C:
                                        mparams,
                                        aparams))
 
-  # Time to change the paradigm for this function s.t. it computes
-  #  the offset from entry to exit
   def collect_local_bits_needed(self, state):
     numbits = 0
     
@@ -189,14 +184,13 @@ class HP4C:
       print("ERROR: Unknown directive in return statement: %s" % state.return_statement[0])
       exit()
 
-    self.bits_needed_currents[state] = maxcurr
-    self.bits_needed_local[state] = numbits
+    self.bits_needed_local[state] = (numbits, maxcurr)
 
   def collect_total_bits_needed(self, state, preceding_states):
-    numbits = self.bits_needed_local[state]
+    numbits = self.bits_needed_local[state][0]
     for precstate in preceding_states:
-      numbits += self.bits_needed_local[precstate]
-      numbits -= self.bits_needed_currents[precstate]
+      numbits += self.bits_needed_local[precstate][0]
+      numbits -= self.bits_needed_local[precstate][1]
     self.bits_needed_total[(state, tuple(preceding_states))] = numbits
 
     next_states = []
@@ -220,11 +214,12 @@ class HP4C:
       self.collect_total_bits_needed(next_state, next_preceding_states)
 
   def collectActions(self):
+    i = 0
     for table in self.h.p4_tables.values():
       for action in table.actions:
         if action not in self.actionUIDs:
-          self.actioncounter += 1
-          self.actionUIDs[action] = self.actioncounter
+          i += 1
+          self.actionUIDs[action] = i
 
   # if first.match_fields[0][1] == p4_match_types.P4_MATCH_EXACT:
 
@@ -250,12 +245,13 @@ class HP4C:
 
     dfs_walk(self.h.p4_ingress_ptr.keys()[0])   
     order.reverse()
+    i = 0
     for table in order:
-      self.tablecounter += 1
-      self.tables[table] = self.tablecounter
+      i += 1
+      self.tableUIDs[table] = i
   
   def printTables(self):
-    for table in self.tables.keys():
+    for table in self.tableUIDs.keys():
       print(table.name)
 
 def main():
